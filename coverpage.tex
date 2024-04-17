@@ -1,0 +1,73 @@
+\documentclass[14pt]{extarticle}
+
+\usepackage{concmath-otf}
+\usepackage{fontspec}
+\setmainfont{ZillaSlab}[
+    Path = fonts/,
+    Extension = .ttf,
+    UprightFont = *-Regular,
+    ItalicFont = *-Italic,
+    BoldFont = *-Bold,
+    BoldItalicFont = *-BoldItalic
+]
+\usepackage{anyfontsize}
+
+\usepackage[b5paper]{geometry}
+
+\usepackage[dvisvgm]{xcolor}
+\definecolor{royalblue}{cmyk}{0.85, 1, 0.02, 0}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc}
+\usepackage{xfakebold}
+\newcommand{\fbseries}{\unskip\setBold\aftergroup\unsetBold\aftergroup\ignorespaces}
+\makeatletter
+\newcommand{\setBoldness}[1]{\def\fake@bold{#1}}
+\makeatother
+
+\usepackage{anyfontsize}
+\usepackage{physics}
+
+\newcommand{\polysides}{5}
+
+\begin{document}
+\pagestyle{empty}
+\begin{tikzpicture}[remember picture, overlay, white]
+    % % Background color
+    \fill[royalblue] (current page.north west) rectangle (current page.south east);
+    % % Titles
+    % \node[right] (title1) at ($(current page.north west)+(3cm, -4cm)$){\fontsize{55}{55}\bf Compact};
+    % \node[right] (title2) at ($(current page.north west)+(3cm, -6.5cm)$){\fontsize{75}{75}\bf Calculus};
+    % % Subtitles
+    % \node[right] (title3) at ($(current page.north west)+(3.2cm, -9cm)$){\fontsize{25}{25}\itshape with relations to existence};
+    % % Fundamental theorem of calculus
+    % \node[opacity = 0.2] (integrals) at ($(current page.center)+(0, 0)$){\fontsize{120}{120}$\displaystyle\oint_{C}\nabla f\cdot \dd{r}$};
+
+    %%%% Iteration 1
+    % Integrals decorations
+    \node[white, opacity = 0.1] (int) at ($(current page.center)+(-2cm, 0)$){\fontsize{250}{140}$\displaystyle\oint$};
+    % Graphs decorations
+    % \begin{scope}[opacity = 0.30, white, shift = {($(current page.south west)+(3.5cm, 2.75cm)$)}]
+    %     \draw[ultra thick, -stealth, opacity = 0.4] (0, 0) -- ++ (9cm, 0) node[below]{$x$};
+    %     \draw[ultra thick, -stealth, opacity = 0.4] (0, 0) -- ++ (0, 16cm) node[above]{$y$};
+    %     \filldraw (0, 0) circle (2pt);
+    %     \draw[ultra thick, -stealth, smooth, domain = 0:10] plot (\x, \x*\x/5);
+    %     \foreach \x in {0, 0.5, ..., 8} {
+    %         \filldraw[opacity = 0.1] (\x, 0) rectangle ++ (0.5, \x*\x/5);
+    %     }
+    % \end{scope}
+    % Hexagons decorations
+    \coordinate (hex1) at ($(current page.south east)+(-4cm, 5cm)$);
+    \foreach \x in {4, ..., 40} {
+        \node[rounded corners, white, opacity = {1/(\x^1.5)*9}, draw, regular polygon, regular polygon sides = \polysides, minimum size = \x cm, ultra thick] at (hex1){};
+    }
+    \node[rounded corners, white, draw, regular polygon, regular polygon sides = \polysides, minimum size = 3cm, fill = white] at (hex1){};
+    \node[royalblue] at (hex1){\Large\textbf{1E}};
+
+    % Title texts
+    \node[right, white] (title) at ($(current page.north west)+(3cm, -4cm)$){\Huge\bf Compact Calculus};
+    \node[right, white] (subtitle) at ($(title)+(0, -1.5cm)$){\large\itshape with relation to existence};
+    \node[white] (author) at ($(title)+(0, -4cm)$){\Large\textsc{Puripat Thumbanthu}};
+\end{tikzpicture}
+\end{document}

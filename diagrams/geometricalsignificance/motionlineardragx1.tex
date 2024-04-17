@@ -1,0 +1,18 @@
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usetikzlibrary{calc}
+\usepackage{concmath-otf}
+
+\begin{document}
+\begin{tikzpicture}
+    \newcommand{\yscale}{3}
+    \draw[-stealth, thick] (0, 0) -- (3, 0) node[below]{$t$};
+    \draw[-stealth, thick] (0, 0) -- (0, 3) node[above]{$x$};
+
+    \foreach \x in {0.5, 1.5, 2.5} {
+        \draw[smooth, variable = \t, domain = 0:3] plot (\t, {0.5 -\x*(e^(-\t) - 1)}) node[right]{$v = \x$};
+    }
+    
+    \draw (2pt, 0.5) -- ++ (-4pt, 0) node[left]{$x_0$};
+\end{tikzpicture}
+\end{document}

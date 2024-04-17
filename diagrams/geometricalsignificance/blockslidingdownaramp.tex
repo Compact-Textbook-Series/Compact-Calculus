@@ -1,0 +1,31 @@
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usepackage{concmath-otf}
+\usetikzlibrary{angles, quotes, calc}
+
+\begin{document}
+\newcommand{\ang}{30}
+ 
+\begin{tikzpicture}
+    \coordinate (O) at (0, 0);
+    \coordinate (A) at (\ang:6);
+    \filldraw[draw = black, fill = lightgray!40] (O) -- (A) |- coordinate (B) cycle;
+    \pic["$\theta$", angle radius = 1cm, draw, angle eccentricity = 0.7]{angle = B--O--A};
+    \pic[draw, angle radius = 0.3cm]{right angle = A--B--O};
+    
+    \begin{scope} [-latex, rotate = \ang]
+        \coordinate (m) at ($(O)+(3, 0)$);
+        \draw (m) rectangle ++ (1, .6) node[midway] (mx){};
+        \coordinate (M) at ($(mx.center)$);
+        \draw (M) -- ++ (1, 0) node[above]{$f_r$};
+
+        \newcommand{\alength}{1.5}
+        \draw[dashed] (M) -- ++ (0, {-\alength*sqrt(3)/2}) node[right]{$mg\cos(\theta)$} coordinate (cos);
+        \draw (M) -- ++ ({-90-\ang}:\alength) node[below]{$mg$} coordinate (mid);
+        \draw[dashed] (M) -- ++ ({-1/2*\alength}, 0) node[left]{$mg\sin(\theta)$} coordinate (sin);
+        \pic[draw, angle radius = 0.75cm, "$\theta$"]{angle = mid--M--cos};
+
+        \draw (M) -- ++ (0, {{\alength*sqrt(3)/2}}) node[above]{$N$};
+    \end{scope}
+\end{tikzpicture}
+\end{document}

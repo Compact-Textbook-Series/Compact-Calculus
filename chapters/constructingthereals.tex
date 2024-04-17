@@ -1,0 +1,38 @@
+\chapter{Constructing the real numbers}
+\index{real analysis}
+
+\begin{abstract}
+    \prerequisites{intuitions of set theory, basic discrete math}
+\end{abstract}
+
+As far as the ``calculus'' part of this book goes, it doesn't really delve deep into the proof: the backbones of how structures work together. For example, how do you know that in the definition of derivatives, if $h \appr 0$, the value actually converges to something. To be frank, real analysis is quite abstracted away from the physical reality therefore, it's a bit dry. This is quite the double edged sword of math. With real analysis, we have the power to tell clearly if something is true or not. However, most times it's mistakenly used to the bones: too abstract that the learner does not have any clear concepts leftover. All the rest is just some meaningless mathematical notation that's floating in the air. And I don't want that.
+
+The goal for the real analysis part of this book is to provide an enjoyable experience delving in to the proofs behind the backbones of calculus. Therefore, I shall try to illustrate everything with diagrams so it's simple to visualize and not too abstracted away from reality. Now that you know my intentions, let's start.
+
+\section{The mindset of real analysis}
+
+Before we study the reals, we must know the mindset of real analysis first. Analysis is used to generalize and study the \emph{exact} behaviors of mathematical entities. In real analysis, we study the \emph{reals}. Most of the stuffs in mathematics were built way before real analysis. However, it's not rigorous and it's prone to error. Here, real analysis comes to play.
+
+We \emph{abstract} properties of mathematical identities away from the numbers, and we generalize it. But we can't just choose everything, we must be very wise. The properties that we select to be true are called \textbf{axioms}\index{axioms} After all the decision has been done, we must find the most general mathematical entity that satisfies it. And thus, we shall begin with the most basics of analysis: set theories.
+
+\section{The Zermelo–Fraenkel set theory}
+\index{Zermelo-Fraenkel set theory}
+
+In here, we shall explore what's the backbones of sets that will lead to the mechanics of numbers. And here arises the set theory. Firstly, a \index{set}\textbf{set} is a group of things, whether it be mathematical entities or real world objects. If two sets contains the same elements, then it's the same set. That means, set does not care about permutation. A wiser way to state this is
+\begin{axiom}{Axiom of Extensionality}{}
+    Two sets are the same if they have the same elements.
+    \begin{equation}
+        \forall X\forall Y[\forall z(z \in X \iff z \in X) \implies X = Y].
+    \end{equation}
+    Translation: Set $X$ and $Y$ will be equal iff for all elements $z$, $z$ is in both $X$ and $Y$.
+\end{axiom}
+which just means that ``\emph{A set is uniquely determined by its members}''.
+
+Then, we also have to define that a set cannot have the same elements that is,
+\begin{axiom}{Axiom of foundation}{}
+    Every non-empty set $x$ contains a member $y$ such that $x$ and $y$ are \emph{disjoint}.
+    \begin{equation}
+        \forall x [x \neq \emptyset \implies \exists y((y \in x) \land (y \cup x) = \emptyset)]
+    \end{equation}
+    Translation: For all non-empty set $x$, there exists $y$ where both $y$
+\end{axiom}

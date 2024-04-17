@@ -1,0 +1,35 @@
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usepackage{ccfonts}
+\usetikzlibrary{calc}
+\usepackage{physics}
+\usetikzlibrary{decorations.pathreplacing}
+
+\begin{document}
+\begin{tikzpicture}[scale = 1]
+    \draw[thick, -stealth] (0, 0) -- (0, 2.5) node[above]{$y$};
+    \draw[thick, -stealth] (0, 0) -- (6, 0) node[right]{$x$};
+
+    \draw[domain = 0:5] plot (\x, {1.6*\x - 0.32*\x*\x});
+    \foreach \x in {0, 0.5, 1, ..., 5}{
+        \draw[lightgray, blend mode = multiply] (\x, 0) rectangle ++ (0.5, {1.6*\x - 0.32*\x*\x});
+    }
+
+    \node at (5, 2.5){$k = 10$};
+    \draw (5, 2pt) -- ++ (0, -4pt) node[below]{$a$};
+    \foreach \x in {0, 1, 2,..., 9} {
+        \draw ({\x/2}, 2pt) -- ++ (0, -4pt) node[below]{$\frac{\x a}{k}$};
+    }
+    \foreach \x in {1, 2} {
+        \filldraw (\x/2, {1.6*\x/2 - 0.32/4*\x*\x}) circle (1pt) node[above]{$f\left(\frac{\x a}{k}\right)$};
+    }
+    \foreach \x in {0, 3, 4, ..., 9} {
+        \filldraw (\x/2, {1.6*\x/2 - 0.32/4*\x*\x}) circle (1pt);
+    }
+    \node at (2, 2.2){$\dots$};
+    \draw[decorate, decoration = {brace, amplitude = 5pt, mirror}] (0, -0.7) -- ++ (0.5, 0) node[below = 4pt, midway]{$\frac{a}{k}$};
+
+    \filldraw[draw = black, fill = lightgray!40, blend mode = multiply] (1, 0) rectangle ++ (0.5, {1.6 - 0.32}) node[midway, right = 10pt](a2){$\dd{A_2}$};
+    \draw[-stealth] (1.25, 0.96) -- ({a2.160});
+\end{tikzpicture}
+\end{document}

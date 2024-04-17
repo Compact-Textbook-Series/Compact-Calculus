@@ -1,0 +1,16 @@
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+\usepackage{concmath}
+\usetikzlibrary{patterns}
+\usepackage{esvect}
+
+\begin{document}
+\begin{tikzpicture}
+    \draw (0, 0) circle (0.5);
+    \filldraw (0, 0) circle (1pt);
+    \draw[-stealth] (0, 0) -- ++ (0, -1) node[below]{$m\vv{g}$};
+
+    \draw[|-|] (-1, -0.5) -- ++ (0, -4.5) node[midway, auto, swap]{$h$};
+    \fill[pattern = north west lines] (-2, -5) rectangle (1, -5.5);
+    \draw (-2, -5) -- (1, -5);
+\end{tikzpicture}
+\end{document}

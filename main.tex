@@ -1,0 +1,224 @@
+\documentclass[b5paper, 11pt, openleft]{memoir}
+
+\usepackage{indentfirst}
+
+% Fonts
+\usepackage[no-math]{fontspec}
+\setmainfont{ZillaSlab}[
+    Path = fonts/,
+    Extension = .ttf,
+    UprightFont = *-Regular,
+    ItalicFont = *-Italic,
+    BoldFont = *-Bold,
+    BoldItalicFont = *-BoldItalic,
+    Ligatures = {TeX, Common}
+]
+\defaultfontfeatures{Mapping = tex-text, Ligatures = {TeX,Common}, Scale = MatchLowercase}
+\usepackage{mathtools}
+\usepackage[math-style = ISO, mathrm = sym, warnings-off = {mathtools-colon}]{unicode-math}
+\setmathfont[Scale = MatchLowercase]{Concrete-Math.otf}
+\setoperatorfont\symscr
+\usepackage{cancel}
+
+% Page Layout and Margins
+\setsecnumdepth{subsection}
+\settocdepth{subsection}
+\setlrmarginsandblock{4cm}{1.5cm}{*}
+\setulmarginsandblock{3cm}{2.5cm}{*}
+\setlength{\headheight}{24.90704pt}
+\setlength{\parindent}{1.5cm}
+\setlength{\parskip}{0.3em}
+\setlength{\beforechapskip}{20pt}
+\noDisplayskipStretch
+\allowdisplaybreaks
+\setSpacing{1.5}
+\XeTeXlinebreakskip=0pt plus 3pt
+\checkandfixthelayout
+
+% Footnotes
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LE]{\textbf{\thepage ~ $\big\vert$ \leftmark}}
+\fancyhead[RO]{\textbf{\rightmark ~ $\big\vert$ \thepage}}
+\fancyhead[RE, LO, C]{}
+
+% Indices
+% \usepackage{imakeidx}
+% \makeindex
+
+% Packages
+\usepackage[dvipsnames]{xcolor}
+\usepackage{caption, subcaption, graphicx, pdfpages, float, wrapfig}
+\graphicspath{{diagrams/}}
+\usepackage[inline]{enumitem}
+
+\usepackage{multicol}
+\setlength{\columnseprule}{1pt}
+\def\columnseprulecolor{\color{lightgray}}
+
+% Styling Figures
+\DeclareCaptionLabelSeparator{pipe}{ $\vert$ }
+\captionsetup{
+    labelfont = {bf},
+    font = {small, sc},
+    width = 0.6\textwidth,
+    labelsep = pipe,
+    figurename = \textbf{Fig. }
+}
+
+% Styling Titles
+\renewcommand{\partnamefont}{\LARGE\bfseries\scshape\centering}
+\renewcommand{\partnumfont}{\LARGE\bfseries\scshape\centering\MakeUppercase}
+\renewcommand{\midpartskip}{\par\rule{1in}{0.5pt}\vspace{1em}\par}
+\renewcommand{\printparttitle}{\HUGE\bfseries\scshape\centering}
+\renewcommand{\afterpartskip}{\relax}
+\chapterstyle{veelo}
+    \renewcommand*{\printchapternum}{%
+    \makebox[0pt][l]{%
+    \hspace{.8em}%
+    \resizebox{!}{\beforechapskip}%
+    {\chapnumfont \thechapter}%
+    \hspace{.8em}%
+    \rule{2\midchapskip}{\beforechapskip}%
+    }%
+}
+
+% Hyperlinks
+\usepackage[colorlinks, linkcolor = blue]{hyperref}
+\usepackage{cleveref}
+
+% Definition/Theorems, and Examples
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, theorems}
+\newtcbtheorem[auto counter, crefname = {theorem}{theorems}, Crefname = {Theroem}{Theorems}]{thm}{Theorem}{
+    sharp corners, colback = lightgray!40, breakable
+}{thm}
+\newtcbtheorem[auto counter, crefname = {axiom}{axioms}, Crefname = {Axiom}{Axioms}]{axiom}{Axiom}{
+    sharp corners, colback = lightgray!40, colframe = darkgray, breakable
+}{axiom}
+\newtcbtheorem[auto counter, crefname = {definition}{definition}, Crefname = {Definition}{Definition}]{df}{Definition}{
+    sharp corners, colback = lightgray!40, colframe = darkgray, breakable
+}{df}
+\newtcbtheorem[auto counter, number within = section]{exmp}{Example}{
+    colback = lightgray!40, colframe = darkgray, breakable
+}{exmp}
+\newtcbtheorem[auto counter, number within = chapter, crefname = {remarks of chapter }{remarks of chapter }, Crefname = {Remarks}{Remarks}]{remark}{Remarks on chapter }{
+    colback = lightgray!10, colframe = black, breakable
+}{remark}
+% Proofs
+\usepackage{amsthm}
+
+% Conclusions
+\newcommand{\conclusion}{\section{Conclusion for Chapter \thechapter}}
+\newcommand{\formula}{\section{Formula from Chapter \thechapter}}
+\newcommand{\prelude}[1]{
+    \chapter*{Prelude: #1}
+    \addcontentsline{toc}{chapter}{Prelude: #1}
+}
+
+%%% Notation Commands
+
+\usepackage[]{siunitx}
+\usepackage{physics}
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
+% Geometry
+\let\line\overline
+% Mathematical constants
+\newcommand{\e}{\symrm{e}}
+\newcommand{\im}{\symrm{i}}
+\newcommand{\cpi}{\symrm{\pi}}
+\DeclareMathOperator*{\ssum}{\symrm{\Sigma}}
+\DeclareMathOperator*{\sgn}{\symrm{sgn}}
+% Vector notations
+\newcommand{\vv}[1]{\pmb{\symrm{#1}}}
+\newcommand{\conj}{^{\ast}}
+\newcommand{\dagr}{^{\dag}}
+\newcommand{\trnsp}{^{\intercal}}
+\newcommand{\iden}{\symbb{I}}
+\renewcommand\vdot\cdot
+% e Unit vectors
+\newcommand{\uv}[1]{\hat{\vv{e}}_{#1}}
+% Kronecker delta and Dirac's delta function
+\newcommand{\kdel}[1]{\symrm{\delta}_{#1}}
+\newcommand{\ddel}{\symrm{\delta}}
+% Discrete differences
+\newcommand{\Dd}[1]{\symrm{\Delta}{#1}}
+% Limit arrows
+\newcommand{\appr}{\rightarrow}
+% Physics quantities symbols
+\newcommand{\lagr}{\mathcal{L}}
+\newcommand{\haml}{\mathcal{H}}
+\newcommand{\hilb}{\mathcal{E}}
+% Path integral measures
+\newcommand{\alc}[2][0.3]{&\parbox[c]{#1\textwidth}{#2}}
+\newcommand{\pintm}[1]{\mathcal{D}[#1]}
+
+\newcommand{\prerequisites}[1]{\textbf{Prerequisites:}~\emph{#1}}
+
+% Bibliographies
+\usepackage[
+    backend = biber,
+    style = phys,
+    sorting = anyvt
+]{biblatex}
+\addbibresource{bibliography.bib}
+
+\begin{document}
+
+\thispagestyle{empty}
+\includepdf{coverpage.pdf}
+
+\frontmatter
+
+\prerequisites{set theory, algebra, geometry, basic trigonometry}
+
+\tableofcontents
+
+\include{frontmatter/preface}
+\include{frontmatter/acknowledgement}
+\include{frontmatter/readingguide}
+
+\mainmatter
+
+\part{The foundations}
+
+\include{chapters/historyofcalculus}
+\include{chapters/derivatives}
+\include{chapters/integrals}
+\include{chapters/basicderivativesandintegrals}
+\include{chapters/basiccalculusandtrigonometry}
+\include{chapters/geometricalsignificance}
+\include{chapters/series}
+\include{chapters/techniquesofintegration}
+\include{chapters/advancedtechniquesofintegration}
+
+\part{The applications}
+
+\include{chapters/differentialequations1}
+\include{chapters/multipleintegrals}
+\include{chapters/numericalanalysis}
+\include{chapters/signalanalysis}
+
+\part{The extensions}
+
+\include{chapters/discretecalculus}
+\include{chapters/fractionalcalculus}
+\include{chapters/quantumcalculus}
+
+\part{The fundamentals, reimagined: real analysis}
+
+\include{chapters/constructingthereals}
+
+\part{Beyond imagination: complex analysis}
+
+\include{chapters/treatmentofcomplexnumbers}
+
+\appendix
+
+\include{appendices/fundamentalofphysics}
+\include{appendices/binomialexpansion}
+
+\printindex
+\printbibliography
+
+\end{document}
