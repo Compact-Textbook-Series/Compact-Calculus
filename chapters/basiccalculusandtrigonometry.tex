@@ -80,7 +80,7 @@ I shall start with a simple example: what's the derivative of the function sine?
 
 Illustrated in \cref{fig:sineandcosinerelation}, the slope at $x = 0$ can be approximated by a line $y = 1x + 0$: the derivative at $0$ is $1$. At $x = \flatfrac{\cpi}{2}$, the sine curve reaches its plateau: the derivative is $1$. At $x = \cpi$ it goes down by the slope $-1$, and it \emph{oscillates} like this so on and so forth. And it does this \emph{smoothly}. The function that we know of today that does this oscillatory motion smoothly is clearly a cosine. So with the graph, you can already guess that the derivative of sine must be cosine.
 
-We shall prove this by using \cref{df:derivativenaivedefinition}: the naive definition of derivative, and the angles addition formula.
+We shall prove this by using \cref{df:derivative_naive}: the naive definition of derivative, and the angle addition formula.
 \begin{align*}
     \dv{x}\sin(x) &= \lim_{h \appr 0}\frac{\sin(x + h) - \sin(x)}{h} \\
     &= \lim_{h \appr 0}\frac{\sin(x)\cos(h) + \sin(h)\cos(x) - \sin(x)}{h} \\
@@ -113,7 +113,7 @@ If we take the derivative of $-\sin(x)$ again, it's $-\cos(x)$\footnote{Refer ba
 \end{gather*}
 and the second derivative of sine is itself times a constant.
 
-\section{Finding the power series expansion of sine and cosine}
+\section{Power series expansion of sine and cosine}
 \label{sec:taylorseriesforsineandcosine}
 
 By using the fact that the second derivative of sine is itself times a constant, one can also extract the power series expansion of sine just like what we did in \cref{sec:afunctionthatisitsownderivative}. We begin by letting
@@ -169,6 +169,19 @@ As said, truncating these polynomials will actually get you the approximation fo
     \caption{The graph of sine (dotted) plotted with the power series expansion of sine to the fifth term.}
     \label{fig:sineapprox}
 \end{figure}
+
+\section{The harmonic oscillator}
+
+To start our journey on calculus and trigonometry, we'll start on the simple harmonic oscillator. It comes in various forms, but the easiest one is a mass that's attached to a spring shown in. From Hooke's law,
+\begin{equation}
+    F = -kx.
+\end{equation}
+Then by Newton's law, $F = m\ddot{x}$. Thus,
+\begin{align}
+    -kx &= m\dv[2]{x}{t} \\
+    \left(-\frac{k}{m}\right)x &= \dv[2]{x}{t},
+\end{align}
+which is asking, what function $x$, when differentiated twice gives us the same function but multiplied by a negative proportional constant? This is quite similar to the function, $\e^{kx}$, which when differentiated twice gives $k^2\e^x$
 
 \section{Derivatives of other trigonometric functions}
 

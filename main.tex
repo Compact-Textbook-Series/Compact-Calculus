@@ -2,7 +2,7 @@
 
 \usepackage{indentfirst}
 
-% Fonts
+%%% Font setup
 \usepackage[no-math]{fontspec}
 \setmainfont{ZillaSlab}[
     Path = fonts/,
@@ -13,13 +13,19 @@
     BoldItalicFont = *-BoldItalic,
     Ligatures = {TeX, Common}
 ]
-\defaultfontfeatures{Mapping = tex-text, Ligatures = {TeX,Common}, Scale = MatchLowercase}
+\setmonofont[Scale = MatchLowercase]{Iosevka Custom}
+\XeTeXlinebreaklocale="en_EN"
+\XeTeXlinebreakskip=0pt plus 3pt
+\emergencystretch=1em
+
 \usepackage{mathtools}
 \usepackage[math-style = ISO, mathrm = sym, warnings-off = {mathtools-colon}]{unicode-math}
 \setmathfont[Scale = MatchLowercase]{Concrete-Math.otf}
+\noDisplayskipStretch
 \setoperatorfont\symscr
-\usepackage{cancel}
+\everymath{\displaystyle}
 
+%%% Stylings
 % Page Layout and Margins
 \setsecnumdepth{subsection}
 \settocdepth{subsection}
@@ -29,10 +35,8 @@
 \setlength{\parindent}{1.5cm}
 \setlength{\parskip}{0.3em}
 \setlength{\beforechapskip}{20pt}
-\noDisplayskipStretch
 \allowdisplaybreaks
 \setSpacing{1.5}
-\XeTeXlinebreakskip=0pt plus 3pt
 \checkandfixthelayout
 
 % Footnotes
@@ -42,21 +46,10 @@
 \fancyhead[RO]{\textbf{\rightmark ~ $\big\vert$ \thepage}}
 \fancyhead[RE, LO, C]{}
 
-% Indices
-% \usepackage{imakeidx}
-% \makeindex
-
-% Packages
-\usepackage[dvipsnames]{xcolor}
-\usepackage{caption, subcaption, graphicx, pdfpages, float, wrapfig}
-\graphicspath{{diagrams/}}
-\usepackage[inline]{enumitem}
-
-\usepackage{multicol}
+% Styling Figures
+\usepackage{multicol, caption}
 \setlength{\columnseprule}{1pt}
 \def\columnseprulecolor{\color{lightgray}}
-
-% Styling Figures
 \DeclareCaptionLabelSeparator{pipe}{ $\vert$ }
 \captionsetup{
     labelfont = {bf},
@@ -83,16 +76,31 @@
     }%
 }
 
-% Hyperlinks
-\usepackage[colorlinks, linkcolor = blue]{hyperref}
+% Packages
+\usepackage[dvipsnames]{xcolor}
+\usepackage{subcaption, graphicx, pdfpages, float, wrapfig}
+\graphicspath{{diagrams/}}
+\usepackage[inline]{enumitem}
+
+\usepackage[colorlinks, allcolors = blue]{hyperref}
 \usepackage{cleveref}
 
-% Definition/Theorems, and Examples
+%%% Mathematical packages 
+\usepackage[]{siunitx}
+\usepackage{physics2}
+\usepackage{derivative}
+\usephysicsmodule{ab, ab.braket, ab.legacy, nabla.legacy, op.legacy}
+% Proofs
+\usepackage{amsthm}
 \usepackage{tcolorbox}
-\tcbuselibrary{breakable, theorems}
-\newtcbtheorem[auto counter, crefname = {theorem}{theorems}, Crefname = {Theroem}{Theorems}]{thm}{Theorem}{
-    sharp corners, colback = lightgray!40, breakable
-}{thm}
+\tcbuselibrary{breakable, theorems, skins}
+\newtcbtheorem[auto counter, crefname = {theorem}{theorems}, Crefname = {Theorem}{Theorems}]{theorem}{Theorem}{
+    coltitle = black,
+    sharp corners, frame hidden, enhanced, colback = lightgray!10, breakable,
+    borderline west = {3pt}{-3pt}{lightgray},
+    detach title = true,
+    fonttitle = \bfseries, before upper = {\tcbtitle\quad}
+}{theorem}
 \newtcbtheorem[auto counter, crefname = {axiom}{axioms}, Crefname = {Axiom}{Axioms}]{axiom}{Axiom}{
     sharp corners, colback = lightgray!40, colframe = darkgray, breakable
 }{axiom}
@@ -105,22 +113,8 @@
 \newtcbtheorem[auto counter, number within = chapter, crefname = {remarks of chapter }{remarks of chapter }, Crefname = {Remarks}{Remarks}]{remark}{Remarks on chapter }{
     colback = lightgray!10, colframe = black, breakable
 }{remark}
-% Proofs
-\usepackage{amsthm}
 
-% Conclusions
-\newcommand{\conclusion}{\section{Conclusion for Chapter \thechapter}}
-\newcommand{\formula}{\section{Formula from Chapter \thechapter}}
-\newcommand{\prelude}[1]{
-    \chapter*{Prelude: #1}
-    \addcontentsline{toc}{chapter}{Prelude: #1}
-}
-
-%%% Notation Commands
-
-\usepackage[]{siunitx}
-\usepackage{physics}
-\AtBeginDocument{\RenewCommandCopy\qty\SI}
+%%% Mathematical commands
 % Geometry
 \let\line\overline
 % Mathematical constants
@@ -128,31 +122,54 @@
 \newcommand{\im}{\symrm{i}}
 \newcommand{\cpi}{\symrm{\pi}}
 \DeclareMathOperator*{\ssum}{\symrm{\Sigma}}
+\DeclareMathOperator*{\Proj}{\symrm{Proj}}
 \DeclareMathOperator*{\sgn}{\symrm{sgn}}
 % Vector notations
 \newcommand{\vv}[1]{\pmb{\symrm{#1}}}
+\newcommand{\vdot}{\pmb{\cdot}}
 \newcommand{\conj}{^{\ast}}
 \newcommand{\dagr}{^{\dag}}
 \newcommand{\trnsp}{^{\intercal}}
 \newcommand{\iden}{\symbb{I}}
-\renewcommand\vdot\cdot
-% e Unit vectors
 \newcommand{\uv}[1]{\hat{\vv{e}}_{#1}}
-% Kronecker delta and Dirac's delta function
-\newcommand{\kdel}[1]{\symrm{\delta}_{#1}}
-\newcommand{\ddel}{\symrm{\delta}}
-% Discrete differences
-\newcommand{\Dd}[1]{\symrm{\Delta}{#1}}
-% Limit arrows
-\newcommand{\appr}{\rightarrow}
+\newcommand{\tensor}{\otimes}
+\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\ihat}{\hat{\i}}
+\newcommand{\jhat}{\hat{\j}}
+\newcommand{\khat}{\hat{k}}
+% Differences
+\DeclareMathOperator{\kdel}{\symrm{\delta}}
+\DeclareMathOperator{\ddel}{\symrm{\delta}}
+\newcommand{\Dd}{\symrm{Delta}}
 % Physics quantities symbols
 \newcommand{\lagr}{\mathcal{L}}
 \newcommand{\haml}{\mathcal{H}}
 \newcommand{\hilb}{\mathcal{E}}
-% Path integral measures
+% Calculus notations
+\newcommand{\appr}{\rightarrow}
 \newcommand{\alc}[2][0.3]{&\parbox[c]{#1\textwidth}{#2}}
 \newcommand{\pintm}[1]{\mathcal{D}[#1]}
+% Mathematical conjunctions and expressions
+\newcommand{\mathand}{\quad\textrm{and,}\quad}
+\newcommand{\mathor}{\quad\textrm{or,}\quad}
+\newcommand{\mathif}{\quad\textrm{if}\quad}
+\newcommand{\mathiff}{\quad\textrm{\emph{iff}}\quad}
+\newcommand{\maththerefore}{\therefore\emquad}
+\newcommand{\ifft}{\emph{iff}}
+% Notational commands
+\newcommand{\flatfrac}[2]{#1\fracslash#2}
+% Column types
+\newcolumntype{C}{>{$}c<{$}}
+\newcolumntype{L}{>{$}l<{$}}
+\newcolumntype{R}{>{$}r<{$}}
 
+%%% Type commands
+\newcommand{\conclusion}{\section{Conclusion for Chapter \thechapter}}
+\newcommand{\formula}{\section{Formula from Chapter \thechapter}}
+\newcommand{\prelude}[1]{
+    \chapter*{Prelude: #1}
+    \addcontentsline{toc}{chapter}{Prelude: #1}
+}
 \newcommand{\prerequisites}[1]{\textbf{Prerequisites:}~\emph{#1}}
 
 % Bibliographies
@@ -162,6 +179,10 @@
     sorting = anyvt
 ]{biblatex}
 \addbibresource{bibliography.bib}
+
+% Indices
+\usepackage{imakeidx}
+\makeindex
 
 \begin{document}
 
@@ -186,18 +207,18 @@
 \include{chapters/derivatives}
 \include{chapters/integrals}
 \include{chapters/basicderivativesandintegrals}
-\include{chapters/basiccalculusandtrigonometry}
-\include{chapters/geometricalsignificance}
-\include{chapters/series}
-\include{chapters/techniquesofintegration}
-\include{chapters/advancedtechniquesofintegration}
+% \include{chapters/basiccalculusandtrigonometry}
+% \include{chapters/geometricalsignificance}
+% \include{chapters/series}
+% \include{chapters/techniquesofintegration}
+% \include{chapters/advancedtechniquesofintegration}
 
-\part{The applications}
+% \part{The applications}
 
-\include{chapters/differentialequations1}
-\include{chapters/multipleintegrals}
-\include{chapters/numericalanalysis}
-\include{chapters/signalanalysis}
+% \include{chapters/differentialequations1}
+% \include{chapters/multipleintegrals}
+% \include{chapters/numericalanalysis}
+% \include{chapters/signalanalysis}
 
 \part{The extensions}
 

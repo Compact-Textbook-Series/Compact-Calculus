@@ -1,7 +1,6 @@
 \chapter{Writing down nature: derivatives}
 \label{sec:derivatives}
 
-
 \section{Invitation to calculus from a physicist}
 
 \prerequisites{graphs, functions, kinematic variables}
@@ -20,9 +19,9 @@ The system that we'll use in this chapter is a mass that's traveling with some s
 \subsection{The notation of derivative calculus}
 \label{sec:notation_of_calculus_derivative}
 
-If $a$ is a variable, then $\dd{a}$ is a very small quantity of $a$ a.k.a. an \textbf{infinitesimal}. E.g., if $\vv{x}$ is displacement, then $\dd{\vv{x}}$ is a very small displacement. If $t$ is the time, then $\dd{t}$, a very short time.
+If $a$ is a variable, then $\odif{a}$ is a very small quantity of $a$ a.k.a. an \textbf{infinitesimal}. E.g., if $\vv{x}$ is displacement, then $\odif{\vv{x}}$ is a very small displacement. If $t$ is the time, then $\odif{t}$, a very short time.
 
-We can also find ratio between infinitesimal. E.g., the ratio between some small distance and some short time, $\displaystyle\dv{\vv{x}}{t}$, we get the speed $\vv{v}$.
+We can also find ratio between infinitesimal. E.g., the ratio between some small distance and some short time, $\odv{\vv{x}}{t}$, we get the speed $\vv{v}$.
 
 \subsection{Message from a physicist about the pedagogy}
 
@@ -53,7 +52,7 @@ As illustrated in \cref{fig:car-motion-blur}, the motion blur clearly shows us t
 
 But what will happen with shorter exposure time? Does the motion blur disappear? No! The blur is still there, but it's just smaller. Typically, $\qty{12}{\ms}$ exposure time is short enough to create a ``focused image''. But it's just an illusion that came from the limitation of the screen's ability to reproduce such little blur. If our camera and screen is good enough, we can \emph{always} calculate the velocity of the car from the blur. The smaller the exposure time, the more detailed the image is, and the closer you'll get to the exact $\vv{v}$ at that moment in time. Finally, if we let the exposure time become infinitesimally short, we can say the $\vv{v}$ we got is \emph{the velocity at that exact point}. Or as we call it, the \textbf{instantaneous velocity}. By using the said calculus notation in \cref{sec:notation_of_calculus_derivative}, we can just write this as
 \begin{equation}
-    \vv{v} = \dv{\vv{x}}{t}, \label{eq:first_intro_to_derivative}
+    \vv{v} = \odv{\vv{x}}{t}, \label{eq:first_intro_to_derivative}
 \end{equation}
 and here it is ladies and gentlemen, the \textbf{derivative}: the measure of rate of change.
 
@@ -61,26 +60,26 @@ From here on out, I shall use \emph{derivative} and \emph{rate of change} interc
 
 \section{An attempt to define derivatives}
 
-Mathematically, a \textbf{derivative} is a measure of a function's rate of change with respect to a variable. In the previous example, $\vv{x}$ is a function that's dependent on time, and its derivative w.r.t. time, $\vv{v}$, is measuring the rate of change of function $\vv{x}(t)$ through time $\dd{t}$.
+Mathematically, a \textbf{derivative} is a measure of a function's rate of change with respect to a variable. In the previous example, $\vv{x}$ is a function that's dependent on time, and its derivative w.r.t. time, $\vv{v}$, is measuring the rate of change of function $\vv{x}(t)$ through time $\odif{t}$.
 
 To find an explicit expression for derivative, let's say we have two points in spacetime $(\vv{x}_1, t_1)$ and $(\vv{x}_2, t_2)$. The change in $\vv{x}$ is $\vv{x}_2 - \vv{x}_1$, and the change in time is $t_2 - t_1$. The derivative of position w.r.t. time is then just
 \begin{equation}
-    \vv{v} = \dv{\vv{x}}{t} = \frac{\vv{x}_2 - \vv{x}_1}{t_2 - t_1}. \label{eq:derivative1}
+    \vv{v} = \odv{\vv{x}}{t} = \frac{\vv{x}_2 - \vv{x}_1}{t_2 - t_1}. \label{eq:derivative1}
 \end{equation}
 Let $t_2 = t + h$. Then, $\vv{x}_2 = \vv{x}(t + h)$ and $\vv{x}_1 = \vv{x}(t)$. The time difference used to calculate $\vv{v}$ must be miniscule: infinitesimally small. I have to introduce the notion of limits, which is just a fancier way of saying ``very close to, but not''
 \begin{align}
-    \vv{v} = \dv{\vv{x}}{t} &= \lim_{h \appr 0}\frac{\vv{x}(t + h) - \vv{x}(t)}{(t + h) - t} \\
-    \vv{v} = \dv{\vv{x}}{t} &= \lim_{h \appr 0}\frac{\vv{x}(t + h) - \vv{x}(t)}{h}.
+    \vv{v} = \odv{\vv{x}}{t} &= \lim_{h \appr 0}\frac{\vv{x}(t + h) - \vv{x}(t)}{(t + h) - t} \\
+    \vv{v} = \odv{\vv{x}}{t} &= \lim_{h \appr 0}\frac{\vv{x}(t + h) - \vv{x}(t)}{h}.
 \end{align}
 The equation above is what we generally refer to as the \emph{definition of derivative}. Then, we just extend this relation to any function $f(x)$, which requires just a substitution of variables. And then we get:
 \begin{df}{Naive definition of derivative}{derivative_naive}
     \index{derivatives!naive definition}A derivative of a function $f(x)$ w.r.t. a variable $x$ is the rate of change of $f(x)$ w.r.t. $x$, and it is written as
     \begin{equation}
-        \dv{f(x)}{x}~\textrm{or}~\dv{x}(f(x)),
+        \odv{f(x)}{x}~\textrm{or}~\odv{x}(f(x)),
     \end{equation}
     where
     \begin{equation}
-        \dv{f(x)}{x} = \lim_{h \appr 0}\frac{f(x + h) - f(x)}{h}.\label{eq:naive_definition_of_derivative}
+        \odv{f(x)}{x} = \lim_{h \appr 0}\frac{f(x + h) - f(x)}{h}.\label{eq:naive_definition_of_derivative}
     \end{equation}
 \end{df}
 \Cref{eq:naive_definition_of_derivative} directly reads:
@@ -90,7 +89,7 @@ The equation above is what we generally refer to as the \emph{definition of deri
 
 \paragraph{On notation:} So far, we've been using the Leibniz's notation for derivatives, and it has the property that derivatives behave exactly like fractions, and you can cancel terms.
 \begin{equation}
-    \dv{a}{b}\times\dv{b}{c} = \dv{a}{c}.\label{eq:prechainrule}
+    \odv{a}{b}\times\odv{b}{c} = \odv{a}{c}.\label{eq:prechainrule}
 \end{equation}
 But, this isn't the only accepted notation. Multiple great mathematicians have come up with their own, and some are better than others in certain cases. I'd introduce other notations later on if necessary.
 
@@ -101,7 +100,7 @@ But, this isn't the only accepted notation. Multiple great mathematicians have c
     % \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics{derivatives/positionversustime}
-        \caption{Example of position vs. time graph where $\protect\vv{x}(t) = t^2$.}
+        \caption{Position vs. time graph where $\protect\vv{x}(t) = t^2$.}
         \label{fig:position_versus_time}
     % \end{subfigure}
     % \begin{subfigure}{0.4\textwidth}
@@ -141,7 +140,12 @@ Now, try evaluating $\vv{v}(t = \qty{3}{\second})$ for $\vv{x}(t) = t^3$. You sh
 
 \section{Higher order derivatives}
 
-\begin{wraptable}[13]{l}{0.35\textwidth}
+\index{derivatives!higher order}
+In kinematics, there are a whole set of quantities that can describe an object's trajectory, e.g., the acceleration, which is defined to be the rate of change of velocity w.r.t. time:
+\begin{equation*}
+    \vv{a}(t) = \odv{\vv{v}(t)}{t}.
+\end{equation*}
+\begin{wraptable}[12]{l}{0.35\textwidth}
     \begin{tabular}{c | c}
         Order & Name \\
         \hline
@@ -155,24 +159,18 @@ Now, try evaluating $\vv{v}(t = \qty{3}{\second})$ for $\vv{x}(t) = t^3$. You sh
     \caption{Higher order derivatives of position w.r.t. time}
     \label{tab:jerksnapcracklepop}
 \end{wraptable}
-
-\index{derivatives!higher order}
-In kinematics, there are a whole set of quantities that can describe an object's trajectory, e.g., the acceleration, which is defined to be the rate of change of velocity w.r.t. time:
-\begin{equation*}
-    \vv{a}(t) = \dv{\vv{v}(t)}{t}.
-\end{equation*}
 But the $\vv{v}$ is also the rate of change of position w.r.t. time. Thus,
 \begin{equation*}
-    \vv{a}(t) = \dv{\vv{v}(t)}{t} = \dv{t}(\dv{\vv{r}(t)}{t}) = \dv[2]{\vv{r}(t)}{t}, 
+    \vv{a}(t) = \odv{\vv{v}(t)}{t} = \odv*{\ab(\odv{\vv{r}(t)}{t})}{t} = \odv[ord = 2]{\vv{r}(t)}{t}, 
 \end{equation*}
 where $\vv{r}$ is any position vector.
 
-The $\dd[2]{\vv{r}}$ and $\dd{t}^2$ is just a matter of symbolic manipulation and should only be interpreted as just a shorthand. $\vv{a}$ is called the \textbf{second order derivative} of $\vv{r}$ because you've differentiated $\vv{r}$ twice. \textbf{Higher order derivatives} of position w.r.t. time is listed in \cref{tab:jerksnapcracklepop}.
+The $\odif[ord = 2]{\vv{r}}$ and $\odif{t}^2$ is just a matter of symbolic manipulation and should only be interpreted as just a shorthand. $\vv{a}$ is called the \textbf{second order derivative} of $\vv{r}$ because you've differentiated $\vv{r}$ twice. \textbf{Higher order derivatives} of position w.r.t. time is listed in \cref{tab:jerksnapcracklepop}.
 
 \section{Expressing nature: basic differential equations}
 \label{sec:basicdifferentialequations}
 
-\begin{wrapfigure}[15]{r}{0.4\textwidth}
+\begin{wrapfigure}[14]{r}{0.4\textwidth}
     \centering
     \includegraphics{derivatives/simplemotion}
     \caption{A ball dropped from height $h$}
@@ -180,12 +178,12 @@ The $\dd[2]{\vv{r}}$ and $\dd{t}^2$ is just a matter of symbolic manipulation an
 \end{wrapfigure}
 The dynamics of a physical system is universally described by the famous Newton's second law $\vv{F} = m\vv{a}(t)$, which in derivatives form becomes:
 \begin{equation}
-    \vv{F} = m\dv[2]{\vv{r}(t)}{t}. \label{eq:newton_second_law}
+    \vv{F} = m\odv[ord = 2]{\vv{r}(t)}{t}. \label{eq:newton_second_law}
 \end{equation}
 Let's try to describe a simple system with this. In \cref{fig:ball_dropped_from_a_height}, a ball is dropped from height $h$. The Earth's gravity pulls the ball with force $mg$ where $m$ is the mass of the ball, and $\vv{g}$, the acceleration from Earth's gravity. Newton's second law tells us that
 \begin{align}
-    \vv{F} &= m\dv[2]{\vv{r}(t)}{t} \nonumber\\
-    m\vv{g} = m\dv[2]{\vv{r}(t)}{t} &\quad \textrm{or,} \quad \vv{g} = \dv[2]{\vv{r}(t)}{t},
+    \vv{F} &= m\odv[ord = 2]{\vv{r}(t)}{t} \nonumber\\
+    m\vv{g} = m\odv[ord = 2]{\vv{r}(t)}{t} &\quad \textrm{or,} \quad \vv{g} = \odv[ord = 2]{\vv{r}(t)}{t},
 \end{align}
 which is sometimes called the \textbf{equation of motion}, which packs every information about this system you'd ever want. It directly reads as:
 \begin{quotation}
