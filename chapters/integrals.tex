@@ -3,13 +3,15 @@
 
 \prerequisites{\cref{sec:derivatives}, sigma summation notation}
 
-Before we dive in, I shall clarify that every line, including straight, is a mathematical \index{curve}\textbf{curve}. You might see other textbooks use the term ``\emph{area under the graph}'' to refer to integrals. But, a \index{graph}\textbf{graph} is \textit{a diagram consisting of a line or lines, showing how two or more sets of numbers are related to each other} \cite{oxforddict}, not the curve itself. Therefore, I'll refer to a curve as any line that connects two points, whether straight or not. Now let's start.
+\paragraph{Terminologies:} Every line, including straight, is a \index{curve}\textbf{curve}. You might see other textbooks use the term ``\emph{area under the graph}'' to refer to integrals. But, a \index{graph}\textbf{graph} is \textit{a diagram consisting of a line or lines, showing how two or more sets of numbers are related to each other} \cite{oxforddict}, not the curve itself. Therefore, I'll refer to a curve as any line that connects two points, whether straight or not. Now let's start.
 
 \section{Invitation: mission impossible}
 
 \subsection{The mindset of integral calculus}
 
 In the previous chapter, we've learned how to describe the universe using derivatives. But derivatives falls short when we want to predict the future of a system. But, what do we mean when we say ``predict the system?''
+
+Literally everything that involves a quantity changing is written in the language of derivatives. When derivatives are used in equations to describe a system, it becomes \emph{a differential equation}. Its solution contains the future of the entire system in question. However, it's quite hard to solve; some even impossible.
 
 In classical physics, a \textbf{state} represents the configuration that the system \emph{at one point in time}. To predict the system, we need to know the initial state of a system. Classical physics says that if you know the rules that the system plays by (In this case, $\vv{F} = m\odv[ord = 2]{\vv{r}}{t}$), and the initial condition, we can always determine the state of the system at any point in time. That is, classical physics guarantees that there is always a function, which takes in time as input, and outputs the state of a system. And in order to predict the system, we must know that function. But what may that function be?
 
@@ -34,14 +36,14 @@ The $\int$, a.k.a. the \textbf{integral}\footnote{Which also looks like a beansp
 \section{Finding a function in the haystack}
 \label{sec:function_in_the_haystack}
 
-\Cref{eq:acceleration_from_gravity} has a second order derivative, let's go slowly and undo one derivative at a time. We'll undo the derivative of the RHS to get the velocity first. Then, we'll undo the derivative again to get the position.
+\Cref{eq:acceleration_from_gravity} has a second order derivative, let's go slowly and undo one derivative at a time. We'll undo the derivative of the R.H.S. to get the velocity first. Then, we'll undo the derivative again to get the position.
 
 \subsection{Step one: the velocity function from acceleration}
 
-In \cref{eq:acceleration_from_gravity}, both $\vv{r}$ and $t$ is mixed up on the same side of the equation. That's not good for solving equations. So let's separate them. First, write $\odv[ord = 2]{\vv{r}(t)}{t}$ as $\odv{\vv{v}(t)}{t}$. Then, isolate $\vv{v}$ on one side and move $\vv{t}$ to the other.
+One good strategy for solving any kind of equation is \textbf{separation of variables}. We isolate the variable we're interested in solving, which is $\vv{r}$, and move everything else to the other side. Here, write $\odv[ord = 2]{\vv{r}(t)}{t}$ as $\odv{\vv{v}(t)}{t}$. Then, isolate $\vv{v}$ on one side and move $\vv{t}$ to the other.
 \begin{align}
     \vv{g} &= \odv{\vv{v}(t)}{t} \\
-    \odif{\vv{v}}(t) &= g\odif{t}.
+	\odif{\vv{v}}(t) &= \vv{g}\odif{t}.
 \end{align}
 This equation reads
 \begin{quotation}
@@ -211,7 +213,7 @@ And here, we see that the L.H.S. is just the derivative of $A(x)$ w.r.t. $x$, th
 \end{equation}
 or ``\textit{the rate of change in area is the function itself}''. But the area function is given by the integral. This means
 \begin{equation}
-    \odv{x}\int f(x)\odif{x} = f(x):
+	\odv*{\ab(\int f(x)\odif{x})}{x} = f(x):
 \end{equation}
 integrals and derivatives are inverses of each other. If we rephrase \cref{theorem:fundamentalthmofcalc1}, we see that ``\textit{the integral is the cumulative effect of the function}.''
 

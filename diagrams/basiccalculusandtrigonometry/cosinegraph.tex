@@ -1,0 +1,17 @@
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usepackage{concmath-otf}
+
+\begin{document}
+\begin{tikzpicture}
+	\draw[-stealth, thick] (-5, 0) -- (5, 0) node[right]{$x$};
+    \draw[-stealth, thick] (0, -1.5) -- (0, 1.5) node[above]{$y$};
+
+    \draw[domain = -5:5, smooth] plot (\x, {cos(\x r)});
+    \draw ({pi}, 2pt) -- ++ (0, -4pt) node[below]{$\symrm{\pi}$};
+    \draw ({-pi}, 2pt) -- ++ (0, -4pt) node[below]{$-\symrm{\pi}$};
+
+	\draw[domain = -2:2, smooth, dashed] plot (\x, {-1/2*\x*\x + 1});
+	\draw[domain = -2:2, smooth, dashed] plot (\x, {1});
+\end{tikzpicture}
+\end{document}

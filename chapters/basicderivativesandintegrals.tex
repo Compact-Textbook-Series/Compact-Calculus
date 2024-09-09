@@ -1,27 +1,17 @@
 \chapter{Basic derivatives and antiderivatives}
-\label{sec:basicderivativesandintegrals}
+\label{sec:basic_derivatives_and_integrals}
 
-\begin{abstract}
-    This chapter focuses on evaluating the derivative and integrals of common functions such as polynomials and exponentials. \emph{The geometrical interpretation of both derivatives and integrals plays a massive role in this chapter.} I shall warn you a bit, we have rules for differentiation, but not for integration. Integration is an art of mathematical manipulation, and is discussed further in \cref{sec:techniquesofintegration} and \cref{sec:advancedtechniquesofintegration}.
+This chapter covers the derivatives and integrals of common functions: polynomials, exponential, and logarithms; focusing on their geometrical interpretation.
 
-    We'll go through the derivatives and antiderivatives of
-    \begin{enumerate}[noitemsep]
-        \item Monomials ($ax^n$) and Polynomials ($a_0 + a_1x^1 + a_2x^2 +\dots$)
-        \item Exponential functions ($an^x$)
-        \item Logarithmic functions ($\log_{n}(ax)$)
-    \end{enumerate}
+\prerequisites{binomial theorem (\cref{appendix:binomialexpansion}), basic trigonometry, derivatives, and integrals}
 
-    \prerequisites{binomial theorem (\cref{appendix:binomialexpansion}), basic trigonometry, derivatives, and integrals}
-\end{abstract}
-
-\paragraph{Note on terminology} The integral refers to the area under the curve. The antiderivative refers to the function that outputs the area under the graph. We \emph{evaluate} the integral, but we \emph{find} the antiderivative of a function.
+\paragraph{Terminologies:} The integral refers to the area under the curve. The antiderivative refers to the function $A(x')$ that outputs the area under the curve from $0$ to $x'$.
 
 \section{Trivial rules}
+\label{sec:trivial_rules}
 
-\subsection{The chain rule}
-\label{sec:thechainrule}
 \index{derivatives!chain rule}
-The Leibniz' notation treats derivative as fractions. You can cancel terms as seen earlier in \cref{eq:prechainrule}. This property can be used to take derivatives of composite functions. E.g., finding the derivative of $f(g(x))$ but you only know $f(x)$ and $g(x)$. First, substitute $g(x)$ as $u$.
+\paragraph{The chain rule} The Leibniz' notation treats derivative as fractions. You can cancel terms as seen earlier in \cref{eq:prechainrule}. This property can be used to take derivatives of composite functions. E.g., finding the derivative of $f(g(x))$ but you only know $f(x)$ and $g(x)$. First, substitute $g(x)$ as $u$.
 \begin{equation*}
     \odv{f(g(x))}{x} = \odv{f(u)}{x}.
 \end{equation*}
@@ -44,35 +34,32 @@ The chain rule holds the intuition of how rate of changes relate to each other. 
     \odv{\textrm{Cheetah}}{\textrm{Walking}} = \odv{\textrm{Cheetah}}{\textrm{Bicycle}} \times \odv{\textrm{Bicycle}}{\textrm{Walking}}.
 \end{equation}
 
-\subsection{Integral constant}
 \index{integral constant}
-In \cref{sec:function_in_the_haystack}, each time that we reverse the derivative, i.e., find the antiderivative, we add an initial condition term, i.e., $v_0$ and $r_0$. This is not optional. You have to do this every time you want to find the antiderivative of something. If $A(x)$ is the antiderivative of $f(x)$, that means
+\paragraph{Integral constant} In \cref{sec:function_in_the_haystack}, each time we evaluate the antiderivative, we add an initial condition term, i.e., $v_0$ and $r_0$. So for any function $f(x)$,
 \begin{equation}
     \int f(x)\odif{x} = A(x) + C
 \end{equation}
 where $C$ is any constant. However, \cref{theorem:fundamentalthmofcalc2} still holds for integrals with bounds.
 
-\subsection{Integrals of the infinitesimal}
 \index{integrals!of an infinitesimal}
-As seen in \cref{df:integralsnaivedefinition}, integrating a small area gives you the whole area. The antiderivative of the small rectangles is just the whole area plus the integral constant. 
+\paragraph{Integral of the infinitesimal} The antiderivative of the small rectangles $\odif{x}$ is just the total rectangle $x$ plus the integral constant $C$. 
 \begin{equation}
     \int \odif{x} = x + C.
 \end{equation}
 
-\section{Trivial rules}
-\label{sec:rulesofequality}
-
-\paragraph{Rules of equality:} If two arguments are equal, their derivatives and antiderivatives w.r.t. the same variable must also be equal.
+\paragraph{Rules of equality} If two arguments are equal, their derivatives and antiderivatives w.r.t. the same variable must also be equal.
 \begin{equation*}
     \textrm{If}~f = g,\textrm{ then }\odv{f}{x} = \odv{g}{x},\textrm{ and }\int f\odif{x} = \int g\odif{x} + C
 \end{equation*}
 
-\index{derivatives!of a constant}\paragraph{Derivative of a constant:} A constant doesn't change; thus, the derivative of a constant is zero. 
+\index{derivatives!of a constant}\paragraph{Derivative of a constant} A constant doesn't change; thus, the derivative of a constant is zero. 
 \begin{equation}
     \odv*{(c)}{x} = 0.
 \end{equation}
 
 \section{Linearity of differentiation and integration}
+\label{sec:diff_int_linearity}
+
 \begin{figure}[h]
     \centering
     \begin{subfigure}[t]{0.75\textwidth}
@@ -90,79 +77,88 @@ As seen in \cref{df:integralsnaivedefinition}, integrating a small area gives yo
     \caption{Constant multiple rules}
 \end{figure}
 
-It shouldn't be too hard to think of these rules visually because it's just scaling and adding functions together. For any function $f(x)$ and $g(x)$, and constants $a$ and $b$, the following rules follows.
-\index{derivatives!constant multiple rule}\index{integrals!constant multiple rule}\paragraph{The constant multiple rules:}
+A \textbf{linear} mathematical entity are defined as anything that is compatible with addition and scaling. E.g., for a function $f(x)$ to be linear, it must obey
+\begin{enumerate}[noitemsep]
+    \item Additivity: $f(x + y) = f(x) + f(y)$
+    \item Homogeneity of degree one: $f(ax) = af(x)$ for all constant $a$
+\end{enumerate}
+The simplest linear function there is, is a line that passes through the origin: $f(x) = ax$, in which
+\begin{gather}
+    f(x + y) = a(x + y) = ax + ay = f(x) + f(y), \\
+    f(cx) = a(cx) = c(ax) = cf(x).
+\end{gather}
+Because this property, we associate a line with being linear. However, linearity doesn't have to always refer to lines.
+
+Both derivatives and integrals are linear; for any function $f(x)$, $g(x)$, and constants $a$, $b$, the following rules follow.
+\index{derivatives!constant multiple rule}\index{integrals!constant multiple rule}\paragraph{The constant multiple rule:}
 \begin{align}
     \odv*{(af(x))}{x} &= a\odv{f(x)}{x}, &\alc[0.3]{Illustrated in \cref{fig:derivativesconstantmultiple}}\label{eq:derivativesconstantmultiple} \\
     \int af(x)\odif{x} &= a\int f(x)\odif{x}. &\alc[0.3]{Illustrated in \cref{fig:integralsconstantmultiple}}\label{eq:integralsconstantmultiple}
 \end{align}
-
-\index{derivatives!sum rule}\index{integrals!sum rule}\paragraph{The sum rules:}
+The geometrical interpretation of these two rules are very simple. When a function is multiplied by a constant $c$, its value is increased by a factor of $c$ everywhere. The slope must also be increased by $c$, and thus the function's area also.
+\index{derivatives!sum rule}\index{integrals!sum rule}\paragraph{The sum rule:}
 \begin{align}
     \odv*{(f(x) + g(x))}{x} &= \odv*{f(x)}{x} + \odv*{g(x)}{x}, \label{eq:derivativesumrule}\\
     \int f(x) + g(x)\odif{x} &= \int f(x)\odif{x} + \int g(x)\odif{x}. \label{eq:integralssumrule}
 \end{align}
-The slope of the sum of two functions adds up, and so the area.
-
-Generally, we say that these operations, i.e., the derivative and the antiderivative is \index{linearity of derivatives and antiderivatives}\index{derivatives!linearity |see {linearity of derivatives and antiderivatives}}\index{integrals!linearity |see {linearity of derivatives and antiderivatives}}\textbf{linear} because they have the property
-\begin{gather*}
-    \mathrm{D}(af(x) + bg(x)) = a\mathrm{D}(f(x)) + b\mathrm{D}(g(x)),
-\end{gather*}
-where $\mathrm{D}$ is an \index{operator}\textbf{operator}. An operator is like an instruction to do something. Here, $\mathrm{D}$ could represent ``\emph{take the derivative}'', or ``\emph{find the antiderivative}''. You could interpret ``\emph{linear}'' as in derivatives approximate everything as a line (\Cref{remark:derivatives}). The true meaning of this is actually engrained in linear algebra which is beyond the scope of this book. You can consult any linear algebra textbook for it.
+I.e., adding two functions increases its slope, thus also increasing its area under the graph.
 
 \section{Derivatives and antiderivatives of polynomials}
 
-Now that we've discussed the ``trivial rules'', we're ready to tackle the most comprehensive family of functions: the \textbf{polynomials}\index{polynomials}. They're in the form
-\begin{equation*}
-    f(x) = a_0 + a_1x + a_2x^2 + a_3x^3 + \dots.
-\end{equation*}
-Because the linearity of both derivatives and antiderivatives, we can break down the polynomial into multiple monomials\index{monomials}. Thus, if we know the derivative and antiderivatives of $x^n$, we basically get the whole family for free.
+Now that we've discussed the \enquote{trivial rules}, we're ready to tackle the easiest family of functions: the \textbf{polynomials}\index{polynomials}. They're in the form
+\begin{equation}
+    f(x) = a_0 + a_1x + a_2x^2 + a_3x^3 + \dots. \label{eq:polynomial_form}
+\end{equation}
+Let's focus on the antiderivative first; we'll see later how the antiderivative of polynomials can be found with just a simple substitution trick.
 
-\subsection{Derivatives of polynomials: the power rule}
+The form mentioned in \cref{eq:polynomial_form} is quite useless if we want to make progress. We can break it down by using the linearity of derivatives:
+\begin{align}
+    \odv{f(x)}{x} &= \odv*{(a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots)}{x} \\
+    &= a_1\odv{x^1}{x} + a_2\odv{x^2}{x} + a_3\odv{x^3}{x} + \dots.
+\end{align}
+Now we're left with derivatives of \emph{monomials} in the form of $x^n$. So let's do that instead.
+
+\subsection{Derivatives of monomials: the power rule}
 \label{sec:derivativespowerrule}
 
-Let's start of with the derivatives. We could use the method of increments every time, but it isn't quite interesting. Therefore, let's focus on the geometrical intuition first by considering the derivative of $x^2$\footnote{Don't worry, if we can find its derivative, we can also find its antiderivative after.}. Geometrically, $x^2$ resembles a square. The derivative question then becomes ``Take a square side length $x$ then, increase its side length by $\odif{x}$. How much area has changed in proportion to $\odif{x}$.''
-
-\begin{figure}[b]
-    \centering
-    \includegraphics{basicderivativesandintegrals/xsquaredpowerrule}
-    \caption{The geometrical interpretation of the derivative of $x^2$}
-    \label{fig:xsquaredpowerrule}
-\end{figure}
-Illustrated in \cref{fig:xsquaredpowerrule}, we can say that
+The method of increments allow us to quickly evaluate the derivative of $x^n$.
 \begin{equation}
-    \odv*{(x^2)}{x} = \lim_{\odif{x} \appr 0} \frac{x\odif{x} + x\odif{x} + \odif{x}^2}{\odif{x}}. \label{eq:xsquaredpowerrule}
+    \odv*{(x^n)}{x} = \lim_{h \appr 0}\frac{(x + h)^n - x^n}{h}.
 \end{equation}
-Geometrically, the $\odif{x}^2$ square is negligible. When $\odif{x} \appr 0$, that square will just become a single point compared to the big $x\odif{x}$ on the side; therefore, we can safely leave it out. The equation then becomes
-\begin{align*}
-    \odv*{(x^2)}{x} = \lim_{\odif{x} \appr 0}\frac{2x\odif{x}}{\odif{x}} = 2x:
-\end{align*}
-the derivative of $x^2$ is $2x$.
-
-Notice, \cref{eq:xsquaredpowerrule} has the same form as if we were to use the method of increments
-\begin{equation*}
-    \odv*{(x^2)}{x} = \lim_{h\appr 0}\frac{(x + \odif{x})^2 - x^2}{\odif{x}}.
-\end{equation*}
-This shows that the geometrical method and the symbolical method is equivalent in nature. Now, deriving the derivative of $x^3$ geometrically shouldn't be hard either. Just take a cube side length $x$, then increase its side length by $\odif{x}$ and see how the volume changes in proportion to $\odif{x}$. The final answer should be $3x^2$.
-
-We could go on and derive the derivative of higher powers geometrically using 4-dimensional space. But sadly, we don't have the glory of higher dimensions in our world\footnote{Technically, it's possibly to visualize 4-dimensional space. However, it'd take months to get the hang of it. Not even mentioning the fifth dimension. Therefore, we should leave it off for now.}. To go further without headaches, we turn to the binomial expansion and the mighty definition of derivatives
-\begin{equation*}
-    \odv{(x^n)}{x} = \lim_{h \appr 0}\frac{(x + h)^n - x^n}{h}.
-\end{equation*}
-Then, use the binomial expansion (\cref{appendix:binomialexpansion}) on $(x + h)^n$.
-\begin{align*}
+By using the binomial expansion (\cref{appendix:binomialexpansion}), 
+\begin{align}
     &= \lim_{h \appr 0}\frac{\left(\sum_{k = 0}^n{n\choose k}x^{n - k}\cdot h^n\right) - x^n}{h} \\
     &= \lim_{h \appr 0}{{n\choose 0}x^nh^0 + {n\choose 1}x^{n - 1}h^1 + {n\choose 2}x^{n - 2}h^2 +\dots {n\choose n} + x^0h^n - x^n\over h} \\
     &= \lim_{h \appr 0}\frac{x^n + nx^{n - 1}h^1 + {n\choose 2}x^{n - 2}h^2 + \dots + h^n -x^n}{h} \\
     &= \lim_{h \appr 0}nx^{n - 1} + {n\choose 2}x^{n - 2}h + {n\choose 3}x^{n - 3}h^2 + h^{n - 1}
-\end{align*}
-As $h\appr 0$, the remaining terms would vanish. Thus,
+\end{align}
+The terms with $h$ vanishes when $h \appr 0$; therefore,
 \begin{equation}
-    \odv{x}(x^n) = nx^{n - 1}, \label{eq:derivativepowerrule}
+	\odv*{(x^n)}{x} = nx^{n - 1}, \label{eq:power_rule}
 \end{equation}
-which is what we call the power rule of derivative. I'd like to clarify that binomial theorem does work for all real numbers. The prove is in \cref{appendix:binomialexpansion} if you'd like to take a look for yourself.
+which is what we call the power rule. Because the binomial theorem work for all real numbers, this is true for any powers of $n$. But what about the geometrical interpretation given?
 
-Here, I leave some exercises which shouldn't be too hard to do
+Let's now focus on the geometrical interpretation of the derivative of $x^2$: a function that represents the area of a square sidelength $x$. Its derivative then represents the ratio between the change in $x$, and the change of area when the sidelength is increased by $\odif{x}$.
+
+\begin{figure}[b]
+    \centering
+    \includegraphics{basicderivativesandintegrals/xsquaredpowerrule}
+	\caption{Interpretation of $\odv{x^2}{x}$ ($\odif{x}$ exaggerated)}
+    \label{fig:xsquaredpowerrule}
+\end{figure}
+Illustrated in \cref{fig:xsquaredpowerrule},
+\begin{equation}
+    \odv*{(x^2)}{x} = \lim_{\odif{x} \appr 0} \frac{x\odif{x} + x\odif{x} + \odif{x}^2}{\odif{x}}. \label{eq:xsquaredpowerrule}
+\end{equation}
+When $\odif{x} \appr 0$, the $\odif{x^2}$ square would just become a single point. Compared to the big $x\odif{x}$ on the side, it's negligible; therefore, we can safely ignore it. The equation then becomes
+\begin{align*}
+    \odv*{(x^2)}{x} = \lim_{\odif{x} \appr 0}\frac{2x\odif{x}}{\odif{x}} = 2x,
+\end{align*}
+which is equivalent to the result from the power rule.
+
+Deriving $\odv*{(x^3)}{x}$ geometrically shouldn't be too hard either. Take a cube sidelength $x$; increase its side length by $\odif{x}$, and compute the ratio between the change in volume and $\odif{x}$. The final answer should be $3x^2$. You could try with more higher order of $n$, but it'd be very hard to visualize.
+
+Here I leave some exercises which shouldn't be too hard to do
 \begin{enumerate}
     \item $\odv*{(x^2 - 2x + 16)}{x}$ \hfill $2x - 2$
     \item $\odv*{(x^3 + x^2 + x + 1)}{x}$ \hfill $3x^2 + 2x + 1$
@@ -171,11 +167,11 @@ Here, I leave some exercises which shouldn't be too hard to do
 
 \subsection{Antiderivatives of polynomials: the reversed power rule}
 
-Now, we can move on to reversing the power rule. We want to find the antiderivative of $x^n$. By the fundamental theorem of calculus and \cref{eq:derivativepowerrule},
+For the antiderivative of $x^n$, we use the fundamental theorem of calculus (\cref{theorem:fundamentalthmofcalc1}) on the power rule (\cref{eq:power_rule}),
 \begin{equation*}
     x^n = \int nx^{n - 1} \odif{x}.
 \end{equation*}
-Since $n$ is a dummy variable, we can change $n$ to $n + 1$
+Substitute $n$ with $n + 1$
 \begin{equation*}
     \int (n + 1)x^{n}\odif{x} = x^{n + 1},
 \end{equation*}
@@ -188,24 +184,24 @@ Notice, this rule does not work for $n = 1$ because we can't divide by zero\dots
 
 \section{Extending the equations of linear motion}
 
-In \cref{sec:fiveequationsoflinearmotion}, we discussed the equation of motion of objects with uniformed acceleration. What if now, the acceleration is changing over time? In a sense, we can use the Newton's second law to deal with that also. If the jerk $j$ is constant, the acceleration must be increasing uniformly
+Let's now apply our power rule to some problems. From \cref{sec:fiveequationsoflinearmotion}, we discussed the equation of motion of objects with uniformed acceleration. What if now, the acceleration is changing over time, but is change uniformly? Mathematically, this means that the derivative of acceleration w.r.t. time, aka the jerk, is constant.
 \begin{equation*}
     j = \odv{a}{t}.
 \end{equation*}
 We can then move $\odif{t}$ around and integrate both sides by using the reversed power rule on it.
 \begin{align*}
     \int j\odif{t} &= \int\odif{a} \\
-    j\int \odif{t} &= \int\odif{a} \alc[0.35]{Linearity of integrals} \\
-    jt + a_0 &= a \alc[0.35]{Integrating an infinitesimal \& Integral constant}
+    j\int \odif{t} &= \int\odif{a} \alc[0.3]{Linearity of integrals} \\
+    jt + a_0 &= a \alc[0.3]{Integral constant $a_0$}
 \end{align*}
-Then, because $a$ is the derivative of $v$. Note that both $a$, and $v$ is a function of time.
+Because $a$ is the derivative of $v$, 
 \begin{align*}
     \odv{v}{t} &= jt + a_0 \\
     \int \odif{v} &= \int jt + a_0 \odif{t} \\
     v &= j\int t\odif{t} + \int a_0\odif{t} \alc{Linearity of integrals} \\
-    v &= \frac{1}{2}jt^2 + a_0t + v_0. \alc{Reversed power rule \& Integral constant} \\
+    v &= \frac{1}{2}jt^2 + a_0t + v_0. \alc{Reversed power rule} \\
 \end{align*}
-Because $v$ is the derivative of $r$,
+We add $v_0$ as an integral constant in a similar manner. Then because $v$ is the derivative of $r$,
 \begin{align*}
     \odv{r}{t} &= \frac{1}{2}jt^2 + a_0t + v_0 \\
     \int \odif{r} &= \int\frac{1}{2}jt^2 + a_0t + v_0 \odif{t} \\
@@ -217,14 +213,21 @@ And there you have it! Technically we can extend this to whatever we want. The j
     r = \frac{1}{24}st^4 + \frac{1}{6}jt^3 + \frac{1}{2}a_0t^2 + v_0t + r_0.
 \end{equation*}
 
-\section{Exponentials, growth pill}
+\section{Exponentials and growth}
 
-Let's say there's a magical drop of water that doubles its volume $V$ every hour. That means, for every time $t$,
+The next function that we're going to discuss is exponentials: the mathematical representation of growth and decay. As an example, let's say there's a magical drop of water that doubles its volume $V$ every hour. I.e., for any time $t$,
 \begin{equation}
     V(t + 1) = 2V(t). \label{eq:exponentialsrecurrencerelations}
 \end{equation}
-
-\begin{wraptable}[12]{r}{0.445\textwidth}
+If the drop starts at one unit of volume, $V(0) = 1$; thus,
+\begin{align*}
+    V(1) &= 2V(0) = 2, \\
+    V(2) &= 2V(1) = 2(2) = 2^2, \\
+    V(3) &= 2V(2) = 2(2^2) = 2^3, \\
+    V(4) &= 2V(3) = 2(2^3) = 2^4, \\
+    &\vdots
+\end{align*}
+\begin{wraptable}[15]{l}{0.445\textwidth}
     \centering
     \begin{tabular}{C | C | C}
         t & V(t) & V(t) - V(t - 1) \\
@@ -244,28 +247,20 @@ Let's say there's a magical drop of water that doubles its volume $V$ every hour
     \caption{Tables of $2^x$ plotted at interval $1$ from $0$ to $10$}
     \label{tab:exponentialbase2}
 \end{wraptable}
-We can find the function $V(t)$ that satisfies the function above. Because we're dealing with integers time here, we can consider the function from $V(0)$ to $V(t)$. If we set $V(0) = 1$, that is the drop starts at one unit of volume,
-\begin{align*}
-    V(1) &= 2V(0) = 2, \\
-    V(2) &= 2V(1) = 2(2) = 2^2, \\
-    V(3) &= 2V(2) = 2(2^2) = 2^3, \\
-    V(4) &= 2V(3) = 2(2^3) = 2^4, \\
-    &\vdots
-\end{align*}
-It's clear that the pattern is $V(t) = 2^t$, which is an exponential function. Because we're in calculus, a natural question to ask is ``\emph{what is its rate of change?}''. So you might start plotting it over time (\cref{fig:exponentialgraph}). However, these exponential grows so quickly that by $V(7)$, we're already in the hundreds. It'd probably be better to list the values of each point on a table.
+It's clear that the pattern is $V(t) = 2^t$: an exponential function. A natural question to ask is ``\emph{what is its rate of change?}''. Let's start by plotting the function over time (\cref{fig:exponentialgraph}). But, exponentials grow too quick to plot! By $V(7)$, we're already in the hundreds. So It'd probably be better to list the values of each point on a table.
 \begin{figure}[t]
     \centering
     \includegraphics{basicderivativesandintegrals/exponentials}
     \caption{Exponential function $2^x$ plotted from $0$ to $8$}
     \label{fig:exponentialgraph}
 \end{figure}
-On the right most column of \cref{tab:exponentialbase2}, there's something suspicious going on. Specifically, the difference between $V(t)$ and $V(t - 1)$ is exactly $V(t - 1)$: the function changes as much as its past-self. Does that mean that the derivative of $2^x$ equals $2^x$?
+Notice that on the right most column of \cref{tab:exponentialbase2}, the difference between $V(t)$ and $V(t - 1)$ is exactly $V(t - 1)$: the function changes as much as its past-self. So does that mean that $\odv*{(2^x)}{x} = 2^x$?
 
-Well, sadly not, but close. See, \cref{tab:exponentialbase2} only shows a \emph{discrete} step. You can write it out as
+Well sadly not, but close. See, \cref{tab:exponentialbase2} only shows a \emph{discrete} step. You can write it out as
 \begin{equation}
     \frac{2^{x + 1} - 2^x}{1} = 2^x\left(\frac{2 - 1}{1}\right) = 2^x,
 \end{equation}
-that is why we saw that $V(t) - V(t - 1) = V(t - 1)$. However, if we'd want to calculate the derivative of $2^x$, you'd have to use the method of increments:
+that is why $V(t) - V(t - 1) = V(t - 1)$. But we still need the method of increments to calculate the derivative of $2^x$:
 \begin{align*}
     \odv*{(2^x)}{x} &= \lim_{h \appr 0}\frac{2^{x + h} - 2^x}{\odif{x}} \\
     &= 2^x\lim_{h \appr 0}\left(\frac{2^h - 1}{h}\right).
@@ -277,7 +272,7 @@ Now you could try plugging in a really small value of $h$, say $0.000001$. The t
 \emph{The rate of change of an exponential function is always itself times a proportionality constant}. For $3^x$, it's about $1.09851\dots$. If we could find a number $n$ where $\frac{n^h - 1}{h} = 0$, we'd have a very pretty function which it is its own derivative. So let's find that!
  
 \subsection{A function that is its own derivative}
-\label{sec:afunctionthatisitsownderivative}
+\label{sec:function_equals_own_derivative}
 
 Let's set a goal: find the function that is its own derivative. I shall introduce a substantial concept in calculus: the expansion of functions. Every function has a polynomial expansion\footnote{Although the convergence of the series derived is quite questionable; thankfully, the power series of $n^x$ converges everywhere.} called the \index{power series!introduction}\textbf{power series}. For every $f(x)$,
 \begin{equation}
@@ -287,7 +282,7 @@ E.g., $\sin(x)$ can be written as
 \begin{equation}
     \sin(x) = x - \frac{1}{3!}x^3 + \frac{1}{5!}x^5 - \frac{1}{7!}x^7 + \dots. \label{eq:taylorseriessine}
 \end{equation}
-we will derive this expression later in \cref{sec:taylorseriesforsineandcosine}. For now, we can just use \cref{eq:naivetaylorseries} to find the expression for the function that is its own derivative.
+we will derive this expression later in \cref{sec:sine_cosine_power_series}. For now, we can just use \cref{eq:naivetaylorseries} to find the expression for the function that is its own derivative.
 
 We've seen that the exponential is a possible candidate for a function that is its own derivative. Now, assume that for some real number $n$,
 \begin{equation}
@@ -397,7 +392,7 @@ The term in the limit sign still appears here. If we want to uncover how this te
 
 \section{Logarithms}
 
-Monomials has their inverse functions: the roots, exponentials also has an inverse functions: the logarithms. Here's a simple example to illustrate what I mean.
+Monomials have their inverse functions: the roots, exponentials also has an inverse functions: the logarithms. Here's a simple example to illustrate what I mean.
 \begin{equation*}
     \sqrt[a]{x^a} = x, \textrm{ but with logarithms, } \log_{a}(a^x) = x.
 \end{equation*}
@@ -421,11 +416,11 @@ If I let $\ln(x) = y$, I can raise $\e$ to the power of both sides and get
 \begin{equation}
     \e^{\ln(x)} = \e^y.
 \end{equation}
-Because logarithms are inverses of exponentials,
+Because logarithms are inverses of exponential,
 \begin{equation}
     x = \e^y.
 \end{equation}
-If you remember from \cref{sec:rulesofequality}, if two sides of the equation are equal, their derivatives with respect to the same variable must also be equal. We can take its derivative with respect to $y$ instead of $x$:
+From the rule of equality, (\cref{sec:trivial_rules}), we take the derivative of both sides w.r.t. $y$ instead of $x$:
 \begin{align*}
     \odv{x}{y} &= \odv{\e^y}{y} \\
     \odv{x}{y} &= \e^y.
@@ -441,9 +436,9 @@ With the power of natural logarithms, we can actually go back at the derivative 
 \begin{equation}
     n^x = \left(\e^{\ln(n)}\right)^x = \e^{x\ln(x)}.
 \end{equation}
-With the chain rule, discussed in \cref{sec:thechainrule}, we can let $u = x\ln(n)$ and add an intermediate step:
+With the chain rule (\cref{sec:trivial_rules}), let $u = x\ln(n)$:
 \begin{align*}
-    \odv{x}(n^x) &= \odv{\e^{x\ln(n)}}{x} \\
+    \odv*{(n^x)}{x} &= \odv{\e^{x\ln(n)}}{x} \\
     &= \odv{\e^u}{x} \times \odv{u}{u} \\
     &= \odv{\e^u}{u} \times \odv{u}{x} \\
     &= \e^{x\ln(n)} \times \odv{x\ln(n)}{x} \\
@@ -482,12 +477,11 @@ Which is what we call the product rule. Notice the alternation between $f$ and $
 \begin{equation}
     \odv*{\ab(\frac{f(x)}{g(x)})}{x} = \frac{\displaystyle f(x)\odv{g(x)}{x} - g(x)\odv{f(x)}{x}}{f(x)^2}.
 \end{equation}
+But how's about the product of multiple functions? We can't really geometrically interpret those anymore. So we have to turn ourselves to the analytical method.
 
-But how's about the product of three functions, e.g., $a(x)b(x)c(x)$? Or even more functions multiplied together? Well we ran into the same problem as what we were doing earlier in \cref{sec:derivativespowerrule}, deriving the power rule: we don't have enough dimensions. So sadly, we have to turn ourselves to analytical method.
-
-Let's think of this through. We still don't know how to take derivatives of products of multiple functions. However, we know the derivatives of \emph{sums} of multiple functions by the linearity property. So if we can turn products into sum, this problem would be our candy. Gladly, there's a function that can do exactly that: the logarithms. To make our life easier, we shall use the natural logarithm. Because I want to save space, let's write $a(x)b(x)c(x)$ as just $abc$. Do know that these functions are all dependent on $x$. Start off with a manipulation of products.
+Let's think of this through. We don't know the derivative of products, but we know the derivative of \emph{sums}: the linearity property. So if we can turn products into sum, this problem would be so easy! Gladly, the logarithms can do exactly that. To make our life easier, we shall use the natural logarithm. Because I want to save space, let's write $a(x)b(x)c(x)$ as just $abc$. Do know that these functions are all dependent on $x$. Start off with a manipulation of products.
 \begin{align*}
-    \odv{(abc\dots)}{x} &= \odv*{(e^{\ln(abc\dots)})}{x} \\
+    \odv{(abc\dots)}{x} &= \odv*{(\e^{\ln(abc\dots)})}{x} \\
     &= \odv*{(\e^{\ln(a) + \ln(b) + \ln(c) + \dots})}{x}.
 \end{align*}
 Now, let $\ln(a) + \ln(b) + \ln(c) + \dots = u$ and use the chain rule,
@@ -506,7 +500,7 @@ And there we have it: the generalized product rule.
 
 \subsection{Alternate derivations for the power rule}
 
-The power rule can also be derived using the same techique we just used. However, we use a different property of logarithm: $\ln(x^n) = n\ln(x)$.
+The power rule can also be derived using the same technique we just used. However, we use a different property of logarithm: $\ln(x^n) = n\ln(x)$.
 \begin{equation*}
     \odv{x^n}{x} = \odv{\e^{n\ln(x)}}{x}.
 \end{equation*}
@@ -522,7 +516,7 @@ Let $n\ln(x) = u$ then use the chain rule
 
 We've discussed that we can differentiate implicit functions. Normally, it wouldn't be quite useful, but this \index{derivatives!implicit differentiation}\textbf{implicit differentiation} shows up when two rates of change are related to each other: the \textbf{related rates} problem.
 
-Take the example of a sliding ladder, sketched in \cref{fig:slidingladder}. The ladder is $5\unit{\meter}$ long. If any one moment, what is the rate of sliding along the $x$-axis w.r.t. the $y$-axis?
+Take the example of a sliding ladder, sketched in \cref{fig:slidingladder}. The ladder is $5\unit{\meter}$ long. If at any one moment, what is the rate of sliding along the $x$-axis w.r.t. the $y$-axis?
 
 \begin{figure}
     \centering
@@ -578,7 +572,7 @@ As we've seen, the antiderivative of $\frac{1}{x}$ is $\ln(x)$ by the fundamenta
     &= \lim_{h \appr 0}\left(\frac{e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \lim_{h \appr 0}\left(\frac{\ln(x)}{x^h}\right) \nonumber\\
     &= \lim_{h \appr 0}\left(\frac{e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \ln(x). \label{eq:logarithmsprove1}
 \end{align}
-Then, we evaluate the limit at the front by letting $u = 2h\ln(x)$. When $h \appr 0$, $u \appr 0$ aswell. Then, use the definition of $\e$ from \cref{eq:infinitecompoundinterest}.
+Then, we evaluate the limit at the front by letting $u = 2h\ln(x)$. When $h \appr 0$, $u \appr 0$ as well. Then, use the definition of $\e$ from \cref{eq:infinitecompoundinterest}.
 \begin{align*}
     \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) &= \lim_{u \appr 0}\left(\frac{\e^u - 1}{u}\right) \\
     &= \lim_{u \appr 0}\left(\frac{\left(\lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n\right)^u}{u}\right).
@@ -606,7 +600,8 @@ Then, substitute this limit back into \cref{eq:logarithmsprove1}, you'll see tha
     \item $\odv*{(ax^n)}{x} = anx^{n - 1}$ (Power rule)
     \item $\odv*{(n^x)}{x} = n^x\ln(n)$, $\odv{(\e^x)}{x} = \e^x$ (Derivative of exponentials)
     \item $\odv*{(\ln(x))}{x} = \frac{1}{x}$ (Derivative of natural logarithms)
-    \item $\odv*{(f_1f_2\dots f_n)}{x} = f_1f_2\dots f_n\ab(\frac{1}{f_1} + \frac{1}{f_2} + \dots + \frac{1}{f_n})$ (Generalized product rule)
+	\item $\odv*{\ab(f_1(x)f_2(x))}{x} = f_1(x)\odv{f_2}{x} + f_2(x)\odv{f_1}{x}$ (Product rule for two functions)
+	\item $\odv*{(f_1f_2\dots f_n)}{x} = f_1f_2\dots f_n\ab(\frac{1}{f_1}\odv{f_1}{x} + \frac{1}{f_2}\odv{f_2}{x} + \dots + \frac{1}{f_n}\odv{f_n}{x})$ (Generalized product rule)
 \end{enumerate}
 
 \subsection{Formula for antiderivatives of functions}
@@ -622,8 +617,8 @@ Then, substitute this limit back into \cref{eq:logarithmsprove1}, you'll see tha
 \subsection{Definition for various functions and constants}
 
 \begin{enumerate}
-    \item $\e^x = \lim_{k \appr 0}\sum_{i \appr 0}^{k}\frac{1}{i!}$
-    \item $\e = \lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n$
+	\item $\e^x = \lim_{k \appr 0}\sum_{i \appr 0}^{k}\frac{1}{i!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots$
+	\item $\e = \lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n$, and $\e = \sum_{i = 0}^{\infty}\frac{1}{i!} = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \dots$
     \item $\ln(x) = \lim_{n \appr 0}\left(\frac{x^h - 1}{h}\right)$
 \end{enumerate}
 

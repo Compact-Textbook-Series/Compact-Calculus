@@ -1,3 +1,4 @@
+% !TEX program = xelatex
 \documentclass[b5paper, 11pt, openleft]{memoir}
 
 \usepackage{indentfirst}
@@ -31,10 +32,11 @@
 \settocdepth{subsection}
 \setlrmarginsandblock{4cm}{1.5cm}{*}
 \setulmarginsandblock{3cm}{2.5cm}{*}
-\setlength{\headheight}{24.90704pt}
+\setlength{\headheight}{30pt}
 \setlength{\parindent}{1.5cm}
 \setlength{\parskip}{0.3em}
 \setlength{\beforechapskip}{20pt}
+\renewcommand{\arraystretch}{1}
 \allowdisplaybreaks
 \setSpacing{1.5}
 \checkandfixthelayout
@@ -79,6 +81,7 @@
 % Packages
 \usepackage[dvipsnames]{xcolor}
 \usepackage{subcaption, graphicx, pdfpages, float, wrapfig}
+\usepackage{csquotes}
 \graphicspath{{diagrams/}}
 \usepackage[inline]{enumitem}
 
@@ -90,6 +93,7 @@
 \usepackage{physics2}
 \usepackage{derivative}
 \usephysicsmodule{ab, ab.braket, ab.legacy, nabla.legacy, op.legacy}
+\usepackage[makeroom]{cancel}
 % Proofs
 \usepackage{amsthm}
 \usepackage{tcolorbox}
@@ -133,14 +137,18 @@
 \newcommand{\iden}{\symbb{I}}
 \newcommand{\uv}[1]{\hat{\vv{e}}_{#1}}
 \newcommand{\tensor}{\otimes}
-\newcommand{\bmat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\bmat}[1]{
+	\begin{bmatrix}
+		#1
+	\end{bmatrix}
+}
 \newcommand{\ihat}{\hat{\i}}
 \newcommand{\jhat}{\hat{\j}}
 \newcommand{\khat}{\hat{k}}
 % Differences
 \DeclareMathOperator{\kdel}{\symrm{\delta}}
 \DeclareMathOperator{\ddel}{\symrm{\delta}}
-\newcommand{\Dd}{\symrm{Delta}}
+\newcommand{\Dd}{\symrm{\Delta}}
 % Physics quantities symbols
 \newcommand{\lagr}{\mathcal{L}}
 \newcommand{\haml}{\mathcal{H}}
@@ -207,7 +215,8 @@
 \include{chapters/derivatives}
 \include{chapters/integrals}
 \include{chapters/basicderivativesandintegrals}
-% \include{chapters/basiccalculusandtrigonometry}
+\include{chapters/calculusandgeometry}
+\include{chapters/basiccalculusandtrigonometry}
 % \include{chapters/geometricalsignificance}
 % \include{chapters/series}
 % \include{chapters/techniquesofintegration}
