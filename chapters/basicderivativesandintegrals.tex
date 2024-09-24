@@ -7,21 +7,21 @@ This chapter covers the derivatives and integrals of common functions: polynomia
 
 \paragraph{Terminologies:} The integral refers to the area under the curve. The antiderivative refers to the function $A(x')$ that outputs the area under the curve from $0$ to $x'$.
 
-\section{Trivial rules}
+\section{Basic rules}
 \label{sec:trivial_rules}
 
 \index{derivatives!chain rule}
-\paragraph{The chain rule} The Leibniz' notation treats derivative as fractions. You can cancel terms as seen earlier in \cref{eq:prechainrule}. This property can be used to take derivatives of composite functions. E.g., finding the derivative of $f(g(x))$ but you only know $f(x)$ and $g(x)$. First, substitute $g(x)$ as $u$.
+\paragraph{The chain rule} The Leibniz' notation treats derivative as fractions; thus, we can cancel terms (\cref{eq:prechainrule}). We exploit this property to find derivatives of composite functions. Consider two functions $f(x)$ and $g(x)$, the derivative of $f(g(x))$ can be found by a simple substitution. First let $g(x) = u$.
 \begin{equation*}
-    \odv{f(g(x))}{x} = \odv{f(u)}{x}.
+	\odv*{f(g(x))}{x} = \odv{f(u)}{x}.
 \end{equation*}
-We know that \emph{one} is the multiplicative identity, and \emph{one} is any number divided by itself\footnote{Except zero, of course.}. Let $1 = \odv{u}{u}$, then
+Let $1 = \odv{u}{u}$, then
 \begin{equation*}
-    \odv{f(g(x))}{x} = \odv{f(u)}{x} \times \odv{u}{u}.
+	\odv*{f(u)}{x} = \odv*{f(u)}{x} \times 1 = \odv{f(u)}{x} \odv{u}{u}.
 \end{equation*}
-Performing change of denominator, then substitute $u = g(x)$:
+Perform a change of denominator, then substitute back $u = g(x)$:
 \begin{equation*}
-    \odv{f(g(x))}{k} = \odv{f(u)}{u} \times \odv{g(x)}{x}.
+	\odv*{f(g(x))}{x} = \odv{f(u)}{u} \times \odv{g(x)}{x}.
 \end{equation*}
 This is what we call the chain rule, or more generally
 \begin{equation}
@@ -60,7 +60,7 @@ where $C$ is any constant. However, \cref{theorem:fundamentalthmofcalc2} still h
 \section{Linearity of differentiation and integration}
 \label{sec:diff_int_linearity}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \begin{subfigure}[t]{0.75\textwidth}
         \centering
@@ -182,13 +182,13 @@ and by the linearity of integrations (\cref{eq:integralsconstantmultiple}), we g
 
 Notice, this rule does not work for $n = 1$ because we can't divide by zero\dots \emph{or can we???} (Discussed further in \cref{sec:integralofthereciprocal})
 
-\section{Extending the equations of linear motion}
+\subsection{Extending the equations of linear motion}
 
-Let's now apply our power rule to some problems. From \cref{sec:fiveequationsoflinearmotion}, we discussed the equation of motion of objects with uniformed acceleration. What if now, the acceleration is changing over time, but is change uniformly? Mathematically, this means that the derivative of acceleration w.r.t. time, aka the jerk, is constant.
-\begin{equation*}
-    j = \odv{a}{t}.
-\end{equation*}
-We can then move $\odif{t}$ around and integrate both sides by using the reversed power rule on it.
+Let's use the power rule to extend the equation of linear motions in \cref{sec:fiveequationsoflinearmotion} to include a constant jerk $j$, i.e.,
+\begin{equation}
+    \odv{a}{t} = j
+\end{equation}
+Then, we can move the $\odif{t}$ around and integrate both sides by using the reversed power rule.
 \begin{align*}
     \int j\odif{t} &= \int\odif{a} \\
     j\int \odif{t} &= \int\odif{a} \alc[0.3]{Linearity of integrals} \\
@@ -199,34 +199,22 @@ Because $a$ is the derivative of $v$,
     \odv{v}{t} &= jt + a_0 \\
     \int \odif{v} &= \int jt + a_0 \odif{t} \\
     v &= j\int t\odif{t} + \int a_0\odif{t} \alc{Linearity of integrals} \\
-    v &= \frac{1}{2}jt^2 + a_0t + v_0. \alc{Reversed power rule} \\
+    v &= \frac{1}{2}jt^2 + a_0t + v_0. \alc{Reversed power rule}
 \end{align*}
-We add $v_0$ as an integral constant in a similar manner. Then because $v$ is the derivative of $r$,
+We add $v_0$ as an integral constant in a similar manner. Since $v$ is the derivative of $r$,
 \begin{align*}
     \odv{r}{t} &= \frac{1}{2}jt^2 + a_0t + v_0 \\
     \int \odif{r} &= \int\frac{1}{2}jt^2 + a_0t + v_0 \odif{t} \\
     r &= \frac{1}{2}j\int t^2\odif{t} + a_0\int t\odif{t} + v_0\int\odif{t} \\
     r &= \frac{1}{6}jt^3 + \frac{1}{2}a_0t^2 + v_0t + r_0.
 \end{align*}
-And there you have it! Technically we can extend this to whatever we want. The jerk also doesn't have to be uniformed, it could be a function of time itself. But, that's probably enough. If you'd like to try, extend the equation of motion to uniformed snap $s$. The final equation should be
+And there you have it! Further extensions can be made from here: the jerk could be time-dependent. But that's probably enough to illustrate my point. If you'd like to try, extend the equation of motion to have a constant snap: $\odv{j}{t} = s$. You should get
 \begin{equation*}
     r = \frac{1}{24}st^4 + \frac{1}{6}jt^3 + \frac{1}{2}a_0t^2 + v_0t + r_0.
 \end{equation*}
 
 \section{Exponentials and growth}
 
-The next function that we're going to discuss is exponentials: the mathematical representation of growth and decay. As an example, let's say there's a magical drop of water that doubles its volume $V$ every hour. I.e., for any time $t$,
-\begin{equation}
-    V(t + 1) = 2V(t). \label{eq:exponentialsrecurrencerelations}
-\end{equation}
-If the drop starts at one unit of volume, $V(0) = 1$; thus,
-\begin{align*}
-    V(1) &= 2V(0) = 2, \\
-    V(2) &= 2V(1) = 2(2) = 2^2, \\
-    V(3) &= 2V(2) = 2(2^2) = 2^3, \\
-    V(4) &= 2V(3) = 2(2^3) = 2^4, \\
-    &\vdots
-\end{align*}
 \begin{wraptable}[15]{l}{0.445\textwidth}
     \centering
     \begin{tabular}{C | C | C}
@@ -247,6 +235,18 @@ If the drop starts at one unit of volume, $V(0) = 1$; thus,
     \caption{Tables of $2^x$ plotted at interval $1$ from $0$ to $10$}
     \label{tab:exponentialbase2}
 \end{wraptable}
+The next function that we're going to discuss is exponentials: the mathematical representation of growth and decay. As an example, let's say there's a magical drop of water that doubles its volume $V$ every hour. I.e., for any time $t$,
+\begin{equation}
+    V(t + 1) = 2V(t). \label{eq:exponentialsrecurrencerelations}
+\end{equation}
+If the drop starts at one unit of volume, $V(0) = 1$; thus,
+\begin{align*}
+    V(1) &= 2V(0) = 2, \\
+    V(2) &= 2V(1) = 2(2) = 2^2, \\
+    V(3) &= 2V(2) = 2(2^2) = 2^3, \\
+    V(4) &= 2V(3) = 2(2^3) = 2^4, \\
+    &\vdots
+\end{align*}
 It's clear that the pattern is $V(t) = 2^t$: an exponential function. A natural question to ask is ``\emph{what is its rate of change?}''. Let's start by plotting the function over time (\cref{fig:exponentialgraph}). But, exponentials grow too quick to plot! By $V(7)$, we're already in the hundreds. So It'd probably be better to list the values of each point on a table.
 \begin{figure}[t]
     \centering
@@ -370,7 +370,26 @@ Notice, as $n \appr \infty$, the ratio between $n + R$ and $n$ where $R$ is any 
 \begin{equation}
     x = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \dots
 \end{equation}
-which is literally \cref{eq:naivetaylorserieserelations}. That means, the upper limit that the bank can give you is $\e$. Geometrically, it should make sense. Because we're gradually turning a discrete interest into a continuous one, $\e$ should appear in the limit of the continuous bank interests.
+which is literally \cref{eq:naivetaylorserieserelations}; thus,
+\begin{equation}
+	\e = \lim_{n \appr \infty}\ab(1 + \frac{1}{n})^n. \label{eq:e-def-infinite-interests}
+\end{equation}
+
+In conclusion, the upper limit that the bank can give you is $\e$, which should make sense geometrically. Because we're gradually turning a discrete interest into a continuous one, $\e$ should appear in the limit of the continuous bank interests.
+
+The limit definition of $\e$ allows us to express $\e^x$ in terms of limits.
+\begin{align}
+	\e^x &= \ab(\lim_{n \appr \infty}\ab(1 + \frac{1}{n})^n) \\
+		 &= \lim_{n \appr \infty}\ab(1 + \frac{1}{n})^{nx}
+\end{align}
+If $n = \flatfrac{u}{x}$, then
+\begin{align}
+	\e^x &= \lim_{\frac{u}{x} \appr \infty}\ab(1 + \frac{u}{h})^{h}
+\end{align}
+For $\frac{u}{x} \appr \infty$ to be true for all finite $x$, $u$ must approach $\infty$; therefore,
+\begin{align}
+	\e^x &= \lim_{u \appr \infty}\ab(1 + \frac{u}{h})^h
+\end{align}
 
 \subsection{The antiderivative of exponential functions}
 
@@ -378,7 +397,7 @@ It should be trivial that if $\e^x$ is the derivative of itself, so is its antid
 \begin{equation}
     \int \e^x \odif{x} = \e^x + C.
 \end{equation}
-For other bases, we could use \cref{theorem:fundamentalthmofcalc1}, the fundamental theorem of calculus, to find its antiderivative. That is, if
+For other bases, we could use the fundamental theorem of calculus (\cref{theorem:fundamentalthmofcalc1}) to find its antiderivative. I.e., if
 \begin{equation*}
     \odv{(n^x)}{x} = n^x\lim_{h \appr 0}\frac{n^h - 1}{h},
 \end{equation*}
@@ -392,27 +411,52 @@ The term in the limit sign still appears here. If we want to uncover how this te
 
 \section{Logarithms}
 
-Monomials have their inverse functions: the roots, exponentials also has an inverse functions: the logarithms. Here's a simple example to illustrate what I mean.
+Logarithms are inverses of exponential, like how roots are inverses of monomials. To illustrate what I mean,
 \begin{equation*}
-    \sqrt[a]{x^a} = x, \textrm{ but with logarithms, } \log_{a}(a^x) = x.
+	\textrm{For monomials, } \sqrt[a]{x^a} = x, \textrm{ but with logarithms, } \log_{a}(a^x) = x.
 \end{equation*}
-\index{logarithms}\textbf{Logarithms} are inverses functions of exponentials: it cancels exponentials. With it comes the following properties:
+They have the following properties:
 \begin{gather}
-    \log_a(x) + \log_a(y) = \log_a(xy) \\
-    \log_a(x) - \log_a(y) = \log_a\left(\frac{x}{y}\right) \\
-    \log_a(x) = \frac{\log_b(x)}{\log_b(a)}
+    \log_a(x) + \log_a(y) = \log_a(xy), \\
+    \log_a(x) - \log_a(y) = \log_a\left(\frac{x}{y}\right), \\
+    \log_a(x) = \frac{\log_b(x)}{\log_b(a)}.
 \end{gather}
 Since $\e^x$ is shown to be a very important function in modelling continuous growth, and is its own derivative, we give its inverse function its own name: the \index{logarithms!natural logarithms}\textbf{natural logarithm}, written as $\ln(x)$.
 
-So what's the growth of $\ln(x)$? At first sight, since the exponential grows so fast, the inverse of exponentials must grow very slowly. It might just be the reciprocal of $x$: $\flatfrac{1}{x}$. However, we have to derive it somehow. You could try the method of increments and get
+What's the derivative of $\ln(x)$? By the method of increments,
+\begin{align}
+	\odv*{\ln(x)}{x} &= \lim_{h \appr 0}\frac{\ln(x + h) - \ln(x)}{h} \\
+					&= \lim_{h \appr 0}\frac{\ln(\frac{x + h}{x})}{h} \\
+					&= \lim_{h \appr 0}\frac{\ln(1 + \frac{h}{x})}{h} \\
+					&= \lim_{h \appr 0}\ln\ab(\ab(1 + \frac{h}{x})^{\frac{1}{h}}).
+\end{align}
+This form is very similar to the limit definition of the exponential function $\e^x$, but with some terms swapped around. So let's try to fit this limit to the form of $\e^x$. I shall let $h = \frac{1}{n}$. If $h \appr 0$, then $n \appr \infty$. Therefore,
+\begin{align}
+	\odv*{\ln(x)}{x} &= \lim_{n \appr \infty}\ln\ab(\ab(1 + \frac{1}{nx})^{n}) \\
+					 &= \lim_{n \appr \infty}\ln\ab(\ab(1 + \frac{\flatfrac{1}{x}}{n})^n). \label{eq:ln-diff-derivation}
+\end{align}
+Recall that
 \begin{equation}
-    \odv{\ln(x)}{x} = \lim_{h \appr 0}\frac{\ln(x + h) - \ln(x)}{h}.
+	\e^x = \lim_{n \appr \infty}\ab(1 + \frac{x}{n})^n.
 \end{equation}
-As seen, there are no properties of logarithm that can manipulate this. However, I shall introduce quite a sneaky concept here called \index{implicit differentiation}\textbf{implicit differentiation}.
+Thus,
+\begin{equation}
+	\lim_{n \appr \infty}\ab(1 + \frac{\flatfrac{1}{x}}{n})^n = \e^{\frac{1}{x}}.
+\end{equation}
+which fits the form of \cref{eq:ln-diff-derivation}. Therefore,
+\begin{align}
+	\odv*{\ln(x)}{x} &= \lim_{n \appr \infty}\ln(\e^{\frac{1}{x}}) \\
+					 &= \lim_{n \appr \infty}\frac{1}{x} = \frac{1}{x}:
+\end{align}
+the derivative of the natural logarithm of $x$ is the reciprocal of $x$.
 
-Notice that we've only concerned the function that's clearly written in the form $f(x) = y$ and its rate of change. We call these neat functions \index{functions!explicit}\textbf{explicit functions}. However, not all functions are written in this form. E.g., $\sqrt{x^2 + y^2} = 2$. These functions are called \index{inplicit functions}\textbf{implicit functions}, and we can actually differentiate it.
+This result can also be interpretted geometrically. If the exponential grows very quickly when $x$ increases, its inverse must grow slow. The slow growing rate is directly captured by the function $\frac{1}{x}$.
 
-If I let $\ln(x) = y$, I can raise $\e$ to the power of both sides and get
+Here is the perfect time that I'll give you a glimpse into calculus with many variables: multivariable calculus. I shall present another way to derive the derivative of $\ln(x)$: \textbf{implicit differentiation}.\index{implicit differentiation}
+
+Functions in the form $f(x) = y$ are called \textbf{explicit functions}: the relations between the two variables are written explicitly. Functions that can't be written as $f(x) = y$ are called \textbf{implicit functions}, e.g., $x^2 + y^2 = r^2$. \textbf{Implicit differentiation} concerns the differentiation of implicit functions. In this case, it actually makes our life easier if we turn $\ln(x)$ into an implicit function.
+
+If I let $\ln(x) = y$, I can raise both sides to the power of $\e$ and get
 \begin{equation}
     \e^{\ln(x)} = \e^y.
 \end{equation}
@@ -420,12 +464,12 @@ Because logarithms are inverses of exponential,
 \begin{equation}
     x = \e^y.
 \end{equation}
-From the rule of equality, (\cref{sec:trivial_rules}), we take the derivative of both sides w.r.t. $y$ instead of $x$:
+By the rule of equality, (\cref{sec:trivial_rules}), we can take the derivative of both sides w.r.t. $y$ instead of $x$:
 \begin{align*}
     \odv{x}{y} &= \odv{\e^y}{y} \\
     \odv{x}{y} &= \e^y.
 \end{align*}
-But we're looking for the derivative of $y$ (which is just $\ln(x)$) w.r.t. $x$, not the derivative of $x$ w.r.t. $y$. Here's where Leibniz's notation comes into clutch: we can swap the numerator with the denominator for both sides then substitute in the $y$:
+But we're looking for the derivative of $y$ (which is just $\ln(x)$) w.r.t. $x$, not the derivative of $x$ w.r.t. $y$. Here's where Leibniz's notation comes into clutch: we can swap the numerator with the denominator for both sides then, substitute back $y = \ln(x)$:
 \begin{align*}
     \odv{\ln(x)}{x} &= \frac{1}{\e^{\ln(x)}} \\
     \therefore~\odv{\ln(x)}{x} &= \frac{1}{x},
@@ -444,7 +488,7 @@ With the chain rule (\cref{sec:trivial_rules}), let $u = x\ln(n)$:
     &= \e^{x\ln(n)} \times \odv{x\ln(n)}{x} \\
     &= n^x\ln(n).
 \end{align*}
-And here it is. The mystery proportionality constant is just a consequence of the natural logarithm. Thus, one way to define the natural log would be
+And here it is: the mystery proportionality constant. It's just a consequence of the natural logarithm. Thus, one way to define the natural log would be
 \begin{equation}
     \ln(n) = \lim_{h \appr 0}\frac{n^h - 1}{h}.
 \end{equation}
@@ -498,13 +542,13 @@ Then use the chain rule again on the terms in the parenthesis
 \end{align*}
 And there we have it: the generalized product rule.
 
-\subsection{Alternate derivations for the power rule}
+\subsection{Alternative derivations for the power rule}
 
 The power rule can also be derived using the same technique we just used. However, we use a different property of logarithm: $\ln(x^n) = n\ln(x)$.
 \begin{equation*}
-    \odv{x^n}{x} = \odv{\e^{n\ln(x)}}{x}.
+    \odv*{x^n}{x} = \odv*{\e^{n\ln(x)}}{x}.
 \end{equation*}
-Let $n\ln(x) = u$ then use the chain rule
+Let $u = n\ln(x)$ then use the chain rule
 \begin{align*}
     &= \odv{\e^u}{x} \cdot \odv{u}{u} \\
     &= \odv{\e^u}{u} \cdot \odv{u}{x} \\
@@ -514,9 +558,7 @@ Let $n\ln(x) = u$ then use the chain rule
 
 \section{Implicit differentiation}
 
-We've discussed that we can differentiate implicit functions. Normally, it wouldn't be quite useful, but this \index{derivatives!implicit differentiation}\textbf{implicit differentiation} shows up when two rates of change are related to each other: the \textbf{related rates} problem.
-
-Take the example of a sliding ladder, sketched in \cref{fig:slidingladder}. The ladder is $5\unit{\meter}$ long. If at any one moment, what is the rate of sliding along the $x$-axis w.r.t. the $y$-axis?
+Implicit differentiation also shows up in problems where two rate of changes are related to each other: the \textbf{related rates} problem. Consider a sliding ladder that's $5\unit{\meter}$ long (\cref{fig:slidingladder}). At a certain time $t$, what's the sliding rate along the $x$-axis w.r.t. the $y$-axis?\index{related rates}
 
 \begin{figure}
     \centering
@@ -525,11 +567,11 @@ Take the example of a sliding ladder, sketched in \cref{fig:slidingladder}. The 
     \label{fig:slidingladder}
 \end{figure}
 
-The problem is asking us to find $\odv{x}{y}$. Here, the rates of sliding along the $y$-axis $\odv{y}{t}$ and along the $x$-axis $\odv{x}{t}$ is clearly related because the ladder length still stays the same over time. If $y$ decreases, $x$ must increase. Both variables are related by the Pythagorean theorem
+The problem is asking for $\odv{x}{y}$. Here, the rate of sliding along the $y$-axis $\odv{y}{t}$ and along the $x$-axis $\odv{x}{t}$ is related because the ladder length is fixed. If $y$ decreases, $x$ must increase. The Pythagorean theorem says
 \begin{equation}
     x^2 + y^2 = 5^2.
 \end{equation}
-Then, we can differentiate this w.r.t. $t$, and use the chain rule
+We can take the derivative w.r.t. $t$ on both side then use the chain rule
 \begin{align*}
     \odv{x^2}{t} + \odv{y^2}{t} &= \odv{(5^2)}{t} \\
     \odv{x^2}{x}\odv{x}{t} + \odv{y^2}{y}\odv{y}{t} &= 0 \\
@@ -562,15 +604,15 @@ And this should actually make sense. Because if $y$ is increasing by a bit, $x$ 
     \end{tabular}
     \caption{Tables of reversed power rule from $x^{-3}$ to $x^1$}
 \end{wrapfigure}
-As we've seen, the antiderivative of $\frac{1}{x}$ is $\ln(x)$ by the fundamental theorem of calculus (\cref{theorem:fundamentalthmofcalc1}). I, however, find it disturbing and unresolved. It's a hole in the reversed power rule. From this dissatisfaction, I spent a night coming up with a way to derive this using just the reversed power rule. Enjoy the transformation!
+By the fundamental theorem of calculus (\cref{theorem:fundamentalthmofcalc1}), the antiderivative of $\frac{1}{x}$ is $\ln(x)$. You might believe this, and it's not wrong. But I find it very disturbing and unresolved. It's like taking the result and pointing it back to the origin. It doesn't really make sense. So from this dissatisfaction, I spent a night coming up with a way to derive this using just the reversed power rule. Enjoy the transformation!
 \begin{align}
-    \int \frac{1}{x}\odif{x} &= \int\lim_{h \appr 0}\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right) \nonumber\\
-    &= \lim_{h \appr 0}\int\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right) \nonumber\\
-    &= \lim_{h \appr 0}\int\left(\frac{1}{2}\frac{x^{-1 + h + 1}}{(-1 + h + 1)} + \frac{1}{2}\frac{x^{-1 - h + 1}}{(-1 - h + 1)}\right) \nonumber\\
+	\int \frac{1}{x}\odif{x} &= \int\lim_{h \appr 0}\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right)\odif{x} \nonumber\\
+							 &= \lim_{h \appr 0}\int\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right)\odif{x} \nonumber\\
+							 &= \lim_{h \appr 0}\int\left(\frac{1}{2}\frac{x^{-1 + h + 1}}{(-1 + h + 1)} + \frac{1}{2}\frac{x^{-1 - h + 1}}{(-1 - h + 1)}\right)\odif{x} \nonumber\\
     &= \lim_{h \appr 0}\left(\frac{1}{2}\frac{x^h}{h} - \frac{1}{2}\frac{x^{-h}}{-h}\right) = \lim_{h \appr 0}\left(\frac{1}{2}\frac{x^h}{h}\frac{x^h}{h} - \frac{1}{2}\frac{1}{hx^h}\right) \nonumber\\
     &= \lim_{h \appr 0}\left(\frac{x^{2h} - 1}{2hx^h}\right) = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)} - 1}{2h\ln(x)}\cdot\frac{\ln(x)}{x^h}\right) \nonumber\\
-    &= \lim_{h \appr 0}\left(\frac{e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \lim_{h \appr 0}\left(\frac{\ln(x)}{x^h}\right) \nonumber\\
-    &= \lim_{h \appr 0}\left(\frac{e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \ln(x). \label{eq:logarithmsprove1}
+    &= \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \lim_{h \appr 0}\left(\frac{\ln(x)}{x^h}\right) \nonumber\\
+    &= \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \ln(x). \label{eq:logarithmsprove1}
 \end{align}
 Then, we evaluate the limit at the front by letting $u = 2h\ln(x)$. When $h \appr 0$, $u \appr 0$ as well. Then, use the definition of $\e$ from \cref{eq:infinitecompoundinterest}.
 \begin{align*}
@@ -584,8 +626,9 @@ Change the limits from $n \appr \infty$ into $n \appr 0$. Notice, $\lim_{n \appr
 \end{align*}
 Then, substitute this limit back into \cref{eq:logarithmsprove1}, you'll see that
 \begin{equation*}
-    \int\frac{1}{x}\odif{x} = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \ln(x) = \ln(x) + C.
+    \int\frac{1}{x}\odif{x} = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \ln(x) = \ln(x) + C,
 \end{equation*}
+completing the proof.
 
 \section{Formula for Chapter \thechapter}
 

@@ -1,0 +1,30 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{math}
+
+
+\PYG{k}{def} \PYG{n+nf}{f}\PYG{p}{(}\PYG{n}{x}\PYG{p}{):}  \PYG{c+c1}{\PYGZsh{} Insert function here}
+    \PYG{k}{return} \PYG{n}{x}\PYG{o}{**}\PYG{l+m+mi}{3} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{x} \PYG{o}{+} \PYG{l+m+mi}{1}
+
+\PYG{n}{iterationCount} \PYG{o}{=} \PYG{l+m+mi}{10}  \PYG{c+c1}{\PYGZsh{} Amount of iteration}
+\PYG{n}{firstGuess} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2}  \PYG{c+c1}{\PYGZsh{} First guess}
+\PYG{n}{derivativeStep} \PYG{o}{=} \PYG{l+m+mf}{0.01}  \PYG{c+c1}{\PYGZsh{} For calculating the method of increments}
+\PYG{n}{approximationList} \PYG{o}{=} \PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{firstGuess}\PYG{p}{)]}  \PYG{c+c1}{\PYGZsh{} List of approximations}
+
+
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{iterationCount}\PYG{p}{):}
+    \PYG{n}{diff} \PYG{o}{=} \PYG{p}{(}
+        \PYG{n}{f}\PYG{p}{(}\PYG{n}{approximationList}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{+} \PYG{n}{derivativeStep}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{n}{f}\PYG{p}{(}\PYG{n}{approximationList}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])}
+    \PYG{p}{)} \PYG{o}{/} \PYG{n}{derivativeStep}  \PYG{c+c1}{\PYGZsh{} Finding the derivative at a certain point}
+    \PYG{n}{nextGuess} \PYG{o}{=} \PYG{p}{(}
+        \PYG{n}{approximationList}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{f}\PYG{p}{(}\PYG{n}{approximationList}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])} \PYG{o}{/} \PYG{n}{diff}
+    \PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Newton\PYGZhy{}Raphson\PYGZsq{}s method}
+    \PYG{n}{approximationList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{nextGuess}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Add next guess to the list of approximations}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{approximationList}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Print out the list of approximations}
+\PYG{n}{fig}\PYG{p}{,} \PYG{n}{axes} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplots}\PYG{p}{()}  \PYG{c+c1}{\PYGZsh{} Initiate plot}
+\PYG{n}{axes}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{iterationCount} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)),} \PYG{n}{approximationList}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Plotting}
+\PYG{n}{axes}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Iteration\PYGZdq{}}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Setting the x\PYGZhy{}axis label}
+\PYG{n}{axes}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Guess\PYGZdq{}}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Setting the y\PYGZhy{}axis label}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}  \PYG{c+c1}{\PYGZsh{} Showing the plot}
+\end{Verbatim}

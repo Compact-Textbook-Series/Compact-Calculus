@@ -1,0 +1,15 @@
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usepackage{concmath-otf}
+\usetikzlibrary{calc, angles, quotes, patterns}
+\usetikzlibrary{decorations.pathreplacing, decorations.pathmorphing, calligraphy}
+
+\begin{document}
+\begin{tikzpicture}
+	\draw[-stealth, thick] (-1.5, 0) -- (1.5, 0);
+	\draw[-stealth, thick] (0, -1.5) -- (0, 1.5);
+
+	\draw[stealth-stealth, domain = -1.45:1.25] plot (\x, {\x^3 - \x + 1/2});
+	\filldraw (-1.1915, 0) circle (1pt);
+\end{tikzpicture}
+\end{document}

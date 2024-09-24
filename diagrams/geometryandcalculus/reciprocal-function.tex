@@ -1,0 +1,14 @@
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usetikzlibrary{calc, angles, quotes, patterns}
+\usetikzlibrary{decorations.pathreplacing, decorations.pathmorphing, calligraphy}
+
+\begin{document}
+\begin{tikzpicture}
+	\draw[-stealth, thick] (-2.5, 0) -- (2.5, 0);
+	\draw[-stealth, thick] (0, -2.5) -- (0, 2.5);
+
+	\draw[domain = -4.55:-0.22, scale = 1/2] plot (\x, {1/\x});
+	\draw[domain = 0.22:4.55, scale = 1/2] plot (\x, {1/\x});
+\end{tikzpicture}
+\end{document}

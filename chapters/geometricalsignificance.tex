@@ -1,4 +1,4 @@
-\chapter{Significance of calculus}
+\chapter{Merging calculus and physical systems}
 \label{sec:significanceofcalculus}
 
 \begin{abstract}
@@ -19,7 +19,7 @@
 
 Before moving to further examples in kinematics, I'd like to introduce another notation called the \textbf{Newton's fluxion notation}\index{notation for derivatives!Newton's fluxion notation} or, the \textbf{dot notation}\index{dot notation|see {notation for derivatives}}. \emph{This notation is used only when the derivative is took w.r.t. time}. It places a dot over the variables, e.g., the first derivative of position $r$ w.r.t. time is $\dot{x}$.
 
-Higher derivatives notation is written with more dots, e.g., the second derivative of position $r$ w.r.t. is $\ddot{r}$. The third derivative is $\dddot{r}$, forth derivative, $\ddddot{r}$ and so on.
+Higher derivatives notation is written with more dots, e.g., the second derivative of position $r$ w.r.t. is $\dot{r}$. The third derivative is $\dot{r}$, forth derivative, $\dot{r}$ and so on.
 
 \section{Further examples of calculus in physics and kinematics}
 
@@ -39,15 +39,15 @@ We want to find the equation of motion for this block that's sliding down a ramp
 \end{equation*}
 By the Newton's second law,
 \begin{align*}
-    m\dv{t}(\dv{x}{t}) = mg\sin(\theta) - f_r \\
-    \dv{t}(\dv{x}{t}) = g\sin(\theta) - \frac{f_r}{m}.
+    m\odv{t}(\odv{x}{t}) = mg\sin(\theta) - f_r \\
+    \odv{t}(\odv{x}{t}) = g\sin(\theta) - \frac{f_r}{m}.
 \end{align*}
 $g\sin(\theta) - \flatfrac{f_r}{m}$ doesn't change with time, let's name it $\kappa$. The equation then becomes
 \begin{align}
-    \dv{t}(\dv{x}{t}) &= \kappa \label{eq:blockslidingdownarampaux}\\
-    \int\dd(\dv{x}{t}) &= \int\kappa\dd{t} \nonumber\\
-    \dv{x}{t} &= \kappa t \nonumber \\
-    \int\dd{x} &= \int\kappa t\dd{t} \nonumber\\
+    \odv{t}(\odv{x}{t}) &= \kappa \label{eq:blockslidingdownarampaux}\\
+    \int\odif(\odv{x}{t}) &= \int\kappa\odif{t} \nonumber\\
+    \odv{x}{t} &= \kappa t \nonumber \\
+    \int\odif{x} &= \int\kappa t\odif{t} \nonumber\\
     x(t) &= \left(g\sin(\theta) - \frac{f_r}{m}\right)\frac{t^2}{2}.
 \end{align}
 which \emph{is} our equation of motion. Notice, \cref{eq:blockslidingdownarampaux} literally has the same form as \cref{eq:accelerationfromgravity} that we derived from ``ball dropped from a building''. And indeed, it should be the same because it's just a thing that's under a constant acceleration. 
@@ -65,16 +65,16 @@ We shall model the drag based on two assumptions. \begin{enumerate*}[label = \ro
 \end{equation*}
 Considering only the first three terms should be enough. We know that $a_0$ must be $0$, because otherwise our object would just accelerate all the time, which is no good. Therefore, there can only be $a_1\vv{v} + a_2\vv{v}^2$. Newton's second law reads
 \begin{equation*}
-    m\dv{t}(\dv{x}{t}) = a_1\dv{x}{t} + a_2\left(\dv{x}{t}\right)^2.
+	m\odv*{(\odv{x}{t})}{t} = a_1\odv{x}{t} + a_2\ab(\odv{x}{t})^2.
 \end{equation*}
 Using fluxion notation,
 \begin{align*}
-    m\dv{\dot{x}}{t} &= a_1\dot{x} + a_2\dot{x}^2 \\
-    \dv{\dot{x}}{t} &= \frac{a_1}{m}\dot{x} + \frac{a_2}{m}\dot{x}^2
+    m\odv{\dot{x}}{t} &= a_1\dot{x} + a_2\dot{x}^2 \\
+    \odv{\dot{x}}{t} &= \frac{a_1}{m}\dot{x} + \frac{a_2}{m}\dot{x}^2
 \end{align*}
 For convenience, let $\flatfrac{a_1}{m} = p$ and $\flatfrac{a_2}{m} = q$. The equation reads
 \begin{equation}
-    \dv{\dot{x}}{t} = p\dot{x} + q\dot{x}^2. \label{eq:quadraticdrageq}
+    \odv{\dot{x}}{t} = p\dot{x} + q\dot{x}^2. \label{eq:quadraticdrageq}
 \end{equation}
 
 It is obvious that both $p$ and $q$ must be negative, otherwise the object would accelerate forward with the velocity. Frankly, \cref{eq:quadraticdrageq} is not possible to solve using the techniques that we have now. I'll revisit this exact differential equation later in \cref{eq:advtechniquesrationalfunctions}. For now, we shall deal with a simpler equation by considering two cases: only linear drag and only quadratic drag.
@@ -83,11 +83,11 @@ It is obvious that both $p$ and $q$ must be negative, otherwise the object would
 
 You don't really see linear drag in real life. It's mostly drag in moving liquid, e.g., a fish swimming in the water. \Cref{eq:quadraticdrageq} simplifies to
 \begin{equation*}
-    \dv{\dot{x}}{t} = p\dot{x}.
+    \odv{\dot{x}}{t} = p\dot{x}.
 \end{equation*}
 I shall set $v_0$ as the initial velocity and $x_0$ as the initial position. There are two methods of solving this. First, by separating variables using analytical methods.
 \begin{align}
-    \int\frac{1}{\dot{x}}\dd{\dot{x}} &= p\int\dd{t} \nonumber\\
+    \int\frac{1}{\dot{x}}\odif{\dot{x}} &= p\int\odif{t} \nonumber\\
     \ln(\dot{x}) + C &= pt. \label{eq:motionlineardrag1}
 \end{align}
 To find out what this integration constant should be, we have to use the initial condition $t = 0 \implies \dot{x} = v_0$.
@@ -111,23 +111,23 @@ To find out what this integration constant should be, we have to use the initial
 
 To find $x(t)$, we rewrite \cref{eq:motionlineardrag2} as
 \begin{equation*}
-    \dv{x}{t} = v_0\e^{pt}.
+    \odv{x}{t} = v_0\e^{pt}.
 \end{equation*}
 Then,
 \begin{align}
-    \dd{x} &= v_0\e^{pt}\dd{t} \\
-    x + C_1 &= v_0\int \e^{pt}\dd{t}. \label{eq:motionlineardrag3}
+    \odif{x} &= v_0\e^{pt}\odif{t} \\
+    x + C_1 &= v_0\int \e^{pt}\odif{t}. \label{eq:motionlineardrag3}
 \end{align}
 
-Here, I shall introduce an integration technique called \textbf{change of variables}\index{change of variables!naive}, commonly known as $u$-substitution. We'll formally come back to this topic later in \cref{sec:changeofvariables}. Basically, it's a way to convert integrals that we don't recognize into an easier integral. It's better if I just show the examples. We don't know the antiderivative of $\e^{pt}$ in \cref{eq:motionlineardrag3}, however we know the antiderivative of $\e^{u}$. So let's convert $\e^{pt}$ into that form. By letting a dummy variable $u = pt - v_0$, we have to convert $\dd{u}$ into $\dd{t}$ aswell.
+Here, I shall introduce an integration technique called \textbf{change of variables}\index{change of variables!naive}, commonly known as $u$-substitution. We'll formally come back to this topic later in \cref{sec:changeofvariables}. Basically, it's a way to convert integrals that we don't recognize into an easier integral. It's better if I just show the examples. We don't know the antiderivative of $\e^{pt}$ in \cref{eq:motionlineardrag3}, however we know the antiderivative of $\e^{u}$. So let's convert $\e^{pt}$ into that form. By letting a dummy variable $u = pt - v_0$, we have to convert $\odif{u}$ into $\odif{t}$ aswell.
 \begin{align*}
     u &= pt - v_0 \\
-    \dv{u}{t} &= \dv{t}(pt - v_0) \\
-    \frac{1}{p}\dd{u} &= \dd{t}.
+	\odv{u}{t} &= \odv*{(pt - v_0)}{t} \\
+    \frac{1}{p}\odif{u} &= \odif{t}.
 \end{align*}
-Then, substituting $\dd{t} = \frac{1}{p}\dd{u}$ and $u = pt$ into \cref{eq:motionlineardrag3}, it reads
+Then, substituting $\odif{t} = \frac{1}{p}\odif{u}$ and $u = pt$ into \cref{eq:motionlineardrag3}, it reads
 \begin{align}
-    x + C_1 &= v_0\int\e^{u}\left(\frac{1}{p}\dd{u}\right) \nonumber\\
+    x + C_1 &= v_0\int\e^{u}\ab(\frac{1}{p}\odif{u}) \nonumber\\
     x + C_1 &= \frac{v_0}{p}\e^{pt}. \label{eq:motionlineardrag4}
 \end{align}
 
@@ -173,8 +173,8 @@ which when $p \in \mathbb{R}^-$ and $v_0\in\mathbb{R}^+$, the motion procedes fo
 \begin{multicols}{2}
 This equation is even easier than linear drag, so I'd leave out some steps. \Cref{eq:quadraticdrageq} simplifies to
 \begin{align*}
-    \dv{\dot{x}}{t} &= q\dot{x}^2 \\
-    \int \frac{1}{\dot{x}^2}\dd{\dot{x}} &= q\int\dd{t} \footnote{Hint: $\flatfrac{1}{\dot{x}^2} = \dot{x}^{-2}$}\\
+    \odv{\dot{x}}{t} &= q\dot{x}^2 \\
+    \int \frac{1}{\dot{x}^2}\odif{\dot{x}} &= q\int\odif{t} \footnote{Hint: $\flatfrac{1}{\dot{x}^2} = \dot{x}^{-2}$}\\
     - \frac{1}{\dot{x}} + C = qt.
 \end{align*}
 Taking care of $C$: use $t = 0 \implies \dot{x} = v_0$.
@@ -185,19 +185,19 @@ Taking care of $C$: use $t = 0 \implies \dot{x} = v_0$.
 Therefore,
 \begin{align}
     -\frac{1}{\dot{x}} + \frac{1}{v_0} &= qt \nonumber\\
-    \dv{t}{x} &= \frac{1 - qv_0t}{v_0} \nonumber\\
-    x &= v_0\int\frac{1}{1 - qv_0t} \dd{t}. \label{eq:motionquadraticdrag1}
+    \odv{t}{x} &= \frac{1 - qv_0t}{v_0} \nonumber\\
+    x &= v_0\int\frac{1}{1 - qv_0t} \odif{t}. \label{eq:motionquadraticdrag1}
 \end{align}
 The structure of the integral is similar to $\flatfrac{1}{t}$. Therefore, let $u = 1 - qv_0t$. Then,
 \begin{align*}
-    \dv{u}{u} &= \dv{u}(1 - qv_0t) \\
-    1 &= -qv_0\dv{t}{u} \\
-    \dd{t} &= -\frac{1}{qv_0}\dd{u}.
+    \odv{u}{u} &= \odif{u}(1 - qv_0t) \\
+    1 &= -qv_0\odv{t}{u} \\
+    \odif{t} &= -\frac{1}{qv_0}\odif{u}.
 \end{align*}
-Substitute $u = 1 - qv_0t$ and $\dd{t} = -\frac{1}{qv_0}\dd{u}$ into \cref{eq:motionquadraticdrag1}:
+Substitute $u = 1 - qv_0t$ and $\odif{t} = -\frac{1}{qv_0}\odif{u}$ into \cref{eq:motionquadraticdrag1}:
 \begin{align}
-    x &= v_0 \int \frac{1}{u}\left(-\frac{1}{qv_0}\dd{u}\right) \nonumber\\
-    &= -\frac{1}{q}\int \frac{1}{u}\dd{u} \nonumber\\
+    x &= v_0 \int \frac{1}{u}\left(-\frac{1}{qv_0}\odif{u}\right) \nonumber\\
+    &= -\frac{1}{q}\int \frac{1}{u}\odif{u} \nonumber\\
     x(t) &= -\frac{1}{q}\ln(1 - qv_0t) + C_1. \label{eq:motionquadraticdrag2}
 \end{align}
 Taking care of $C_1$: use $t \appr 0 \implies x(t) = x_0$.
@@ -212,6 +212,8 @@ Plug this into \cref{eq:motionquadraticdrag2} to get the final answer:
 \end{multicols}
 
 Surprisingly, quadratic drag does not have upper position bounds. A bit more thought would reveal that when $v < 0$, the quadratic drag $f_r(v) = a_2v^2$ is smaller thasecn $f_r(v) = a_1v$. Thus, it should makes sense that quadratic doesn't have bounds, but linear has an upper bound.
+
+\subsubsection{Terminal velocity of objects}
 
 \subsection{Time of meteor collision from great height}
 
@@ -228,23 +230,23 @@ The meteor has the mass $m$, falling from height $h$ above the ground. The Earth
 \end{equation*}
 Therefore, Newton's second law on the meteor reads
 \begin{equation*}
-    G\frac{Mm}{r^2} = m\dv{t}(\dv{r}{t})\footnote{Notice that here, $r$ also changes with time.}.
+	G\frac{Mm}{r^2} = m\odv*{\ab(\odv{r}{t})}{t}\footnote{Notice that here, $r$ also changes with time.}.
 \end{equation*}
 
 To frame the problem mathematically, we want to find an equation of motion of the meteor. Then, find the time it takes for the meteor to travel from $h + R$ (initial position) to $R$ (the ground).
 
 The $m$ on both sides cancel. For convenience, let $\kappa = GM$
 \begin{equation}
-    \frac{\kappa}{r^2} = \dv{\dot{r}}{t}. \label{eq:meteorfallingfromgreatheight1}
+    \frac{\kappa}{r^2} = \odv{\dot{r}}{t}. \label{eq:meteorfallingfromgreatheight1}
 \end{equation}
 Solving this equation is not at all trivial: there are \emph{three} variables, i.e., $r$. $\dot{r}$, and $t$; however, an equation only has two sides. We can't possibly separate these variables. Here, I shall introduce a technique for solving this kind of differential equation. With the chain rule,
 \begin{equation*}
-    \dv{\dot{r}}{t} = \dv{\dot{r}}{r} \times \dv{r}{t} = \dot{r}\dv{\dot{r}}{r}:
+    \odv{\dot{r}}{t} = \odv{\dot{r}}{r} \cdot \odv{r}{t} = \dot{r}\odv{\dot{r}}{r}:
 \end{equation*}
-we converted an expression that's dependent on other variable $t$ to be dependent on a lower derivative $r$ instead! Then $t$ is removed, or rather, hidden. You can interpret $\dv*{\dot{r}}{r}$ as the velocity at any given distance away from the Earth. Plug this into \cref{eq:meteorfallingfromgreatheight1}, we get
+we converted an expression that's dependent on other variable $t$ to be dependent on a lower derivative $r$ instead! Then $t$ is removed, or rather, hidden. You can interpret $\odv*{\dot{r}}{r}$ as the velocity at any given distance away from the Earth. Plug this into \cref{eq:meteorfallingfromgreatheight1}, we get
 \begin{align}
-    \frac{\kappa}{r^2} &= \dot{r}\dv{\dot{r}}{r} \nonumber\\
-    \kappa\int\frac{1}{r^2}\dd{r} &= \int\dot{r}\dd{\dot{r}} \nonumber\\
+    \frac{\kappa}{r^2} &= \dot{r}\odv{\dot{r}}{r} \nonumber\\
+    \kappa\int\frac{1}{r^2}\odif{r} &= \int\dot{r}\odif{\dot{r}} \nonumber\\
     \frac{\kappa}{r} + C &= \frac{\dot{r}^2}{2} \label{eq:meteorfallingfromgreatheight2}
 \end{align}
 The term $+C$ is going to be a different because now, we don't have a $t$ to fix our initial condition. However, we know that when $\dot{r} = v_0$, $r = h + R$. Therefore,
@@ -254,9 +256,9 @@ The term $+C$ is going to be a different because now, we don't have a $t$ to fix
 \end{align*}
 However, the structure of $C$ is quite complicated so, I wouldn't substitute it in yet until we get our final answer. Continuing with \cref{eq:meteorfallingfromgreatheight2}, we turn the $\dot{r}$ into the Leibniz's notation:
 \begin{align*}
-    \frac{\kappa + Cr}{r} &= \frac{1}{2}\left(\dv{r}{t}\right)^2. \\
-    \sqrt{2}\sqrt{\frac{\kappa + Cr}{r}} &= \dv{r}{t} \\
-    \int\dd{t} &= \sqrt{2}\int\sqrt{\frac{r}{\kappa + Cr}}\dd{r}
+    \frac{\kappa + Cr}{r} &= \frac{1}{2}\left(\odv{r}{t}\right)^2. \\
+    \sqrt{2}\sqrt{\frac{\kappa + Cr}{r}} &= \odv{r}{t} \\
+    \int\odif{t} &= \sqrt{2}\int\sqrt{\frac{r}{\kappa + Cr}}\odif{r}
 \end{align*}
 
 Unfortunately, this integral is very hard to solve. But it is possible, and the solution to this integral is
@@ -269,8 +271,8 @@ which is quite a nightmare, but we will get back to this in the far far future.
 
 A harmonic oscillator is described by an object that's under a force $F(x) = -kx$, which is a function of position. Here, we can use Newton's second law straightaway:
 \begin{align}
-    m\dv{t}(\dv{x}{t}) &= -kx \\
-    \dv{t}(\dv{x}{t}) &= -\frac{k}{m}x. \label{eq:simpleharmonicmotion1}
+	m\odv*{\ab(\odv{x}{t})}{t} &= -kx \\
+	\odv*{(\ab\odv{x}{t})}{t} &= -\frac{k}{m}x. \label{eq:simpleharmonicmotion1}
 \end{align}
 
 There are actually three ways of approaching this, which I shall get you through all three.
@@ -285,7 +287,7 @@ There's a reason why I used $\omega$ as a variable. $\omega$ suggests the angula
 
 Now, with the ansatz in place, it's time to find $A$, $B$, and $\omega$. We can do that by just substituting the ansatz into \cref{eq:simpleharmonicmotion1}:
 \begin{equation*}
-    \dv{t}(\dv{t}(A\sin(\omega t) + B\cos(\omega t))) = -\frac{k}{m}\left(A\sin(\omega t) + B\cos(\omega t)\right).
+    \odv{t}(\odv{t}(A\sin(\omega t) + B\cos(\omega t))) = -\frac{k}{m}\left(A\sin(\omega t) + B\cos(\omega t)\right).
 \end{equation*}
 We can then use the chain rule to the L.H.S. It's left as an exercise to the reader to verify that this is true.
 \begin{align*}
@@ -299,24 +301,20 @@ Here, we can match the coefficient and separate our equation into two parts:
 \end{gather*}
 Both equations say that $(\flatfrac{k}{m})^{\flatfrac{1}{2}}$ must be equal to $\omega$. However, notice that both equations does not say anything about $A$, or $B$. That is simply because we can choose $A$ and $B$ ourselves; it's a free parameter. Our final solution is then
 \begin{equation*}
-    x(t) = A\sin(\sqrt{\frac{k}{m}}t) + B\cos(\sqrt{\frac{k}{m}}t).
+    x(t) = A\sin\ab(\sqrt{\frac{k}{m}}t) + B\cos\ab(\sqrt{\frac{k}{m}}t).
 \end{equation*}
 
 \subsubsection{The series expansion method}
 
 \subsection{Harmonic motion in two-dimensions: the pendulum}
 
-
 \subsubsection{The repeated integration method}
-
 
 \subsection{Damped harmonic motion}
 
 \section{Conservation laws}
 
 \section{Volumes of solids}
-
-\section{The amount of real zeroes in a cubic equation}
 
 \section{Optimization problems}
 

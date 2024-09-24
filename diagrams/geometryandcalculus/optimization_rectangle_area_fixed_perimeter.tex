@@ -1,0 +1,15 @@
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usepackage{concmath-otf}
+\usetikzlibrary{calc, angles, quotes, patterns}
+\usetikzlibrary{decorations.pathreplacing, decorations.pathmorphing, calligraphy}
+
+\begin{document}
+\begin{tikzpicture}
+	\def\xpos{2cm}
+	\def\ypos{3cm}
+	\draw[very thick] (0, 0) rectangle (\xpos, \ypos);
+	\draw[shift = {(0, -0.2)}, |-|] (0, 0) -- node[below]{$a$} (\xpos, 0);
+	\draw[shift = {(-0.2, 0)}, |-|] (0, 0) -- node[left]{$b$} (0, \ypos);
+\end{tikzpicture}
+\end{document}

@@ -81,8 +81,16 @@
 % Packages
 \usepackage[dvipsnames]{xcolor}
 \usepackage{subcaption, graphicx, pdfpages, float, wrapfig}
-\usepackage{csquotes}
 \graphicspath{{diagrams/}}
+\usepackage{minted}
+\usemintedstyle{algol_nu}
+\setminted{
+    frame = lines,
+    bgcolor = lightgray,
+    linenos,
+	breaklines
+}
+\usepackage{csquotes}
 \usepackage[inline]{enumitem}
 
 \usepackage[colorlinks, allcolors = blue]{hyperref}
@@ -217,8 +225,11 @@
 \include{chapters/basicderivativesandintegrals}
 \include{chapters/calculusandgeometry}
 \include{chapters/basiccalculusandtrigonometry}
-% \include{chapters/geometricalsignificance}
+\include{chapters/geometricalsignificance}
 % \include{chapters/series}
+
+\part{More advanced topics}
+
 % \include{chapters/techniquesofintegration}
 % \include{chapters/advancedtechniquesofintegration}
 
