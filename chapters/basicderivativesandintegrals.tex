@@ -40,6 +40,11 @@ The chain rule holds the intuition of how rate of changes relate to each other. 
     \int f(x)\odif{x} = A(x) + C
 \end{equation}
 where $C$ is any constant. However, \cref{theorem:fundamentalthmofcalc2} still holds for integrals with bounds.
+\begin{center}
+	\textbf{
+		\large Always add an integral constant after evaluating the antiderivative
+	}
+\end{center}
 
 \index{integrals!of an infinitesimal}
 \paragraph{Integral of the infinitesimal} The antiderivative of the small rectangles $\odif{x}$ is just the total rectangle $x$ plus the integral constant $C$. 
@@ -173,11 +178,11 @@ For the antiderivative of $x^n$, we use the fundamental theorem of calculus (\cr
 \end{equation*}
 Substitute $n$ with $n + 1$
 \begin{equation*}
-    \int (n + 1)x^{n}\odif{x} = x^{n + 1},
+    \int (n + 1)x^{n}\odif{x} = x^{n + 1} + C,
 \end{equation*}
 and by the linearity of integrations (\cref{eq:integralsconstantmultiple}), we get the \index{integrals!reversed power rule}\textbf{reversed power rule}:
 \begin{equation}
-    \int x^{n}\odif{x} = \frac{x^{n + 1}}{n + 1}.
+	\int x^{n}\odif{x} = \frac{x^{n + 1}}{n + 1} + C. \label{eq:reversed-power-rule}
 \end{equation}
 
 Notice, this rule does not work for $n = 1$ because we can't divide by zero\dots \emph{or can we???} (Discussed further in \cref{sec:integralofthereciprocal})
@@ -405,9 +410,9 @@ then
 \begin{align*}
     \odv*{(n^x)}{x} &= n^x\lim_{h \appr 0}\frac{n^h - 1}{h} \\
     n^x &= \lim_{h \appr 0}\frac{n^h - 1}{h}\int n^x\odif{x} \\
-    \int n^x\odif{x} &= n^x\lim_{h \appr 0}\left(\frac{n^h - 1}{h}\right)^{-1}.
+    \int n^x\odif{x} &= n^x\lim_{h \appr 0}\left(\frac{n^h - 1}{h}\right)^{-1} + C.
 \end{align*}
-The term in the limit sign still appears here. If we want to uncover how this term comes to be, we must discuss the logarithms.
+The term in the limit sign still appears here. If we want to uncover the origin of this term, we must discuss the logarithms.
 
 \section{Logarithms}
 
@@ -510,7 +515,7 @@ Sometimes, we have to multiply the two functions together before taking the deri
 \end{figure}
 The derivative of $f(x)g(x)$ w.r.t. $x$ can be thought of a rectangle with side length that's governed by $f(x)$ and $g(x)$. As shown in \cref{fig:derivativesproductrule}, the area increase on side $f(x)$ is $g(x)\Dd{f}$ and on $g(x)$, $f(x)\Dd{g}$. The $\Dd{f}\Dd{g}$ part is basically negligible. Therefore,
 \begin{align*}
-    \odv*{(f(x)g(x))}{x} &= \lim_{h \appr 0}\frac{g(x)\Dd{f} + f(x)\Dd{g}}{h} \\
+    \odv*{\ab(f(x)g(x))}{x} &= \lim_{h \appr 0}\frac{g(x)\Dd{f} + f(x)\Dd{g}}{h} \\
     &= \lim_{h \appr 0}\frac{f(x)(g(x + h) - g(x)) + g(x)(f(x + h) - f(x))}{h} \\
     &= f(x)\lim_{h \appr 0}\frac{g(x + h) - g(x)}{h} + g(x)\lim_{h \appr 0}\frac{f(x + h) - f(x)}{h} \\
     &= f(x)\odv{g(x)}{x} + g(x)\odv{f(x)}{x}.
@@ -587,23 +592,142 @@ To find $\odv{x}{y}$, we just have to isolate the variables,
 \end{align*}
 And this should actually make sense. Because if $y$ is increasing by a bit, $x$ must decrease by some amount, and that amount is $-\flatfrac{y}{x}$: the higher the $y$, the larger the rates of sliding.
 
-\section{But why is the integral of the reciprocal the natural logarithm?}
+\section{Technique of integraton: substitution}
+
+Before we finish this chapter off, I'd want to take a look at a very useful technique for dealing with complicated integrals: substitution.
+
+Substitution is a technique to simplify algebraic expressions. I believe you've already seen a multitude of them. Basically, we substitute some expression of $x$ with $u$, then use everything in our power to change every $x$ to $u$, including the differential element: from $\odif{x}$ to $\odif{u}$.
+
+$u$-substitution works when the integrals are of the form
+\begin{equation}
+	\int f\ab(g(x))\odv{g(x)}{x}\odif{x}.
+\end{equation}
+In this notation, it's easy to see that the $\odif{x}$ will cancel, leaving us with
+\begin{equation}
+	\int f\ab(g(x))\odif{g(x)}.
+\end{equation}
+If $g(x) = u$, then our integral simplifies to
+\begin{equation}
+	\int f(u)\odif{u}.
+\end{equation}
+
+Let's apply this knowledge to solve some integrals. Starting with the simplest: polynomic integrands.
+\begin{exmp}{$\int x(x^2 + 1)^{10}\odif{x}$}{u-substitution-1}
+	If $f(x) = x^{10}$, and $u = x^2 + 1$, then
+	\begin{equation}
+		\int x(x^2 + 1)^{10}\odif{x} = \int u^{10}x\odif{x}.
+	\end{equation}
+	Because $x = \frac{1}{2}\odv{(x^2 + 1)}{x}$,
+	\begin{equation}
+		\int u^{10}x\odif{x} = \int u^{10}\frac{1}{2}\odv{(x^2 + 1)}{x}\odif{x} = \frac{1}{2}\int u^{10}\odif{(x^2 + 1)}
+	\end{equation}
+	Since $u = x^2 + 1$, our integral simplifies to
+	\begin{equation}
+		\frac{1}{2}\int u^{10}\odif{u}.
+	\end{equation}
+	Using the reversed power rule (\cref{eq:power_rule}), we get
+	\begin{equation}
+		\frac{1}{2}\frac{u^{11}}{11} = \frac{u^{11}}{22} = \frac{(x^2 + 1)^{11}}{22} + C.
+	\end{equation}
+\end{exmp}
+
+\begin{exmp}{$\int x^2\e^{4x^3 + 4}\odif{x}$}{u-substitution-3}
+	The integrand is a composite function: $f(u) = \e^u$ and $u = 4x^3 + 4$. In which, $\odv{u}{x} = 12x^2$; therefore,
+	\begin{align}
+		\int x^2\e^{4x^3 + 4}\odif{x} &= \frac{1}{12}\int\e^u 12x^2 \odif{x} \\
+										&= \frac{1}{8}\int\e^u\odv{u}{x}\odif{x} \\
+										&= \frac{1}{8}\int\e^u\odif{u} = \frac{1}{8}\e^u \\
+										&= \frac{1}{12}\e^{4x^3 + 4} + C.
+	\end{align}
+\end{exmp}
+
+Notice any patterns? If the integral has a polynomial $u$ with degree $n$ nested inside another function, there must be a term outside with the degree $n - 1$ to substitute with. In \cref{exmp:u-substitution-1}, $u = x^2 + 1$ and there's an $x$ multiplied outside waiting to be substituted. In \cref{exmp:u-substitution-3}, $u = 4x^3 + 4$, and there's an $x^2$ outside. This pattern is a consequence of the power rule, and is pretty common. So, here are some practice problems with answers and hints on the right.\footnote{Practice problems taken from \cite{foster-no-date}.} Try not to look at it much.
+
+\begin{enumerate}
+	\item $\int 3x^2\sqrt{x^3 + 5}\odif{x}$ \hfill $\frac{2}{3}(x^3 + 5)^{\frac{3}{2}} + C$, $u = x^3 + 5$
+	\item $\int \sqrt{4 + 3x}\odif{x}$ \hfill $\frac{2}{9}(3x + 4)^{\frac{3}{2}} + C$, $u = 4 + 3x$
+	\item $\int \frac{24x}{(4x^2 + 4)^2}\odif{x}$ \hfill $\frac{3}{4x^2 + 4} + C$, $u = 4x^2 + 4$
+\end{enumerate}
+
+Now let's move on from polynomials to other functions that are nested inside another function. For the substitution to work, there must be the function's derivative multiplied, waiting to be substituted. A classic example is:
+\begin{exmp}{$\int \frac{\ln(x)}{x}\odif{x}$}{u-substitution-3}
+	This integral is not quite a composite function, but rather just a product between a function and its derivative. If $u = \ln(x)$, then $\odv{u}{x} = \frac{1}{x}$; therefore,
+	\begin{align}
+		\int \frac{\ln(x)}{x}\odif{x} &= \int u\odv{u}{x}\odif{x} \\
+									  &= \int u\odif{u} \\
+									  &= \frac{u^2}{2} = \frac{\ln(x)^2}{2} + C.
+	\end{align}
+\end{exmp}
+
+\begin{exmp}{$\int x\e^{x^2}(\e^{x^2} + 3)\odif{x}$}{u-substitution-4}
+	Let $\e^{x^2} + 3 = u$, then
+	\begin{align}
+		\odv{u}{x} &= \odv{\e^{x^2} + 3}{x} \\
+				   &= \odv{\e^{x^2}}{x} \\
+				   \intertext{Let $x^2 = v$, then by the chain rule,}
+				   &= \odv{\e^v}{x} \cdot \odv{v}{v} \\
+				   &= \odv{\e^v}{v} \cdot \odv{x^2}{x} \\
+				   &= 2x\e^v = 2x\e^{x^2}.
+	\end{align}
+	Thus,
+	\begin{align}
+		\int x\e^{x^2}(\e^{x^2} + 3)\odif{x} &= \frac{1}{2}\int u\ab(2x\e^{x^2})\odif{x} \\
+											 &= \frac{1}{2}\int u\odv{u}{x}\odif{x} = \frac{1}{2}\int u\odif{u} \\
+											 &= \frac{1}{2}\frac{u^2}{2} = \frac{(\e^{x^2} + 3)^2}{4} + C.
+	\end{align}
+\end{exmp}
+
+Sometimes, they need some \emph{creative} algebraic manipulations, and sometimes even multiple substitution. E.g.,\footnote{Taken from MIT Integration Bee 2019, $I_9$ \cite{alkousa-2023}}
+\begin{exmp}{$\frac{1}{x(x^5 + 1)}\odif{x}$}{u-substitution-5}
+	If we want to use power rule substitution, there's only $x^5$ but no $x^4$ to substitute with. So, we need to get a bit creative.
+
+	First, factor the $x^5$ out of the inner parenthesis and get
+	\begin{equation}
+		\int\frac{1}{x^6\ab(1 + \frac{1}{x^5})}\odif{x}.
+	\end{equation}
+	Now, we can let $u = 1 + \frac{1}{x^5}$. By the power rule, $\odv{u}{x} = -\frac{5}{x^6}$. Our integral then becomes
+	\begin{align}
+		-5\int\frac{1}{u}\ab(-\frac{5}{x^6})\odif{x} &= -\frac{1}{5}\int\frac{1}{u}\odv{u}{x}\odif{x} \\
+													 &= -\frac{1}{5}\int\frac{1}{u}\odif{u} = -5\ln(x) \\
+													 &= -\frac{1}{5}\ln\ab(1 + \frac{1}{x^5}) + C
+	\end{align}
+\end{exmp}
+
+In certain problems, there aren't any outside terms to substitute with, so you have to create them. E.g.,
+\begin{exmp}{$\int\ab(1 + \sqrt{x})^4\odif{x}$}{}
+	We want to get rid of the term inside the parenthesis. So, let $u = 1 + \sqrt{x}$, and by the power rule, $\odv{u}{x} = \frac{1}{2\sqrt{x}}$. However, there is no $\frac{1}{\sqrt{x}}$ outside to substitute with. Let's be adventurous and substitute $u$ in anyways and see what happens.
+	\begin{align}
+		\int(1 + \sqrt{x})^4\odif{x} &= \int u^4\odif{x}
+		\intertext{If $\odv{u}{x} = \frac{1}{2\sqrt{x}}$, then $\odif{x} = 2\sqrt{x}\odif{u}$,}
+									 &= \int u^4\ab(2\sqrt{x})\odif{u}.
+	\end{align}
+	We're almost there, now we just have to replace the leftover $x$ with $u$. Since $u = 1 + \sqrt{x}$, $\sqrt{x} = u - 1$; thus,
+	\begin{align}
+		\int u^4\ab(2\sqrt{x})\odif{u} &= 2\int u^4(u - 1)\odif{u} \\
+									   &= 2\int u^5 - u^4\odif{u} = 2\ab(\frac{u^6}{6} - \frac{u^5}{5}) \\
+									   &= 2\ab(\frac{(1 + \sqrt{x})^6}{6} - \frac{(1 + \sqrt{x})^5}{5}).
+	\end{align}
+\end{exmp}
+
+These problems definitely take a while to get used to. So I highly encourage you to practice integrating using a problem set (\cite{alkousa-2023}, \cite{foster-no-date}). The unfortunate thing is that most problem sets include trigonometry. So, you'd have to pick the one without them to practice with. Or, you can just wait until we discuss about trigonometry and then practice from there.
+
+\section{Integral of the reciprocal}
 \label{sec:integralofthereciprocal}
 
 \index{integrals!integrals of the reciprocal}
-\begin{wrapfigure}{r}{0.45\textwidth}
-    \centering
-    \begin{tabular}{c | c}
-        Function & Antiderivative \\
-        \hline
-        $x^{-3}$ & $-\flatfrac{x^{-2}}{2}$ \\
-        $x^{-2}$ & $x^{-1}$ \\
-        $x^{-1}$ or $\flatfrac{1}{x}$ & $\ln(x)$ \\
-        $x^{0}$ or $1$ & $x$ \\
-        $x^1$ & $\flatfrac{x^2}{2}$ \\
-    \end{tabular}
-    \caption{Tables of reversed power rule from $x^{-3}$ to $x^1$}
-\end{wrapfigure}
+% \begin{wrapfigure}{r}{0.45\textwidth}
+%     \centering
+%     \begin{tabular}{c | c}
+%         Function & Antiderivative \\
+%         \hline
+%         $x^{-3}$ & $-\flatfrac{x^{-2}}{2}$ \\
+%         $x^{-2}$ & $x^{-1}$ \\
+%         $x^{-1}$ or $\flatfrac{1}{x}$ & $\ln(x)$ \\
+%         $x^{0}$ or $1$ & $x$ \\
+%         $x^1$ & $\flatfrac{x^2}{2}$ \\
+%     \end{tabular}
+%     \caption{Tables of reversed power rule from $x^{-3}$ to $x^1$}
+% \end{wrapfigure}
 By the fundamental theorem of calculus (\cref{theorem:fundamentalthmofcalc1}), the antiderivative of $\frac{1}{x}$ is $\ln(x)$. You might believe this, and it's not wrong. But I find it very disturbing and unresolved. It's like taking the result and pointing it back to the origin. It doesn't really make sense. So from this dissatisfaction, I spent a night coming up with a way to derive this using just the reversed power rule. Enjoy the transformation!
 \begin{align}
 	\int \frac{1}{x}\odif{x} &= \int\lim_{h \appr 0}\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right)\odif{x} \nonumber\\
@@ -642,7 +766,7 @@ completing the proof.
     \item $\odv*{\ab(af(x) + bg(x))}{x} = a\odv{f(x)}{x} + b\odv{g(x)}{x}$ (Linearity of differentiation)
     \item $\odv*{(ax^n)}{x} = anx^{n - 1}$ (Power rule)
     \item $\odv*{(n^x)}{x} = n^x\ln(n)$, $\odv{(\e^x)}{x} = \e^x$ (Derivative of exponentials)
-    \item $\odv*{(\ln(x))}{x} = \frac{1}{x}$ (Derivative of natural logarithms)
+    \item $\odv*{\ab(\ln(x))}{x} = \frac{1}{x}$ (Derivative of natural logarithms)
 	\item $\odv*{\ab(f_1(x)f_2(x))}{x} = f_1(x)\odv{f_2}{x} + f_2(x)\odv{f_1}{x}$ (Product rule for two functions)
 	\item $\odv*{(f_1f_2\dots f_n)}{x} = f_1f_2\dots f_n\ab(\frac{1}{f_1}\odv{f_1}{x} + \frac{1}{f_2}\odv{f_2}{x} + \dots + \frac{1}{f_n}\odv{f_n}{x})$ (Generalized product rule)
 \end{enumerate}
@@ -654,14 +778,15 @@ completing the proof.
     \item $\int af(x) + bg(x) \odif{x} = a\int f(x)\odif{x} + b\int g(x)\odif{x}$ (Linearity of integration)
     \item $n \neq -1$, $\int ax^n\odif{x} = a\frac{x^{n + 1}}{n + 1} + C$ (Reversed power rule)
     \item $\int n^x\odif{x} = \frac{1}{\ln(n)}n^x + C$, $\int \e^x\odif{x} = \e^x + C$ (Antiderative of exponentials)
-    \item $\int \frac{1}{x}\odif{x} = \ln(x) + C$ (Antiderivative of natural logarithms)
+    \item $\int \frac{1}{x}\odif{x} = \ln(x) + C$ (Antiderivative of the reciprocal)
+	\item $\int f(g(x))\odv{g}{x}\odif{x} = \int f(u)\odif{u}; u = g(x)$ ($u$-Substitution)
 \end{enumerate}
 
 \subsection{Definition for various functions and constants}
 
 \begin{enumerate}
-	\item $\e^x = \lim_{k \appr 0}\sum_{i \appr 0}^{k}\frac{1}{i!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots$
-	\item $\e = \lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n$, and $\e = \sum_{i = 0}^{\infty}\frac{1}{i!} = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \dots$
+	\item $\e^x = \lim_{k \appr 0}\sum_{i \appr 0}^{k}\frac{1}{i!} = 1 + \frac{x^1}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots = \lim_{n \appr \infty}\ab(1 + \frac{x}{n})^n$
+	\item $\e = \sum_{i = 0}^{\infty}\frac{1}{i!} = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \dots = \lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n$
     \item $\ln(x) = \lim_{n \appr 0}\left(\frac{x^h - 1}{h}\right)$
 \end{enumerate}
 
