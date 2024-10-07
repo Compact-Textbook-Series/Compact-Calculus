@@ -21,8 +21,52 @@ can be evaluated by completing the squares:
 
 \subsection{Denominator quadratics under radicals}
 
+\section{Mathematical interlude: trigonometric substitution}
+
+The trigonometric substitution technique earlier works for all the Pythagorean identity. The most used ones being
+\begin{equation*}
+	1 - \cos^2\theta = \sin^2\theta, \quad 1 + \tan^2\theta = \sec^2\theta \mathand 1 - \sec^2\theta = \tan^2\theta.
+\end{equation*}
+They're used to take terms outside the square root, whether it'd be $\sqrt{a^2 - x^2}$, $\sqrt{a^2 + x^2}$, or $\sqrt{x^2 - a^2}$. Now let's go through these one by one.
+
+\paragraph{Integrals with $\sqrt{a^2 - x^2}$:} Let $x = a\sin\theta$; therefore, $\theta = \arcsin\ab(\frac{x}{a})$, and
+\begin{equation}
+	\sqrt{a^2 - x^2} = a\sqrt{1 - \sin^2\theta} = a\sqrt{\cos^2\theta} = a\cos\theta.
+\end{equation}
+The differential element $\odif{x}$ transforms into
+\begin{align}
+	\odv{x}{\theta} &= \odv*{\ab(a\sin\theta)}{\theta} \\
+	\odif{x} &= a\cos\theta\odif{\theta}.
+\end{align}
+\begin{exmp}{$\int\frac{\sqrt{4 - x^2}}{x^2}\odif{x}$}{}
+	This integral has a square root of the form $\sqrt{a^2 - x^2}$ where $a = 2$; thus, substitute in $x = 2\sin\theta$. Then,
+	\begin{align}
+		\odv{x}{\theta} &= \odv*{\ab(2\sin\theta)}{\theta} \\
+		\odif{x} &= 2\cos\theta\odif{\theta}
+	\end{align}
+	The integral then becomes
+	\begin{align}
+	\int\frac{\sqrt{4 - 4\cos^2\theta}}{4\sin^2\theta}2\cos\theta\odif{\theta} &= \int \frac{2\sqrt{1 - \cos^2\theta}}{4\sin^2\theta}2\cos\theta\odif{\theta} \\
+	&= \int\frac{2\sin^2\theta}{4\sin^2\theta}{2\cos\theta}\odif{\theta} \\
+	&= \int\cos\theta\odif{\theta} = \sin\theta
+	\end{align}
+	Since $x = 2\sin\theta$, $\sin\theta = \frac{x}{2}$, our integral evaluates to $\frac{x}{2} + C$.
+\end{exmp}
+
+\paragraph{Integrals with $\sqrt{a^2 + x^2}$:} Let $x = a\tan\theta$; therefore, $\theta = \arctan\ab(\frac{x}{a})$, and
+\begin{equation}
+	\sqrt{a^2 + x^2} = a\sqrt{1 + \tan^2\theta} = a\sqrt{\sec^2\theta} = a\sec\theta.
+\end{equation}
+By \cref{tab:derivative_trigonometric_functions}, the differential element $\odif{x}$ transforms into
+\begin{align}
+	\odv{x}{\theta} &= \odv*{\ab(a\sec\theta)}{\theta} \\
+	\odif{x} &= a\sec\theta\tan\theta.
+\end{align}
+
 \subsection{Feynman's trick for integration}
 
 Formerly known as Leibniz's rule\index{Leibniz's integral rule} but popularized by Richard Feynman, is a very powerful integral technique that allows you to differentiate the function in the integral sign. Sadly, it only works for definite integrals. However, it's still a very nice trick to have just in case.
 
 The idea is: integrals and derivatives can be swapped in 
+
+\section{Integrals of other trigonometric functions}

@@ -1,25 +1,7 @@
-\chapter{Merging calculus and physical systems}
-\label{sec:significanceofcalculus}
+\chapter{Merging calculus and dynamical systems}
+\label{sec:calculus-and-physical-systems}
 
-\begin{abstract}
-    I've massively restructured the contents of this chapter from the normal calculus textbook. Earlier in \cref{sec:basicdifferentialequations}, we see that calculus have much significance in kinematics. We'll be discussing about that later in \cref{sec:ode1}; however, I put a few of the worked out kinematics problems in the beginning of this chapter. After that, we'll be applying calculus in various other problems. Including
-    \begin{enumerate}[noitemsep]
-        \item Higher dimensional quantities: area and volumes
-        \item Optimization
-        \item Root finding algorithm
-    \end{enumerate}
-
-    Also, I will mention various techniques of integration needed along the way. Mainly, substitution of variables.
-
-    \prerequisites{Basic derivatives and integrals (\cref{sec:basicderivativesandintegrals}), free body diagram writing}
-\end{abstract}
-
-\section{Newton's fluxion notation}
-\label{sec:newtons_fluxion_notation}
-
-Before moving to further examples in kinematics, I'd like to introduce another notation called the \textbf{Newton's fluxion notation}\index{notation for derivatives!Newton's fluxion notation} or, the \textbf{dot notation}\index{dot notation|see {notation for derivatives}}. \emph{This notation is used only when the derivative is took w.r.t. time}. It places a dot over the variables, e.g., the first derivative of position $r$ w.r.t. time is $\dot{x}$.
-
-Higher derivatives notation is written with more dots, e.g., the second derivative of position $r$ w.r.t. is $\dot{r}$. The third derivative is $\dot{r}$, forth derivative, $\dot{r}$ and so on.
+As said earlier, with the merge of calculus and trigonometry, all the cards are on the deck. This is all the calculus knowledge there is from here to the nineteenth-century.
 
 \section{Further examples of calculus in physics and kinematics}
 
@@ -267,59 +249,6 @@ Unfortunately, this integral is very hard to solve. But it is possible, and the 
 \end{equation*}
 which is quite a nightmare, but we will get back to this in the far far future.
 
-\subsection{One-dimensional simple harmonic motion}
-
-A harmonic oscillator is described by an object that's under a force $F(x) = -kx$, which is a function of position. Here, we can use Newton's second law straightaway:
-\begin{align}
-	m\odv*{\ab(\odv{x}{t})}{t} &= -kx \\
-	\odv*{(\ab\odv{x}{t})}{t} &= -\frac{k}{m}x. \label{eq:simpleharmonicmotion1}
-\end{align}
-
-There are actually three ways of approaching this, which I shall get you through all three.
-
-\subsubsection{Ansatz method of solving differential equations}
-
-The first one is called the \emph{ansatz}\index{ansatz} method, which is commonly taught in the MIT university. Ansatz means to make assumptions; this method assumes the solution of the differential equation then finalize it later. In this case, you have to ask yourself what function when differentiated twice w.r.t. time gives the function itself times a constant? Well, there are two functions which satisfies this: $\sin(t)$ and $\cos(t)$.
-
-Notice that this differential equation is \emph{linear}. That means, if $f(t)$ is a solution, and $g(t)$ is a solution, then $f(x) + g(x)$ is also a solution. Therefore, our ansatz might look something like $\sin(t) + \cos(t)$. Our ansatz when differentiated twice must have a constant times itself. A pretty general ansatz that one might think of is $A\sin(\omega t) + B\cos(\omega t)$.
-
-There's a reason why I used $\omega$ as a variable. $\omega$ suggests the angular speed of the $\sin(t)$ and $\cos(t)$. It will be evident later why it's the angular speed.
-
-Now, with the ansatz in place, it's time to find $A$, $B$, and $\omega$. We can do that by just substituting the ansatz into \cref{eq:simpleharmonicmotion1}:
-\begin{equation*}
-    \odv{t}(\odv{t}(A\sin(\omega t) + B\cos(\omega t))) = -\frac{k}{m}\left(A\sin(\omega t) + B\cos(\omega t)\right).
-\end{equation*}
-We can then use the chain rule to the L.H.S. It's left as an exercise to the reader to verify that this is true.
-\begin{align*}
-    -A\omega^2\sin(\omega t) -B\omega^2\cos(\omega t) &= -\frac{k}{m}A\sin(\omega t) -\frac{k}{m}B\sin(\omega t) \\
-    A\omega^2\sin(\omega t) + B\omega^2\cos(\omega t) &= \frac{k}{m}A\sin(\omega t) + \frac{k}{m}B\sin(\omega t).
-\end{align*}
-Here, we can match the coefficient and separate our equation into two parts:
-\begin{gather*}
-    A\omega^2\sin(\omega t) = \frac{k}{m}A\sin(\omega t), \\
-    B\omega^2\cos(\omega t) = \frac{k}{m}B\cos(\omega t).
-\end{gather*}
-Both equations say that $(\flatfrac{k}{m})^{\flatfrac{1}{2}}$ must be equal to $\omega$. However, notice that both equations does not say anything about $A$, or $B$. That is simply because we can choose $A$ and $B$ ourselves; it's a free parameter. Our final solution is then
-\begin{equation*}
-    x(t) = A\sin\ab(\sqrt{\frac{k}{m}}t) + B\cos\ab(\sqrt{\frac{k}{m}}t).
-\end{equation*}
-
-\subsubsection{The series expansion method}
-
-\subsection{Harmonic motion in two-dimensions: the pendulum}
-
-\subsubsection{The repeated integration method}
-
 \subsection{Damped harmonic motion}
 
 \section{Conservation laws}
-
-\section{Volumes of solids}
-
-\section{Optimization problems}
-
-\section{Principle of least action}
-
-\section{Tangent to a curve}
-
-\section{Newton's root finding algorithm}

@@ -3,9 +3,18 @@
 
 \prerequisites{graphs, functions, kinematic variables}
 
-\section{Invitation to calculus from a physics practitioner}
+\section{Invitation to calculus from a practitioner}
 
-I might've made a lot of mathematicians angry by writing this textbook. For me, calculus is a way to describe a physical system by mathematical equations. Physics is all about how a physical quantity changes with time, whether it be how things move or disperses. We then solve these equations to determine the future of a system. In this chapter, we're going to focus on how we can mathematically describe a system, and we'll see how the attempt naturally give rise to \emph{derivatives}: a mathematical measure of rate of change.
+Calculus is the language of change, whether it's changes in weather patterns, movement of an object, evolution of biological systems, or even changes in your relationship! Although the last one might be diabolical to think about for some of you, calculus provides a mathematical framework to describe and predict these systems. Therefore, I've structured this volume around the concept of dynamical systems: systems that evolve through time, whether they are biological, chemical, or physical.
+
+As said in the preface, I have thrown most unrelated contents into the appendices. But as much as I'd love to do, some purely mathematical contents are still essential for understanding and solving dynamical systems. While I've kept those in had to keep those in, I've tried to make them as brief as possible.
+
+The problem of dynamical systems are separated into two parts:
+\begin{enumerate}[noitemsep]
+	\item Describing the system, and
+	\item Solving for the system's future.
+\end{enumerate}
+Calculus is also separated into two parts: differential and integral. These parts nicely lines up with our problem of describing a dynamical system. Differential calculus uses differential equations to describe a system; those equations are then solved using integral calculus to predict the system's future. Therefore, this chapter is devoted to the first part of calculus: differential calculus.
 
 At the end, you should develop the intuition that
 \begin{enumerate}[noitemsep]
@@ -24,7 +33,9 @@ We can also find ratio between infinitesimal. E.g., the ratio between some small
 \section{Speed and instantaneous rate of change}
 \label{sec:speedandinstantaneousrateofchange}
 
-To set things off, let's think about how a \textbf{speedometer} work. If we're traveling at a speed $\qty{5}{\meter\per\second}$, when \emph{exactly} are we traveling at $\qty{5}{\meter\per\second}$? You could say $\vv{v} = \qty{5}{\meter}$ \emph{at the moment of measurement}. That's like saying, \enquote{Oh, I can find the speed of the car by just taking a picture of it.} But that's illegal! To calculate speed, we have to compare two points in space through time. Or, the rate of change of distance through time:
+Our first dynamical system that I'd like to discuss is the car. Car moves, and the \textbf{speedometer} displays its speed: a change of position through time. How does the speedometer actually work?
+
+If we're traveling at a speed $\qty{5}{\meter\per\second}$, when \emph{exactly} are we traveling at $\qty{5}{\meter\per\second}$? You could say $\vv{v} = \qty{5}{\meter}$ \emph{at the moment of measurement}. That's like saying, \enquote{Oh, I can find the speed of the car by just taking a picture of it.} But that's illegal! To calculate speed, we have to compare two points in space through time. Or, the rate of change of distance through time:
 \begin{equation}
     \vv{v} = \frac{\vv{s}_2 - \vv{s}_1}{t_2 - t_1}.
 \end{equation}
@@ -130,6 +141,9 @@ Now, try evaluating $\vv{v}(t = \qty{3}{\second})$ for $\vv{x}(t) = t^3$. You sh
 
 \section{Higher order derivatives}
 
+\index{derivatives!higher order}
+In kinematics, there are a whole set of quantities that can describe an object's trajectory, e.g., the acceleration, which is defined to be the rate of change of velocity w.r.t. time:
+
 \begin{wraptable}[14]{l}{0.36\textwidth}
     \begin{tabular}{c | c}
         Order & Name \\
@@ -144,8 +158,6 @@ Now, try evaluating $\vv{v}(t = \qty{3}{\second})$ for $\vv{x}(t) = t^3$. You sh
     \caption{Higher order derivatives of position w.r.t. time}
     \label{tab:jerksnapcracklepop}
 \end{wraptable}
-\index{derivatives!higher order}
-In kinematics, there are a whole set of quantities that can describe an object's trajectory, e.g., the acceleration, which is defined to be the rate of change of velocity w.r.t. time:
 \begin{equation*}
     \vv{a}(t) = \odv{\vv{v}(t)}{t}.
 \end{equation*}
@@ -160,19 +172,19 @@ The $\odif[ord = 2]{\vv{r}}$ and $\odif{t}^2$ is just a matter of symbolic manip
 \section{Expressing nature: basic differential equations}
 \label{sec:basicdifferentialequations}
 
-The dynamics of a physical system is universally described by the famous Newton's second law $\vv{F} = m\vv{a}(t)$, which in derivatives form becomes:
-\begin{equation}
-    \vv{F} = m\odv[ord = 2]{\vv{r}(t)}{t}. \label{eq:newton_second_law}
-\end{equation}
-\begin{wrapfigure}[11]{r}{0.4\textwidth}
+\begin{wrapfigure}[14]{r}{0.4\textwidth}
     \centering
     \includegraphics{derivatives/simplemotion}
     \caption{A ball dropped from height $h$}
     \label{fig:ball_dropped_from_a_height}
 \end{wrapfigure}
+The dynamics of a physical system is universally described by the famous Newton's second law $\vv{F} = m\vv{a}(t)$, which in derivatives form becomes:
+\begin{equation}
+    \vv{F} = m\odv[ord = 2]{\vv{r}(t)}{t}. \label{eq:newton_second_law}
+\end{equation}
 Let's try to describe a simple system with this. In \cref{fig:ball_dropped_from_a_height}, a ball is dropped from height $h$. The Earth's gravity pulls the ball with force $mg$ where $m$ is the mass of the ball, and $\vv{g}$, the acceleration from Earth's gravity. Newton's second law tells us that
 \begin{align}
-    \vv{F} &= m\odv[ord = 2]{\vv{r}(t)}{t} \nonumber\\
+    \vv{F} &= m\odv[ord = 2]{\vv{r}(t)}{t} \\
     m\vv{g} = m\odv[ord = 2]{\vv{r}(t)}{t} &\quad \textrm{or,} \quad \vv{g} = \odv[ord = 2]{\vv{r}(t)}{t},
 \end{align}
 which is sometimes called the \textbf{equation of motion}, which packs every information about this system you'd ever want. It directly reads as:

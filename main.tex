@@ -170,7 +170,7 @@
 \newcommand{\mathor}{\quad\textrm{or,}\quad}
 \newcommand{\mathif}{\quad\textrm{if}\quad}
 \newcommand{\mathiff}{\quad\textrm{\emph{iff}}\quad}
-\newcommand{\maththerefore}{\therefore\emquad}
+\newcommand{\maththerefore}{\emquad\textrm{\emph{therefore,}}\emquad}
 \newcommand{\ifft}{\emph{iff}}
 % Notational commands
 \newcommand{\flatfrac}[2]{#1\fracslash#2}
@@ -202,14 +202,20 @@
 
 \begin{document}
 
+% \thispagestyle{empty}
+% \includepdf{coverpage.pdf}
+
 \thispagestyle{empty}
-\includepdf{coverpage.pdf}
+\title{Compact Calculus - Calculus for the practitioners}
+\author{Puripat Thumbanthu, Kunakorn Chaiyara}
+\date{Started: 07/28/2022 \\Revision: \today}
+\maketitle
 
 \frontmatter
 
 \prerequisites{set theory, algebra, geometry, basic trigonometry}
 
-\tableofcontents
+\tableofcontents*
 
 \include{frontmatter/preface}
 \include{frontmatter/acknowledgement}
@@ -217,18 +223,18 @@
 
 \mainmatter
 
-\part{The foundations}
+\part{The foundation of calculus: differential equations.}
 
 \include{chapters/historyofcalculus}
 \include{chapters/derivatives}
 \include{chapters/integrals}
 \include{chapters/basicderivativesandintegrals}
 \include{chapters/calculusandgeometry}
-\include{chapters/basiccalculusandtrigonometry}
-\include{chapters/geometricalsignificance}
+\include{chapters/calculusandtrigonometry}
+\include{chapters/calculusandphysicalsystems}
 % \include{chapters/series}
 
-\part{More advanced topics}
+\part{Signal analysis}
 
 % \include{chapters/techniquesofintegration}
 % \include{chapters/advancedtechniquesofintegration}

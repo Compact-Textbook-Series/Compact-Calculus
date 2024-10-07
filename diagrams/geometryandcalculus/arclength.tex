@@ -1,0 +1,24 @@
+% !TEX Program = xelatex
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usepackage{concmath-otf}
+\usetikzlibrary{calc, angles, quotes, patterns}
+\usetikzlibrary{decorations.pathreplacing, decorations.pathmorphing, calligraphy}
+
+\usepackage{derivative}
+
+\begin{document}
+\begin{tikzpicture}
+	\draw[-stealth, thick] (0, 0) -- (5, 0) node[right]{$x$};
+	\draw[-stealth, thick] (0, 0) -- (0, 5) node[above]{$y$};
+
+	\draw[domain = 0:5, smooth, dashed] plot (\x, {\x*\x/5});
+	\foreach \i in {0, 1, 2, 3, 4} {
+		\draw (\i, {\i*\i/5}) -- ({\i + 1}, {(\i + 1)*(\i + 1)/5});
+		\filldraw (\i, {\i*\i/5}) circle (1pt);
+	}
+	\filldraw (5, 5) circle (1pt);
+	\draw[thick] (2, 4/5) -- node[above left]{$\odif{s}$} (3, 9/5);
+	\draw (2, 4/5) -- node[below]{$\odif{x}$} (3, 4/5) -- node[right]{$\odif{y}$} (3, 9/5);
+\end{tikzpicture}
+\end{document}

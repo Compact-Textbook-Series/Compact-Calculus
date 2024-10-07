@@ -1,4 +1,5 @@
 \chapter{A study of graphs with calculus}
+\label{sec:calculus-and-geometry}
 
 \section{Invitation: sketching mountain ranges}
 
@@ -6,7 +7,7 @@ If I told you to \emph{sketch} out $x^2$, it'd be easy, right? Just a simple par
 
 Imagine a function as a vast mountain range. When sketching this landscape, we're interested in identifying its peaks, valleys, and plateaus. A peak represents the sharp summit of a mountain, where the land falls away in all directions; a valley is a sunken area, nestled lower than the surrounding terrain; and a plateau is a level stretch, a temporary calm before the ascent resumes toward higher peaks or descends into deeper valleys. Standing at a peak, the land around you dips downward. In contrast, in a valley, everything rises above you. On a plateau, the ground is flat under your feet, but when gazed into the distance, one side raises higher, but the other reveals the path down. These important features are all characterized by a flat ground: a place with zero slope. If the mountain range represents function, then all of these points have zero first derivative.
 
-Still, the information about zero first derivative is still not enough to determine whether that point is a peak, a valley, or a plateau. The information able to classify these points are the sign of the second derivative.
+Still, the information about zero first derivative is not sufficient to determine whether the point is a peak, a valley, or a plateau. What helps classify these points is the sign of the second derivative.
 
 The second derivative suggest the concavity of a graph at that point. If the first derivative gives you the slope, the second derivative will give you the rate of change of that slope. If the second derivative is positive, it means that the function is increasing around that point; thus, that point must be a valley. If it's negative, then everything is decreasing around; thus, it's a peak. If it's zero, it's simply a plateau.
 
@@ -15,6 +16,7 @@ Just like a mountain, a function can have many points that has zero derivatives.
 In mathematics terminology, the points that have zero first derivative is called a \textbf{stationary point}: the value of the function around it is stationary. The valleys are called, \textbf{local minima}; the peaks, \textbf{local maxima}, and the plateau, \textbf{inflection point}. The word \emph{local} suggests that locally, these are either the maximum or minimum point, but it might not be globally. Like how you can stand on your house and say that \enquote{this is the highest point of my house,} but you're still not higher than mount everest. We call the global maximum or minimum point, the \textbf{absolute maximum} and \textbf{absolute minimum}. \index{local minima}\index{local maxima}\index{absolute maximum}\index{absolute minimum}
 
 \section{Minima and maxima}
+\label{sec:minima-and-maxima}
 
 This section focuses on finding the minima and maxima of functions and sketching it. These methods are applicable for all kinds of function, but we'll only study the important ones: quadratics and cubics.
 
@@ -268,37 +270,6 @@ If $a^2 + b^2 - ab = 0$, there's only one stationary point at $x_0 = \frac{a + b
 \end{equation}
 The full solution is left out due to arithmetical tediousness. It'd be better if you just plug in the numbers.
 
-\section{Behaviors at infinity: asymptotes and rational functions}
-
-Polynomials are very well behaved, in a sense that if $f(x)$ is a polynomial, the only way that $f(x) \appr \infty\infty$, is that $x \appr \pm\infty$. However, there are other family of functions which can have infinities anywhere that it likes: the \textbf{rational functions}.\index{rational functions}
-
-A rational function $F(x)$ is a function that can be written as a ratio of two polynomials:
-\begin{equation}
-	F(x) = \frac{P(x)}{Q(x)} = \frac{p_0 + p_1x^1 + \dots + p_nx^n}{q_0 + q_1x^1 + \dots + q_mx^m}.
-\end{equation}
-By the fundamental theorem of algebra, we can always factor these polynomials into
-\begin{equation}
-	\begin{multlined}
-		P(x) = (x - P_0)(x - P_1)\dots(x - P_n), \\
-		Q(x) = (x - Q_0)(x - Q_1)\dots(x - Q_n),
-	\end{multlined}
-\end{equation}
-where $P_0, \dots, P_n, Q_1, \dots, Q_n$ are components of the complex plane; thus,
-\begin{equation}
-	F(x) = \frac{(x - P_0)(x - P_1)\dots(x - P_n)}{(x - Q_0)(x - Q_1)\dots(x - Q_n)}.
-\end{equation}
-When $x$ approaches any of the $Q$'s in the denominator, $Q(x) \appr 0$, and thus $F(x) \appr \infty$ there. The point $x = Q_1, Q_2, \dots, Q_n$ are called the \textbf{singularities} of $F(x)$.
-
-For example, the function $F(x) = \frac{1}{x}$, sketched in \cref{fig:reciprocal-function} explodes to $\pm\infty$ at $x \appr 0$, but gradually decreases to $0$ when $x \appr \pm\infty$. To study these functions, we have to define a line called the \textbf{asymptote}.
-\begin{figure}[ht]
-	\centering
-	\includegraphics{geometryandcalculus/reciprocal-function.pdf}
-	\caption{Graph of $\frac{1}{x}$}
-	\label{fig:reciprocal-function}
-\end{figure}
-
-An \textbf{asymptote} is a line that the graph of a function approaches but never intersect. E.g., the function $F(x) = \frac{1}{x}$ has two asymptotes: the line that runs through the $x$ axes, and the line that runs through the $y$-axis. Generally, an asymptote could be horizontal, vertical, or even slanted.
-
 \section{Tangent to a curve}
 
 In this section, I'll show you how to find a line that's tangent to a curve. But to do it the traditional way would be a bit boring, as it's quite dry and actually doesn't help us with graph sketching at all. So, I shall introduce it via the Newton-Raphson's root finding algorithm; as it's an algorithm that directly takes advantage of the line tangent to a function, and it shows up in many places. So much so that it exists inside the core of the fast square root algorithm which is implemented in every computer.
@@ -368,9 +339,9 @@ which is closer to $1.41$ than our first guess. Next,
 \end{align}
 which is off by just a $0.2\%$ error. By the forth iteration, we get $1.414215\dots$, which is off by a mere $0.0002\%$. And we can stop here.
 
-\subsection{Numerical version of the Newton-Raphson algorithm}
+\subsection{Numerical version of the Newton-Raphson method}
 
-For a function that doesn't have a derivative, or you're just too lazy to explicitly find the derivative, you can turn the Newton-Raphson method into a purely numerical algorithm. By using the method of increments in \cref{eq:newton-raphson-method},
+For a function that you can't find a derivative, or you're just too lazy to explicitly find the derivative, you can turn the Newton-Raphson method into a numerical method via the definition of derivative\cref{eq:newton-raphson-method}.
 \begin{align}
 	x_{n + 1} &= x_n - \frac{f(x_n)}{\lim_{h \appr 0}\frac{f(x_n + h) - f(x_n)}{h}} \\
 			  &= x_n - \lim_{h \appr 0}\frac{f(x_n)h}{f(x_n + h) - f(x_n)}.
@@ -381,7 +352,6 @@ Computationally, we can set $h$ to any arbitrarily small values: $0.01$ for exam
 import matplotlib.pyplot as plt
 import math
 
-
 def f(x):  # Insert function here
     return x**3 - 2 * x + 1
 
@@ -389,8 +359,6 @@ iterationCount = 10  # Amount of iteration
 firstGuess = -2  # First guess
 derivativeStep = 0.01  # For calculating the method of increments
 approximationList = [float(firstGuess)]  # List of approximations
-
-
 for i in range(iterationCount):
     diff = (
         f(approximationList[i] + derivativeStep) - f(approximationList[i])
@@ -426,3 +394,30 @@ The normal line equation can then be formed by translating the line with slope $
 \begin{equation}
 	y - f(x_0) = -\frac{x - x_0}{\mdif{x}f(x_0)}.
 \end{equation}
+
+\section{Arc length of functions}
+
+Before we wrap off this chapter, here's a fun geometrical problem to think about. Given a function $f(x)$, what's the length of the line drawn by the function from $a$ to $b$? Illustrated in \cref{fig:arclength}, the total arc length $s$ can be subdivided into smaller arc lengths $\odif{s}$ that we can sum up. How? Integrals. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics{geometryandcalculus/arclength.pdf}
+	\caption{Arc length calculation}
+	\label{fig:arclength}
+\end{figure}
+
+The total arc length $s$ of the function $f(x)$ from $a$ to $b$ is just
+\begin{equation}
+	\int_{a}^{b}\odif{s}
+\end{equation}
+By the Pythagorean theorem $\odif{s} = \sqrt{\odif{x}^2 + \odif{y}^2}$. Can we plug this directly into the integral? Of course we can:
+\begin{equation}
+	s = \int_{x = a}^{x = b}\sqrt{\odif{x}^2 + \odif{y}^2}.
+\end{equation}
+Factorizing $\odif{x}$ out of the square root would yield an integral
+\begin{align}
+	\int_{x = a}^{x = b}\sqrt{\odif{x}^2 + \odif{y}^2} &= \int_{x = a}^{x = b}\sqrt{1 + \ab(\odv{y}{x})^2}\odif{x} \\
+													   &= \int_{x = a}^{x = b}\sqrt{1 + \ab(\odv{f(x)}{x})^2}\odif{x}.
+\end{align}
+Simply plug in the derivative of $f(x)$ and evaluate the integral, and you would get the arclength.
+
