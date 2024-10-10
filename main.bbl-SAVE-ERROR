@@ -71,33 +71,6 @@
       \field{urlyear}{2024}
       \field{urldateera}{ce}
     \endentry
-    \entry{griffiths-2023}{book}{}
-      \name{author}{1}{}{%
-        {{hash=a00328547222c4a2a201442ee59dccfd}{%
-           family={Griffiths},
-           familyi={G\bibinitperiod},
-           given={David\bibnamedelimb J.},
-           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Cambridge University Press}%
-      }
-      \strng{namehash}{a00328547222c4a2a201442ee59dccfd}
-      \strng{fullhash}{a00328547222c4a2a201442ee59dccfd}
-      \strng{bibnamehash}{a00328547222c4a2a201442ee59dccfd}
-      \strng{authorbibnamehash}{a00328547222c4a2a201442ee59dccfd}
-      \strng{authornamehash}{a00328547222c4a2a201442ee59dccfd}
-      \strng{authorfullhash}{a00328547222c4a2a201442ee59dccfd}
-      \field{sortinit}{G}
-      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{day}{2}
-      \field{month}{11}
-      \field{title}{Introduction to Electrodynamics}
-      \field{year}{2023}
-      \field{dateera}{ce}
-    \endentry
     \entry{galois-explained-2020}{video}{}
       \name{author}{1}{}{%
         {{hash=87b7d23835648729b4a5707f1c7e8fa6}{%

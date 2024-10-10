@@ -252,7 +252,7 @@ If the drop starts at one unit of volume, $V(0) = 1$; thus,
     V(4) &= 2V(3) = 2(2^3) = 2^4, \\
     &\vdots
 \end{align*}
-It's clear that the pattern is $V(t) = 2^t$: an exponential function. A natural question to ask is ``\emph{what is its rate of change?}''. Let's start by plotting the function over time (\cref{fig:exponentialgraph}). But, exponentials grow too quick to plot! By $V(7)$, we're already in the hundreds. So It'd probably be better to list the values of each point on a table.
+It's clear that the pattern is $V(t) = 2^t$: an exponential function. A natural question to ask is \enquote{\emph{what is its rate of change?}}. Let's start by plotting the function over time (\cref{fig:exponentialgraph}). But, exponentials grow too quick to plot! By $V(7)$, we're already in the hundreds. So It'd probably be better to list the values of each point on a table.
 \begin{figure}[t]
     \centering
     \includegraphics{basicderivativesandintegrals/exponentials}
@@ -261,7 +261,7 @@ It's clear that the pattern is $V(t) = 2^t$: an exponential function. A natural 
 \end{figure}
 Notice that on the right most column of \cref{tab:exponentialbase2}, the difference between $V(t)$ and $V(t - 1)$ is exactly $V(t - 1)$: the function changes as much as its past-self. So does that mean that $\odv*{(2^x)}{x} = 2^x$?
 
-Well sadly not, but close. See, \cref{tab:exponentialbase2} only shows a \emph{discrete} step. You can write it out as
+Sadly not, but it's very close. See, \cref{tab:exponentialbase2} only shows a \emph{discrete} step where $\odif{x} = 1$. You can write it out as
 \begin{equation}
     \frac{2^{x + 1} - 2^x}{1} = 2^x\left(\frac{2 - 1}{1}\right) = 2^x,
 \end{equation}
@@ -276,58 +276,71 @@ Now you could try plugging in a really small value of $h$, say $0.000001$. The t
 \end{equation}
 \emph{The rate of change of an exponential function is always itself times a proportionality constant}. For $3^x$, it's about $1.09851\dots$. If we could find a number $n$ where $\frac{n^h - 1}{h} = 0$, we'd have a very pretty function which it is its own derivative. So let's find that!
  
-\subsection{A function that is its own derivative}
+\subsection{A function that is its own derivative: Euler's number}
 \label{sec:function_equals_own_derivative}
 
-Let's set a goal: find the function that is its own derivative. I shall introduce a substantial concept in calculus: the expansion of functions. Every function has a polynomial expansion\footnote{Although the convergence of the series derived is quite questionable; thankfully, the power series of $n^x$ converges everywhere.} called the \index{power series!introduction}\textbf{power series}. For every $f(x)$,
+Let's set a goal: find the function that is its own derivative. If that function exists, it must satisfy the differential equation
 \begin{equation}
-    f(x) = a_0 + a_1x^1 + a_2x^2 + a_3x^3 +\dots. \label{eq:naivetaylorseries}
+	\odv{f(x)}{x} = f(x). \label{eq:ex-differential-equation}
 \end{equation}
-E.g., $\sin(x)$ can be written as
-\begin{equation}
-    \sin(x) = x - \frac{1}{3!}x^3 + \frac{1}{5!}x^5 - \frac{1}{7!}x^7 + \dots. \label{eq:taylorseriessine}
-\end{equation}
-we will derive this expression later in \cref{sec:sine_cosine_power_series}. For now, we can just use \cref{eq:naivetaylorseries} to find the expression for the function that is its own derivative.
+We've already seen that one possible candidate for this function is the exponential function $n^x$. But how do we find the number $n$ that satisfies it?
 
-We've seen that the exponential is a possible candidate for a function that is its own derivative. Now, assume that for some real number $n$,
+Here is a good time where I introduce a method that's used very often to solve differential equations: \textbf{power series expansion}. Most functions have a power series expansion, written as\footnote{Although the convergence of the series derived is quite questionable; thankfully, the power series of the exponential function converges everywhere.}
 \begin{equation}
-    \odv*{(n^x)}{x} = n^x.
+	f(x) = a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots.
 \end{equation}
-Then, we use the polynomial expansion and the power rule,
-\begin{align*}
-    \odv*{(a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots)}{x} &= a_1 + 2a_2x^1 + 3a_3x^2 + 4a_4x^3 + \dots \\
-    &= n^x
-\end{align*}
-If the function is its own derivative, the polynomial expansion of the function and its derivative must be the same.
-\begin{gather}
-    n^x = a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots, \label{eq:naivetaylorseries1}\\
-    n^x = a_1 + 2a_2x^1 + 3a_3x^2 + 4a_4x^3 + \dots. \label{eq:naivetaylorseries2}
-\end{gather}
-Since both are polynomials, we can match the coefficient here:
+E.g., $\sin(x)$ can be written as\footnote{If you don't believe me, wait for \cref{sec:power-series-sine-cosine}.}
+\begin{equation}
+    \sin(x) = x - \frac{1}{3!}x^3 + \frac{1}{5!}x^5 - \frac{1}{7!}x^7 + \dots.
+\end{equation}
+We can assume that the exponential function can be expanded using a power series; thus,
+\begin{equation}
+	n^x \equiv a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots.
+\end{equation}
+To find out each of the leading coefficient, just substitute the expansion into \cref{eq:ex-differential-equation} and see where mathematics would lead us.
+
+A direct substitution followed by the power rule would give
+\begin{equation}
+    \odv*{(a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots)}{x} = a_1 + 2a_2x^1 + 3a_3x^2 + 4a_4x^3 + \dots.
+\end{equation}
+By the \cref{eq:ex-differential-equation}, the R.H.S must also equals $n^x$; therefore,
+\begin{equation}
+	\begin{multlined}
+		n^x = a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots ~\textrm{and also,} \\
+		n^x = a_1 + 2a_2x^1 + 3a_3x^2 + 4a_4x^3 + \dots.
+	\end{multlined}
+\end{equation}
+Since they're equal, their leading coefficient must match, and thus forming a system of equations
 \begin{equation}
     \begin{array}{c}
     a_0 = a_1 \\ a_1 = 2a_2 \\ a_2 = 3a_3 \\ a_3 = 4a_4 \\ \vdots
     \end{array}\label{eq:naivetaylorserieserelations}
 \end{equation}
-$a_0$ and $a_1$ is relatively easy to find. As we've seen, $n$ must be between $2$ and $3$. By the properties of exponentials, $x = 0 \implies n^x = 1$. We can then plug $x = 0$ and set $n^x = 1$ into \cref{eq:naivetaylorseries2}:
+Because $n^x$ is an exponential, $n^0$ must equal one. Therefore, $x = 0$
 \begin{align*}
     1 &= a_0 + a_1(0)^1 + a_2(0)^2 + a_3(0)^3 + \dots \\
-    a_0 &= 1.
+    a_0 &= 1;
 \end{align*}
-Since $a_0 = a_1$, $a_1$ must also be $1$. We can then go back to \cref{eq:naivetaylorserieserelations} and get
+thus, by \cref{eq:naivetaylorserieserelations}, $a_1$ must also equal $1$. Substituting $a_1 = 1$ into \cref{eq:naivetaylorserieserelations} gives
+\begin{equation}
+	a_2 = \frac{1}{2},~a_3 = \frac{1}{2 \times 3},~a_4 = \frac{1}{2 \times 3 \times 4}, \dots;
+\end{equation}
+therefore,
 \begin{equation*}
     n^x = 1 + 1 + \frac{1}{2!}x + \frac{1}{3!}x^3 + \frac{1}{4!}x^4 + \dots
 \end{equation*}
-The pattern here is clearly $a_n = n!$. If we want to find $n$, we just let $x = 1$.
+Clearly, $a_n = n!$. If we want to find $n$, just let $x = 1$.
 \begin{equation*}
-    n = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \dots,
+	n = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \dots = \sum_{i = 0}^{\infty}\frac{1}{i!}
 \end{equation*}
-and there we have an expression for $n$ which is an irrational number. If you work this out, it's around $2.71828\dots$. Because $(2.71828\dots)^x$ is its own derivative, it's very useful in mathematics and appears everywhere, even at the seams of mathematics that doesn't even seems related to growths: the patterns of prime number, this constant $2.71828\dotso$ has a name and symbol: the Euler's number\footnote{Not to be confused with the ``Euler's constant'' which is another constant written $\gamma$, and is around $0.57721\dots$}, written as $\e$ where
+and there it is: the expression for $n$, which evaluates to $2.71828\dots$.\footnote{Using the continuation that $0! = 1$.}
+
+The property that the exponentiation of this number is its own derivative makes it a very important tool in mathematics. Even though it's intrinsically related to growths, it somehow manages to seek its way to places that are not even remotely related to growths: oscillations, the patterns of prime numbers, wave equations, etc. Don't worry, we shall be seeing it much later on. Because this usefulness, this constant, $2.71828\dots$ have a name: the \textbf{Euler's number}, which is written as $\e$, where\footnote{Not to be confused with the ``Euler's constant'' which is another constant written $\gamma$, and is around $0.57721\dots$}
 \begin{equation}
-    \e = \sum_{i = 0}^{\infty}\frac{1}{i!}
+	\e = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \dots = \sum_{i = 0}^{\infty}\frac{1}{i!}
 \end{equation}
 
-\subsection{\protect Another interpretation of $\e$: infinite bank interests}
+\subsection{\protect Another interpretation of the Euler's number: continuous bank interests}
 
 There are two types of bank interests: simple and compound. Simple interests is the thing that you don't really want: the interest is always the same and doesn't grow with your account. You can calculate it by using
 \begin{equation}
@@ -382,7 +395,7 @@ which is literally \cref{eq:naivetaylorserieserelations}; thus,
 
 In conclusion, the upper limit that the bank can give you is $\e$, which should make sense geometrically. Because we're gradually turning a discrete interest into a continuous one, $\e$ should appear in the limit of the continuous bank interests.
 
-The limit definition of $\e$ allows us to express $\e^x$ in terms of limits.
+The limit definition of $\e$ allows us to express the exponential function $\e^x$ in terms of limits.
 \begin{align}
 	\e^x &= \ab(\lim_{n \appr \infty}\ab(1 + \frac{1}{n})^n) \\
 		 &= \lim_{n \appr \infty}\ab(1 + \frac{1}{n})^{nx}

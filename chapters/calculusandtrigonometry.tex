@@ -21,6 +21,7 @@ Higher derivatives notation is written with more dots, e.g., the second derivati
 \section{Derivative of trigonometric functions}
 
 \subsection{Two fundamental functions: sine and cosine}
+\label{sec:power-series-sine-cosine}
 
 The derivative of sine oscillates along with the function itself. When $x = 0$, there's a $\qty{45}{\degree}$ rising slope. At $x = \frac{\cpi}{2}$, the slope flattens down to zero. Later at $x = \cpi$, the slope is going $\qty{45}{\degree}$ down, . If we plot the slope of sine at each point (shown as dots in \cref{fig:sine_cosine_relation}), it resembles a cosine curve. It might aswell be, but we'd have to mathematically prove it somehow.
 
@@ -530,55 +531,47 @@ The conclusion that $\omega$ is the angular frequencies can also be directly ded
 
 Another way $\omega$ can be interpretted is by looking at the expression of $\omega$ itself: $\sqrt{\frac{k}{m}}$. The spring stiffness constant $k$ is on the top, so it means the stiffer the spring, the higher omega is. A stiffer spring would allow the spring to pull the mass faster; thus, increasing the frequencies. The mass $m$ is on the bottom: the larger the mass, the lower the omega. That just means a more massive block is harder for the spring to move; therefore, the mass will travel slower, decreasing the frequencies.
 
-\subsection{Solution for other initial conditions. A trick with simplifying inverse trigonometric functions.}
+\subsection{Ansatz method, and solution for other differential equations}
 
-Now, let's see what happens if the initial condition is changed from $x(t = 0) = A$, and $v(t = 0) = 0$, to
+There's actually a method that I've been hiding all along. In reality, the differential equation that describes the harmonic oscillator is \enquote{\emph{too easy}} to be integrated by hand. Why integrate when you can just \emph{guess} the solution?
+
+The \textbf{ansatz method}\footnote{Borrowed from the German noun, \emph{ansetzen}, which means to estimate.} is a guessing method that's commonly taught in MIT (Massachusetts Institute of Technology). Let's go back to the harmonic oscillator differential equation
 \begin{equation}
-	x(t = 0) = X \mathand v(t = 0) = V.
+	\odv[ord = 2]{x}{t} = -\omega^2 x. 
 \end{equation}
-Since it's the same system but just under a different initial condition, the differential equation stays exactly the same
+It's asking
+\begin{displayquote}
+	What function, when differentiated twice is the negative of itself times a certain constant?
+\end{displayquote}
+This should already ring a bell that it's obviously either the cosine or sine function. Which one is it?
+
+To deal with this, notice that the differential equation is linear. That is, if $f(t)$ and $g(t)$ are solutions, then $Af(t) + Bg(t)$ where $A$ and $B$ are constants is a solution also. The proof is as follows. First, $f(t)$ and $g(t)$ are solutions mean
 \begin{equation}
-	\odv[ord = 2]{x}{t} + \omega^2x = 0,
+	\odv[ord = 2]{f(t)}{t} + \omega^2f(t) = 0 \mathand \odv[ord = 2]{g(t)}{t} + \omega^2g(t) = 0.
 \end{equation}
-where $\omega = \sqrt{\flatfrac{k}{m}}$ for the same notational reason. In a similar manner, use the chain rule on the second derivative to reduce it down to a first order differential equation:
+Thus,
 \begin{align}
-	\dot{x}\odv{\dot{x}}{x} &= -\omega^2x \\
-	\dot{x}^2 &= -\omega^2x^2 + C.
+	\odv[ord = 2]{\ab(Af(t) + Bg(t))}{t} + \omega^2\ab(Af(t) + Bg(t)) &= 0 \\
+	A\ab(\odv[ord = 2]{f(t)}{t} + \omega^2f(t)) + B\ab(\odv[ord = 2]{g(t)}{t} + \omega^2g(t)) &= 0 \\
+	0 + 0 &= 0,
 \end{align}
-To find the initial condition, set $t = 0$ and substitute $x(t = 0) = X$ and $v(t = 0) = V$.
+which is true. Since both sines and cosines represents solution of the differential equation, the actual solution could contain both of them, so we shall guess that
+\begin{equation}
+	x(t) = A\cos(\omega t) + B\sin(\omega t)
+\end{equation}
+Indeed, it does satisfy the differential equation. Using the chain rule twice,
 \begin{align}
-	V^2 &= -\omega^2(X)^2 + C \\
-	C &= \omega^2X^2 + V^2.
+	\odv[ord = 2]{x(t)}{t} &= \odv[ord = 2]*{\ab(A\cos(\omega t) + B\sin(\omega t))}{t} \\ 
+						   &= -\omega^2A\cos(\omega t) - \omega^2B\sin(\omega t) \\
+						   &= -\omega^2\ab(A\cos(\omega t) + B\sin(\omega t)) \label{eq:harmonic-oscillator-ansatz-derivative}\\
+    \odv[ord = 2]{x(t)}{t} &= -\omega^2x(t).
 \end{align}
-Since the form is quite complex, let's call this $C_1$, and substitute it in later when the differential equation is fully solved. So,
-\begin{align}
-	\dot{x}^2 &= -\omega^2x^2 + C_1 \\
-	\odv{x}{t} &= \sqrt{-\omega^2x^2 + C_1} \\
-	\int\odif{t} &= \int\frac{1}{\sqrt{C_1 - \omega^2x^2}}\odif{x} \\
-	t &= \int\frac{1}{\frac{1}{\omega}\sqrt{\ab(\flatfrac{\sqrt{C_1}}{\omega})^2 - x^2}}\odif{x} \\
-	t &= \omega\int\frac{1}{\sqrt{\ab(\flatfrac{\sqrt{C_1}}{\omega})^2 - x^2}}\odif{x}
-\end{align}
-Since $C_1$ is always positive due to its term all being squared. The same trigonometric substitution can be used to obtain
-\begin{align}
-	t = \omega\arcsin\ab(\frac{x}{\flatfrac{\sqrt{C_1}}{\omega}}) + C_2
-\end{align}
-Then, set $t = 0$, and substitute $x(t = 0) = X$ to find $C_2$.
-\begin{align}
-	0 &= \omega\arcsin\ab(\frac{\omega X}{\sqrt{C_1}}) + C_2 \\
-	C_2 &= -\omega\arcsin\ab(\frac{\omega X}{\sqrt{\omega^2X^2 + V^2}})
-\end{align}
+Similarly, this is just a guesss. To actually find what $A$ and $B$ is, we have to plug in the initial condition.
 
+Here is where it gets quite interesting: by the simplicity of this method, we are not really restricted to the initial condition that $x(t = 0) = A$ and $v(t = 0) = 0$. $v(t = 0)$ can be anything!
 
-\subsection{The ansatz method}
+To be fair, there are nothing that has restricted us, but the integration process is just too tedious to carry out. So I shall use this method to introduce you to other inital conditions instead.
 
-\section{Damped harmonic oscillator}
+\section{Trigonometric substitutions}
 
-\section{Substitution to eliminate trigonometric functions}
-
-\section{Circles and ellipses}
-
-\subsection{Perimeter}
-
-\subsection{Areas of circle. A funny way to approximate pi.}
-
-\section{Volume of revolutions}
+\section{Dynamics of love: your first system of differential equations}
