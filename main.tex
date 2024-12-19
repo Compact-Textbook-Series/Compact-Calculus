@@ -69,12 +69,12 @@
 \renewcommand{\afterpartskip}{\relax}
 \chapterstyle{veelo}
     \renewcommand*{\printchapternum}{%
-    \makebox[0pt][l]{%
-    \hspace{.8em}%
-    \resizebox{!}{\beforechapskip}%
-    {\chapnumfont \thechapter}%
-    \hspace{.8em}%
-    \rule{2\midchapskip}{\beforechapskip}%
+		\makebox[0pt][l]{%
+		\hspace{.8em}%
+		\resizebox{!}{\beforechapskip}%
+		{\chapnumfont \thechapter}%
+		\hspace{.8em}%
+		\rule{2\midchapskip}{\beforechapskip}%
     }%
 }
 
@@ -119,7 +119,7 @@
 \newtcbtheorem[auto counter, crefname = {definition}{definition}, Crefname = {Definition}{Definition}]{df}{Definition}{
     sharp corners, colback = lightgray!40, colframe = darkgray, breakable
 }{df}
-\newtcbtheorem[auto counter, number within = section]{exmp}{Example}{
+\newtcbtheorem[auto counter, number within = section, crefname = {example}{examples}, Crefname = {Example}{Examples}]{exmp}{Example}{
     colback = lightgray!40, colframe = darkgray, breakable
 }{exmp}
 \newtcbtheorem[auto counter, number within = chapter, crefname = {remarks of chapter }{remarks of chapter }, Crefname = {Remarks}{Remarks}]{remark}{Remarks on chapter }{
@@ -200,6 +200,8 @@
 \usepackage{imakeidx}
 \makeindex
 
+% \includeonly{chapters/realanalysis-sequences}
+
 \begin{document}
 
 % \thispagestyle{empty}
@@ -225,45 +227,28 @@
 
 \part{The foundation of calculus: differential equations.}
 
-\include{chapters/historyofcalculus}
 \include{chapters/derivatives}
 \include{chapters/integrals}
 \include{chapters/basicderivativesandintegrals}
 \include{chapters/calculusandgeometry}
 \include{chapters/calculusandtrigonometry}
 \include{chapters/calculusandphysicalsystems}
+\include{chapters/phasediagrams}
+\include{chapters/techniquesofintegration}
+
 % \include{chapters/series}
+%
+% \part{Analyzing differential equation}
 
-\part{Signal analysis}
+\part{The foundation, reimagined: real analysis}
 
-% \include{chapters/techniquesofintegration}
-% \include{chapters/advancedtechniquesofintegration}
-
-% \part{The applications}
-
-% \include{chapters/differentialequations1}
-% \include{chapters/multipleintegrals}
-% \include{chapters/numericalanalysis}
-% \include{chapters/signalanalysis}
-
-\part{The extensions}
-
-\include{chapters/discretecalculus}
-\include{chapters/fractionalcalculus}
-\include{chapters/quantumcalculus}
-
-\part{The fundamentals, reimagined: real analysis}
-
-\include{chapters/constructingthereals}
-
-\part{Beyond imagination: complex analysis}
-
-\include{chapters/treatmentofcomplexnumbers}
+\include{chapters/realanalysis-sequences}
 
 \appendix
 
 \include{appendices/fundamentalofphysics}
 \include{appendices/binomialexpansion}
+\include{appendices/partialfractiondecomposition}
 
 \backmatter
 

@@ -28,19 +28,19 @@ Let's start off with quadratics: a function with only one peak or valley. For an
 \end{equation}
 Its derivative can be found using the power rule (\cref{eq:power_rule}).
 \begin{align}
-	\odv*{f(x)}{x} &= \odv*{\ab(ax^2 + bx + c)}{x} \\
-				   &= 2ax + b.
+	\odv*{f(x)}{x} & = \odv*{\ab(ax^2 + bx + c)}{x} \\
+	               & = 2ax + b.
 \end{align}
 The peak or valley of $f(x)$ is at $x = x_0$ where $\odv*{f(x)}{x}_{x = x_0} = 0$. The notation $\odv*{f(x)}{x}_{x = x_0}$ tells you that this derivative needs to be evaluated at $x = x_0$. For a quadratic, this means
 \begin{align}
-	2ax_0 + b &= 0 \\
-	x_0 &= -\frac{b}{2a},
+	2ax_0 + b & = 0              \\
+	x_0       & = -\frac{b}{2a},
 \end{align}
 which matches with the usual result from traditional algebra. The $y$ value of these points can be found by plugging in $x = -\frac{b}{2a}$ into $f(x)$.
 \begin{align}
-	f\ab(-\frac{b}{2a}) &= a\ab(-\frac{b}{2a})^2 + b\ab(-\frac{b}{2a}) + c \\
-						&= \frac{b^2}{4a} - \frac{b^2}{2a} + c \\
-						&= c - \frac{3b^2}{4a} \label{eq:parabola_y_vertex}
+	f\ab(-\frac{b}{2a}) & = a\ab(-\frac{b}{2a})^2 + b\ab(-\frac{b}{2a}) + c  \\
+	                    & = \frac{b^2}{4a} - \frac{b^2}{2a} + c              \\
+	                    & = c - \frac{3b^2}{4a} \label{eq:parabola_y_vertex}
 \end{align}
 
 Other important points include the $y$ and $x$ intercept. The $y$-intercept can easily be found by setting $x = 0$:
@@ -55,9 +55,9 @@ Sadly, calculus does not offer any tools to find the exact root of an equation; 
 
 Classically, the direction that the quadratic The second derivative of a quadratic is determined by the sign of $a$. The same result can be derived from the second derivative.
 \begin{align}
-	\odv*[ord = 2]{f(x)}{x} &= \odv*{\ab(\odv{f(x)}{x})}{x} \\
-							&= \odv*{\ab(2ax + b)}{x} \\
-							&= 2a.
+	\odv*[ord = 2]{f(x)}{x} & = \odv*{\ab(\odv{f(x)}{x})}{x} \\
+	                        & = \odv*{\ab(2ax + b)}{x}       \\
+	                        & = 2a.
 \end{align}
 Since we only care about the sign, the two does not matter. This results tell us that if $a$ is positive, it's a right side up parabola, and the stationary point is a local minima. If it isn't, then it's upsidedown and the stationary point is a local maxima.
 
@@ -75,8 +75,8 @@ A parabola doesn't have any inflection point because it only occurs when the sec
 	\end{equation}
 	Factorization would also yield the same result.
 	\begin{align}
-		-2x^2 + x + 6 &= -(2x^2 - x - 6) \\
-					  &= -(x - 2)(2x + 3) \rightarrow x = 2, -\frac{3}{2}
+		-2x^2 + x + 6 & = -(2x^2 - x - 6)                                  \\
+		              & = -(x - 2)(2x + 3) \rightarrow x = 2, -\frac{3}{2}
 	\end{align}
 	Therefore, the sketched graph would be
 	\begin{figure}[H]
@@ -100,15 +100,15 @@ Cubics are third order polynomials
 \end{equation}
 It's one of the many family of function that can contain more than one stationary point. The $x$ coordinate of the stationary points can be found by using the same method as earlier.
 \begin{align}
-	\odv{f(x)}{x} &= \odv*{ax^3 + bx^2 + cx + d}{x} \\
-				  &= 3ax^2 + 2bx + c,
+	\odv{f(x)}{x} & = \odv*{ax^3 + bx^2 + cx + d}{x} \\
+	              & = 3ax^2 + 2bx + c,
 \end{align}
 in which
 \begin{align}
-	\odv{f(x)}{x}_{x = x_0} = 0 &= 3ax_0^2 + 2bx_0 + c \\
-	x_0 &= \frac{- 2b \pm \sqrt{(2b)^2 - 4(3a)(c)}}{2(3a)} \\
-		&= \frac{- 2b \pm 2\sqrt{b^2 - 3ac}}{6a} \\
-		&= \frac{- b \pm \sqrt{b^2 - 3ac}}{3a}. \label{eq:cubic_vertex_position-x}
+	\odv{f(x)}{x}_{x = x_0} = 0 & = 3ax_0^2 + 2bx_0 + c                                                     \\
+	x_0                         & = \frac{- 2b \pm \sqrt{(2b)^2 - 4(3a)(c)}}{2(3a)}                         \\
+	                            & = \frac{- 2b \pm 2\sqrt{b^2 - 3ac}}{6a}                                   \\
+	                            & = \frac{- b \pm \sqrt{b^2 - 3ac}}{3a}. \label{eq:cubic_vertex_position-x}
 \end{align}
 By the terms under the root, a cubic has no stationary point if $\frac{b^2 - 3ac}{3a} < 0$, one if $\frac{b^2 - 3ac}{3a} = 0$, and two if $\frac{b^2 - 3ac}{3a} > 0$.
 
@@ -196,8 +196,8 @@ The method of finding local maxima, minima, and inflection points are very usefu
 
 To solve this problem, we start by constructing our rectangle. Drawn in \cref{fig:optimization_rectangle_area_fixed_perimeter}, the perimeter of a rectangle is given by $2(a + b) = L$. Without loss of generality, let side $a$ has length $l$. Thus,
 \begin{align}
-	2(l + b) &= L \\
-	b &= \frac{L}{2} - l
+	2(l + b) & = L               \\
+	b        & = \frac{L}{2} - l
 \end{align}
 The area of the rectangle, which is a function of $l$, $A(l)$ is then
 \begin{equation}
@@ -209,8 +209,8 @@ Since this function is a parabola, its stationary point must be the local maxima
 \end{equation}
 Using the same argument as earlier, we want to find the point $l_0$ where $\odv*{A(l)}{l}_{l = l_0} = 0$:
 \begin{align}
-	0 &= - 2l_0 + \frac{L}{2} \\
-	l_0 &= \frac{L}{4};
+	0   & = - 2l_0 + \frac{L}{2} \\
+	l_0 & = \frac{L}{4};
 \end{align}
 thus, the maximum $A(l)$ is
 \begin{equation}
@@ -222,13 +222,13 @@ Funnily enough, the maximum area that a perimeter length $L$ can increase is als
 
 If our rectangle has sides $a$ and $b$, and one side doesn't need a fence, without loss of generality, the perimeter is $a + 2b = L$. If $a = l$, then $b = \frac{L - l}{2}$. The area of the rectangle then becomes
 \begin{equation}
-	A(l) = a \times b = l\ab(\frac{L - l}{2}) = - \frac{1}{2}l^2 + \frac{L}{2}l. 
+	A(l) = a \times b = l\ab(\frac{L - l}{2}) = - \frac{1}{2}l^2 + \frac{L}{2}l.
 \end{equation}
 Using the same argument,
 \begin{align}
-	\odv*{A(l)}{l} &= -l + \frac{L}{2} \\
-	\odv*{A(l)}{l}_{l = l_0} = 0 &= -l_0 + \frac{L}{2} \\
-	l_0 &= \frac{L}{2},
+	\odv*{A(l)}{l}               & = -l + \frac{L}{2}   \\
+	\odv*{A(l)}{l}_{l = l_0} = 0 & = -l_0 + \frac{L}{2} \\
+	l_0                          & = \frac{L}{2},
 \end{align}
 and
 \begin{align}
@@ -260,9 +260,9 @@ Shown in \cref{fig:optimization_box_volume_unfold}, if we cut out a square sidel
 \end{equation}
 This function is a cubic, and we can use \cref{eq:cubic_vertex_position-x} to find the $x$ coordinate of the vertex.
 \begin{align}
-	x_0 &= \frac{- (- 2a - 2b) \pm \sqrt{(- 2a - 2b)^2 - 3(4)(ab)}}{3(4)} \\
-		&= \frac{2a + 2b \pm \sqrt{4a^2 + 4b^2 - 4ab}}{12} \\
-		&= \frac{a + b \pm \sqrt{a^2 + b^2 - ab}}{6}
+	x_0 & = \frac{- (- 2a - 2b) \pm \sqrt{(- 2a - 2b)^2 - 3(4)(ab)}}{3(4)} \\
+	    & = \frac{2a + 2b \pm \sqrt{4a^2 + 4b^2 - 4ab}}{12}                \\
+	    & = \frac{a + b \pm \sqrt{a^2 + b^2 - ab}}{6}
 \end{align}
 If $a^2 + b^2 - ab = 0$, there's only one stationary point at $x_0 = \frac{a + b}{6}$, which is an inflection point. Otherwise, it must have two stationary points. Since the leading coefficient of $V(x)$ is positive, $V(x)$ must approach negative infinity when $x$ approaches infinity. Meaning that, the highest local maxima is on the right vertex; thus, we select the negative root:
 \begin{equation}
@@ -303,8 +303,8 @@ where $m = \odv{f(x)}{x}_{x = x_1}$. And $c$ is the intersection with the $x$ ax
 
 But we don't have to actually find $c$. For a line tangent to a curve, we just want to move the line from the origin to the tangent point $(x_1, f(x_1))$. To move the line to the right by $x_1$ units, we substitute $x$ with $x - x_1$, and to shift it up by $y_1$, substitute $y$ with $y - y_1$. Thus, the line equation turns into
 \begin{align}
-	y - y_1 &= (x - x_1)\odv{f(x)}{x}_{x = x_1} \\
-	y - f(x_1) &= (x - x_1)\odv{f(x)}{x}_{x = x_1}.
+	y - y_1    & = (x - x_1)\odv{f(x)}{x}_{x = x_1}  \\
+	y - f(x_1) & = (x - x_1)\odv{f(x)}{x}_{x = x_1}.
 \end{align}
 For simplicity of notation, I shall let $\mdif{x}f(x_1)$ represent $\odv{f(x)}{x}$:
 \begin{equation}
@@ -313,8 +313,8 @@ For simplicity of notation, I shall let $\mdif{x}f(x_1)$ represent $\odv{f(x)}{x
 
 Then, Newton-Raphson method tells us that the intersection between the tangent line and the $x$ axis is what our next guess, $x_2$, should be. It can be easily evaluated by setting $y = 0$.
 \begin{align}
-	0 - f(x_1) &= (x_2 - x_1)\mdif{x}f(x_1) \\
-	x_2 &= x_1 - \frac{f(x_1)}{\mdif{x}f(x_1)}
+	0 - f(x_1) & = (x_2 - x_1)\mdif{x}f(x_1)           \\
+	x_2        & = x_1 - \frac{f(x_1)}{\mdif{x}f(x_1)}
 \end{align}
 Generally, we can repeat this forever. Thus,
 \begin{equation}
@@ -324,18 +324,18 @@ a recurrence relation for finding roots of functions. Notice that we don't even 
 
 Let's use this root finding method to approximate $\sqrt{2}$, which is the root of the polynomial $x^2 - 2 = 0$. Since the derivative of $x^2 - 2$ is $2x$, Newton-Raphson method (\cref{eq:newton-raphson-method}) gives
 \begin{align}
-	x_{n + 1} &= x_n - \frac{x_n^2 - 2}{2x_n} \\
-			  &= \frac{x_n^2 + 2}{2x_n}.
+	x_{n + 1} & = x_n - \frac{x_n^2 - 2}{2x_n} \\
+	          & = \frac{x_n^2 + 2}{2x_n}.
 \end{align}
 Since $\sqrt{2} \approx 1.414213\dots$, let's use $x_1 = 1$ as our first guess.
 \begin{align}
-	x_2 &= \frac{x_1^2 + 2}{2x_1} \\
-		&= \frac{1^2 + 2}{2(1)} = 1.5,
+	x_2 & = \frac{x_1^2 + 2}{2x_1}      \\
+	    & = \frac{1^2 + 2}{2(1)} = 1.5,
 \end{align}
 which is closer to $1.41$ than our first guess. Next,
 \begin{align}
-	x_3 &= \frac{x_2^2 + 2}{2x_2} \\
-		&= \frac{1.5^2 + 2}{2(1.5)} = 1.4166\dots,
+	x_3 & = \frac{x_2^2 + 2}{2x_2}                  \\
+	    & = \frac{1.5^2 + 2}{2(1.5)} = 1.4166\dots,
 \end{align}
 which is off by just a $0.2\%$ error. By the forth iteration, we get $1.414215\dots$, which is off by a mere $0.0002\%$. And we can stop here.
 
@@ -343,38 +343,40 @@ which is off by just a $0.2\%$ error. By the forth iteration, we get $1.414215\d
 
 For a function that you can't find a derivative, or you're just too lazy to explicitly find the derivative, you can turn the Newton-Raphson method into a numerical method via the definition of derivative\cref{eq:newton-raphson-method}.
 \begin{align}
-	x_{n + 1} &= x_n - \frac{f(x_n)}{\lim_{h \appr 0}\frac{f(x_n + h) - f(x_n)}{h}} \\
-			  &= x_n - \lim_{h \appr 0}\frac{f(x_n)h}{f(x_n + h) - f(x_n)}.
+	x_{n + 1} & = x_n - \frac{f(x_n)}{\lim_{h \appr 0}\frac{f(x_n + h) - f(x_n)}{h}} \\
+	          & = x_n - \lim_{h \appr 0}\frac{f(x_n)h}{f(x_n + h) - f(x_n)}.
 \end{align}
 Computationally, we can set $h$ to any arbitrarily small values: $0.01$ for example. If you have some experiences with coding, this can be easily implemented by using a \texttt{for} loop. Here's some python code that I've written to do just that. Just put in the function in \texttt{def f(x):} block, put the amount of iteration in \texttt{iterationCount}, your first guess in \texttt{firstGuess}, and the value of $h$ in \texttt{derivativeStep}. If you have some experiences, I highly encourage you to tinker around.
 
-\begin{minted}{python}
-import matplotlib.pyplot as plt
-import math
+(The python code is unavailable due to some \LaTeX error. It is still in the source code.)
 
-def f(x):  # Insert function here
-    return x**3 - 2 * x + 1
-
-iterationCount = 10  # Amount of iteration
-firstGuess = -2  # First guess
-derivativeStep = 0.01  # For calculating the method of increments
-approximationList = [float(firstGuess)]  # List of approximations
-for i in range(iterationCount):
-    diff = (
-        f(approximationList[i] + derivativeStep) - f(approximationList[i])
-    ) / derivativeStep  # Finding the derivative at a certain point
-    nextGuess = (
-        approximationList[i] - f(approximationList[i]) / diff
-    )  # Newton-Raphson's method
-    approximationList.append(nextGuess)  # Add next guess to the list of approximations
-
-print(approximationList)  # Print out the list of approximations
-fig, axes = plt.subplots()  # Initiate plot
-axes.plot(list(range(iterationCount + 1)), approximationList)  # Plotting
-axes.set_xlabel("Iteration")  # Setting the x-axis label
-axes.set_ylabel("Guess")  # Setting the y-axis label
-plt.show()  # Showing the plot
-\end{minted}
+% \begin{minted}{python}
+% import matplotlib.pyplot as plt
+% import math
+%
+% def f(x):  # Insert function here
+%     return x**3 - 2 * x + 1
+%
+% iterationCount = 10  # Amount of iteration
+% firstGuess = -2  # First guess
+% derivativeStep = 0.01  # For calculating the method of increments
+% approximationList = [float(firstGuess)]  # List of approximations
+% for i in range(iterationCount):
+%     diff = (
+%         f(approximationList[i] + derivativeStep) - f(approximationList[i])
+%     ) / derivativeStep  # Finding the derivative at a certain point
+%     nextGuess = (
+%         approximationList[i] - f(approximationList[i]) / diff
+%     )  # Newton-Raphson's method
+%     approximationList.append(nextGuess)  # Add next guess to the list of approximations
+%
+% print(approximationList)  # Print out the list of approximations
+% fig, axes = plt.subplots()  # Initiate plot
+% axes.plot(list(range(iterationCount + 1)), approximationList)  # Plotting
+% axes.set_xlabel("Iteration")  # Setting the x-axis label
+% axes.set_ylabel("Guess")  # Setting the y-axis label
+% plt.show()  # Showing the plot
+% \end{minted}
 
 \section{Normal lines}
 \label{sec:normal-lines}
@@ -383,8 +385,8 @@ Alongside the tangent line, there is another line that we're interested in: the 
 
 If the slope of tangent is $m_T$ and the normal is $m_N$,
 \begin{align}
-	m_T \times m_N &= -1 \\
-	m_N &= -\frac{1}{m_T}.
+	m_T \times m_N & = -1              \\
+	m_N            & = -\frac{1}{m_T}.
 \end{align}
 Since the slope of the tangent at a point $(x_0, f(x_0))$ is $\mdif{x}f(x_0)$,
 \begin{equation}
@@ -396,14 +398,15 @@ The normal line equation can then be formed by translating the line with slope $
 \end{equation}
 
 \section{Arc length of functions}
+\label{sec:arc-length}
 
-Before we wrap off this chapter, here's a fun geometrical problem to think about. Given a function $f(x)$, what's the length of the line drawn by the function from $a$ to $b$? Illustrated in \cref{fig:arclength}, the total arc length $s$ can be subdivided into smaller arc lengths $\odif{s}$ that we can sum up. How? Integrals. 
+Before we wrap off this chapter, here's a fun geometrical problem to think about. Given a function $f(x)$, what's the length of the line drawn by the function from $a$ to $b$? Illustrated in \cref{fig:arc-length}, the total arc length $s$ can be subdivided into smaller arc lengths $\odif{s}$ that we can sum up. How? Integrals.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics{geometryandcalculus/arclength.pdf}
 	\caption{Arc length calculation}
-	\label{fig:arclength}
+	\label{fig:arc-length}
 \end{figure}
 
 The total arc length $s$ of the function $f(x)$ from $a$ to $b$ is just
@@ -416,8 +419,9 @@ By the Pythagorean theorem $\odif{s} = \sqrt{\odif{x}^2 + \odif{y}^2}$. Can we p
 \end{equation}
 Factorizing $\odif{x}$ out of the square root would yield an integral
 \begin{align}
-	\int_{x = a}^{x = b}\sqrt{\odif{x}^2 + \odif{y}^2} &= \int_{x = a}^{x = b}\sqrt{1 + \ab(\odv{y}{x})^2}\odif{x} \\
-													   &= \int_{x = a}^{x = b}\sqrt{1 + \ab(\odv{f(x)}{x})^2}\odif{x}.
+	\int_{x = a}^{x = b}\sqrt{\odif{x}^2 + \odif{y}^2}
+	 & = \int_{x = a}^{x = b}\sqrt{1 + \ab(\odv{y}{x})^2}\odif{x}                           \\
+	 & = \int_{x = a}^{x = b}\sqrt{1 + \ab(\odv{f(x)}{x})^2}\odif{x}. \label{eq:arc-length}
 \end{align}
-Simply plug in the derivative of $f(x)$ and evaluate the integral, and you would get the arclength.
+Simply plug in the derivative of $f(x)$ and evaluate the integral, and you would get the arc length.
 
