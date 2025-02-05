@@ -39,7 +39,7 @@ The chain rule holds the intuition of how rate of changes relate to each other. 
 \begin{equation}
 	\int f(x)\odif{x} = A(x) + C,
 \end{equation}
-where $C$ is any constant. However, \cref{theorem:fundamentalthmofcalc2} still holds for integrals with bounds.
+where $C$ is any constant. However, \cref{th:fundamentalthmofcalc2} still holds for integrals with bounds.
 \begin{center}
 	\textbf{
 		\large Always add an integral constant after evaluating the antiderivative
@@ -97,8 +97,8 @@ Because this property, we associate a line with being linear. However, linearity
 Both derivatives and integrals are linear; for any function $f(x)$, $g(x)$, and constants $a$, $b$, the following rules follow.
 \index{derivatives!constant multiple rule}\index{integrals!constant multiple rule}\paragraph{The constant multiple rule:}
 \begin{align}
-	\odv*{(af(x))}{x}  & = a\odv{f(x)}{x},     & \alc[0.3]{Illustrated in \cref{fig:derivativesconstantmultiple}}\label{eq:derivativesconstantmultiple} \\
-	\int af(x)\odif{x} & = a\int f(x)\odif{x}. & \alc[0.3]{Illustrated in \cref{fig:integralsconstantmultiple}}\label{eq:integralsconstantmultiple}
+	\odv*{(af(x))}{x}   & = a \odv{f(x)}{x},     & \alc[0.3]{Illustrated in \cref{fig:derivativesconstantmultiple}}\label{eq:derivativesconstantmultiple} \\
+	\int af(x) \odif{x} & = a \int f(x)\odif{x}. & \alc[0.3]{Illustrated in \cref{fig:integralsconstantmultiple}}\label{eq:integralsconstantmultiple}
 \end{align}
 The geometrical interpretation of these two rules are very simple. When a function is multiplied by a constant $c$, its value is increased by a factor of $c$ everywhere. The slope must also be increased by $c$, and thus the function's area also.
 \index{derivatives!sum rule}\index{integrals!sum rule}\paragraph{The sum rule:}
@@ -126,7 +126,7 @@ Now we're left with derivatives of \emph{monomials} in the form of $x^n$. So let
 \subsection{Derivatives of monomials: the power rule}
 \label{sec:derivativespowerrule}
 
-The method of increments allow us to quickly evaluate the derivative of $x^n$.
+The method of increments allows us to quickly evaluate the derivative of $x^n$.
 \begin{equation}
 	\odv*{(x^n)}{x} = \lim_{h \appr 0}\frac{(x + h)^n - x^n}{h}.
 \end{equation}
@@ -178,7 +178,7 @@ Here I leave some exercises which shouldn't be too hard to do. The fourth and fi
 \subsection{Antiderivatives of polynomials: the reversed power rule}
 \label{sec:reversed-power-rule}
 
-For the antiderivative of $x^n$, we use the fundamental theorem of calculus (\cref{theorem:fundamentalthmofcalc1}) on the power rule (\cref{eq:power_rule}),
+For the antiderivative of $x^n$, we use the fundamental theorem of calculus (\cref{th:fundamentalthmofcalc1}) on the power rule (\cref{eq:power_rule}),
 \begin{equation*}
 	x^n = \int nx^{n - 1} \odif{x}.
 \end{equation*}
@@ -431,7 +431,7 @@ It should be trivial that if $\e^x$ is the derivative of itself, so is its antid
 \begin{equation}
 	\int \e^x \odif{x} = \e^x + C.
 \end{equation}
-For other bases, we could use the fundamental theorem of calculus (\cref{theorem:fundamentalthmofcalc1}) to find its antiderivative. I.e., if
+For other bases, we could use the fundamental theorem of calculus (\cref{th:fundamentalthmofcalc1}) to find its antiderivative. I.e., if
 \begin{equation*}
 	\odv{(n^x)}{x} = n^x\lim_{h \appr 0}\frac{n^h - 1}{h},
 \end{equation*}
@@ -639,7 +639,7 @@ And this should actually make sense. Because if $y$ is increasing by a bit, $x$ 
 %     \end{tabular}
 %     \caption{Tables of reversed power rule from $x^{-3}$ to $x^1$}
 % \end{wrapfigure}
-By the fundamental theorem of calculus (\cref{theorem:fundamentalthmofcalc1}), the antiderivative of $\frac{1}{x}$ is $\ln(x)$. You might believe this, and it's not wrong. But I find it very disturbing and unresolved. It's like taking the result and pointing it back to the origin. It doesn't really make sense. So from this dissatisfaction, I spent a night coming up with a way to derive this using just the reversed power rule. Enjoy the transformation!
+By the fundamental theorem of calculus (\cref{th:fundamentalthmofcalc1}), the antiderivative of $\frac{1}{x}$ is $\ln(x)$. You might believe this, and it's not wrong. But I find it very disturbing and unresolved. It's like taking the result and pointing it back to the origin. It doesn't really make sense. So from this dissatisfaction, I spent a night coming up with a way to derive this using just the reversed power rule. Enjoy the transformation!
 \begin{align}
 	\int \frac{1}{x}\odif{x} & = \int\lim_{h \appr 0}\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right)\odif{x} \nonumber                                                                                                \\
 	                         & = \lim_{h \appr 0}\int\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right)\odif{x} \nonumber                                                                                                \\
@@ -816,7 +816,7 @@ Implicit differentiation can also be used if you are too lazy to deal with roots
 \begin{exmp}{$\odv{\sqrt{2\ln(x)^2 - 1}}{x}$}{diff-technique-6}
 	It is very possible to go through this and use the chain rule and the power rule. But who wants to deal with derivative of roots? They are confusing. Well, we can actually use implicit differentiation to turn the square root into an integer power. Set $y = \sqrt{2\ln(x)^2 + 1}$, then
 	\begin{align}
-		y  	& = \sqrt{2\ln(x)^2 + 1} \\
+		y   & = \sqrt{2\ln(x)^2 + 1} \\
 		y^2 & = 2\ln(x)^2 + 1.
 	\end{align}
 	Take the derivative on both sides w.r.t. $x$. Use the linearity of derivative to break down the R.H.S., and use the chain rule to take care of the rest
@@ -916,7 +916,7 @@ Let's apply this knowledge to solve some integrals. Starting with the simplest: 
 	\end{align}
 \end{exmp}
 
-Notice any patterns? If the integral has a polynomial $u$ with degree $n$ nested inside another function, there must be a term outside with the degree $n - 1$ to substitute with. In \cref{exmp:u-substitution-1}, $u = x^2 + 1$ and there's an $x$ multiplied outside waiting to be substituted. In \cref{exmp:u-substitution-3}, $u = 4x^3 + 4$, and there's an $x^2$ outside. This pattern is a consequence of the power rule, and is pretty common. So, here are some practice problems with answers and hints on the right.\footnote{Practice problems taken from \cite{foster-no-date}.} Try not to look at it much.
+Notice any patterns? If the integral has a polynomial $u$ with degree $n$ nested inside another function, there must be a term outside with the degree $n - 1$ to substitute with. In \cref{ex:u-substitution-1}, $u = x^2 + 1$ and there's an $x$ multiplied outside waiting to be substituted. In \cref{ex:u-substitution-3}, $u = 4x^3 + 4$, and there's an $x^2$ outside. This pattern is a consequence of the power rule, and is pretty common. So, here are some practice problems with answers and hints on the right.\footnote{Practice problems taken from \cite{foster-no-date}.} Try not to look at it much.
 
 \begin{enumerate}
 	\item $\int 3x^2\sqrt{x^3 + 5}\odif{x}$ \hfill $\frac{2}{3}(x^3 + 5)^{\frac{3}{2}} + C$, $u = x^3 + 5$
@@ -953,7 +953,7 @@ Now let's move on from polynomials to other functions that are nested inside ano
 \end{exmp}
 
 Sometimes, they need some \emph{creative} algebraic manipulations, and sometimes even multiple substitution. E.g.,\footnote{Taken from MIT Integration Bee 2019, $I_9$ \cite{alkousa-2023}}
-\begin{exmp}{$\frac{1}{x(x^5 + 1)}\odif{x}$}{u-substitution-5}
+\begin{exmp}{$\int \frac{1}{x(x^5 + 1)}\odif{x}$}{u-substitution-5}
 	If we want to use power rule substitution, there's only $x^5$ but no $x^4$ to substitute with. So, we need to get a bit creative.
 	
 	First, factor the $x^5$ out of the inner parenthesis and get
@@ -970,7 +970,7 @@ Sometimes, they need some \emph{creative} algebraic manipulations, and sometimes
 
 In certain problems, there aren't any outside terms to substitute with, so you have to create them. E.g.,
 \begin{exmp}{$\int\ab(1 + \sqrt{x})^4\odif{x}$}{}
-	We want to get rid of the term inside the parenthesis. So, let $u = 1 + \sqrt{x}$, and by the power rule, $\odv{u}{x} = \frac{1}{2\sqrt{x}}$. However, there is no $\frac{1}{\sqrt{x}}$ outside to substitute with. Let's be adventurous and substitute $u$ in anyways and see what happens.
+	We want to get rid of the term inside the parenthesis. So, let $u = 1 + \sqrt{x}$, and by the power rule, $\odv{u}{x} = \frac{1}{2\sqrt{x}}$. However, there is no $\frac{1}{\sqrt{x}}$ outside to substitute with. Let's be adventurous and substitute $u$ in anyway and see what happens.
 	\begin{align}
 		\int(1 + \sqrt{x})^4\odif{x} & = \int u^4\odif{x}                 \\
 		\intertext{If $\odv{u}{x} = \frac{1}{2\sqrt{x}}$, then $\odif{x} = 2\sqrt{x}\odif{u}$,}

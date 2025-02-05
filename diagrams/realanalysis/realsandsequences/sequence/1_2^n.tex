@@ -1,0 +1,28 @@
+% !TEX program = xelatex
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usepackage{concmath-otf}
+\usetikzlibrary{calc, angles, quotes, patterns}
+\usetikzlibrary{decorations.pathreplacing, decorations.pathmorphing, calligraphy}
+\usetikzlibrary{math}
+
+\begin{document}
+\begin{tikzpicture}
+	\draw[-stealth, thick] (0, 0) -- (4, 0) node[right]{$n$};
+	\draw[-stealth, thick] (0, 0) -- (0, 3) node[above]{$a_n$};
+
+	\foreach \i [count = \xi] in {0, 0.25, 0.5, ..., 3.5} {
+			\filldraw (\i, {1 / 2 ^ (\xi - 2)}) circle (1pt);
+		}
+
+	\foreach \i in {0, 0.25, 0.5, ..., 2.5} {
+			\draw (1pt, \i) -- ++ (-2pt, 0);
+		}
+	\foreach \i in {0, 1, 2} {
+			\tikzmath {
+				\xi = \i / 2;
+			}
+			\draw (2pt, \i) -- ++ (-4pt, 0) node[left]{\xi};
+		}
+\end{tikzpicture}
+\end{document}

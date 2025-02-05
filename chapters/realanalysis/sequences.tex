@@ -1,0 +1,13 @@
+\chapter{Sequences}
+
+It's now time to study the sequence of reals in full. All the definitions about sequences in the chapter earlier that includes $\mathbb{Q}$ can now be replaced with $\mathbb{R}$.
+
+\section{Boundedness and convergence}
+
+\begin{df}{Convergence of sequences}{reals-convergence}
+	A sequence $\sequence{a_n}{n = m}{\infty}$ converges to a rational $L$ \ifft for all rational $\epsilon > 0$, there exists a natural $N$ such that for all natural $n \geq N$, $|a_n - L| \leq \epsilon$. When this happens, $L$ is called the limit of $a_n$, denoted $\lim_{n \appr \infty} (a_n)$. Formally, this can be written as
+	\begin{multline}
+		\lim_{n \appr \infty} (a_n) = L \iff \\
+		\forall (\epsilon > 0 \in \mathbb{Q}) \exists (N \in \mathbb{N}) \forall (n \geq N \in \mathbb{N}) : |a_n - L| \leq \epsilon
+	\end{multline}
+\end{df}

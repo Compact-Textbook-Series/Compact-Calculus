@@ -9,11 +9,11 @@ Imagine a function as a vast mountain range. When sketching this landscape, we'r
 
 Still, the information about zero first derivative is not sufficient to determine whether the point is a peak, a valley, or a plateau. What helps classify these points is the sign of the second derivative.
 
-The second derivative suggest the concavity of a graph at that point. If the first derivative gives you the slope, the second derivative will give you the rate of change of that slope. If the second derivative is positive, it means that the function is increasing around that point; thus, that point must be a valley. If it's negative, then everything is decreasing around; thus, it's a peak. If it's zero, it's simply a plateau.
+The second derivative suggests the concavity of a graph at that point. If the first derivative gives you the slope, the second derivative will give you the rate of change of that slope. If the second derivative is positive, it means that the function is increasing around that point; thus, that point must be a valley. If it's negative, then everything is decreasing around; thus, it's a peak. If it's zero, it's simply a plateau.
 
-Just like a mountain, a function can have many points that has zero derivatives. Functions with more than one peaks exists. The first derivative does not provide us with any information on which one of those peaks are the highest. It only tells you where the peak is. In order to find which one is the highest, we'd just have to directly find the function's value at those points, then compare it.
+Just like a mountain, a function can have many points that have zero derivatives. Functions with more than one peaks exists. The first derivative does not provide us with any information on which one of those peaks are the highest. It only tells you where the peak is. In order to find which one is the highest, we'd just have to directly find the function's value at those points, then compare it.
 
-In mathematics terminology, the points that have zero first derivative is called a \textbf{stationary point}: the value of the function around it is stationary. The valleys are called, \textbf{local minima}; the peaks, \textbf{local maxima}, and the plateau, \textbf{inflection point}. The word \emph{local} suggests that locally, these are either the maximum or minimum point, but it might not be globally. Like how you can stand on your house and say that \enquote{this is the highest point of my house,} but you're still not higher than mount everest. We call the global maximum or minimum point, the \textbf{absolute maximum} and \textbf{absolute minimum}. \index{local minima}\index{local maxima}\index{absolute maximum}\index{absolute minimum}
+In mathematics terminology, the points that have zero first derivative is called a \textbf{stationary point}: the value of the surrounding function is stationary. The valleys are called, \textbf{local minima}; the peaks, \textbf{local maxima}, and the plateau, \textbf{inflection point}. The word \emph{local} suggests that locally, these are either the maximum or minimum point, but it might not be globally. Like how you can stand on your house and say that \enquote{this is the highest point of my house,} but you're still not higher than Mount Everest. We call the global maximum or minimum point, the \textbf{absolute maximum} and \textbf{absolute minimum}. \index{local minima}\index{local maxima}\index{absolute maximum}\index{absolute minimum}
 
 \section{Minima and maxima}
 \label{sec:minima-and-maxima}
@@ -59,12 +59,12 @@ Classically, the direction that the quadratic The second derivative of a quadrat
 	                        & = \odv*{\ab(2ax + b)}{x}       \\
 	                        & = 2a.
 \end{align}
-Since we only care about the sign, the two does not matter. This results tell us that if $a$ is positive, it's a right side up parabola, and the stationary point is a local minima. If it isn't, then it's upsidedown and the stationary point is a local maxima.
+Since we only care about the sign, the two in $2a$ does not matter. This result tell us that if $a$ is positive, it's a right side up parabola, and the stationary point is a local minimum. If it isn't, then it's upside-down and the stationary point is a local maxima.
 
 A parabola doesn't have any inflection point because it only occurs when the second derivative is zero. However, the only way that $\odv*[ord = 2]{f(x)}{x} = 0$ is for $a$ to be zero. If it happens, then $f(x)$ isn't a parabola anymore, but rather a straight line.
 
 \begin{exmp}{Sketch the graph of $f(x) = - 2x^2 + x + 6$}{}
-	Because $a$ is negative, the parabola is upsidedown. The vertex is at
+	Because $a$ is negative, the parabola is upside-down. The vertex is at
 	\begin{gather}
 		x = -\frac{b}{2a} = -\frac{1}{2(-2)} = \frac{1}{4}, \\
 		\quad y = -2\ab(\frac{1}{4})^2 + \ab(\frac{1}{4}) + 6 = 6.125.
@@ -98,7 +98,7 @@ Cubics are third order polynomials
 \begin{equation}
 	f(x) = ax^3 + bx^2 + cx + d.
 \end{equation}
-It's one of the many family of function that can contain more than one stationary point. The $x$ coordinate of the stationary points can be found by using the same method as earlier.
+It's one of the many families of function that can contain more than one stationary point. The $x$ coordinate of the stationary points can be found by using the same method as earlier.
 \begin{align}
 	\odv{f(x)}{x} & = \odv*{ax^3 + bx^2 + cx + d}{x} \\
 	              & = 3ax^2 + 2bx + c,
@@ -129,7 +129,7 @@ where
 
 % Insert examples here
 
-Another topic that I'd like to discuss is the amount of root of cubics. Normally, we would use factorization to determine the amount. From the shape of the cubic, one side shoots of to positive infinity, and the other, negative infinity. And by continuity, it must intersect the $x$ axis somewhere inbetween and create a root. Therefore, all cubics must have at least one root over the reals. But what if we want to know whether it has a second or third roots or not? We can just look at the amount and the position of the stationary point, given by \cref{eq:cubic_vertex_position-x}.
+Another topic that I'd like to discuss is the amount of root of cubics. Normally, we would use factorization to determine the amount. From the shape of the cubic, one side shoots of to positive infinity, and the other, negative infinity. And by continuity, it must intersect the $x$ axis somewhere in between and create a root. Therefore, all cubics must have at least one root over the reals. But what if we want to know whether it has a second or third roots or not? We can just look at the amount and the position of the stationary point, given by \cref{eq:cubic_vertex_position-x}.
 
 A key feature of stationary points is that they indicate where a function changes direction. If a function is increasing and then begins to decrease, there must be a stationary point marking this transition. So, if a function lacks a stationary point, and one end tends toward positive infinity while the other falls to negative infinity, we can conclude the function is always either increasing or decreasing. Once the function intersects the $x$-axis to form a root, it cannot turn back to create another root.
 
@@ -178,13 +178,13 @@ Similarly, cubics with only one stationary point ($\frac{b^2 - 3ac}{3a} = 0$) on
 	\label{fig:cubic_two_vertices}
 \end{figure}
 
-For cubics with two vertex, one of those must be a local maximum, the other, a local minimum. The amount of roots can be directly determined by the position of these points. A cubic will have three roots if the vertex aren't on the same side of the $x$ axis, it must have three roots, illustrated in \cref{fig:cubic_two_vertices_threeroots}. If one of the vertex is at $y = 0$, then it has two roots; one of them being the vertex itself, illustrated in \cref{fig:cubic_two_vertices_tworoots}. If both vertices are on the same side, then it must have only one root; illustrated in \cref{fig:cubic_two_vertices_oneroot}. It is left as an exercise for the reader to find the position of vertices of the cubics given in \cref{fig:cubic_two_vertices}
+For cubics with two vertices, one of those must be a local maximum, the other, a local minimum. The amount of roots can be directly determined by the position of these points. A cubic will have three roots if the vertices aren't on the same side of the $x$ axis, it must have three roots, illustrated in \cref{fig:cubic_two_vertices_threeroots}. If one of the vertex is at $y = 0$, then it has two roots; one of them being the vertex itself, illustrated in \cref{fig:cubic_two_vertices_tworoots}. If both vertices are on the same side, then it must have only one root; illustrated in \cref{fig:cubic_two_vertices_oneroot}. It is left as an exercise for the reader to find the position of vertices of the cubics given in \cref{fig:cubic_two_vertices}
 
 \subsection{Optimization problems}
 
 The method of finding local maxima, minima, and inflection points are very useful for sketching graphs. Are there any real life applications to this? The answer is in optimization.
 
-\textbf{Optimization} is about finding the best solution for a problem. What's the best time to harvest the crop? What's the best placement for an air conditioner? What's the best way to make profit?, etc. These problems are all about finding the maximum values of some variables. That's exactly what our tools have been able to do: finding the maxima and minima of some functions. Thus, I'd like to discuss about some applications of maxima and minima on some physical problems. \index{optimization problems}
+\textbf{Optimization} is about finding the best solution for a problem. What's the best time to harvest the crop? What's the best placement for an air conditioner? What's the best way to make profit?, etc. These problems are all about finding the maximum values of some variables. That's exactly what our tools have been able to do: finding the maxima and minima of some functions. Thus, I'd like to discuss some applications of maxima and minima on some physical problems. \index{optimization problems}
 
 \begin{wrapfigure}{r}{0.3\textwidth}
 	\centering
@@ -254,7 +254,7 @@ and
 	\caption{Box volume optimization}
 \end{figure}
 
-Shown in \cref{fig:optimization_box_volume_unfold}, if we cut out a square sidelength $x$ from all corners, then the sidelength of the final box will be $a - 2x$, $b - 2x$, and $x$. The volume $V(x)$, is then
+Shown in \cref{fig:optimization_box_volume_unfold}, if we cut out a square side length $x$ from all corners, then the side length of the final box will be $a - 2x$, $b - 2x$, and $x$. The volume $V(x)$, is then
 \begin{equation}
 	V(x) = x(a - 2x)(b - 2x) = 4x^3 + (- 2a - 2b)x^2 + (ab)x
 \end{equation}
@@ -264,7 +264,7 @@ This function is a cubic, and we can use \cref{eq:cubic_vertex_position-x} to fi
 	    & = \frac{2a + 2b \pm \sqrt{4a^2 + 4b^2 - 4ab}}{12}                \\
 	    & = \frac{a + b \pm \sqrt{a^2 + b^2 - ab}}{6}
 \end{align}
-If $a^2 + b^2 - ab = 0$, there's only one stationary point at $x_0 = \frac{a + b}{6}$, which is an inflection point. Otherwise, it must have two stationary points. Since the leading coefficient of $V(x)$ is positive, $V(x)$ must approach negative infinity when $x$ approaches infinity. Meaning that, the highest local maxima is on the right vertex; thus, we select the negative root:
+If $a^2 + b^2 - ab = 0$, there's only one stationary point at $x_0 = \frac{a + b}{6}$, which is an inflection point. Otherwise, it must have two stationary points. Since the leading coefficient of $V(x)$ is positive, $V(x)$ must approach negative infinity when $x$ approaches infinity. Meaning that, the highest local maximum is on the right vertex; thus, we select the negative root:
 \begin{equation}
 	x_0 = \frac{a + b - \sqrt{a^2 + b^2 - ab}}{6}.
 \end{equation}
@@ -276,11 +276,11 @@ In this section, I'll show you how to find a line that's tangent to a curve. But
 
 \subsection{Newton-Raphson method}
 
-Polynomials appears everywhere. Most of the time, you're required to find its root. But it might come as a surprise for you that it is \emph{impossible} to find a general for finding the root of polynomials with degrees higher than four. This is a direct consequence of Galois theory\footnote{The Galois theory is a profound result from abstract algebra. You would usually learn in graduate mathematics, but if you want to just scratch the surface, I found a video by \emph{Math Visualized}, on \emph{Galois Theory Explained Simply} \cite{galois-explained-2020}, that explains it quite clearly. Still, I need to watch it a couple of times before understanding it.}, one of the most important theory in abstract algebra. So most of the time, we resort to root approximation methods.
+Polynomials appears everywhere. Most of the time, you're required to find its root. But it might come as a surprise for you that it is \emph{impossible} to find a general for finding the root of polynomials with degrees higher than four. This is a direct consequence of Galois theory\footnote{The Galois theory is a profound result from abstract algebra. You would usually learn in graduate mathematics, but if you want to just scratch the surface, I found a video by \emph{Math Visualized}, on \emph{Galois Theory Explained Simply} \cite{galois-explained-2020}, that explains it quite clearly. Still, I need to watch it a couple of times before understanding it.}, one of the most important theorems in abstract algebra. So most of the time, we resort to root approximation methods.
 
 The root approximation method which is relevant to calculus is the Newton-Raphson's root finding algorithm. I'd try to explain this algorithm has much as I can, but I think it's better if you see it.
 
-The Newton-Raphson algorithm takes advantage of slopes descent. Let's say you want to approximate the root of $f(x)$. You put down a random guess, say $x_1$. If that point is a root, $f(x_1) = 0$. If its not, the root is either above ($f(x_1) < 0$) the point or under ($f(x_1) > 0$). What you do next is that you draw a line tangent to the function $f(x)$ at $x = x_1$ and let it cross the $x$-axis, shown in \cref{fig:newton-raphson-method}. Intuitively, the tangent line will intersect the $x$-axis at $x_2$ where $x_2$ should hopefully be closer to the root. Our new guess will then be $(x_2, f(x_2))$. We then repeat this method until the approximation are satisfactory.
+The Newton-Raphson algorithm takes advantage of slopes descent. Let's say you want to approximate the root of $f(x)$. You put down a random guess, say $x_1$. If that point is a root, $f(x_1) = 0$. If it's not, the root is either above ($f(x_1) < 0$) the point or under ($f(x_1) > 0$). What you do next is that you draw a line tangent to the function $f(x)$ at $x = x_1$ and let it cross the $x$-axis, shown in \cref{fig:newton-raphson-method}. Intuitively, the tangent line will intersect the $x$-axis at $x_2$ where $x_2$ should hopefully be closer to the root. Our new guess will then be $(x_2, f(x_2))$. We then repeat this method until the approximation are satisfactory.
 
 Here, I shall use the Newton-Raphson root finding algorithm as a way to introduce you about how calculus can be further applied to geometry.
 
@@ -297,7 +297,7 @@ The first part of the Newton-Raphson method is to be able to find the tangent to
 \end{equation}
 If my first guess is on the point $(x_1, f(x_1))$, the line that passes through that point and tangent to $f(x)$ is
 \begin{equation}
-	y = \odv{f(x)}{x}_{x = x_1}x + c.
+	y = \odv{f(x)}{x}_{x = x_1}x + c,
 \end{equation}
 where $m = \odv{f(x)}{x}_{x = x_1}$. And $c$ is the intersection with the $x$ axis.
 
@@ -350,33 +350,33 @@ Computationally, we can set $h$ to any arbitrarily small values: $0.01$ for exam
 
 (The python code is unavailable due to some \LaTeX error. It is still in the source code.)
 
-% \begin{minted}{python}
-% import matplotlib.pyplot as plt
-% import math
-%
-% def f(x):  # Insert function here
-%     return x**3 - 2 * x + 1
-%
-% iterationCount = 10  # Amount of iteration
-% firstGuess = -2  # First guess
-% derivativeStep = 0.01  # For calculating the method of increments
-% approximationList = [float(firstGuess)]  # List of approximations
-% for i in range(iterationCount):
-%     diff = (
-%         f(approximationList[i] + derivativeStep) - f(approximationList[i])
-%     ) / derivativeStep  # Finding the derivative at a certain point
-%     nextGuess = (
-%         approximationList[i] - f(approximationList[i]) / diff
-%     )  # Newton-Raphson's method
-%     approximationList.append(nextGuess)  # Add next guess to the list of approximations
-%
-% print(approximationList)  # Print out the list of approximations
-% fig, axes = plt.subplots()  # Initiate plot
-% axes.plot(list(range(iterationCount + 1)), approximationList)  # Plotting
-% axes.set_xlabel("Iteration")  # Setting the x-axis label
-% axes.set_ylabel("Guess")  # Setting the y-axis label
-% plt.show()  # Showing the plot
-% \end{minted}
+\begin{minted}{python}
+import matplotlib.pyplot as plt
+import math
+
+def f(x):  # Insert function here
+    return x**3 - 2 * x + 1
+
+iterationCount = 10  # Amount of iteration
+firstGuess = -2  # First guess
+derivativeStep = 0.01  # For calculating the method of increments
+approximationList = [float(firstGuess)]  # List of approximations
+for i in range(iterationCount):
+    diff = (
+        f(approximationList[i] + derivativeStep) - f(approximationList[i])
+    ) / derivativeStep  # Finding the derivative at a certain point
+    nextGuess = (
+        approximationList[i] - f(approximationList[i]) / diff
+    )  # Newton-Raphson's method
+    approximationList.append(nextGuess)  # Add next guess to the list of approximations
+
+print(approximationList)  # Print out the list of approximations
+fig, axes = plt.subplots()  # Initiate plot
+axes.plot(list(range(iterationCount + 1)), approximationList)  # Plotting
+axes.set_xlabel("Iteration")  # Setting the x-axis label
+axes.set_ylabel("Guess")  # Setting the y-axis label
+plt.show()  # Showing the plot
+\end{minted}
 
 \section{Normal lines}
 \label{sec:normal-lines}
@@ -413,7 +413,7 @@ The total arc length $s$ of the function $f(x)$ from $a$ to $b$ is just
 \begin{equation}
 	\int_{a}^{b}\odif{s}
 \end{equation}
-By the Pythagorean theorem $\odif{s} = \sqrt{\odif{x}^2 + \odif{y}^2}$. Can we plug this directly into the integral? Of course we can:
+By the Pythagorean theorem $\odif{s} = \sqrt{\odif{x}^2 + \odif{y}^2}$. Can we plug this directly into the integral? Of course, we can:
 \begin{equation}
 	s = \int_{x = a}^{x = b}\sqrt{\odif{x}^2 + \odif{y}^2}.
 \end{equation}

@@ -2,7 +2,7 @@
 \label{sec:advancedtechniquesofintegration}
 
 \begin{abstract}
-    This is the chapter that explores more advanced techniques of integrations. You could go on with your life skipping this chapter and it'd still be fine. However, for the curious, there are some very interesting maths in here, so be sure to check this chapter out before going on to the next part of the book.
+	This is the chapter that explores more advanced techniques of integrations. You could go on with your life skipping this chapter and it'd still be fine. However, for the curious, there are some very interesting maths in here, so be sure to check this chapter out before going on to the next part of the book.
 \end{abstract}
 
 \section{Rational functions}
@@ -12,11 +12,11 @@
 
 An integral in the form
 \begin{equation}
-    \int \frac{1}{ax^2 + bx + c}\dd{x}
+	\int \frac{1}{ax^2 + bx + c}\odif{x}
 \end{equation}
 can be evaluated by completing the squares:
 \begin{equation}
-    ax^2 + bx + c = a\left(x + \frac{b}{2a}\right)^2 + \left(c - \frac{b^2}{4a}\right)
+	ax^2 + bx + c = a\left(x + \frac{b}{2a}\right)^2 + \left(c - \frac{b^2}{4a}\right)
 \end{equation}
 
 \subsection{Denominator quadratics under radicals}
@@ -35,20 +35,20 @@ They're used to take terms outside the square root, whether it'd be $\sqrt{a^2 -
 \end{equation}
 The differential element $\odif{x}$ transforms into
 \begin{align}
-	\odv{x}{\theta} &= \odv*{\ab(a\sin\theta)}{\theta} \\
-	\odif{x} &= a\cos\theta\odif{\theta}.
+	\odv{x}{\theta} & = \odv*{\ab(a\sin\theta)}{\theta} \\
+	\odif{x}        & = a\cos\theta\odif{\theta}.
 \end{align}
 \begin{exmp}{$\int\frac{\sqrt{4 - x^2}}{x^2}\odif{x}$}{}
 	This integral has a square root of the form $\sqrt{a^2 - x^2}$ where $a = 2$; thus, substitute in $x = 2\sin\theta$. Then,
 	\begin{align}
-		\odv{x}{\theta} &= \odv*{\ab(2\sin\theta)}{\theta} \\
-		\odif{x} &= 2\cos\theta\odif{\theta}
+		\odv{x}{\theta} & = \odv*{\ab(2\sin\theta)}{\theta} \\
+		\odif{x}        & = 2\cos\theta\odif{\theta}
 	\end{align}
 	The integral then becomes
 	\begin{align}
-	\int\frac{\sqrt{4 - 4\cos^2\theta}}{4\sin^2\theta}2\cos\theta\odif{\theta} &= \int \frac{2\sqrt{1 - \cos^2\theta}}{4\sin^2\theta}2\cos\theta\odif{\theta} \\
-	&= \int\frac{2\sin^2\theta}{4\sin^2\theta}{2\cos\theta}\odif{\theta} \\
-	&= \int\cos\theta\odif{\theta} = \sin\theta
+		\int\frac{\sqrt{4 - 4\cos^2\theta}}{4\sin^2\theta}2\cos\theta\odif{\theta} & = \int \frac{2\sqrt{1 - \cos^2\theta}}{4\sin^2\theta}2\cos\theta\odif{\theta} \\
+		                                                                           & = \int\frac{2\sin^2\theta}{4\sin^2\theta}{2\cos\theta}\odif{\theta}           \\
+		                                                                           & = \int\cos\theta\odif{\theta} = \sin\theta
 	\end{align}
 	Since $x = 2\sin\theta$, $\sin\theta = \frac{x}{2}$, our integral evaluates to $\frac{x}{2} + C$.
 \end{exmp}
@@ -59,14 +59,14 @@ The differential element $\odif{x}$ transforms into
 \end{equation}
 By \cref{tab:derivative_trigonometric_functions}, the differential element $\odif{x}$ transforms into
 \begin{align}
-	\odv{x}{\theta} &= \odv*{\ab(a\sec\theta)}{\theta} \\
-	\odif{x} &= a\sec\theta\tan\theta.
+	\odv{x}{\theta} & = \odv*{\ab(a\sec\theta)}{\theta} \\
+	\odif{x}        & = a\sec\theta\tan\theta.
 \end{align}
 
 \subsection{Feynman's trick for integration}
 
 Formerly known as Leibniz's rule\index{Leibniz's integral rule} but popularized by Richard Feynman, is a very powerful integral technique that allows you to differentiate the function in the integral sign. Sadly, it only works for definite integrals. However, it's still a very nice trick to have just in case.
 
-The idea is: integrals and derivatives can be swapped in 
+The idea is: integrals and derivatives can be swapped in
 
 \section{Integrals of other trigonometric functions}

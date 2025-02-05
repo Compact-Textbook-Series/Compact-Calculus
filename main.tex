@@ -14,7 +14,8 @@
     BoldItalicFont = *-BoldItalic,
     Ligatures = {TeX, Common}
 ]
-\setmonofont[Scale = MatchLowercase]{Iosevka Custom}
+\setmonofont[Scale = MatchLowercase]{Iosevka Custom Condensed}
+\setsansfont[Scale = MatchLowercase]{Red Hat Text}
 \XeTeXlinebreaklocale="en_EN"
 \XeTeXlinebreakskip=0pt plus 3pt
 \emergencystretch=1em
@@ -23,8 +24,15 @@
 \usepackage[math-style = ISO, mathrm = sym, warnings-off = {mathtools-colon}]{unicode-math}
 \setmathfont[Scale = MatchLowercase]{Concrete-Math.otf}
 \noDisplayskipStretch
+\allowdisplaybreaks
 \setoperatorfont\symscr
 \everymath{\displaystyle}
+\AtBeginDocument{% Switching epsilon and varepsilon
+    \let\epsilon\varepsilon
+    \renewcommand{\varepsilon}{\epsilon}
+    \let\phi\varphi
+    \renewcommand{\varphi}{\phi}
+}
 
 %%% Stylings
 % Page Layout and Margins
@@ -36,8 +44,12 @@
 \setlength{\parindent}{1.5cm}
 \setlength{\parskip}{0.3em}
 \setlength{\beforechapskip}{20pt}
+% Table of Contents
+\addtolength{\cftsectionnumwidth}{0.2em}
+\renewcommand{\cftbookfont}{\LARGE\bfseries\sffamily}
+\renewcommand{\cftpartfont}{\Large\itshape\sffamily}
+\renewcommand{\cftbookname}{Book }
 \renewcommand{\arraystretch}{1}
-\allowdisplaybreaks
 \setSpacing{1.5}
 \checkandfixthelayout
 
@@ -72,7 +84,7 @@
 		\makebox[0pt][l]{%
 		\hspace{.8em}%
 		\resizebox{!}{\beforechapskip}%
-		{\chapnumfont \thechapter}%
+	    {\chapnumfont\thechapter}%
 		\hspace{.8em}%
 		\rule{2\midchapskip}{\beforechapskip}%
     }%
@@ -104,27 +116,175 @@
 \usepackage[makeroom]{cancel}
 % Proofs
 \usepackage{amsthm}
+
 \usepackage{tcolorbox}
-\tcbuselibrary{breakable, theorems, skins}
-\newtcbtheorem[auto counter, crefname = {theorem}{theorems}, Crefname = {Theorem}{Theorems}]{theorem}{Theorem}{
+\tcbuselibrary{breakable, theorems, skins, listings}
+
+\definecolor{TheoremCol}{HTML}{C2D4FF}
+\definecolor{TheoremColText}{HTML}{002469}
+\definecolor{DefCol}{HTML}{DCF3CE}
+\definecolor{DefColText}{HTML}{234210}
+\definecolor{DefColAccent}{HTML}{A0E377}
+\definecolor{AxiomCol}{HTML}{FFC2CA}
+\definecolor{AxiomColText}{HTML}{4A0000}
+\definecolor{AxiomColAccent}{HTML}{FF5C72}
+\definecolor{LittleCol}{HTML}{FFC72B}
+\definecolor{LittleColAccent}{HTML}{F7EDAD}
+
+\NewTcbTheorem[number within = section, list inside = mathboxes]{theorem}{Theorem}{
+    enhanced, breakable,
+    label type = theorem,
+    fonttitle = \bfseries\sffamily,
+    description font = \normalfont\itshape\sffamily,
+    coltitle = TheoremColText,
+    colback = TheoremCol,
+    colbacktitle = TheoremCol,
+    toptitle = 0.5ex,
+    bottomtitle = 0.5ex,
+    list entry = \thetcbcounter: \quad #2,#1
+}{th}
+\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = examples]{exmp}{Example}{
+    enhanced, breakable,
+    label type = example,
+    fonttitle = \bfseries\sffamily,
+    description font = \normalfont\itshape\sffamily,
     coltitle = black,
-    sharp corners, frame hidden, enhanced, colback = lightgray!10, breakable,
-    borderline west = {3pt}{-3pt}{lightgray},
-    detach title = true,
-    fonttitle = \bfseries, before upper = {\tcbtitle\quad}
-}{theorem}
-\newtcbtheorem[auto counter, crefname = {axiom}{axioms}, Crefname = {Axiom}{Axioms}]{axiom}{Axiom}{
-    sharp corners, colback = lightgray!40, colframe = darkgray, breakable
-}{axiom}
-\newtcbtheorem[auto counter, crefname = {definition}{definition}, Crefname = {Definition}{Definition}]{df}{Definition}{
-    sharp corners, colback = lightgray!40, colframe = darkgray, breakable
+    detach title,
+    before upper = {\tcbtitle},
+    attach title to upper = {\quad},
+    leftrule = 0pt,
+    rightrule = 0pt,
+    arc = 0pt,
+    breakable
+}{ex}
+\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes]{axiom}{Axiom\vphantom{Ay}}{
+    enhanced, breakable,
+    label type = axiom,
+    lower separated = false,
+    top = 1em,
+    colback = AxiomCol,
+    colframe = white,
+    fonttitle = \bfseries\sffamily,
+    description font = \normalfont\itshape\sffamily,
+    colbacktitle = AxiomColAccent,
+    coltitle = AxiomColText,
+    boxed title style = {colframe = black},
+    attach boxed title to top left = {xshift = 0.5cm, yshift = -3.6mm},
+}{ax}
+\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes]{df}{Definition\vphantom{Ay}}{
+    enhanced, breakable,
+    label type = definition,
+    lower separated = false,
+    top = 1em,
+    colback = DefCol,
+    colframe = white,
+    fonttitle = \bfseries\sffamily,
+    description font = \normalfont\itshape\sffamily,
+    colbacktitle = DefColAccent,
+    coltitle = DefColText,
+    enhanced,
+    boxed title style = {colframe = black},
+    attach boxed title to top left = {xshift = 0.5cm, yshift = -3.6mm},
 }{df}
-\newtcbtheorem[auto counter, number within = section, crefname = {example}{examples}, Crefname = {Example}{Examples}]{exmp}{Example}{
-    colback = lightgray!40, colframe = darkgray, breakable
-}{exmp}
-\newtcbtheorem[auto counter, number within = chapter, crefname = {remarks of chapter }{remarks of chapter }, Crefname = {Remarks}{Remarks}]{remark}{Remarks on chapter }{
-    colback = lightgray!10, colframe = black, breakable
-}{remark}
+\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes]{lemma}{Lemma\vphantom{Ay}}{
+    enhanced, breakable,
+    label type = lemma,
+    coltitle = black,
+    sharp corners,
+    colback = LittleColAccent,
+    colframe = LittleCol,
+    leftrule = 3pt,
+    rightrule = 0pt,
+    toprule = 0pt,
+    bottomrule = 0pt,
+    detach title = true,
+    fonttitle = \bfseries\sffamily,
+    description font = \normalfont\itshape\sffamily,
+    before upper = {\tcbtitle\quad},
+}{le}
+\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes]{cor}{Corollary\vphantom{Ay}}{
+    enhanced, breakable,
+    label type = corollary,
+    coltitle = black,
+    sharp corners, frame hidden,
+    colback = LittleColAccent,
+    colframe = LittleCol,
+    leftrule = 3pt,
+    rightrule = 0pt,
+    toprule = 0pt,
+    bottomrule = 0pt,
+    detach title = true,
+    fonttitle = \bfseries\sffamily,
+    description font = \normalfont\itshape\sffamily,
+    before upper = {\tcbtitle\quad}
+}{co}
+\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes]{prop}{Proposition\vphantom{Ay}}{
+    enhanced, breakable,
+    label type = proposition,
+    coltitle = black,
+    sharp corners, frame hidden,
+    colback = LittleColAccent,
+    colframe = LittleCol,
+    leftrule = 3pt,
+    rightrule = 0pt,
+    toprule = 0pt,
+    bottomrule = 0pt,
+    detach title = true,
+    fonttitle = \bfseries\sffamily,
+    description font = \normalfont\itshape\sffamily,
+    before upper = {\tcbtitle\quad}
+}{pr}
+\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section]{remark}{Remarks}{
+    enhanced, breakable,
+    label type = remark,
+    coltitle = white,
+    colframe = black,
+    colback = lightgray!40,
+    fonttitle = \bfseries\sffamily,
+    description font = \normalfont\itshape\sffamily,
+}{re}
+\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section]{notation}{Notation\vphantom{Ay}}{
+    enhanced, breakable,
+    label type = notation,
+    coltitle = black,
+    colframe = black,
+    colback = lightgray!20,
+    colbacktitle = lightgray!40,
+    attach boxed title to top center = {yshift = -3.5mm},
+    top = 1em,
+    fonttitle = \bfseries\sffamily,
+    description font = \normalfont\itshape\sffamily,
+}{no}
+\crefname{lemma}{lem.}{lem.}
+\Crefname{lemma}{Lem.}{Lem.}
+\crefname{example}{ex.}{ex.}
+\Crefname{example}{Ex.}{Ex.}
+\crefname{axiom}{axiom}{axioms}
+\Crefname{axiom}{Axiom}{Axioms}
+\crefname{definition}{def.}{def.}
+\Crefname{definition}{Def.}{Def.}
+\crefname{proposition}{prop.}{prop.}
+\Crefname{proposition}{Prop.}{Prop.}
+\crefname{corollary}{corollary}{corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+\crefname{notation}{notation}{notations}
+\Crefname{notation}{Notation}{Notations}
+
+\makeatletter
+    \renewenvironment{proof}[1][\proofname]{\par
+        \pushQED{\qed}%
+        \normalfont \topsep6\p@\@plus6\p@\relax
+        \trivlist
+        \item\relax
+        {
+            \sffamily\itshape\bfseries
+            \underline{#1}\@addpunct{.}
+        }
+            \hspace\labelsep\ignorespaces
+    }{%
+        \popQED\endtrivlist\@endpefalse
+    }
+\makeatother
 
 %%% Mathematical commands
 % Geometry
@@ -153,6 +313,9 @@
 \newcommand{\ihat}{\hat{\i}}
 \newcommand{\jhat}{\hat{\j}}
 \newcommand{\khat}{\hat{k}}
+% Real analysis commands
+\newcommand{\Zint}[1]{#1^{\ddagger}}
+\newcommand{\Zreal}[1]{\mathfrak{L}\ab(#1)}
 % Differences
 \DeclareMathOperator{\kdel}{\symrm{\delta}}
 \DeclareMathOperator{\ddel}{\symrm{\delta}}
@@ -165,13 +328,16 @@
 \newcommand{\appr}{\rightarrow}
 \newcommand{\alc}[2][0.3]{&\parbox[c]{#1\textwidth}{#2}}
 \newcommand{\pintm}[1]{\mathcal{D}[#1]}
+\newcommand{\sequence}[3]{\ab(#1)_{#2}^{#3}}
 % Mathematical conjunctions and expressions
-\newcommand{\mathand}{\quad\textrm{and,}\quad}
-\newcommand{\mathor}{\quad\textrm{or,}\quad}
+\newcommand{\mathand}{\quad\textrm{and}\quad}
+\newcommand{\mathor}{\quad\textrm{or}\quad}
 \newcommand{\mathif}{\quad\textrm{if}\quad}
 \newcommand{\mathiff}{\quad\textrm{\emph{iff}}\quad}
 \newcommand{\maththerefore}{\emquad\textrm{\emph{therefore,}}\emquad}
 \newcommand{\ifft}{\emph{iff}}
+\newcommand{\basecase}{\noindent\textbf{Base case:}~}
+\newcommand{\inductivestep}{\noindent\textbf{Inductive step:}~}
 % Notational commands
 \newcommand{\flatfrac}[2]{#1\fracslash#2}
 % Column types
@@ -200,7 +366,8 @@
 \usepackage{imakeidx}
 \makeindex
 
-% \includeonly{chapters/realanalysis-sequences}
+% \includeonly{chapters/foundationsofcalculus/calculusandtrigonometry,chapters/foundationsofcalculus/calculusandphysicalsystems}
+% \includeonly{chapters/realanalysis/realsandsequences}
 
 \begin{document}
 
@@ -218,6 +385,8 @@
 \prerequisites{set theory, algebra, geometry, basic trigonometry}
 
 \tableofcontents*
+% \tcblistof[\section*]{mathboxes}{List of axioms, theorems, propositions, corollaries, and lemmas}
+% \tcblistof[\section*]{examples}{List of examples}
 
 \include{frontmatter/preface}
 \include{frontmatter/acknowledgement}
@@ -225,24 +394,47 @@
 
 \mainmatter
 
-\part{The foundation of calculus: differential equations.}
+\book{Differential equations}
 
-\include{chapters/derivatives}
-\include{chapters/integrals}
-\include{chapters/basicderivativesandintegrals}
-\include{chapters/calculusandgeometry}
-\include{chapters/calculusandtrigonometry}
-\include{chapters/calculusandphysicalsystems}
-\include{chapters/phasediagrams}
-\include{chapters/techniquesofintegration}
+\part{The foundation of calculus: differential equations}
 
-% \include{chapters/series}
-%
-% \part{Analyzing differential equation}
+\include{chapters/foundationsofcalculus/derivatives}
+\include{chapters/foundationsofcalculus/integrals}
+\include{chapters/foundationsofcalculus/basicderivativesandintegrals}
+\include{chapters/foundationsofcalculus/calculusandgeometry}
+\include{chapters/foundationsofcalculus/calculusandtrigonometry}
+\include{chapters/foundationsofcalculus/calculusandphysicalsystems}
+\include{chapters/foundationsofcalculus/techniquesofintegration}
+\include{chapters/foundationsofcalculus/advancedtechniquesofintegration}
 
-\part{The foundation, reimagined: real analysis}
+\part{Analyzing differential equation}
 
-\include{chapters/realanalysis-sequences}
+% \include{chapters/phasediagrams}
+% \include{chapters/autonomousequations}
+
+\part{Signal analysis}
+
+\book{Real analysis}
+
+\include{chapters/realanalysis/invitation}
+
+\part{Logic}
+
+\include{chapters/realanalysis/logic}
+\include{chapters/realanalysis/settheory}
+
+\part{Number systems and their arithmetrization}
+
+\include{chapters/realanalysis/naturals}
+\include{chapters/realanalysis/integers}
+\include{chapters/realanalysis/rationals}
+\include{chapters/realanalysis/realsandsequences}
+
+\part{Sequences and series}
+
+\include{chapters/realanalysis/sequences}
+
+\book{Appendices}
 
 \appendix
 

@@ -181,7 +181,7 @@ It also implies that if the area between $a$ and $b$ can be evaluated by
 \begin{figure}[b]
 	\centering
 	\includegraphics{integrals/fundamentalthmofcalc}
-	\caption{The geometrical interpretation of part one of the fundamental theorem of calculus (\cref{theorem:fundamentalthmofcalc1}).}
+	\caption{The geometrical interpretation of part one of the fundamental theorem of calculus (\cref{th:fundamentalthmofcalc1}).}
 	\label{fig:fundamentalthmofcalc}
 \end{figure}
 If $A(x)$ is the antiderivative of $f(x)$, then
@@ -213,7 +213,7 @@ or ``\textit{the rate of change in area is the function itself}''. But the area 
 \begin{equation}
 	\odv*{\ab(\int f(x)\odif{x})}{x} = f(x):
 \end{equation}
-integrals and derivatives are inverses of each other. If we rephrase \cref{theorem:fundamentalthmofcalc1}, we see that ``\textit{the integral is the cumulative effect of the function}.''
+integrals and derivatives are inverses of each other. If we rephrase \cref{th:fundamentalthmofcalc1}, we see that ``\textit{the integral is the cumulative effect of the function}.''
 
 \index{The fundamental theorem of calculus!second part}The second fundamental theorem of calculus,
 \begin{theorem}{The second fundamental theorem of calculus (Newton-Leibniz rule)}{fundamentalthmofcalc2}
@@ -308,13 +308,15 @@ I shall put these definitions into perspective in the next two examples. It migh
 \label{sec:fiveequationsoflinearmotion}
 
 \index{equation of motion!uniformed acceleration}So far, we have developed an intuition for derivatives, integrals, and their relationship. Let's apply those concepts to derive the famous equations of linear motion:
-\begin{gather}
-	v(t) = v_0 + at, \label{eq:linearmotion1}\\
-	s = \frac{1}{2}(v_0 + v(t))t, \label{eq:linearmotion2}\\
-	s = v_0(t)t + \frac{1}{2}at^2, \label{eq:linearmotion3}\\
-	s = v(t)t - \frac{1}{2}at^2,\label{eq:linearmotion4}\\
-	v(t)^2 = v_0^2 + 2as. \label{eq:linearmotion5}
-\end{gather}
+\begin{theorem}{Motion with uniformed acceleration}{}
+	\begin{gather}
+		v(t) = v_0 + at, \label{eq:linearmotion1}\\
+		s = \frac{1}{2}(v_0 + v(t))t, \label{eq:linearmotion2}\\
+		s = v_0(t)t + \frac{1}{2}at^2, \label{eq:linearmotion3}\\
+		s = v(t)t - \frac{1}{2}at^2,\label{eq:linearmotion4}\\
+		v(t)^2 = v_0^2 + 2as. \label{eq:linearmotion5}
+	\end{gather}
+\end{theorem}
 
 \begin{figure}[b]
 	\centering
@@ -341,7 +343,7 @@ Which reads, ``\emph{the rate of change of $v$ w.r.t. $t$ is $a$}'' or ``\emph{t
 	\end{proof}
 
 	\begin{proof}[Derivation of \cref{eq:linearmotion2}]
-		Use the reverse of \cref{theorem:fundamentalthmofcalc1}. We know that\footnote{Here, $x$ is replaced with $s$ to represent displacement in one dimension.} $v = \odv*{s}{t}$; therefore,
+		Use the reverse of \cref{th:fundamentalthmofcalc1}. We know that\footnote{Here, $x$ is replaced with $s$ to represent displacement in one dimension.} $v = \odv*{s}{t}$; therefore,
 		\begin{equation*}
 			\int v\odif{t} = s,
 		\end{equation*}

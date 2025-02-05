@@ -6,13 +6,50 @@ As said earlier, with the merge of calculus and trigonometry, all the cards are 
 Since this is an exploratory chapter, I can't really provide a main \emph{theme} for the chapter, except that it's a chapter that explores \emph{differential equations}. So, I've decided to structure the chapter into examples and theory group. A section will start with an example of a dynamical system. Then, we'll try to describe the system using differential equations. Afterward, we'll solve the system, and analyze its physical and mathematical properties.
 
 The chapter is planned out as follows:
-\begin{enumerate}
+\begin{enumerate}[noitemsep]
+	\item Prelude: more advanced techniques of integration
 	\item Exponential growth and decay (Separated into two sections)
 	\item Logistic growths
 	\item Movement with drag forces
 	\item Realization of gravitational systems
 	\item Alternating currents
 \end{enumerate}
+
+\section{Prelude: more advanced techniques of integration}
+
+\subsection{Rational quadratic integrals}
+
+There are many integrands of the form
+\begin{equation}
+	\int \frac{Ax + B}{Cx^2 + Dx + E} \odif{x}
+\end{equation}
+in this chapter. Normally I prefer to introduce them along the way, but it plays a very important role in this chapter that it deserves its own section.
+
+Generally, the integral above can be simplified into a sum of integrals of the form
+\begin{equation}
+	\int \frac{1}{x^2 + bx + c} \odif{x},
+\end{equation}
+which is way better. So, we'll deal with this reduced form instead. Because the denominator is quadratic, it's not a great idea to substitute $u = x^2 + bx + c$ straightaway, as $\odif{u} = 2x + b$ but there's no $x$'s in the numerator. It'd be better if we can turn the quadratic denominator into something else. From the section earlier, we know that trigonometric substitution can be used to integrate integrals of the form
+\begin{equation}
+	\int \frac{1}{Ax^2 + B}\odif{x}.
+\end{equation}
+It'd be very nice if we can remove the middle $bx$ term. That's it! Completion of the square allows us to do just that!
+\begin{align}
+	x^2 + b x + c & = \ab( x )^2 + 2 \ab(x) \ab(\frac{b}{2}) + \ab( \ab(\frac{b}{2})^2 - \ab(\frac{b}{2})^2 ) + c \\
+	              & = \ab( x^2 + 2 x \frac{b}{2} + \frac{b^2}{4} ) + \ab( c - \frac{b^2}{4} )                     \\
+	              & = \ab( x + \frac{b}{2} )^2 + \ab( c - \frac{b^2}{4} )
+\end{align}
+Let's call $\frac{b}{2}$ as $P$ and $\frac{b^2}{4}$ as $Q^2$ for shortness. Thus,
+\begin{equation}
+	\int \frac{1}{x^2 + bx + c} \odif{x} = \int \frac{1}{ ( x + P )^2 + Q^2 } \odif{x} \\
+\end{equation}
+Then, we can do a simple substitution. Let $u = x + P$, then $\odif{u} = \odif{x}$; thus,
+\begin{equation}
+	\int \frac{1}{( x + P )^2 + Q^2} \odif{x} = \int \frac{1}{u^2 + Q^2}\odif{u}
+\end{equation}
+From here, there are actually two ways to integrate this: using the standard trigonometric substitution, or using partial fractions. Let's do both
+
+\paragraph{Using trigonometric substitution}
 
 \section{Exponential equations}
 
