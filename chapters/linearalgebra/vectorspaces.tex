@@ -1,0 +1,25 @@
+\chapter{Vector spaces}
+
+Now it's a good time to make the concepts of vectors and transformations more precise and abstract, starting with vectors itself.
+
+What does it mean for something to \emph{be} a vector? Normally, we'd say that a vector is something that has a size and a direction. But what are sizes and directions? The intuition of size and direction exists in the Euclidean space only.
+
+\section{Basic definition of vector spaces}
+
+\begin{df}{Definition of a vector space}{vector_spaces}
+  A vector space is a set over a field \(\mathbb{F}\) equipped with two operations:
+  \begin{enumerate}
+    \item Addition: a binary operation from \(V\) to itself denoted \(+\)
+    \item Multiplication: a binary operation from \(V\) and \(\mathbb{F}\) to \(V\), denoted by \(\cdot\) or by juxtaposition\footnote{Juxtaposition is a method of denoting multiplication by putting two variables next to each other. E.g., \(a \cdot b\) is \emph{juxtaposed} to \(ab\)}.
+  \end{enumerate}
+  In order for a set \(V\) to be a vector space under \(\vv{F}, +\), and
+  \begin{enumerate}[noitemsep]
+    \item \(\exists (\vv{0} \in V) \forall (\vv{v} \in V) : \vv{v} + \vv{0} = \vv{v}\)
+    \item \(\forall (\vv{u}, \vv{v} \in V) : \vv{u} + \vv{v} = \vv{v} + \vv{u}\)
+    \item \(\forall (\vv{u}, \vv{v}, \vv{w} \in V) : \vv{u} + (\vv{v} + \vv{w}) = (\vv{u} + \vv{v}) + \vv{w}\)
+    \item \(\forall (\vv{u} \in V) \exists (\vv{v} \in V) : \vv{u} + \vv{v} = \vv{0}\)
+    \item \(\forall a \in \mathbb{F}\) :
+  \end{enumerate}
+\end{df}
+
+

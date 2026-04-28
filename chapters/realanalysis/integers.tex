@@ -1,180 +1,190 @@
 \chapter{The integers}
 
-All numbers that are an integer will be marked with an asterisk. E.g., $2$ is in $\mathbb{N}$ but $\Zint{2}$ is in $\mathbb{Z}$
+\begin{notation}{The integers}{}
+  The integers will be marked with a dagger. E.g., \(2\) is a natural number, but \(\Zint{2}\) is an integer.
+\end{notation}
 
 \section{An informal introduction to the integers}
 
-In this section, I shall not refrain myself from using the subtraction sign. The subtraction sign here is used to better illustrate what we shall be doing in this chapter. In the following sections, we shall formally construct the integers from the ideas that are illustrated here.
+In this section, I shall not refrain myself from using the subtraction sign, as it better illustrates what we're going to be doing in this chapter.
 
-The purpose of defining the integers is to define what subtraction and negative numbers are. In a sense, the integers are an extension of the naturals: we can use the naturals and the operations we have to define what an integer is. Although, with the use of some equivalence relations.
+Defining the integers is like defining subtraction and negatives. In a sense, the integers is an extension of the naturals, because as you would see, the system of the naturals are already sufficient to define the integers.
 
-Ultimately, an integer is difference between two naturals, i.e.,
+One can define an integer to be a difference between two naturals:
 \begin{equation}
-	\Zint{a} = n - m.
+  \Zint{a} = n - m.
 \end{equation}
-Naturally, we could define an integer as an ordered pair $(n, m)$, and say that this ordered pair represent the integer $n - m$. Although, we haven't defined what subtraction is yet. We'll see how we can deal with that later. However, this definition alone wouldn't suffice, because now, one integer can be represented by many pairs of naturals, e.g., $(5, 3)$ and $(4, 2)$ both represent $\Zint{2}$. So, we need an equivalence relation to tell us whether a pair of naturals can represent the same integer or not.
+The integer \(\Zint{a}\) is negative if \(n < m\), positive if \(n > m\), and zero if \(n = m\). This means, the integer is just an ordered pair $(n, m)$, which formally represents \(n - m\). But notice that this definition alone wouldn't suffice, as there are many pairs of naturals that can represent one integer. E.g., $(5, 3)$ and $(4, 2)$, and \((10, 8)\) are all different pairs of naturals, but they all represent the integer $\Zint{2}$. So, we need some way to tell whether two pair of naturals represent the same integer or not.
 
 Consider two integers $(n, m)$ and $(k, l)$. These two integers are equivalent \ifft
 \begin{equation}
-	n - m = k - l
+  n - m = k - l.
 \end{equation}
-From the assumed knowledge of arithmetic, we can move the terms around to get rid of the subtraction:
+From the assumed knowledge of subtraction, we can move the terms around to get
 \begin{equation}
-	n + l = k + m
+  n + l = k + m.
 \end{equation}
-Therefore, an equivalence relation can be defined by
+Thus, we could say that two integers \((n, m)\) and \((k, l)\) are equivalent \ifft
 \begin{equation}
-	(n, m) \sim (k, l) \iff n + l = k + m.
+  n + l = k + m.
+\end{equation}
+This equivalency is denoted symbolically as
+\begin{equation}
+  (n, m) \sim (k + m)
 \end{equation}
 
-Addition and multiplication of integers are also defined with the definition that's inspired by an assumed knowledge of arithmetic. I.e., if $\Zint{a} = (n, m)$ and $\Zint{b} = (k, l)$, then
+Addition and multiplication of integers can also be defined via the assumed knowledge of arithmetic. I.e., if $\Zint{a} = (n, m)$ and $\Zint{b} = (k, l)$, then
 \begin{align}
-	\Zint{a} + \Zint{b} & = (n, m) + (k, l)   \\
-	                    & = (n - m) + (k - l) \\
-	                    & = (n + k) - (m + l) \\
-	                    & = (n + k, m + l),
+  \Zint{a} + \Zint{b} & = (n, m) + (k, l)   \\
+                      & = (n - m) + (k - l) \\
+                      & = (n + k) - (m + l) \\
+                      & = (n + k, m + l),
 \end{align}
 and
 \begin{align}
-	\Zint{a}\Zint{b} & = (n, m) \times (k, l)  \\
-	                 & = (n - m)(k - l)        \\
-	                 & = nk - nl - mk + ml     \\
-	                 & = (nk + ml) - (nl + mk) \\
-	                 & = (nk + ml, nl + mk).
+  \Zint{a}\Zint{b} & = (n, m) \times (k, l)  \\
+                   & = (n - m)(k - l)        \\
+                   & = nk - nl - mk + ml     \\
+                   & = (nk + ml) - (nl + mk) \\
+                   & = (nk + ml, nl + mk).
 \end{align}
-To define negative numbers, we just have to revert the order of the pair. If $(n, m) = n - m = \Zint{a}$, then $(m, n) = m - n = -a$. Then, subtraction is simply defined by $\Zint{a} - \Zint{b} = \Zint{a} + (-\Zint{b})$
+Negative integers can also be defined by reversing the pair. If $(n, m) = n - m = \Zint{a}$, then $(m, n) = m - n = -\Zint{a}$. Then, subtraction is simply defined by $\Zint{a} - \Zint{b} = \Zint{a} + (-\Zint{b})$
 
 \section{Construction of the integers}
 
 \begin{df}{Integers}{integer}
-	An integer is an ordered pair in the form $(n, m)$ where $n, m \in \mathbb{N}$. If $\Zint{a}$ is an integer, then $\exists(n, m \in \mathbb{N}) : \Zint{a} = (n, m)$.
+  An integer is an ordered pair of naturals. If $\Zint{a}$ is an integer, then $\exists(n, m \in \mathbb{N}) : \Zint{a} = (n, m)$.
 \end{df}
 
 Then, we construct the set of all integers
 \begin{df}{Set of all integers ($\mathbb{Z}$)}{integers_set}
-	The set $\mathbb{Z}$ contains all integers, i.e.,
-	\begin{equation}
-		\mathbb{Z} = \ab\{(n, m) : n, m \in \mathbb{N}\}
-	\end{equation}
+  The set $\mathbb{Z}$ contains all integers, i.e.,
+  \begin{equation}
+    \mathbb{Z} = \ab\{(n, m) : n, m \in \mathbb{N}\}
+  \end{equation}
 \end{df}
 
 The equivalence relation is then stated as follows:
 \begin{df}{Equivalence relation for integers}{integers_equivalence_relations}
-	Given two integers $\Zint{a} = (n, m)$ and $\Zint{b} = (k, l)$, where $n, m, k, l \in \mathbb{N}$. If these two integers are equivalent, then we write $\Zint{a} \sim \Zint{b}$, or $(n, m) \sim (k, l)$. And,
-	\begin{equation}
-		\Zint{a} \sim \Zint{b} \iff n + l = m = k.
-	\end{equation}
+  Let $\Zint{a} = (n, m)$ and $\Zint{b} = (k, l)$ be integers. If
+  \begin{equation}
+    n + l = m + k,
+  \end{equation}
+  these two integers are equivalent, and we denote the equivalency by
+  \begin{equation}
+    \Zint{a} \sim \Zint{b}, \mathor (n, m) \sim (k, l)
+  \end{equation}
 \end{df}
 
 Because we want to later define arithmetic on the integers, we must verify that the equivalence relation for integers also satisfy the three equality axioms, i.e.,
 \begin{enumerate}[noitemsep]
-	\item Reflexivity ($\forall(\Zint{a} \in \mathbb{Z}) : \Zint{a} \sim \Zint{a}$)
-	\item Symmetry ($\forall(\Zint{a}, \Zint{b} \in \mathbb{Z}) : \Zint{a} \sim \Zint{b} \iff \Zint{b} \sim \Zint{a}$)
-	\item Transitivity ($\forall(\Zint{a}, \Zint{b}, \Zint{c} \in \mathbb{Z} : (\Zint{a} \sim \Zint{b}) \land (\Zint{b} \sim \Zint{c}) \implies \Zint{a} \sim \Zint{c}$)
+  \item Reflexivity ($\forall(\Zint{a} \in \mathbb{Z}) : \Zint{a} \sim \Zint{a}$)
+  \item Symmetry ($\forall(\Zint{a}, \Zint{b} \in \mathbb{Z}) : \Zint{a} \sim \Zint{b} \iff \Zint{b} \sim \Zint{a}$)
+  \item Transitivity ($\forall(\Zint{a}, \Zint{b}, \Zint{c} \in \mathbb{Z} : (\Zint{a} \sim \Zint{b}) \land (\Zint{b} \sim \Zint{c}) \implies \Zint{a} \sim \Zint{c}$)
 \end{enumerate}
 Once these three are verified, we can actually replace the equivalence sign ($\sim$) with the equality sign ($=$).
 
 \begin{cor}{Equivalence of integers is reflexive}{integers_equivalence_reflexive}
-	\begin{equation}
-		\forall(\Zint{a} \in \mathbb{Z}) : \Zint{a} \sim \Zint{a}.
-	\end{equation}
+  \begin{equation}
+    \forall(\Zint{a} \in \mathbb{Z}) : \Zint{a} \sim \Zint{a}.
+  \end{equation}
 \end{cor}
 \begin{proof}
-	Let $\exists(n, m \in \mathbb{N})$ where $(n, m) = \Zint{a}$. Since $n + m = n + m$, $(n, m) \sim (n, m)$; thus, $\Zint{a} \sim \Zint{a}$.
+  Let $\exists(n, m \in \mathbb{N})$ where $(n, m) = \Zint{a}$. Since $n + m = n + m$, $(n, m) \sim (n, m)$; thus, $\Zint{a} \sim \Zint{a}$.
 \end{proof}
 
 \begin{cor}{Equivalence of integers is symmetric}{integers_equivalence_symmetric}
-	\begin{equation}
-		\forall(\Zint{a}, \Zint{b} \in \mathbb{Z}) : \Zint{a} \sim \Zint{b} \iff \Zint{b} \sim \Zint{a}
-	\end{equation}
+  \begin{equation}
+    \forall(\Zint{a}, \Zint{b} \in \mathbb{Z}) : \Zint{a} \sim \Zint{b} \iff \Zint{b} \sim \Zint{a}
+  \end{equation}
 \end{cor}
 \begin{proof}
-	Since the backwards direction can be obtained by switching $a$ and $b$, we shall only prove the forward direction.
+  Since the backwards direction can be obtained by switching $a$ and $b$, we shall only prove the forward direction.
 
-	Let $\exists(n, m, k, l \in \mathbb{N})$ where $(n, m) = \Zint{a}$ and $(k, l) = \Zint{b}$. Since $\Zint{a} \sim \Zint{b}$, $(n, m) \sim (k, l)$; thus, $n + l = m + k$. By the symmetry of equality, $m + k = n + l$. Because addition is commutative, $k + m = n + l$. Therefore, we get $(k, l) \sim (n, m)$, i.e., $\Zint{b} \sim \Zint{a}$.
+  Let $\exists(n, m, k, l \in \mathbb{N})$ where $(n, m) = \Zint{a}$ and $(k, l) = \Zint{b}$. Since $\Zint{a} \sim \Zint{b}$, $(n, m) \sim (k, l)$; thus, $n + l = m + k$. By the symmetry of equality, $m + k = n + l$. Because addition is commutative, $k + m = n + l$. Therefore, we get $(k, l) \sim (n, m)$, i.e., $\Zint{b} \sim \Zint{a}$.
 \end{proof}
 
 \begin{cor}{Equivalence of integers is transitive}{integers_equivalence_transitive}
-	\begin{equation}
-		\forall(\Zint{a}, \Zint{b}, \Zint{c} \in \mathbb{Z} : (\Zint{a} \sim \Zint{b}) \land (\Zint{b} \sim \Zint{c}) \implies \Zint{a} \sim \Zint{c}
-	\end{equation}
+  \begin{equation}
+    \forall(\Zint{a}, \Zint{b}, \Zint{c} \in \mathbb{Z} : (\Zint{a} \sim \Zint{b}) \land (\Zint{b} \sim \Zint{c}) \implies \Zint{a} \sim \Zint{c}
+  \end{equation}
 \end{cor}
 \begin{proof}
-	Let $\exists(n, m, k, l, p, q \in \mathbb{N})$ where $(n, m) = \Zint{a}$, $(k, l) = \Zint{b}$, and $(p, q) = \Zint{c}$.
-	\begin{gather}
-		\Zint{a} \sim \Zint{b} \iff (n, m) \sim (k, l) \iff n + l = m + k, \\
-		\Zint{b} \sim \Zint{c} \iff (k, l) \sim (p, q) \iff k + p = l + q.
-	\end{gather}
-	Combining these two equations together we get
-	\begin{equation}
-		n + l + k + p = m + k + l + q.
-	\end{equation}
-	By the cancellation law on addition of naturals,
-	\begin{equation}
-		n + p = m + q,
-	\end{equation}
-	which is equivalent to saying $(n, m) \sim (p, q)$, i.e., $\Zint{a} \sim \Zint{c}$.
+  Let $\exists(n, m, k, l, p, q \in \mathbb{N})$ where $(n, m) = \Zint{a}$, $(k, l) = \Zint{b}$, and $(p, q) = \Zint{c}$.
+  \begin{gather}
+    \Zint{a} \sim \Zint{b} \iff (n, m) \sim (k, l) \iff n + l = m + k, \\
+    \Zint{b} \sim \Zint{c} \iff (k, l) \sim (p, q) \iff k + p = l + q.
+  \end{gather}
+  Combining these two equations together we get
+  \begin{equation}
+    n + l + k + p = m + k + l + q.
+  \end{equation}
+  By the cancellation law on addition of naturals,
+  \begin{equation}
+    n + p = m + q,
+  \end{equation}
+  which is equivalent to saying $(n, m) \sim (p, q)$, i.e., $\Zint{a} \sim \Zint{c}$.
 \end{proof}
 
 By \cref{co:integers_equivalence_reflexive,co:integers_equivalence_symmetric,co:integers_equivalence_transitive}, we can now use the equal sign instead of the equivalence sign to represent the equality of integers. But as said earlier, there are still one thing that is still not verified: the substitution axiom, i.e., if $f(n)$ be an arithmetical function of the integers, then
 \begin{equation}
-	\ab(f(n) = m) \land \ab(n = n') \implies f(n') = m.
+  \ab(f(n) = m) \land \ab(n = n') \implies f(n') = m.
 \end{equation}
 
 \section{Arithmetic on the integers}
 
 \begin{df}{Addition of integers}{integers_addition}
-	Let there be two integers $\Zint{a}$ and $\Zint{b}$ where $\exists(n, m, k, l \in \mathbb{N})$ such that $(n, m) = \Zint{a}$ and $(k, l) = \Zint{b}$. The sum of $\Zint{a}$ and $\Zint{b}$, denoted $\Zint{a} + \Zint{b}$, is defined as:
-	\begin{equation}
-		\Zint{a} + \Zint{b} = (n + k, m + l).
-	\end{equation}
+  Let there be two integers $\Zint{a}$ and $\Zint{b}$ where $\exists(n, m, k, l \in \mathbb{N})$ such that $(n, m) = \Zint{a}$ and $(k, l) = \Zint{b}$. The sum of $\Zint{a}$ and $\Zint{b}$, denoted $\Zint{a} + \Zint{b}$, is defined as:
+  \begin{equation}
+    \Zint{a} + \Zint{b} = (n + k, m + l).
+  \end{equation}
 \end{df}
 
 \begin{df}{Product of integers}{integers_product}
-	Let there be two integers $\Zint{a}$ and $\Zint{b}$ where $\exists(n, m, k, l \in \mathbb{N})$ where $(n, m) = \Zint{a}$ and $(k, l) = \Zint{b}$. Then, the product of $\Zint{a}$ and $\Zint{b}$, $\Zint{a} + \Zint{b}$ is defined as:
-	\begin{equation}
-		\Zint{a} \times \Zint{b} = \Zint{a}\Zint{b} = (nk + ml, nl + mk).
-	\end{equation}
+  Let there be two integers $\Zint{a}$ and $\Zint{b}$ where $\exists(n, m, k, l \in \mathbb{N})$ where $(n, m) = \Zint{a}$ and $(k, l) = \Zint{b}$. Then, the product of $\Zint{a}$ and $\Zint{b}$, $\Zint{a} + \Zint{b}$ is defined as:
+  \begin{equation}
+    \Zint{a} \times \Zint{b} = \Zint{a}\Zint{b} = (nk + ml, nl + mk).
+  \end{equation}
 \end{df}
 
 Here, we prove that both addition and multiplication of integers obey the substitution axiom
 \begin{cor}{Addition and multiplication of integers obey the substitution axiom}{integers_addition_well-defined}
-	Let $n, m, n', m', k, l$ be natural numbers. If $(n, m) = (n', m')$, then
-	\begin{gather}
-		(n, m) + (k, l) = (n', m') + (k, l), \\
-		(n, m) \times (k, l) = (n', m') \times (k, l)
-	\end{gather}
+  Let $n, m, n', m', k, l$ be natural numbers. If $(n, m) = (n', m')$, then
+  \begin{gather}
+    (n, m) + (k, l) = (n', m') + (k, l), \\
+    (n, m) \times (k, l) = (n', m') \times (k, l)
+  \end{gather}
 \end{cor}
 \begin{proof}
-	The relation $(n, m) = (n', m')$ means $n + m' = m + n'$.
+  The relation $(n, m) = (n', m')$ means $n + m' = m + n'$.
 
-	Firstly, we prove that addition obeys the substitution axiom. Evaluate both sides separately
-	\begin{align}
-		(n, m) + (k, l)   & = (n + k, m + l)   \\
-		(n', m') + (k, l) & = (n' + k, m' + l)
-	\end{align}
-	Which, for an equivalence test, we check whether $(n + k, m + l)$ is equal to $(n' + k, m' + l)$ or not.
-	\begin{align}
-		(n + k, m + l) & \overset{?}{=} (n' + k, m' + l) \\
-		n + k + m' + l & \overset{?}{=} m + l + n' + k.
-	\end{align}
-	Using cancellation of addition on natural numbers, we get
-	\begin{align}
-		n + m' \overset{?}{=} m + n'.
-	\end{align}
-	From our assumption that $(n, m) = (n', m')$, $n + m'$ does indeed equal $m + n'$. Therefore, our statement is true: addition obeys the substitution axiom.
+  Firstly, we prove that addition obeys the substitution axiom. Evaluate both sides separately
+  \begin{align}
+    (n, m) + (k, l)   & = (n + k, m + l)   \\
+    (n', m') + (k, l) & = (n' + k, m' + l)
+  \end{align}
+  Which, for an equivalence test, we check whether $(n + k, m + l)$ is equal to $(n' + k, m' + l)$ or not.
+  \begin{align}
+    (n + k, m + l) & \overset{?}{=} (n' + k, m' + l) \\
+    n + k + m' + l & \overset{?}{=} m + l + n' + k.
+  \end{align}
+  Using cancellation of addition on natural numbers, we get
+  \begin{align}
+    n + m' \overset{?}{=} m + n'.
+  \end{align}
+  From our assumption that $(n, m) = (n', m')$, $n + m'$ does indeed equal $m + n'$. Therefore, our statement is true: addition obeys the substitution axiom.
 
-	For multiplication,
-	\begin{align}
-		(n, m) \times (k, l)   & = (nk + ml, nl + mk)      \\
-		(n', m') \times (k, l) & = (n'k + m'l, n'l + m'k).
-	\end{align}
-	Then, we check whether $(nk + ml, nl + mk)$ is equal to $(n'k + m'l, n'l + m'k)$ or not.
-	\begin{align}
-		(nk + ml, nl + mk)    & \overset{?}{=} (n'k + m'l, n'l + m'k) \\
-		nk + ml + n'l + m'k   & \overset{?}{=} nl + mk + n'k + m'l    \\
-		k(n + m') + l(m + n') & \overset{?}{=} l(n + m') + k(m + n').
-	\end{align}
-	Since $n + m' = m + n'$, the two sides must be equal. Therefore, our statement is true: multiplication obeys the substitution axiom.
+  For multiplication,
+  \begin{align}
+    (n, m) \times (k, l)   & = (nk + ml, nl + mk)      \\
+    (n', m') \times (k, l) & = (n'k + m'l, n'l + m'k).
+  \end{align}
+  Then, we check whether $(nk + ml, nl + mk)$ is equal to $(n'k + m'l, n'l + m'k)$ or not.
+  \begin{align}
+    (nk + ml, nl + mk)    & \overset{?}{=} (n'k + m'l, n'l + m'k) \\
+    nk + ml + n'l + m'k   & \overset{?}{=} nl + mk + n'k + m'l    \\
+    k(n + m') + l(m + n') & \overset{?}{=} l(n + m') + k(m + n').
+  \end{align}
+  Since $n + m' = m + n'$, the two sides must be equal. Therefore, our statement is true: multiplication obeys the substitution axiom.
 \end{proof}
 

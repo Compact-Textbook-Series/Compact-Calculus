@@ -1,0 +1,18 @@
+\chapter{Linear ordinary differential equations}
+
+Most of the intuitions of ODE's are already written in the first part of this book. Hence, I shall not go over those.
+
+This chapter is on using the theory of linear algebra to solve \textbf{linear differential equations} which is defined as follows:
+
+\begin{df}{Linear differential equations}{}
+  A linear differential equation is an equation of the form
+  \begin{equation}
+    \sum_{i = 0}^{n} f_i(x)\odv[order = i]{y}{x} = g(x)
+  \end{equation}
+  where \(f_i(x)\)'s are \(i\) times differentiable w.r.t. \(x\).
+\end{df}
+
+We've seen that derivatives are essentially linear operators; hence, we can factor them like one
+\begin{equation}
+  \sum_{i = 0}^{n} f_i(x)\odv[order = i]{y}{x} = \sum_{i = 0}^{n} f_i(x) D
+\end{equation}

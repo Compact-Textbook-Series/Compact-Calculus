@@ -1,13 +1,14 @@
 \chapter{Merging calculus and dynamical systems}
 \label{sec:calculus-and-physical-systems}
 
-As said earlier, with the merge of calculus and trigonometry, all the cards are on the deck. And we can finally begin to analyze many interesting dynamical systems that is scattered all over the world.\footnote{These dynamical systems are partially my excuses to teach various technique of integrations. So, be prepared for it.}
+With the merge of calculus and trigonometry, all cards are on the deck; finally, unlocking the door to analyze many interesting dynamical systems scattered all over the world.\footnote{These dynamical systems are partially my excuses to teach various technique of integrations. So, be prepared for it.}
 
-Since this is an exploratory chapter, I can't really provide a main \emph{theme} for the chapter, except that it's a chapter that explores \emph{differential equations}. So, I've decided to structure the chapter into examples and theory group. A section will start with an example of a dynamical system. Then, we'll try to describe the system using differential equations. Afterward, we'll solve the system, and analyze its physical and mathematical properties.
+Since this is an exploratory chapter, I can't really provide a main \emph{theme} for the chapter. It's just chapter that explores \emph{differential equations}, if you could even call that a theme. So, I've decided to structure the chapter into examples and theories. A section will start with an example of a dynamical system. Then, a description of the system using differential equations. Then, a solution and an analysis on its physical and mathematical properties.
 
 The chapter is planned out as follows:
 \begin{enumerate}[noitemsep]
 	\item Prelude: more advanced techniques of integration
+	\item Solution sketching
 	\item Exponential growth and decay (Separated into two sections)
 	\item Logistic growths
 	\item Movement with drag forces
@@ -15,496 +16,586 @@ The chapter is planned out as follows:
 	\item Alternating currents
 \end{enumerate}
 
-\section{Prelude: more advanced techniques of integration}
+\section{Prelude: fancier techniques of integration}
 
 \subsection{Rational quadratic integrals}
 
-There are many integrands of the form
+In this chapter, you'd see many integrals of the form
 \begin{equation}
 	\int \frac{Ax + B}{Cx^2 + Dx + E} \odif{x}
 \end{equation}
-in this chapter. Normally I prefer to introduce them along the way, but it plays a very important role in this chapter that it deserves its own section.
+There are multiple ways to integrate this. Each one have different styles. Here, I shall introduce you to all but first, let's do some preliminary simplification.
 
-Generally, the integral above can be simplified into a sum of integrals of the form
-\begin{equation}
-	\int \frac{1}{x^2 + bx + c} \odif{x},
-\end{equation}
-which is way better. So, we'll deal with this reduced form instead. Because the denominator is quadratic, it's not a great idea to substitute $u = x^2 + bx + c$ straightaway, as $\odif{u} = 2x + b$ but there's no $x$'s in the numerator. It'd be better if we can turn the quadratic denominator into something else. From the section earlier, we know that trigonometric substitution can be used to integrate integrals of the form
-\begin{equation}
-	\int \frac{1}{Ax^2 + B}\odif{x}.
-\end{equation}
-It'd be very nice if we can remove the middle $bx$ term. That's it! Completion of the square allows us to do just that!
+It'd be great if the numerator is just a simple constant. Well, it's indeed possible to break this integral into two smaller integrals using the linearity property:
 \begin{align}
-	x^2 + b x + c & = \ab( x )^2 + 2 \ab(x) \ab(\frac{b}{2}) + \ab( \ab(\frac{b}{2})^2 - \ab(\frac{b}{2})^2 ) + c \\
-	              & = \ab( x^2 + 2 x \frac{b}{2} + \frac{b^2}{4} ) + \ab( c - \frac{b^2}{4} )                     \\
-	              & = \ab( x + \frac{b}{2} )^2 + \ab( c - \frac{b^2}{4} )
+	 & \int \frac{Ax + B}{Cx^2 + Dx + E} \odif{x}                                                                                         \nonumber \\
+	 & = \int \frac{Ax}{Cx^2 + Dx + E} \odif{x} + B \int \frac{1}{Cx^2 + Dx + E} \odif{x} \label{eq:calculusandphysicalsystems-dummy1}
 \end{align}
-Let's call $\frac{b}{2}$ as $P$ and $\frac{b^2}{4}$ as $Q^2$ for shortness. Thus,
-\begin{equation}
-	\int \frac{1}{x^2 + bx + c} \odif{x} = \int \frac{1}{ ( x + P )^2 + Q^2 } \odif{x} \\
-\end{equation}
-Then, we can do a simple substitution. Let $u = x + P$, then $\odif{u} = \odif{x}$; thus,
-\begin{equation}
-	\int \frac{1}{( x + P )^2 + Q^2} \odif{x} = \int \frac{1}{u^2 + Q^2}\odif{u}
-\end{equation}
-From here, there are actually two ways to integrate this: using the standard trigonometric substitution, or using partial fractions. Let's do both
+The second integral already has a constant in the denominator. What about the first?
 
-\paragraph{Using trigonometric substitution}
-
-\section{Exponential equations}
-
-\subsection{Normal growth}
-
-A \textbf{normal growth} is an unconstrained growth: a type of growth that only happens when an organism has access to infinite resources. Such systems do not exist in reality, but there are some which can be approximated using this model, e.g., the population of bacteria in a Petri dish with plenty of food, the population of lilies in a well-regulated pond, or even the length of Jack's magic beanstalk. The differential equation is formed under the assumption that the growth rate is proportional to the current population size. Given a population size $N$ which is a function of time $t$, and a constant $\alpha$ which controls the growth rate,
-\begin{equation}
-	\odv{N(t)}{t} = \alpha N(t). \label{eq:normal-growth-equation}
-\end{equation}
-
-Given an initial condition $N(t = 0) = n$, \cref{eq:normal-growth-equation} can be directly solved using separation of variables
+A simple change of variable would do the trick. If we let \(u\) be the denominator, then \(\odif{u} = (2Cx + D) \odif{x}\). We're just missing a constant \(D\), so let's add it in and subtract it out:
 \begin{align}
-	\odv{N}{t}              & = \alpha N             \\
-	\frac{1}{N}\odif{N}     & = \alpha\odif{t}       \\
-	\int\frac{1}{N}\odif{N} & = \int \alpha\odif{t}.
+	 & \int \frac{Ax}{Cx^2 + Dx + E} \odif{x} = \frac{A}{2C} \int \frac{2Cx + D - D}{Cx^2 + Dx + E} \odif{x} \nonumber \\
+	 & = \frac{A}{2C} \int \frac{2Cx + D}{Cx^2 + Dx + E} - \frac{AD}{2C}\frac{1}{Cx^2 + Dx + E}\odif{x}                \\
+	 & = \frac{A}{2C} \int \frac{1}{u}\odif{u} - \frac{AD}{2C}\frac{1}{Cx^2 + Dx + E}\odif{x}                          \\
+	 & = \frac{A}{2C}\ln(u) - \frac{AD}{2C}\frac{1}{Cx^2 + Dx + E}\odif{x}                                             \\
+	 & = \frac{A}{2C}\ln(Cx^2 + Dx + E) - \frac{AD}{2C}\frac{1}{Cx^2 + Dx + E}\odif{x}
 \end{align}
-The L.H.S. is the integral of the reciprocal (\cref{sec:integral-of-the-reciprocal}) which evaluates to $\ln(N)$, and the R.H.S. directly evaluates to $\alpha t$ by the power rule (\cref{sec:reversed-power-rule}); therefore,
+We can combine this result with \cref{eq:calculusandphysicalsystems-dummy1} in order to get
 \begin{equation}
-	\ln(N) = \alpha t + C.
+	\begin{multlined}
+		\int \frac{Ax + B}{Cx^2 + Dx + E} \odif{x} \\= \frac{A}{2C}\ln(Cx^2 + Dx + E) - \ab(\frac{AD}{2C} + B) \int \frac{1}{Cx^2 + Dx + E} \odif{x}
+	\end{multlined}
 \end{equation}
-Substitute in the initial condition ($N(t = 0) = n$) to find the integral constant $C$,
+
+As seen, we're left with integrals of the form
+\begin{equation}
+	\int \frac{1}{Cx^2 + Dx + E}\odif{x},
+\end{equation}
+which is way easier to deal with.
+
+Firstly, let's pull out the leading constant from the denominator:
+\begin{equation}
+	\int \frac{1}{Cx^2 + Dx + E}\odif{x} = \frac{1}{C}\int\frac{1}{x^2 + \frac{D}{C}x + \frac{E}{C}}\odif{x}
+\end{equation}
+Notice that the form of this integral is suspiciously similar to the arctangent integral:
+\begin{equation}
+	\int \frac{1}{x^2 + a^2} \odif{x} = \frac{1}{a}\arctan\ab(\frac{x}{a}).
+\end{equation}
+The arctangent integral is just missing the term \(\frac{D}{C}x\). If we can remove this term from our integral in question, then it would be solvable using the arctangent integral. Let's do that.
+
+Every quadratics can be written into the form \(a(x - h)^2 + k\). This can be easily achieved by completing the square.
 \begin{align}
-	\ln(n) & = \alpha(0) + C \\
-	\ln(n) & = C;
+	x^2 + \frac{D}{C}x + \frac{E}{C} & = (x)^2 + 2(x)\ab(\frac{D}{2C}) + \ab(\frac{D}{2C})^2 - \ab(\frac{D}{2C})^2 + \frac{E}{C} \\
+	                                 & = \ab(x + \frac{D}{2C})^2 + \ab(\frac{E}{C} - \frac{D^2}{4C^2})                           \\
+	                                 & = \ab(x + \frac{D}{2C})^2 + \ab(\frac{4CE - D^2}{4C^2})
 \end{align}
-therefore,
+If we let \(u = x + \frac{D}{2C}\), then \(\odif{u} = \odif{x}\), and
 \begin{align}
-	\ln(N)              & = \alpha t + \ln(n) \\
-	\ln(N) - \ln(n)     & = \alpha t          \\
-	\ln\ab(\frac{N}{n}) & = \alpha t          \\
-	N(t)                & = n\e^{\alpha t}.
+	 & \frac{1}{C}\int\frac{1}{x^2 + \frac{D}{C}x + \frac{E}{C}}\odif{x} \nonumber               \\
+	 & = \frac{1}{C}\int\frac{1}{\ab(x + \frac{D}{2C})^2 + \ab(\frac{4CE - D^2}{4C^2})} \odif{x} \\
+	 & = \frac{1}{C}\int\frac{1}{u^2 + \ab(\frac{4CE - D^2}{4C^2})} \odif{u}
 \end{align}
-
-This result is quite easy to interpret. The higher $\alpha$ is, the faster the growth. The more initial population there is, the steeper the growth is.
-
-\subsection{Decay systems: Newton's cooling law and radioactivity}
-
-\subsection{Logistic growth: bacteria}
-
-The model of exponential functions in growth is ideal. Most of the time, growth can't be modeled using exponential functions, because the environment imposes a limit on how much population there can be. This limit can be from food shortage, lack of space, etc. Mathematically, this limit is called the \textbf{carrying capacity}. When the amount of living things reaches this carrying capacity, it stops to grow more, and the value stabilizes. How do we model these growth by using differential equations?
-
-First, recall the normal growth equation (\cref{eq:normal-growth-equation}, repeated here for ease of reading)
-\begin{equation*}
-	\odv{N}{t} = \alpha N
-\end{equation*}
-where $N$ is the population, and $\alpha$, the growth rate. The interpretation of this is: the growth rate is proportional to the amount of population that already exists in the system. If we want to make the growth rate slower when it's reaching the carrying capacity ($\varsigma$), we can multiply in
-\begin{equation}
-	1 - \frac{N}{\varsigma}. \label{eq:logistic-growth-determiner}
-\end{equation}
-This term represents how far away the system is from reaching the carrying capacity. If $N = \varsigma$, then $1 - \frac{N}{\varsigma} = 1 - \frac{\varsigma}{\varsigma} = 0$. If the system doesn't have any population yet, then $1 - \frac{N}{\varsigma} = 1 - \frac{0}{\varsigma} = 1$. By the condition that the population can't be more than the carrying capacity, $0 < N < \varsigma$; thus, \cref{eq:logistic-growth-determiner} is bounded between $0$ and $1$. Our equation then becomes
-\begin{equation}
-	\odv{N}{t} = \alpha N\ab(1 - \frac{N}{\varsigma}),
-\end{equation}
-which is called the equation of \textbf{logistic growth} \index{logistic growth}
-
-Solving this equation is quite simple. First, expand the R.H.S. into
-\begin{equation}
-	\odv{N}{t} = \frac{\varsigma N - N^2}{\varsigma}
-\end{equation}
-and do a separation of variable
+If \(\frac{4CE - D^2}{4C^2}\) is positive, then we can use the arctangent integral to get
 \begin{align}
-	\frac{1}{\varsigma N - N^2}\odif{N}      & = \varsigma\odif{t}                                    \\
-	\int \frac{1}{\varsigma N - N^2}\odif{N} & = \int \varsigma\odif{t} \label{eq:logistic-equations}
-\end{align}
-The R.H.S. directly evaluates to $\varsigma t$. But the L.H.S. is harder. These quadratic integrands require the use of several techniques to solve. First, we have to rewrite the quadratic down below to be in the form $ax^2 + b$. From there, two possible approaches are trigonometric substitution or partial fraction decomposition. Since we've explored trigonometric substitution in the last chapter already, we'll do partial fraction decomposition in this chapter.
-
-\subsubsection{Completing the square}
-
-Firstly, notice that
-\begin{align}
-	\varsigma N - N^2 & = - \ab((N)^2 - (2)(N)\ab(\frac{\varsigma}{2}))                                                          \\
-	                  & = -\ab((N)^2 - (2)(N)\ab(\frac{\varsigma}{2}) + \ab(\frac{\varsigma}{2})^2 - \ab(\frac{\varsigma}{2})^2) \\
-	                  & = -\ab(\ab(N - \frac{\varsigma}{2})^2 - \frac{\varsigma^2}{4})                                           \\
-	                  & = \frac{\varsigma^2}{4} - \ab(N - \frac{\varsigma}{2})^2
+	 & \frac{1}{C}\sqrt{\frac{4C^2}{4CE - D^2}}\arctan(u\frac{4C^2}{4CE - D^2})         \\
+	 & = \frac{2}{\sqrt{4CE - D^2}}\arctan\ab(\frac{4C^2(x + \frac{D}{2C})}{4CE - D^2}) \\
+	 & = \frac{2}{\sqrt{4CE - D^2}}\arctan\ab(\frac{4C^2x + 4CD}{4CE - D^2})
 \end{align}
 
-\subsubsection{Partial fraction decomposition in integrals}
+% \section{Prelude: more advanced techniques of integration}
+%
+% \subsection{Rational quadratic integrals}
+%
+% In this chapter, you will see many integrands of the form
+% \begin{equation}
+% 	\int \frac{Ax + B}{Cx^2 + Dx + E} \odif{x}
+% \end{equation}
+% Normally I prefer to introduce the techniques of integration along the way. Not for this one. This integral plays a very important role in this chapter that it deserves its own section to save you from the hassle.
+%
+% Generally, the integral above can be simplified into a sum of integrals of the form
+% \begin{equation}
+% 	\int \frac{1}{x^2 + bx + c} \odif{x},
+% \end{equation}
+% which is way better. So, we'll deal with this reduced form instead. Because the denominator is quadratic, it's not a great idea to substitute $u = x^2 + bx + c$ straightaway as $\odif{u} = 2x + b$, but there's no $x$'s in the numerator. It'd be better if we can turn the quadratic denominator into something simpler to deal with.
+%
+% From the section earlier, trigonometric substitution can take care of integrals of the form
+% \begin{equation}
+% 	\int \frac{1}{Ax^2 + B}\odif{x},
+% \end{equation}
+% which is incredibly similar to our target integral. If one can find a way to remove the $bx$ term in the middle\dots
+% \begin{align}
+% 	x^2 + b x + c & = \ab( x )^2 + 2 \ab(x) \ab(\frac{b}{2}) + \ab( \ab(\frac{b}{2})^2 - \ab(\frac{b}{2})^2 ) + c \\
+% 	              & = \ab( x^2 + 2 x \frac{b}{2} + \frac{b^2}{4} ) + \ab( c - \frac{b^2}{4} )                     \\
+% 	              & = \ab( x + \frac{b}{2} )^2 + \ab( c - \frac{b^2}{4} ).
+% \end{align}
+% Aha! If we just substitute $u = x + \frac{b}{2}$, then we'll be done! Let's call $\frac{b}{2}$ as $P$ and $c - \frac{b^2}{4}$ as $Q^2$ for conciseness, then
+% \begin{equation}
+% 	\int \frac{1}{x^2 + bx + c} \odif{x} = \int \frac{1}{ ( x + P )^2 + Q^2 } \odif{x}. \\
+% \end{equation}
+% Let $u = x + P$. We get $\odif{u} = \odif{x}$; thus,
+% \begin{equation}
+% 	\int \frac{1}{( x + P )^2 + Q^2} \odif{x} = \int \frac{1}{u^2 + Q^2}\odif{u}.
+% \end{equation}
+% From here, we can just use the standard trigonometric substitution developed in \cref{sec:trigonometric_substitution}. Let $u = Q\tan{\theta}$; hence, $\odif{u} = Q\sec^2{\theta} \odif{\theta}$. The integral then reduces down to
+% \begin{align}
+% 	 & \int \frac{1}{Q^2\tan^2{\theta} + Q^2} \times Q \sec^2{\theta} \odif{\theta} \\
+% 	 & = \frac{1}{Q} \int \frac{1}{\sec^2{\theta}} \sec^2{\theta} \odif{\theta}     \\
+% 	 & = \frac{\theta}{Q}.
+% \end{align}
+% Then, we must convert this back into its original form:
+% \begin{align}
+% 	u = Q\tan(\theta) & \implies \theta = \arctan\ab(\frac{u}{Q}),    \\
+% 	u = x + P         & \implies \theta = \arctan\ab(\frac{x + P}{Q})
+% \end{align}
+% From the definition of $P$ and $Q$
+% \begin{equation}
+% 	\frac{\theta}{Q} = \frac{1}{c - \frac{b^2}{4}}\arctan\ab(\frac{x + \frac{b}{2}}{c - \frac{b^2}{4}}) = \frac{4}{b^2 - 4c}\arctan\ab(\frac{2(2x + b)}{b^2 - 4c})
+% \end{equation}
+% Therefore,
+% \begin{equation}
+% 	\int \frac{1}{x^2 + bx + c}\odif{x} = \frac{4}{b^2 - 4c}\arctan\ab(\frac{2(2x + b)}{b^2 - 4c})
+% \end{equation}
+%
+% \section{Exponential equations}
+%
+% \subsection{Normal growth}
+%
+% A \textbf{normal growth} is an unconstrained growth: a type of growth that only happens when an organism has access to infinite resources. Such systems do not exist in reality, but there are some which can be approximated using this model, e.g., the population of bacteria in a Petri dish with plenty of food, the population of lilies in a well-regulated pond, or even the length of Jack's magic beanstalk. The differential equation is formed under the assumption that the growth rate is proportional to the current population size. Given a population size $N$ which is a function of time $t$, and a constant $\alpha$ which controls the growth rate,
+% \begin{equation}
+% 	\odv{N(t)}{t} = \alpha N(t). \label{eq:normal-growth-equation}
+% \end{equation}
+%
+% Given an initial condition $N(t = 0) = n$, \cref{eq:normal-growth-equation} can be directly solved using separation of variables
+% \begin{align}
+% 	\odv{N}{t}              & = \alpha N             \\
+% 	\frac{1}{N}\odif{N}     & = \alpha\odif{t}       \\
+% 	\int\frac{1}{N}\odif{N} & = \int \alpha\odif{t}.
+% \end{align}
+% The L.H.S. is the integral of the reciprocal (\cref{sec:integral-of-the-reciprocal}) which evaluates to $\ln(N)$, and the R.H.S. directly evaluates to $\alpha t$ by the power rule (\cref{sec:reversed-power-rule}); therefore,
+% \begin{equation}
+% 	\ln(N) = \alpha t + C.
+% \end{equation}
+% Substitute in the initial condition ($N(t = 0) = n$) to find the integral constant $C$,
+% \begin{align}
+% 	\ln(n) & = \alpha(0) + C \\
+% 	\ln(n) & = C;
+% \end{align}
+% therefore,
+% \begin{align}
+% 	\ln(N)              & = \alpha t + \ln(n) \\
+% 	\ln(N) - \ln(n)     & = \alpha t          \\
+% 	\ln\ab(\frac{N}{n}) & = \alpha t          \\
+% 	N(t)                & = n\e^{\alpha t}.
+% \end{align}
+%
+% This result is quite easy to interpret. The higher $\alpha$ is, the faster the growth. The more initial population there is, the steeper the growth is.
+%
+% \subsection{Decay systems: Newton's cooling law and radioactivity}
+%
+% \subsection{Logistic growth: bacteria}
+%
+% The model of exponential functions in growth is ideal. Most of the time, growth can't be modeled using exponential functions, because the environment imposes a limit on how much population there can be. This limit can be from food shortage, lack of space, etc. Mathematically, this limit is called the \textbf{carrying capacity}. When the amount of living things reaches this carrying capacity, it stops to grow more, and the value stabilizes. How do we model these growth by using differential equations?
+%
+% First, recall the normal growth equation (\cref{eq:normal-growth-equation}, repeated here for ease of reading)
+% \begin{equation*}
+% 	\odv{N}{t} = \alpha N
+% \end{equation*}
+% where $N$ is the population, and $\alpha$, the growth rate. The interpretation of this is: the growth rate is proportional to the amount of population that already exists in the system. If we want to make the growth rate slower when it's reaching the carrying capacity ($\varsigma$), we can multiply in
+% \begin{equation}
+% 	1 - \frac{N}{\varsigma}. \label{eq:logistic-growth-determiner}
+% \end{equation}
+% This term represents how far away the system is from reaching the carrying capacity. If $N = \varsigma$, then $1 - \frac{N}{\varsigma} = 1 - \frac{\varsigma}{\varsigma} = 0$. If the system doesn't have any population yet, then $1 - \frac{N}{\varsigma} = 1 - \frac{0}{\varsigma} = 1$. By the condition that the population can't be more than the carrying capacity, $0 < N < \varsigma$; thus, \cref{eq:logistic-growth-determiner} is bounded between $0$ and $1$. Our equation then becomes
+% \begin{equation}
+% 	\odv{N}{t} = \alpha N\ab(1 - \frac{N}{\varsigma}),
+% \end{equation}
+% which is called the equation of \textbf{logistic growth} \index{logistic growth}
+%
+% Solving this equation is quite simple. First, expand the R.H.S. into
+% \begin{equation}
+% 	\odv{N}{t} = \frac{\varsigma N - N^2}{\varsigma}
+% \end{equation}
+% and do a separation of variable
+% \begin{align}
+% 	\frac{1}{\varsigma N - N^2}\odif{N}      & = \varsigma\odif{t}                                    \\
+% 	\int \frac{1}{\varsigma N - N^2}\odif{N} & = \int \varsigma\odif{t} \label{eq:logistic-equations}
+% \end{align}
+% The R.H.S. directly evaluates to $\varsigma t$. But the L.H.S. is harder. These quadratic integrands require the use of several techniques to solve. First, we have to rewrite the quadratic down below to be in the form $ax^2 + b$. From there, two possible approaches are trigonometric substitution or partial fraction decomposition. Since we've explored trigonometric substitution in the last chapter already, we'll do partial fraction decomposition in this chapter.
+%
+% \subsubsection{Completing the square}
+%
+% Firstly, notice that
+% \begin{align}
+% 	\varsigma N - N^2 & = - \ab((N)^2 - (2)(N)\ab(\frac{\varsigma}{2}))                                                          \\
+% 	                  & = -\ab((N)^2 - (2)(N)\ab(\frac{\varsigma}{2}) + \ab(\frac{\varsigma}{2})^2 - \ab(\frac{\varsigma}{2})^2) \\
+% 	                  & = -\ab(\ab(N - \frac{\varsigma}{2})^2 - \frac{\varsigma^2}{4})                                           \\
+% 	                  & = \frac{\varsigma^2}{4} - \ab(N - \frac{\varsigma}{2})^2
+% \end{align}
+%
+% \subsubsection{Partial fraction decomposition in integrals}
+%
+% \section{Movement with drag forces}
+%
+% The second system that we're going to analyze is a system of a block moving with drag forces.
+%
+% Drag is quite complex. It depends on many variables, e.g., air viscosity, air compressibility, object's shape, etc. So, there is no such thing as an \enquote{exact drag function.} If there was, the amount of parameters you have to put in would probably be too much. Therefore, we assume that the drag function is continuous, and assume that it can be written in the terms of power series.
+%
+% Most of the time, drag is a function of velocity. The faster the object is moving, the more drag. So we write
+% \begin{equation}
+% 	f_r(\vv{v}) = a_0 + a_1\vv{v} + a_2\vv{v}^2 + a_3\vv{v}^3 + \dots,
+% \end{equation}
+% where $f_r$ is the drag force. In a simplified model, we only consider the first three terms,
+% \begin{equation}
+% 	f_r(\vv{v}) \approx a_0 + a_1\vv{v} + a_2\vv{v}^2.
+% \end{equation}
+% Firstly, $a_0$ has to be zero. Otherwise, the object will just accelerate constantly, which is no good. Thus, there can only be $a_1\vv{v} + a_2\vv{v}^2$ leftover, and Newton's second law reads
+% \begin{equation*}
+% 	m\odv*{\ab(\odv{x}{t})}{t} = a_1\odv{x}{t} + a_2\ab(\odv{x}{t})^2.
+% \end{equation*}
+% Using fluxion notation,
+% \begin{align*}
+% 	m\odv{\dot{x}}{t} & = a_1\dot{x} + a_2\dot{x}^2                     \\
+% 	\odv{\dot{x}}{t}  & = \frac{a_1}{m}\dot{x} + \frac{a_2}{m}\dot{x}^2
+% \end{align*}
+% For convenience, let $\flatfrac{a_1}{m} = P$ and $\flatfrac{a_2}{m} = Q$. The equation reads
+% \begin{equation}
+% 	\odv{\dot{x}}{t} = P\dot{x} + Q\dot{x}^2.
+% \end{equation}
+% Obviously, both $P$ and $Q$ must be negative; otherwise, the object will just accelerate further if velocity increases. To pick out this negative sign, let's set $P = -p^2$ and $Q = -q^2$, where $p, q \in \mathbb{R}^+$. Therefore, our differential equation becomes
+% \begin{equation}
+% 	\odv{\dot{x}}{t} = - q^2\dot{x}^2 - p^2\dot{x}. \label{eq:drag-equation}
+% \end{equation}
+% Set the initial condition, and we're ready to solve!
+%
+% Let's set $x(t = 0) = 0$ and $v(t = 0) = V$. A simple separation of variables would do just fine
+% \begin{align}
+% 	\frac{1}{-q^2\dot{x}^2 - p^2\dot{x}}\odif{x}    & = \odif{t}                            \\
+% 	\int\frac{1}{q^2\dot{x}^2 + p^2\dot{x}}\odif{x} & = - t + C. \label{eq:drag-integral-1}
+% \end{align}
+% This integral is quite a challenge, requiring the use of several techniques. First, we have to rewrite the the quadratic expression in the form $ax^2 + b$. From there, two possible approaches are trigonometric substitution or partial fraction decomposition. But since we've already explored trigonometric substitution in the previous chapter, I’ll focus on using partial fraction decomposition for this problem. After this integral is solved, we're left with another differential equation of $\dot{x}$ and $t$, then we have to solve for $x$ in terms of $t$. So there are actually two integrals that we have to do. It's going to be a long ride, so I shall break this problem into two parts.
+%
+% \subsection{First integral: completing the square and partial fraction decomposition}
+%
+% As the name suggests, we complete the square, then use a simple change of variables to solve the integral.
+% \begin{align}
+% 	\int\frac{1}{q^2\dot{x}^2 + p^2\dot{x}} & = \int\frac{1}{(q\dot{x})^2 + 2(\frac{p^2}{2q})(q\dot{x})}\odif{x}                                                 \\
+% 	                                        & = \int\frac{1}{(q\dot{x})^2 + 2(\frac{p^2}{2q})(q\dot{x}) + (\frac{p^2}{2q})^2 - (\frac{p^2}{2q})^2}\odif{\dot{x}} \\
+% 	                                        & = \int\frac{1}{(q\dot{x} + \frac{p^2}{2q})^2 - (\frac{p^2}{2q})^2}\odif{\dot{x}} \label{eq:dummy-1}
+% \end{align}
+% Substitute $u = q\dot{x} + \frac{p^2}{2q}$, then
+% \begin{align}
+% 	\odv{u}{\dot{x}}    & = \odv*{\ab(q\dot{x} + \frac{p^2}{2q})}{\dot{x}} \\
+% 	\odv{u}{\dot{x}}    & = q                                              \\
+% 	\frac{1}{q}\odif{u} & = \odif{\dot{x}}.
+% \end{align}
+% Therefore, from \cref{eq:dummy-1},
+% \begin{equation}
+% 	\int\frac{1}{q^2\dot{x}^2 + p^2\dot{x}}\odif{\dot{x}} = \frac{1}{q}\int\frac{1}{u^2 - (\frac{p^2}{2q})^2}\odif{u} \label{eq:drag-integral-2}
+% \end{equation}
+%
+% To go from here, we need to do partial fraction decomposition. I believe that you've learned this in Algebra II already. If not, \cref{appendix:partial-fraction-decomposition} is devoted to that. Notice that the denominator can be decomposed into a product of linear factors
+% \begin{equation}
+% 	u^2 - \ab(\frac{p^2}{2q})^2 = \ab(u + \frac{p^2}{2q})\ab(u - \frac{p^2}{2q});
+% \end{equation}
+% therefore, we set
+% \begin{equation}
+% 	\frac{1}{u^2 - (\frac{p^2}{2q})} = \frac{\alpha}{u + \frac{p^2}{2q}} + \frac{\beta}{u - \frac{p^2}{2q}}
+% \end{equation}
+% and solve for $\alpha$ and $\beta$. First we multiply out the terms
+% \begin{align}
+% 	\frac{1}{u^2 - (\frac{p^2}{2q})} & = \frac{\alpha(u + \frac{p^2}{2q}) + \beta(u - \frac{p^2}{2q})}{(u - \frac{p^2}{2q})(u + \frac{p^2}{2q})} \\
+% 	1                                & = \alpha\ab(u + \frac{p^2}{2q}) + \beta\ab(u - \frac{p^2}{2q})                                            \\
+% 	(0)u + 1                         & = u\ab(\alpha + \beta) + \frac{p^2}{2q}(\alpha - \beta).
+% \end{align}
+% By matching the leading coefficient, we get
+% \begin{gather}
+% 	\alpha + \beta = 0, \label{eq:drag-pfd-1} \\
+% 	\frac{p^2}{2q}(\alpha - \beta) = 1. \label{eq:drag-pfd-2}
+% \end{gather}
+% Solving this is quite simple. Take \cref{eq:drag-pfd-2} and move $\frac{p^2}{2q}$ to the R.H.S. to get
+% \begin{equation}
+% 	\alpha - \beta = \frac{2q}{p^2}. \label{eq:drag-pfd-3}
+% \end{equation}
+% Then, subtract \cref{eq:drag-pfd-3} from \cref{eq:drag-pfd-1}
+% \begin{align}
+% 	\alpha + \beta - \alpha + \beta & = -\frac{2q}{p^2} \\
+% 	\beta                           & = -\frac{q}{p^2}.
+% \end{align}
+% By \cref{eq:drag-pfd-1},
+% \begin{equation}
+% 	\alpha = \frac{q}{p^2};
+% \end{equation}
+% thus,
+% \begin{align}
+% 	\frac{1}{u^2 - (\frac{p^2}{2q})^2} & = \frac{q}{p^2}\frac{1}{u + \frac{p^2}{2q}} - \frac{q}{p^2}\frac{1}{u - \frac{p^2}{2q}} \\
+% 	                                   & = \frac{q}{p^2}\ab(\frac{1}{u - \frac{p^2}{2q}} - \frac{1}{u + \frac{p^2}{2q}}).
+% \end{align}
+% \Cref{eq:drag-integral-2} then becomes
+% \begin{align}
+% 	\frac{1}{q}\ab(\frac{q}{p^2}\int\frac{1}{u - \frac{p^2}{2q}} - \frac{1}{u + \frac{p^2}{2q}}\odif{u}) & = \frac{1}{p^2}\int\frac{1}{u - \frac{p^2}{2q}} - \frac{1}{u + \frac{p^2}{2q}}\odif{u}                            \\
+% 	                                                                                                     & = \frac{1}{p^2}\ab(\int\frac{1}{u - \frac{p^2}{2q}}\odif{u} - \int\frac{1}{u + \frac{p^2}{2q}}\odif{u}) \nonumber
+% \end{align}
+% Each of these integrals are in the form
+% \begin{equation}
+% 	\int\frac{1}{u + a}\odif{u},
+% \end{equation}
+% which can be solved using a simple substitution. Let $w = u + a$, then $\odif{w} = \odif{u}$; thus,
+% \begin{equation}
+% 	\int\frac{1}{u + a}\odif{u} = \int\frac{1}{w}\odif{w}
+% \end{equation}
+% Recall that this is just the integral of the reciprocal, discussed in \cref{sec:integral-of-the-reciprocal,sec:logarithms}. It is evaluated to $\ln(w)$. Because $w = u + a$,
+% \begin{equation}
+% 	\int\frac{1}{u + a}\odif{u} = \ln(u + a);
+% \end{equation}
+% thus,
+% \begin{equation}
+% 	\frac{1}{p^2}\ab(\int\frac{1}{u - \frac{p^2}{2q}}\odif{u} - \int\frac{1}{u + \frac{p^2}{2q}}\odif{u}) = \frac{1}{p^2}\ab(\ln\ab(u - \frac{p^2}{2q}) - \ln\ab(u + \frac{p^2}{2q})).
+% \end{equation}
+% Because $u = q\dot{x} + \frac{p^2}{2q}$, the integral evaluates to
+% \begin{equation}
+% 	\frac{1}{p^2}\ab(\ln(q\dot{x}) - \ln\ab(q\dot{x} + \frac{p^2}{q}))
+% \end{equation}
+% \Cref{eq:drag-integral-1} then becomes
+% \begin{equation}
+% 	- t + C = \frac{1}{p^2}\ab(\ln(q\dot{x}) - \ln\ab(q\dot{x} + \frac{p^2}{q})). \label{eq:drag-integral-3}
+% \end{equation}
+%
+% Recall that our initial condition is $x(t = 0) = 0$, and $v(t = 0) = V$ ($\dot{x} = v$ by Newton's fluxion notation). Substitute those in to find $C$.
+% \begin{align}
+% 	- 0 + C & = \frac{1}{p^2}\ab(\ln(qV) - \ln\ab(qV + \frac{p^2}{q}))       \\
+% 	C       & = \frac{1}{p^2}\ab(\ln(qV) - \ln\ab(\frac{q^2V + p^2}{q}))     \\
+% 	        & = \frac{1}{p^2}\ab(\ln(q) + \ln(V) - \ln(q^2V + p^2) + \ln(q)) \\
+% 	        & = \frac{1}{p^2}\ab(\ln(V) - \ln(q^2V + p^2) + 2\ln(q))
+% \end{align}
+% Substitute this $C$ back into \cref{eq:drag-integral-3} to get
+% \begin{align}
+% 	-t + \frac{1}{p^2}\ab(\ln(V) - \ln(q^2V + p^2) + 2\ln(q)) & = \frac{1}{p^2}\ab(\ln(q\dot{x}) - \ln\ab(q\dot{x} + \frac{p^2}{q})) \nonumber \\
+% 	-p^2t + \ln(V) - \ln(q^2V + p^2) + 2\ln(q)                & = \ln(q\dot{x}) - \ln\ab(\frac{q^2\dot{x} + p^2}{q}) \nonumber                 \\
+% 	-p^2t + \ln\ab(\frac{V}{q^2V + p^2}) + 2\ln(q)            & =
+% 	\begin{multlined}[t]
+% 		\ln(q) + \ln(\dot{x}) \\
+% 		- \ln(q^2\dot{x} + p^2) - \ln(q)
+% 	\end{multlined} \nonumber                                                                                                            \\
+% 	-p^2t + \ln\ab(\frac{V}{q^2V + p^2})                      & = \ln(\dot{x}) - \ln(q^2\dot{x} + p^2)                                         \\
+% 	-p^2t + \ln\ab(\frac{V}{q^2V + p^2})                      & = \ln\ab(\frac{\dot{x}}{q^2\dot{x} + p^2}).
+% \end{align}
+% For simplicity's sake, let $c \equiv \ln\ab(\frac{V}{q^2V + p^2})$. Our equation then becomes
+% \begin{equation}
+% 	-p^2t + c = \ln\ab(\frac{\dot{x}}{q^2\dot{x} + p^2}). \label{eq:drag-integral-4}
+% \end{equation}
+%
+% \subsection{Second integral: a simple substitution after the storm}
+%
+% I shall remind you again of what we're doing, because it's very easy to get lost. We are trying to solve the equation that describes a motion in one dimension with drag. Starting with the Newton's equation, we've isolated the variables and integrated it using the technique of completing the square and partial fractions. We're left with a first order differential equation (\cref{eq:drag-integral-4}) which contains $\dot{x}$ and $t$. The next step that we're going to do is to turn $\dot{x}$ into $\odv{x}{t}$ and solve for $x$ in terms of $t$.
+%
+% Isolation of variables can be done by raising both sides to the power of $\e$.
+% \begin{equation}
+% 	\e^{-p^2t + c} = \frac{\dot{x}}{q^2\dot{x} + p^2}.
+% \end{equation}
+% Currently, $\dot{x}$ is on both the numerator and the denominator of the R.H.S., but preferably we want it to be isolated either on the numerator only, or the denominator only. Thankfully, there's a way to do just that: multiply the whole equation by $q^2$ to get
+% \begin{align}
+% 	q^2\e^{-p^2t + c}     & = \frac{q^2\dot{x}}{q^2\dot{x} + p^2},
+% 	\intertext{and add $p^2 - p^2$ (zero) on the numerator}
+% 	q^2\e^{-p^2t + c}     & = \frac{\ab(q^2\dot{x} + p^2) - p^2}{q^2\dot{x} + p^2}        \\
+% 	q^2\e^{-p^2t + c}     & = 1 - \frac{p^2}{q^2\dot{x} + p^2}.
+% 	\intertext{Some simple algebra will do it from here}
+% 	1 - q^2\e^{-p^2t + c} & = \frac{p^2}{q^2\dot{x} + p^2}                                \\
+% 	q^2\dot{x} + p^2      & = \frac{p^2}{1 - q^2\e^{-p^2t + c}}                           \\
+% 	q^2\odv{x}{t}         & = \frac{p^2}{1 - q^2\e^{-p^2t + c}} - p^2                     \\
+% 	\int \odif{x}         & = \frac{p^2}{q^2}\int\frac{1}{1 - q^2\e^{-p^2t + c}}\odif{t}.
+% \end{align}
+%
+% Don't freak out just yet. This integral is actually simpler than you think. It requires just a little substitution before the solution just pops right out of the page. Funnily enough, we can just substitute $u = q^2\e^{-p^2t + c}$, and we'll be done.
+% \begin{align}
+% 	u          & = q^2\e^{-p^2t + c}               \\
+% 	\odv{u}{t} & = \odv{\e^{-p^2t + c}}{t}         \\
+% 	\intertext{Using the chain rule, set $w = -p^2t + c$}
+% 	           & = \odv{\e^{w}}{w}\times\odv{w}{t} \\
+% 	\odv{u}{t} & = -p^2\e^{-p^2t + c}              \\
+% 	\odif{u}   & = -p^2\e^{-p^2t + c}\odif{t}.
+% \end{align}
+%
+% \subsection{Physical aspects of motion with drag}
+%
+% \subsubsection{Motion with just linear drag}
+%
+% You don't really see linear drag in real life. It's mostly drag in moving liquid, e.g., a fish swimming in the water. \Cref{eq:drag-equation} simplifies to
+% \begin{equation*}
+% 	\odv{\dot{x}}{t} = p\dot{x}.
+% \end{equation*}
+% I shall set $v_0$ as the initial velocity and $x_0$ as the initial position. There are two methods of solving this. First, by separating variables using analytical methods.
+% \begin{align}
+% 	\int\frac{1}{\dot{x}}\odif{\dot{x}} & = p\int\odif{t} \nonumber          \\
+% 	\ln(\dot{x}) + C                    & = pt. \label{eq:motionlineardrag1}
+% \end{align}
+% To find out what this integration constant should be, we have to use the initial condition $t = 0 \implies \dot{x} = v_0$.
+% \begin{align*}
+% 	\ln(v_0) + C & = 0          \\
+% 	C            & = -\ln(v_0).
+% \end{align*}
+% \Cref{eq:motionlineardrag1} then becomes
+% \begin{align}
+% 	\ln(\dot{x}) - \ln(v_0) & = pt \nonumber                             \\
+% 	\dot{x}                 & = v_0\e^{pt}. \label{eq:motionlineardrag2}
+% \end{align}
+%
+% \begin{figure}
+% 	\centering
+% 	\includegraphics{geometricalsignificance/motionlineardragv}
+% 	\caption{Plot of \cref{eq:motionlineardrag2} with various $p$.}
+% 	\label{fig:motionlineardragv}
+% \end{figure}
+% \Cref{fig:motionlineardragv} plots \cref{eq:motionlineardrag2} with various $p$. Notice that when $p = 0$, \cref{eq:motionlineardrag2} is just a straight line $\dot{x} = v_0$. The more negative $p$ is, the faster it slows down, as illustrated. That is why sometimes, we call $p$ the \textbf{dampening factor}\index{dampening factor}. Also, $v_0$ here just scales the graph in the $\dot{x}$ direction.
+%
+% To find $x(t)$, we rewrite \cref{eq:motionlineardrag2} as
+% \begin{equation*}
+% 	\odv{x}{t} = v_0\e^{pt}.
+% \end{equation*}
+% Then,
+% \begin{align}
+% 	\odif{x} & = v_0\e^{pt}\odif{t}                                    \\
+% 	x + C_1  & = v_0\int \e^{pt}\odif{t}. \label{eq:motionlineardrag3}
+% \end{align}
+%
+% Here, I shall introduce an integration technique called \textbf{change of variables}\index{change of variables!naive}, commonly known as $u$-substitution. We'll formally come back to this topic later in \cref{sec:changeofvariables}. Basically, it's a way to convert integrals that we don't recognize into an easier integral. It's better if I just show the examples. We don't know the antiderivative of $\e^{pt}$ in \cref{eq:motionlineardrag3}, however we know the antiderivative of $\e^{u}$. So let's convert $\e^{pt}$ into that form. By letting a dummy variable $u = pt - v_0$, we have to convert $\odif{u}$ into $\odif{t}$ as well.
+% \begin{align*}
+% 	u                   & = pt - v_0             \\
+% 	\odv{u}{t}          & = \odv*{(pt - v_0)}{t} \\
+% 	\frac{1}{p}\odif{u} & = \odif{t}.
+% \end{align*}
+% Then, substituting $\odif{t} = \frac{1}{p}\odif{u}$ and $u = pt$ into \cref{eq:motionlineardrag3}, it reads
+% \begin{align}
+% 	x + C_1 & = v_0\int\e^{u}\ab(\frac{1}{p}\odif{u}) \nonumber    \\
+% 	x + C_1 & = \frac{v_0}{p}\e^{pt}. \label{eq:motionlineardrag4}
+% \end{align}
+%
+% We also have to take care of the $C_1$. Using $t = 0 \implies x = x_0$,
+% \begin{align*}
+% 	x_0 + C_1 & = \frac{v_0}{p}\e^{p\cdot(0)} \\
+% 	C_1       & = \frac{v_0}{p} - x_0.
+% \end{align*}
+% Then, plug it into \cref{eq:motionlineardrag4}. The equation becomes
+% \begin{align}
+% 	x + \frac{v_0}{p} - x_0 & = \frac{v_0}{p}(\e^{pt}) \nonumber                               \\
+% 	x                       & = x_0 + \frac{v_0}{p}(\e^{pt} - 1). \label{eq:motionlineardrag5}
+% \end{align}
+%
+% I've plotted \cref{eq:motionlineardrag5} with varying $v$ in \cref{fig:motionlineardragx1} and varying $p$ in \cref{fig:motionlineardragx2}. The graph should match with what you expect intuitively: higher $v$ will get you further, and the less the drag, the further you'll get.
+%
+% \begin{figure}[ht]
+% 	\centering
+% 	\begin{subfigure}[l]{0.45\textwidth}
+% 		\centering
+% 		\includegraphics{geometricalsignificance/motionlineardragx1}
+% 		\caption{with varying $v$, setting $p = -1$}
+% 		\label{fig:motionlineardragx1}
+% 	\end{subfigure}
+% 	\begin{subfigure}[r]{0.45\textwidth}
+% 		\centering
+% 		\includegraphics{geometricalsignificance/motionlineardragx2}
+% 		\caption{with varying $p$, setting $v = 2$}
+% 		\label{fig:motionlineardragx2}
+% 	\end{subfigure}
+% 	\caption{Plot of \cref{eq:motionlineardrag5}, setting $x_0 = 0.5$.}
+% \end{figure}
+%
+% Notice, this motion has a clear upper limit. \emph{If $p \in \mathbb{R}^-$}, $\lim_{t \appr \infty}e^{pt} = 0$. Taking the limit as $t \appr 0$ on both sides of \cref{eq:motionlineardrag5}, we get
+% \begin{align*}
+% 	\lim_{t \appr \infty} x(t) & = \lim_{t \appr \infty}\left(x_0 + \frac{v_0}{p}(\e^{pt} - 1)\right).                                         \\
+% 	                           & = x_0 + \frac{v_0}{p}\cancelto{0}{\lim_{t \appr 0}\left(e^{pt}\right)} - \frac{v_0}{p} = x_0 - \frac{v_0}{p},
+% \end{align*}
+% which when $p \in \mathbb{R}^-$ and $v_0\in\mathbb{R}^+$, the motion procedes forward, then gradually slows down and stops at $x_0 - \frac{v_0}{p}$ which is more than $x_0$.
+%
+% \subsubsection{Motion with just quadratic drag}
+%
+% \begin{multicols}{2}
+% 	This equation is even easier than linear drag, so I'd leave out some steps. \Cref{eq:quadraticdrageq} simplifies to
+% 	\begin{align*}
+% 		\odv{\dot{x}}{t}                       & = q\dot{x}^2                                                              \\
+% 		\int \frac{1}{\dot{x}^2}\odif{\dot{x}} & = q\int\odif{t} \footnote{Hint: $\flatfrac{1}{\dot{x}^2} = \dot{x}^{-2}$} \\
+% 		- \frac{1}{\dot{x}} + C = qt.
+% 	\end{align*}
+% 	Taking care of $C$: use $t = 0 \implies \dot{x} = v_0$.
+% 	\begin{align*}
+% 		- \frac{1}{v_0} + C & = q\cdot 0       \\
+% 		C                   & = \frac{1}{v_0}.
+% 	\end{align*}
+% 	Therefore,
+% 	\begin{align}
+% 		-\frac{1}{\dot{x}} + \frac{1}{v_0} & = qt \nonumber                                                         \\
+% 		\odv{t}{x}                         & = \frac{1 - qv_0t}{v_0} \nonumber                                      \\
+% 		x                                  & = v_0\int\frac{1}{1 - qv_0t} \odif{t}. \label{eq:motionquadraticdrag1}
+% 	\end{align}
+% 	The structure of the integral is similar to $\flatfrac{1}{t}$. Therefore, let $u = 1 - qv_0t$. Then,
+% 	\begin{align*}
+% 		\odv{u}{u} & = \odif{u}(1 - qv_0t)      \\
+% 		1          & = -qv_0\odv{t}{u}          \\
+% 		\odif{t}   & = -\frac{1}{qv_0}\odif{u}.
+% 	\end{align*}
+% 	Substitute $u = 1 - qv_0t$ and $\odif{t} = -\frac{1}{qv_0}\odif{u}$ into \cref{eq:motionquadraticdrag1}:
+% 	\begin{align}
+% 		x    & = v_0 \int \frac{1}{u}\left(-\frac{1}{qv_0}\odif{u}\right) \nonumber \\
+% 		     & = -\frac{1}{q}\int \frac{1}{u}\odif{u} \nonumber                     \\
+% 		x(t) & = -\frac{1}{q}\ln(1 - qv_0t) + C_1. \label{eq:motionquadraticdrag2}
+% 	\end{align}
+% 	Taking care of $C_1$: use $t \appr 0 \implies x(t) = x_0$.
+% 	\begin{align*}
+% 		x_0 & = -\frac{1}{q}\ln(1 - qv_0\cdot(0)) + C_1 \\
+% 		x_0 & = C_1
+% 	\end{align*}
+% 	Plug this into \cref{eq:motionquadraticdrag2} to get the final answer:
+% 	\begin{equation*}
+% 		x(t) = -\frac{1}{q}\ln(1 - qv_0t) + x_0.
+% 	\end{equation*}
+% \end{multicols}
+%
+% Surprisingly, quadratic drag does not have upper position bounds. A bit more thought would reveal that when $v < 0$, the quadratic drag $f_r(v) = a_2v^2$ is smaller than $f_r(v) = a_1v$. Thus, it should make sense that quadratic doesn't have bounds, but linear has an upper bound.
+%
+% \subsection{Damped harmonic motion}
+%
+% \subsection{Air drag on falling objects}
+%
+% \section{Realization of gravitational systems}
+%
+% I want to go back and revisit the falling ball that we've introduced in \cref{sec:derivatives}, because it's a lie. The model $F = mg$ is a simplified one, and only works when the object isn't that high above the Earth's surface. The actual model of gravity that's given by Newton's law of universal gravitation:
+% \begin{equation}
+% 	F = -G\frac{Mm}{r^2},
+% \end{equation}
+% where $G$ is the universal gravitational constant, $M$, the mass of the first object, and $m$, the mass of the second object. In this model, gravity is dependent on the position of the object. The further the object is, the weaker the gravity, given by the term $r^2$. The effect of the weakening gravity will be very prominent when the object is at a very great height. Newton's second law reads
+% \begin{align}
+% 	F = -G\frac{Mm}{r^2} & = m\ddot{r}                            \\
+% 	-G\frac{M}{r^2}      & = \ddot{r} \label{eq:gravity-equation}
+% \end{align}
+%
+% Various systems are encapsulated by this model, such as a rocket escaping Earth, or a meteor falling from great height (\cref{fig:meteor-falling-from-height}). It's quite a general model, so let's solve \cref{eq:gravity-equation}, then tinker around with initial conditions to see what happens.
+%
+% \begin{figure}[ht]
+% 	\centering
+% 	\includegraphics{geometricalsignificance/meteorfallingfromgreatheight}
+% 	\caption{An illustration of a meteor falling to the Earth from height $h$.}
+% 	\label{fig:meteor-falling-from-height}
+% \end{figure}
+%
+% Let's set $r(t = 0) = R$, and $\dot{r}(t = 0) = V$. The method of solving \cref{eq:gravity-equation} is very similar to the method of solving the harmonic oscillator (\cref{sec:harmonic-oscillator}). First, abuse the chain rule to reduce the second order derivative to a first order
+% \begin{align}
+% 	\ddot{r} = \odv[ord = 2]{r}{t} = \odv*{\ab(\odv{r}{t})}{t} = \odv{\dot{r}}{t} = \odv{\dot{r}}{r}\odv{r}{t} = \dot{r}\odv{\dot{r}}{r};
+% \end{align}
+% \cref{eq:gravity-equation} then turns into
+% \begin{align}
+% 	-\frac{GM}{r^2}        & = \dot{r}\odv{\dot{r}}{r}                               \\
+% 	-GMr^{-2}\odif{r}      & = \dot{r}\odif{r}                                       \\
+% 	-GM\int r^{-2}\odif{r} & = \int\dot{r}\odif{r}                                   \\
+% 	\intertext{Using the reversed power rule (\cref{sec:reversed-power-rule}),}
+% 	-GM\frac{r^{-1}}{-1}   & = \frac{\dot{r}^2}{2} + C_1                             \\
+% 	\frac{2GM}{r} - 2C_1   & = \dot{r}^2. \label{eq:gravity-equation-first-integral}
+% \end{align}
+% To find $C$, substitute in the initial condition ($r(t = 0) = R$, and $\dot{r}(t = 0) = V$)
+% \begin{align}
+% 	\frac{2GM}{R} - 2C_1 & = V^2                          \\
+% 	C_1                  & = \frac{GM}{R} - \frac{V^2}{2}
+% \end{align}
+% This is a bit long, so we'll just substitute $C_1$ in later. Now let's just continue from \cref{eq:gravity-equation-first-integral}. Take the square root of both sides and do another separation of variables.
+% \begin{align}
+% 	\sqrt{\frac{2GM}{r} - 2C_1}  & = \dot{r}                                   \\
+% 	\sqrt{\frac{2GM - 2C_1r}{r}} & = \odv{r}{t}                                \\
+% 	\int\odif{t}                 & = \int\sqrt{\frac{r}{2GM - 2C_1r}}\odif{r}  \\
+% 	t + C_2                      & = \int\sqrt{\frac{r}{2GM - 2C_1r}}\odif{r}.
+% \end{align}
+% Now we have another integral to work with. It's quite a mess right now, but we can simplify it by substituting the leading constants with dummy variables. E.g., let $a = 2GM$ and $b = 2C_1$, our integral is in the form
+% \begin{equation}
+% 	\int\sqrt{\frac{r}{a - br}}\odif{r} \label{eq:gravity-dummy1}
+% \end{equation}
+% Just a fair warning, this integral requires a bit of substitution, so try to stick around and not get lost here.
+%
+% Firstly, having a linear term on the denominator of the square root is not favorable. So let's do a substitution to get rid of it. Let $u = a - br$; thus, $r = \frac{a - u}{b}$, and $-\frac{1}{b}\odif{u} = \odif{r}$. Thus, \cref{eq:gravity-dummy1} becomes
+% \begin{equation}
+% 	\int\frac{\sqrt{\frac{a - u}{b}}}{\sqrt{u}}\ab(-\frac{1}{b}\odif{u}) = -\frac{1}{b^{\flatfrac{3}{2}}}\int\frac{\sqrt{a - u}}{\sqrt{u}}\odif{u}
+% \end{equation}
+% Another substitution would turn this integral into a more recognizable form. Let $\sqrt{u} = w$; thus, $u = w^2$, $a - u = a - w^2$, $\odif{u} = 2w\odif{w}$. Our integral becomes
+% \begin{align}
+% 	-\frac{1}{b^{\flatfrac{3}{2}}}\int\frac{\sqrt{a - w^2}}{w}\ab(2w\odif{w}) = -\frac{2}{b^{\flatfrac{3}{2}}}\int\sqrt{a - w^2}\odif{w}.
+% \end{align}
+% This integral can be easily solved by using a trigonometric substitution.
 
-\section{Movement with drag forces}
-
-The second system that we're going to analyze is a system of a block moving with drag forces.
-
-Drag is quite complex. It depends on many variables, e.g., air viscosity, air compressibility, object's shape, etc. So, there is no such thing as an \enquote{exact drag function.} If there was, the amount of parameters you have to put in would probably be too much. Therefore, we assume that the drag function is continuous, and assume that it can be written in the terms of power series.
-
-Most of the time, drag is a function of velocity. The faster the object is moving, the more drag. So we write
-\begin{equation}
-	f_r(\vv{v}) = a_0 + a_1\vv{v} + a_2\vv{v}^2 + a_3\vv{v}^3 + \dots,
-\end{equation}
-where $f_r$ is the drag force. In a simplified model, we only consider the first three terms,
-\begin{equation}
-	f_r(\vv{v}) \approx a_0 + a_1\vv{v} + a_2\vv{v}^2.
-\end{equation}
-Firstly, $a_0$ has to be zero. Otherwise, the object will just accelerate constantly, which is no good. Thus, there can only be $a_1\vv{v} + a_2\vv{v}^2$ leftover, and Newton's second law reads
-\begin{equation*}
-	m\odv*{\ab(\odv{x}{t})}{t} = a_1\odv{x}{t} + a_2\ab(\odv{x}{t})^2.
-\end{equation*}
-Using fluxion notation,
-\begin{align*}
-	m\odv{\dot{x}}{t} & = a_1\dot{x} + a_2\dot{x}^2                     \\
-	\odv{\dot{x}}{t}  & = \frac{a_1}{m}\dot{x} + \frac{a_2}{m}\dot{x}^2
-\end{align*}
-For convenience, let $\flatfrac{a_1}{m} = P$ and $\flatfrac{a_2}{m} = Q$. The equation reads
-\begin{equation}
-	\odv{\dot{x}}{t} = P\dot{x} + Q\dot{x}^2.
-\end{equation}
-Obviously, both $P$ and $Q$ must be negative; otherwise, the object will just accelerate further if velocity increases. To pick out this negative sign, let's set $P = -p^2$ and $Q = -q^2$, where $p, q \in \mathbb{R}^+$. Therefore, our differential equation becomes
-\begin{equation}
-	\odv{\dot{x}}{t} = - q^2\dot{x}^2 - p^2\dot{x}. \label{eq:drag-equation}
-\end{equation}
-Set the initial condition, and we're ready to solve!
-
-Let's set $x(t = 0) = 0$ and $v(t = 0) = V$. A simple separation of variables would do just fine
-\begin{align}
-	\frac{1}{-q^2\dot{x}^2 - p^2\dot{x}}\odif{x}    & = \odif{t}                            \\
-	\int\frac{1}{q^2\dot{x}^2 + p^2\dot{x}}\odif{x} & = - t + C. \label{eq:drag-integral-1}
-\end{align}
-This integral is quite a challenge, requiring the use of several techniques. First, we have to rewrite the the quadratic expression in the form $ax^2 + b$. From there, two possible approaches are trigonometric substitution or partial fraction decomposition. But since we've already explored trigonometric substitution in the previous chapter, I’ll focus on using partial fraction decomposition for this problem. After this integral is solved, we're left with another differential equation of $\dot{x}$ and $t$, then we have to solve for $x$ in terms of $t$. So there are actually two integrals that we have to do. It's going to be a long ride, so I shall break this problem into two parts.
-
-\subsection{First integral: completing the square and partial fraction decomposition}
-
-As the name suggests, we complete the square, then use a simple change of variables to solve the integral.
-\begin{align}
-	\int\frac{1}{q^2\dot{x}^2 + p^2\dot{x}} & = \int\frac{1}{(q\dot{x})^2 + 2(\frac{p^2}{2q})(q\dot{x})}\odif{x}                                                 \\
-	                                        & = \int\frac{1}{(q\dot{x})^2 + 2(\frac{p^2}{2q})(q\dot{x}) + (\frac{p^2}{2q})^2 - (\frac{p^2}{2q})^2}\odif{\dot{x}} \\
-	                                        & = \int\frac{1}{(q\dot{x} + \frac{p^2}{2q})^2 - (\frac{p^2}{2q})^2}\odif{\dot{x}} \label{eq:dummy-1}
-\end{align}
-Substitute $u = q\dot{x} + \frac{p^2}{2q}$, then
-\begin{align}
-	\odv{u}{\dot{x}}    & = \odv*{\ab(q\dot{x} + \frac{p^2}{2q})}{\dot{x}} \\
-	\odv{u}{\dot{x}}    & = q                                              \\
-	\frac{1}{q}\odif{u} & = \odif{\dot{x}}.
-\end{align}
-Therefore, from \cref{eq:dummy-1},
-\begin{equation}
-	\int\frac{1}{q^2\dot{x}^2 + p^2\dot{x}}\odif{\dot{x}} = \frac{1}{q}\int\frac{1}{u^2 - (\frac{p^2}{2q})^2}\odif{u} \label{eq:drag-integral-2}
-\end{equation}
-
-To go from here, we need to do partial fraction decomposition. I believe that you have learnt this in Algebra II already. If not, \cref{appendix:partial-fraction-decomposition} is devoted to that. Notice that the denominator can be decomposed into a product of linear factors
-\begin{equation}
-	u^2 - \ab(\frac{p^2}{2q})^2 = \ab(u + \frac{p^2}{2q})\ab(u - \frac{p^2}{2q});
-\end{equation}
-therefore, we set
-\begin{equation}
-	\frac{1}{u^2 - (\frac{p^2}{2q})} = \frac{\alpha}{u + \frac{p^2}{2q}} + \frac{\beta}{u - \frac{p^2}{2q}}
-\end{equation}
-and solve for $\alpha$ and $\beta$. First we multiply out the terms
-\begin{align}
-	\frac{1}{u^2 - (\frac{p^2}{2q})} & = \frac{\alpha(u + \frac{p^2}{2q}) + \beta(u - \frac{p^2}{2q})}{(u - \frac{p^2}{2q})(u + \frac{p^2}{2q})} \\
-	1                                & = \alpha\ab(u + \frac{p^2}{2q}) + \beta\ab(u - \frac{p^2}{2q})                                            \\
-	(0)u + 1                         & = u\ab(\alpha + \beta) + \frac{p^2}{2q}(\alpha - \beta).
-\end{align}
-By matching the leading coefficient, we get
-\begin{gather}
-	\alpha + \beta = 0, \label{eq:drag-pfd-1} \\
-	\frac{p^2}{2q}(\alpha - \beta) = 1. \label{eq:drag-pfd-2}
-\end{gather}
-Solving this is quite simple. Take \cref{eq:drag-pfd-2} and move $\frac{p^2}{2q}$ to the R.H.S. to get
-\begin{equation}
-	\alpha - \beta = \frac{2q}{p^2}. \label{eq:drag-pfd-3}
-\end{equation}
-Then, subtract \cref{eq:drag-pfd-3} from \cref{eq:drag-pfd-1}
-\begin{align}
-	\alpha + \beta - \alpha + \beta & = -\frac{2q}{p^2} \\
-	\beta                           & = -\frac{q}{p^2}.
-\end{align}
-By \cref{eq:drag-pfd-1},
-\begin{equation}
-	\alpha = \frac{q}{p^2};
-\end{equation}
-thus,
-\begin{align}
-	\frac{1}{u^2 - (\frac{p^2}{2q})^2} & = \frac{q}{p^2}\frac{1}{u + \frac{p^2}{2q}} - \frac{q}{p^2}\frac{1}{u - \frac{p^2}{2q}} \\
-	                                   & = \frac{q}{p^2}\ab(\frac{1}{u - \frac{p^2}{2q}} - \frac{1}{u + \frac{p^2}{2q}}).
-\end{align}
-\Cref{eq:drag-integral-2} then becomes
-\begin{align}
-	\frac{1}{q}\ab(\frac{q}{p^2}\int\frac{1}{u - \frac{p^2}{2q}} - \frac{1}{u + \frac{p^2}{2q}}\odif{u}) & = \frac{1}{p^2}\int\frac{1}{u - \frac{p^2}{2q}} - \frac{1}{u + \frac{p^2}{2q}}\odif{u}                            \\
-	                                                                                                     & = \frac{1}{p^2}\ab(\int\frac{1}{u - \frac{p^2}{2q}}\odif{u} - \int\frac{1}{u + \frac{p^2}{2q}}\odif{u}) \nonumber
-\end{align}
-Each of these integrals are in the form
-\begin{equation}
-	\int\frac{1}{u + a}\odif{u},
-\end{equation}
-which can be solved using a simple substitution. Let $w = u + a$, then $\odif{w} = \odif{u}$; thus,
-\begin{equation}
-	\int\frac{1}{u + a}\odif{u} = \int\frac{1}{w}\odif{w}
-\end{equation}
-Recall that this is just the integral of the reciprocal, discussed in \cref{sec:integral-of-the-reciprocal,sec:logarithms}. It is evaluated to $\ln(w)$. Because $w = u + a$,
-\begin{equation}
-	\int\frac{1}{u + a}\odif{u} = \ln(u + a);
-\end{equation}
-thus,
-\begin{equation}
-	\frac{1}{p^2}\ab(\int\frac{1}{u - \frac{p^2}{2q}}\odif{u} - \int\frac{1}{u + \frac{p^2}{2q}}\odif{u}) = \frac{1}{p^2}\ab(\ln\ab(u - \frac{p^2}{2q}) - \ln\ab(u + \frac{p^2}{2q})).
-\end{equation}
-Because $u = q\dot{x} + \frac{p^2}{2q}$, the integral evaluates to
-\begin{equation}
-	\frac{1}{p^2}\ab(\ln(q\dot{x}) - \ln\ab(q\dot{x} + \frac{p^2}{q}))
-\end{equation}
-\Cref{eq:drag-integral-1} then becomes
-\begin{equation}
-	- t + C = \frac{1}{p^2}\ab(\ln(q\dot{x}) - \ln\ab(q\dot{x} + \frac{p^2}{q})). \label{eq:drag-integral-3}
-\end{equation}
-
-Recall that our initial condition is $x(t = 0) = 0$, and $v(t = 0) = V$ ($\dot{x} = v$ by Newton's fluxion notation). Substitute those in to find $C$.
-\begin{align}
-	- 0 + C & = \frac{1}{p^2}\ab(\ln(qV) - \ln\ab(qV + \frac{p^2}{q}))       \\
-	C       & = \frac{1}{p^2}\ab(\ln(qV) - \ln\ab(\frac{q^2V + p^2}{q}))     \\
-	        & = \frac{1}{p^2}\ab(\ln(q) + \ln(V) - \ln(q^2V + p^2) + \ln(q)) \\
-	        & = \frac{1}{p^2}\ab(\ln(V) - \ln(q^2V + p^2) + 2\ln(q))
-\end{align}
-Substitute this $C$ back into \cref{eq:drag-integral-3} to get
-\begin{align}
-	-t + \frac{1}{p^2}\ab(\ln(V) - \ln(q^2V + p^2) + 2\ln(q)) & = \frac{1}{p^2}\ab(\ln(q\dot{x}) - \ln\ab(q\dot{x} + \frac{p^2}{q})) \nonumber \\
-	-p^2t + \ln(V) - \ln(q^2V + p^2) + 2\ln(q)                & = \ln(q\dot{x}) - \ln\ab(\frac{q^2\dot{x} + p^2}{q}) \nonumber                 \\
-	-p^2t + \ln\ab(\frac{V}{q^2V + p^2}) + 2\ln(q)            & =
-	\begin{multlined}[t]
-		\ln(q) + \ln(\dot{x}) \\
-		- \ln(q^2\dot{x} + p^2) - \ln(q)
-	\end{multlined} \nonumber                                                                                                            \\
-	-p^2t + \ln\ab(\frac{V}{q^2V + p^2})                      & = \ln(\dot{x}) - \ln(q^2\dot{x} + p^2)                                         \\
-	-p^2t + \ln\ab(\frac{V}{q^2V + p^2})                      & = \ln\ab(\frac{\dot{x}}{q^2\dot{x} + p^2}).
-\end{align}
-For simplicity's sake, let $c \equiv \ln\ab(\frac{V}{q^2V + p^2})$. Our equation then becomes
-\begin{equation}
-	-p^2t + c = \ln\ab(\frac{\dot{x}}{q^2\dot{x} + p^2}). \label{eq:drag-integral-4}
-\end{equation}
-
-\subsection{Second integral: a simple substitution after the storm}
-
-I shall remind you again of what we're doing, because it's very easy to get lost. We are trying to solve the equation that describes a motion in one dimension with drag. Starting with the Newton's equation, we've isolated the variables and integrated it using the technique of completing the square and partial fractions. We're left with a first order differential equation (\cref{eq:drag-integral-4}) which contains $\dot{x}$ and $t$. The next step that we're going to do is to turn $\dot{x}$ into $\odv{x}{t}$ and solve for $x$ in terms of $t$.
-
-Isolation of variables can be done by raising both sides to the power of $\e$.
-\begin{equation}
-	\e^{-p^2t + c} = \frac{\dot{x}}{q^2\dot{x} + p^2}.
-\end{equation}
-Currently, $\dot{x}$ is on both the numerator and the denominator of the R.H.S., but preferrably we want it to be isolated either on the numerator only, or the denominator only. Thanksfully, there's a way to do just that: multiply the whole equation by $q^2$ to get
-\begin{align}
-	q^2\e^{-p^2t + c}     & = \frac{q^2\dot{x}}{q^2\dot{x} + p^2},
-	\intertext{and add $p^2 - p^2$ (zero) on the numerator}
-	q^2\e^{-p^2t + c}     & = \frac{\ab(q^2\dot{x} + p^2) - p^2}{q^2\dot{x} + p^2}        \\
-	q^2\e^{-p^2t + c}     & = 1 - \frac{p^2}{q^2\dot{x} + p^2}.
-	\intertext{Some simple algebra will do it from here}
-	1 - q^2\e^{-p^2t + c} & = \frac{p^2}{q^2\dot{x} + p^2}                                \\
-	q^2\dot{x} + p^2      & = \frac{p^2}{1 - q^2\e^{-p^2t + c}}                           \\
-	q^2\odv{x}{t}         & = \frac{p^2}{1 - q^2\e^{-p^2t + c}} - p^2                     \\
-	\int \odif{x}         & = \frac{p^2}{q^2}\int\frac{1}{1 - q^2\e^{-p^2t + c}}\odif{t}.
-\end{align}
-
-Don't freak out just yet. This integral is actually simpler than you think. It requires just a little substitution before the solution just pops right out of the page. Funnily enough, we can just substitute $u = q^2\e^{-p^2t + c}$, and we'll be done.
-\begin{align}
-	u          & = q^2\e^{-p^2t + c}               \\
-	\odv{u}{t} & = \odv{\e^{-p^2t + c}}{t}         \\
-	\intertext{Using the chain rule, set $w = -p^2t + c$}
-	           & = \odv{\e^{w}}{w}\times\odv{w}{t} \\
-	\odv{u}{t} & = -p^2\e^{-p^2t + c}              \\
-	\odif{u}   & = -p^2\e^{-p^2t + c}\odif{t}.
-\end{align}
-
-\subsection{Physical aspects of motion with drag}
-
-\subsubsection{Motion with just linear drag}
-
-You don't really see linear drag in real life. It's mostly drag in moving liquid, e.g., a fish swimming in the water. \Cref{eq:drag-equation} simplifies to
-\begin{equation*}
-	\odv{\dot{x}}{t} = p\dot{x}.
-\end{equation*}
-I shall set $v_0$ as the initial velocity and $x_0$ as the initial position. There are two methods of solving this. First, by separating variables using analytical methods.
-\begin{align}
-	\int\frac{1}{\dot{x}}\odif{\dot{x}} & = p\int\odif{t} \nonumber          \\
-	\ln(\dot{x}) + C                    & = pt. \label{eq:motionlineardrag1}
-\end{align}
-To find out what this integration constant should be, we have to use the initial condition $t = 0 \implies \dot{x} = v_0$.
-\begin{align*}
-	\ln(v_0) + C & = 0          \\
-	C            & = -\ln(v_0).
-\end{align*}
-\Cref{eq:motionlineardrag1} then becomes
-\begin{align}
-	\ln(\dot{x}) - \ln(v_0) & = pt \nonumber                             \\
-	\dot{x}                 & = v_0\e^{pt}. \label{eq:motionlineardrag2}
-\end{align}
-
-\begin{figure}
-	\centering
-	\includegraphics{geometricalsignificance/motionlineardragv}
-	\caption{Plot of \cref{eq:motionlineardrag2} with various $p$.}
-	\label{fig:motionlineardragv}
-\end{figure}
-\Cref{fig:motionlineardragv} plots \cref{eq:motionlineardrag2} with various $p$. Notice that when $p = 0$, \cref{eq:motionlineardrag2} is just a straight line $\dot{x} = v_0$. The more negative $p$ is, the faster it slows down, as illustrated. That is why sometimes, we call $p$ the \textbf{dampening factor}\index{dampening factor}. Also, $v_0$ here just scales the graph in the $\dot{x}$ direction.
-
-To find $x(t)$, we rewrite \cref{eq:motionlineardrag2} as
-\begin{equation*}
-	\odv{x}{t} = v_0\e^{pt}.
-\end{equation*}
-Then,
-\begin{align}
-	\odif{x} & = v_0\e^{pt}\odif{t}                                    \\
-	x + C_1  & = v_0\int \e^{pt}\odif{t}. \label{eq:motionlineardrag3}
-\end{align}
-
-Here, I shall introduce an integration technique called \textbf{change of variables}\index{change of variables!naive}, commonly known as $u$-substitution. We'll formally come back to this topic later in \cref{sec:changeofvariables}. Basically, it's a way to convert integrals that we don't recognize into an easier integral. It's better if I just show the examples. We don't know the antiderivative of $\e^{pt}$ in \cref{eq:motionlineardrag3}, however we know the antiderivative of $\e^{u}$. So let's convert $\e^{pt}$ into that form. By letting a dummy variable $u = pt - v_0$, we have to convert $\odif{u}$ into $\odif{t}$ aswell.
-\begin{align*}
-	u                   & = pt - v_0             \\
-	\odv{u}{t}          & = \odv*{(pt - v_0)}{t} \\
-	\frac{1}{p}\odif{u} & = \odif{t}.
-\end{align*}
-Then, substituting $\odif{t} = \frac{1}{p}\odif{u}$ and $u = pt$ into \cref{eq:motionlineardrag3}, it reads
-\begin{align}
-	x + C_1 & = v_0\int\e^{u}\ab(\frac{1}{p}\odif{u}) \nonumber    \\
-	x + C_1 & = \frac{v_0}{p}\e^{pt}. \label{eq:motionlineardrag4}
-\end{align}
-
-We also have to take care of the $C_1$. Using $t = 0 \implies x = x_0$,
-\begin{align*}
-	x_0 + C_1 & = \frac{v_0}{p}\e^{p\cdot(0)} \\
-	C_1       & = \frac{v_0}{p} - x_0.
-\end{align*}
-Then, plug it into \cref{eq:motionlineardrag4}. The equation becomes
-\begin{align}
-	x + \frac{v_0}{p} - x_0 & = \frac{v_0}{p}(\e^{pt}) \nonumber                               \\
-	x                       & = x_0 + \frac{v_0}{p}(\e^{pt} - 1). \label{eq:motionlineardrag5}
-\end{align}
-
-I've plotted \cref{eq:motionlineardrag5} with varying $v$ in \cref{fig:motionlineardragx1} and varying $p$ in \cref{fig:motionlineardragx2}. The graph should match with what you expect intuitively: higher $v$ will get you further, and the less the drag, the further you'll get.
-
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}[l]{0.45\textwidth}
-		\centering
-		\includegraphics{geometricalsignificance/motionlineardragx1}
-		\caption{with varying $v$, setting $p = -1$}
-		\label{fig:motionlineardragx1}
-	\end{subfigure}
-	\begin{subfigure}[r]{0.45\textwidth}
-		\centering
-		\includegraphics{geometricalsignificance/motionlineardragx2}
-		\caption{with varying $p$, setting $v = 2$}
-		\label{fig:motionlineardragx2}
-	\end{subfigure}
-	\caption{Plot of \cref{eq:motionlineardrag5}, setting $x_0 = 0.5$.}
-\end{figure}
-
-Notice, this motion has a clear upper limit. \emph{If $p \in \mathbb{R}^-$}, $\lim_{t \appr \infty}e^{pt} = 0$. Taking the limit as $t \appr 0$ on both sides of \cref{eq:motionlineardrag5}, we get
-\begin{align*}
-	\lim_{t \appr \infty} x(t) & = \lim_{t \appr \infty}\left(x_0 + \frac{v_0}{p}(e^{pt} - 1)\right).                                          \\
-	                           & = x_0 + \frac{v_0}{p}\cancelto{0}{\lim_{t \appr 0}\left(e^{pt}\right)} - \frac{v_0}{p} = x_0 - \frac{v_0}{p},
-\end{align*}
-which when $p \in \mathbb{R}^-$ and $v_0\in\mathbb{R}^+$, the motion procedes forward, then gradually slows down and stops at $x_0 - \frac{v_0}{p}$ which is more than $x_0$.
-
-\subsubsection{Motion with just quadratic drag}
-
-\begin{multicols}{2}
-	This equation is even easier than linear drag, so I'd leave out some steps. \Cref{eq:quadraticdrageq} simplifies to
-	\begin{align*}
-		\odv{\dot{x}}{t}                       & = q\dot{x}^2                                                              \\
-		\int \frac{1}{\dot{x}^2}\odif{\dot{x}} & = q\int\odif{t} \footnote{Hint: $\flatfrac{1}{\dot{x}^2} = \dot{x}^{-2}$} \\
-		- \frac{1}{\dot{x}} + C = qt.
-	\end{align*}
-	Taking care of $C$: use $t = 0 \implies \dot{x} = v_0$.
-	\begin{align*}
-		- \frac{1}{v_0} + C & = q\cdot 0       \\
-		C                   & = \frac{1}{v_0}.
-	\end{align*}
-	Therefore,
-	\begin{align}
-		-\frac{1}{\dot{x}} + \frac{1}{v_0} & = qt \nonumber                                                         \\
-		\odv{t}{x}                         & = \frac{1 - qv_0t}{v_0} \nonumber                                      \\
-		x                                  & = v_0\int\frac{1}{1 - qv_0t} \odif{t}. \label{eq:motionquadraticdrag1}
-	\end{align}
-	The structure of the integral is similar to $\flatfrac{1}{t}$. Therefore, let $u = 1 - qv_0t$. Then,
-	\begin{align*}
-		\odv{u}{u} & = \odif{u}(1 - qv_0t)      \\
-		1          & = -qv_0\odv{t}{u}          \\
-		\odif{t}   & = -\frac{1}{qv_0}\odif{u}.
-	\end{align*}
-	Substitute $u = 1 - qv_0t$ and $\odif{t} = -\frac{1}{qv_0}\odif{u}$ into \cref{eq:motionquadraticdrag1}:
-	\begin{align}
-		x    & = v_0 \int \frac{1}{u}\left(-\frac{1}{qv_0}\odif{u}\right) \nonumber \\
-		     & = -\frac{1}{q}\int \frac{1}{u}\odif{u} \nonumber                     \\
-		x(t) & = -\frac{1}{q}\ln(1 - qv_0t) + C_1. \label{eq:motionquadraticdrag2}
-	\end{align}
-	Taking care of $C_1$: use $t \appr 0 \implies x(t) = x_0$.
-	\begin{align*}
-		x_0 & = -\frac{1}{q}\ln(1 - qv_0\cdot(0)) + C_1 \\
-		x_0 & = C_1
-	\end{align*}
-	Plug this into \cref{eq:motionquadraticdrag2} to get the final answer:
-	\begin{equation*}
-		x(t) = -\frac{1}{q}\ln(1 - qv_0t) + x_0.
-	\end{equation*}
-\end{multicols}
-
-Surprisingly, quadratic drag does not have upper position bounds. A bit more thought would reveal that when $v < 0$, the quadratic drag $f_r(v) = a_2v^2$ is smaller than $f_r(v) = a_1v$. Thus, it should make sense that quadratic doesn't have bounds, but linear has an upper bound.
-
-\subsection{Damped harmonic motion}
-
-\section{Realization of gravitational systems}
-
-I want to go back and revisit the falling ball that we've introduced in \cref{sec:derivatives}, because it's a lie. The model $F = mg$ is a simplified one, and only works when the object isn't that high above the Earth's surface. The actual model of gravity that's given by Newton's law of universal gravitation:
-\begin{equation}
-	F = -G\frac{Mm}{r^2},
-\end{equation}
-where $G$ is the universal gravitational constant, $M$, the mass of the first object, and $m$, the mass of the second object. In this model, gravity is dependent on the position of the object. The further the object is, the weaker the gravity, given by the term $r^2$. The effect of the weakening gravity will be very prominent when the object is at a very great height. Newton's second law reads
-\begin{align}
-	F = -G\frac{Mm}{r^2} & = m\ddot{r}                            \\
-	-G\frac{M}{r^2}      & = \ddot{r} \label{eq:gravity-equation}
-\end{align}
-
-Various systems are encapsulated by this model, such as a rocket escaping Earth, or a meteor falling from great height (\cref{fig:meteor-falling-from-height}). It's quite a general model, so let's solve \cref{eq:gravity-equation}, then tinker around with initial conditions to see what happens.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics{geometricalsignificance/meteorfallingfromgreatheight}
-	\caption{An illustration of a meteor falling to the Earth from height $h$.}
-	\label{fig:meteor-falling-from-height}
-\end{figure}
-
-Let's set $r(t = 0) = R$, and $\dot{r}(t = 0) = V$. The method of solving \cref{eq:gravity-equation} is very similar to the method of solving the harmonic oscillator (\cref{sec:harmonic-oscillator}). First, abuse the chain rule to reduce the second order derivative to a first order
-\begin{align}
-	\ddot{r} = \odv[ord = 2]{r}{t} = \odv*{\ab(\odv{r}{t})}{t} = \odv{\dot{r}}{t} = \odv{\dot{r}}{r}\odv{r}{t} = \dot{r}\odv{\dot{r}}{r};
-\end{align}
-\cref{eq:gravity-equation} then turns into
-\begin{align}
-	-\frac{GM}{r^2}        & = \dot{r}\odv{\dot{r}}{r}                               \\
-	-GMr^{-2}\odif{r}      & = \dot{r}\odif{r}                                       \\
-	-GM\int r^{-2}\odif{r} & = \int\dot{r}\odif{r}                                   \\
-	\intertext{Using the reversed power rule (\cref{sec:reversed-power-rule}),}
-	-GM\frac{r^{-1}}{-1}   & = \frac{\dot{r}^2}{2} + C_1                             \\
-	\frac{2GM}{r} - 2C_1   & = \dot{r}^2. \label{eq:gravity-equation-first-integral}
-\end{align}
-To find $C$, substitute in the initial condition ($r(t = 0) = R$, and $\dot{r}(t = 0) = V$)
-\begin{align}
-	\frac{2GM}{R} - 2C_1 & = V^2                          \\
-	C_1                  & = \frac{GM}{R} - \frac{V^2}{2}
-\end{align}
-This is a bit long, so we'll just substitute $C_1$ in later. Now let's just continue from \cref{eq:gravity-equation-first-integral}. Take the square root of both sides and do another separation of variables.
-\begin{align}
-	\sqrt{\frac{2GM}{r} - 2C_1}  & = \dot{r}                                   \\
-	\sqrt{\frac{2GM - 2C_1r}{r}} & = \odv{r}{t}                                \\
-	\int\odif{t}                 & = \int\sqrt{\frac{r}{2GM - 2C_1r}}\odif{r}  \\
-	t + C_2                      & = \int\sqrt{\frac{r}{2GM - 2C_1r}}\odif{r}.
-\end{align}
-Now we have another integral to work with. It's quite a mess right now, but we can simplify it by substituting the leading constants with dummy variables. E.g., let $a = 2GM$ and $b = 2C_1$, our integral is in the form
-\begin{equation}
-	\int\sqrt{\frac{r}{a - br}}\odif{r} \label{eq:gravity-dummy1}
-\end{equation}
-Just a fair warning, this integral requires a bit of substitution, so try to stick around and not get lost here.
-
-Firstly, having a linear term on the denominator of the square root is not favorable. So let's do a substitution to get rid of it. Let $u = a - br$; thus, $r = \frac{a - u}{b}$, and $-\frac{1}{b}\odif{u} = \odif{r}$. Thus, \cref{eq:gravity-dummy1} becomes
-\begin{equation}
-	\int\frac{\sqrt{\frac{a - u}{b}}}{\sqrt{u}}\ab(-\frac{1}{b}\odif{u}) = -\frac{1}{b^{\flatfrac{3}{2}}}\int\frac{\sqrt{a - u}}{\sqrt{u}}\odif{u}
-\end{equation}
-Another substitution would turn this integral into a more recognizable form. Let $\sqrt{u} = w$; thus, $u = w^2$, $a - u = a - w^2$, $\odif{u} = 2w\odif{w}$. Our integral becomes
-\begin{align}
-	-\frac{1}{b^{\flatfrac{3}{2}}}\int\frac{\sqrt{a - w^2}}{w}\ab(2w\odif{w}) = -\frac{2}{b^{\flatfrac{3}{2}}}\int\sqrt{a - w^2}\odif{w}.
-\end{align}
-This integral can be easily solved by using a trigonometric substitution.
+\section{Phase space}
+\label{sec:phase-space}

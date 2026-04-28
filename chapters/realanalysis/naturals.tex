@@ -1,475 +1,950 @@
 \chapter{The foundations: natural numbers}
 
-Since this book takes on a different approach to the Compact Basic Mathematics Book, I shall not go over how naturals are used, how the number line works, how objects can be represented as naturals, etc. They should be trivial for the students reading real analysis. So, I'd like to shift our attention to an arguably more important concept: the axiomatic construction ts of natural numbers.
+\prerequisites{logic, propositions, truthfulness and falsehood, logical operations, sets, functions}
 
-One of the most crucial concept in this chapter is the induction axiom (\cref{ax:naturals_induction,th:naturals_mathematical_induction}), which will allow us to prove the majority of the results stated in this chapter. At the end, induction will lead our way to construct a proper mathematical system.
+\section{Invitation: foundations of analysis}
 
-Most of the things stated here are trivial, but is crucial for maturing the skills of writing a good mathematical proof. Without the intention of developing this skill, this chapter is merely just a brain-decoration: practically useless to read. It prepares you for the later chapters which are very proof-heavy. But due to my style of writing, I can't, for the life of me, leave proofs of theorems as exercises. So, I'd have to excuse the reader here to refrain oneself from looking at the proofs before trying to write down one themselves.
+A standard course on analysis usually progresses like this.
+\begin{itemize}[noitemsep]
+  \item Glaze over the properties of real numbers
+  \item Sequences, limit of sequences, limit of functions
+  \item Continuity of functions and derivatives
+  \item The Riemann integrals.
+\end{itemize}
+Notice that the construction of number systems aren't in there. Why did I choose to differ?
+
+I believe that the name of the subject, \emph{analysis}, should reflect the contents of the subject: to \emph{analyze} mathematics. Hence, we should go back to its root: the natural numbers, and build everything up from there. Although this method is more tedious than the standard course, it paces the course so that the reader can build up mathematical maturity. At the end, you'd be able to construct a mathematical system of your own, and hopefully, be able to appreciate the wonders that nature gave us through the humble numbers.
+
+Since this book is \emph{not} about basic mathematics, we wouldn't go over how to count, how the number line works, how objects are represented as naturals, etc. They should be trivial for the voyagers of mathematical analysis. Hence, I shall direct all attention to the axiomatic construction of natural numbers. This chapter is planned out as follows:
+\begin{enumerate}[noitemsep]
+  \item Axiomatic construction of the naturals
+  \item The mathematical induction theorem
+  \item Addition, multiplication, and their properties
+  \item Order and the well-ordering principle
+\end{enumerate}
+
+Most of the things stated here are trivial, but is crucial for maturing the skills of writing a good proof, which would be necessary for later chapters. Without the intention of developing this skill, this chapter is merely just a brain-decoration: practically useless to read. Hence, \emph{please} try to prove or give reasons to each statement first before looking at the solution in order to get the most out of this chapter.
 
 \section{Axiomatic formulation of natural numbers}
 
-The big question here is: \emph{what does it mean to be a number}? Let's say if there's an alien species coming to us. How would you explain the concept of a number to them? You might point to your finger and say \enquote{This is the number one.} The alien then says: \enquote{Ah, that finger is the number one}. Clearly, this is incorrect. There's also other objects which can represent the number one. So you might point to your head and say that \enquote{I have only one head!} The alien then says: \enquote{Oh, the number one could be both your finger or your head.} Again, the alien still misses the essence of what a number truly means.
+\index{natural numbers}
+The big question here is: \emph{what does it mean to be a number}? Let's say there's an alien species coming to us. How would you explain the concept of a number to them? You might point to your finger and say \enquote{This is the number one.} The alien then thinks: \enquote{Ah, that finger is the number one}. Clearly, this is incorrect. There's also other objects which can represent the number one. So you might point to your head and say that \enquote{I have only one head!} The alien then thinks: \enquote{Oh, the number one could be both your finger or your head.} Again, the alien still misses the essence of what a number truly means.
 
-The challenge arises because numbers are abstract concepts that aren't tied to any physical objects. There is no \enquote{the number one} in this world. So, it's practically impossible to tell the alien what a number is using a real world object. Instead, one must rely on abstractions, using purely mathematical concepts to tell the alien what a number actually is. Here, we shall only allow ourselves to use the following:
+The challenge arises because numbers are abstract concepts that aren't tied to any physical objects. There is no object in this world that can represent the concept of \emph{number one} because a number is a \emph{concept}, not an object. So, it's practically impossible to tell the alien what a number is using real world objects. Instead, one must rely on \emph{abstractions}: using purely mathematical concepts to tell the alien what a number is and how it behaves. Here, we shall only allow ourselves to use the following:
 \begin{enumerate}[noitemsep]
-	\item Logic
-	\item Sets and sets operations
-	\item Equality
-	\item Functions and mappings
+  \item Logic
+  \item Sets and their operations
+  \item Equality
+  \item Functions and mappings
 \end{enumerate}
 
-We first start by defining what a set of naturals are:
-\begin{df}{The set of natural numbers}{}
-	Let $\mathbb{N}$ be the set that contains all natural numbers.
-\end{df}
-There are many accepted construction of the natural numbers. But, the most well-accepted one is Peano's axioms. The first of which states that
+We first start by the notation of natural numbers
+\begin{notation}{The set of natural numbers}{}
+  $\mathbb{N}$ is the set that contains all natural numbers, also sometimes called \emph{the naturals}.
+\end{notation}
+
+To construct the natural numbers, we must define what is in and isn't \(\mathbb{N}\) by specifying what it means for an object to \emph{be} a natural number.
+
+There are three standard ways to do this: Peano's axiom, set-theoretical method, and the Church numerals. This chapter uses both the Peano's axiom and the set-theoretical method. But we would not discuss the Church numerals, as it is a topic of computation theory, not analysis.
+
+Conceptually, the \textbf{natural number system} is a collection of random symbols in a set \(T\); each symbol in \(T\) is connected by a relation that I shall informally call the \emph{next to} relation. E.g., \(1\) is \emph{next to} \(0\), \(2\) is \emph{next to} \(1\), etc. If all the elements in \(T\) form \emph{one single ordered line} when they are arranged according to this relation, then \enquote{the set \(T\) equipped with that relation} is a system of natural numbers. To honor the natural-ness of \(T\), we also rename \(T\) to \(\mathbb{N}\).\footnote{That last part was a joke.}
+
+In the usual natural number system that we know and love, this relation acts like an arrow that points \(0\) to \(1\), \(1\) to \(2\), \(2\) to \(3\), and so on. When you draw this relation out, you get \cref{fig:naturals-number_line}: the \textbf{natural number line}.
+\begin{figure}[b]
+  \centering
+  \includegraphics{realanalysis/naturals/number_line.pdf}
+  \caption{The natural number line}
+  \label{fig:naturals-number_line}
+\end{figure}
+
+However, this number line isn't tied to any kind of symbols. One could replace the Hindus-Arabic symbols with the Greek numerals, Thai numerals, Babylonian numerals, and still get a fully functioning natural number line. The only thing that matters for \enquote{a set equipped with a relation} to be considered \emph{the natural number system}, is for every element to form \emph{one single ordered line}.
+
+This detachment from symbols makes manually listing every possible sets and relations that can form the natural number system impossible, because the amount of symbols is infinite. Thus, a rule set is needed for ruling out what qualifies as a natural number system, and what doesn't.
+
+Peano's defined the system of naturals to be: \index{Peano's axiom|see {natural numbers}} \index{natural numbers!construction!{Peano's axiom}}
+\begin{quote}
+  \emph{Any set that is equipped with a relation, such that the elements with the relation forms \emph{one single ordered line}.}
+\end{quote}
+This statement is readable by humans, but is not readable for mathematics. If you feed this for mathematics to read, it will say: what is a relation? what does equipped means? what does a line mean? what does it mean for a line to be ordered?, etc. Hence, Peano broke the statement above into four mathematical viable rules listed here:
+\begin{enumerate}[noitemsep, label = \textbf{\textsf{Rule \arabic*)}}, ref = Rule \arabic*, leftmargin = *]
+  \item There is a well-defined start of the line. I.e., there is an element that has no other elements preceding it. Peano chose this element to be zero.\label{ite:naturals-rule-1}
+  \item There is always a next one along the line. \label{ite:naturals-rule-2}
+  \item There are no branches and loops. \label{ite:naturals-rule-3}
+  \item There can only be one line, and no more. \label{ite:naturals-rule-4}
+\end{enumerate}
+These four rules will soon be converted into the five Peano axioms.
+
+Firstly, these rules do not care about the symbols in the set; hence, all the following lines can form a natural number system:
+\begin{gather*}
+  0, 1, 2, 3, 4, \dots \\
+  2, 4, 6, 8, 10, \dots \\
+  \symrm{A, B, C, D, E,} \dots \\
+  =, +, <, !, -, \dots \\
+  \symrm{I, II, III, IV, V, \dots},
+\end{gather*}
+
+Secondly, these rules can also be used to tell what doesn't form the natural number system. E.g., all sets that are equipped with a relation presented in \cref{fig:naturals-pathological_examples} can't be the naturals because they violate the following:
+\begin{figure}[h]
+  \centerfloat
+  \includegraphics{realanalysis/naturals/pathological_examples.pdf}
+  \caption{Examples of number systems that are \emph{not} the naturals}
+  \label{fig:naturals-pathological_examples}
+\end{figure}
+\begin{enumerate}[label = Ex \arabic*., leftmargin = *]
+  \item There are loops; hence, it can't be the naturals. (\ref{ite:naturals-rule-1})
+  \item There are loops; hence, it can't be the naturals. Also, there is no number which has no elements preceding it. Every number has a preceding element; hence, this can't be the naturals. (\ref{ite:naturals-rule-1})
+  \item There are branches; hence, it can't be the naturals. (\ref{ite:naturals-rule-3})
+  \item Even though there is an ordered chain of numbers, there are a loop in the set which is disconnected from the chain. Hence, it can't be the naturals. (\ref{ite:naturals-rule-3} and \ref{ite:naturals-rule-4})
+  \item There are multiple ordered chains. Hence, it can't be the naturals. (\ref{ite:naturals-rule-4})
+  \item There are elements (\(1', \dots, 5'\)) that has no naturals next to it (\ref{ite:naturals-rule-2})
+\end{enumerate}
+
+With these intuitions in mind, it should be easy to see how the mathematical forms of Peano's axiom arose.
+
+\ref{ite:naturals-rule-1} is enforced by the first two axioms. The first one postulates the existence of zero, which is the start of the chain.
 \begin{axiom}{Existence of zero as a natural number}{naturals_has_zero}
-	The number $0$ is a natural number, i.e., $0 \in \mathbb{N}$
+  The number $0$ is a natural number, i.e., $0 \in \mathbb{N}$
 \end{axiom}
 
-Then, we define a successor function $S(n)$, which takes in a natural number $n$ and outputs the natural number that succeeds it. E.g., the successor of $0$ is $1$, and the successor of $1$ is $2$, etc. The successor function shall behave as follows:
-\begin{axiom}{The natural number is closed under the successor}{naturals_successor_closed}
-	\begin{equation*}
-		\forall (n \in \mathbb{N}): S(n) \in \mathbb{N}.
-	\end{equation*}
-\end{axiom}
-\begin{axiom}{The successor function is an injection}{naturals_successor_injection}
-	\begin{equation}
-		\forall (n, m \in \mathbb{N}): \ab(S(n) = S(m)) \implies (n = m).
-	\end{equation}
-\end{axiom}
+The second axiom postulates that zero has no preceding numbers, i.e., there is no number in which the next number is zero. In Peano's universe, the \emph{next to} relation is described using the \textbf{successor function} \(S\). If \(m\) is next to \(n\), then
+\begin{equation}
+  m = S(n),
+\end{equation}
+and \(m\) is called the \textbf{successor} of \(n\). In the natural number system that we know and love, \(1 = S(0)\), \(2 = S(1)\), and so on. The second axiom then translates to
 \begin{axiom}{Zero is not the successor of any numbers}{naturals_zero_no_successor}
-	\begin{equation}
-		\forall (n \in \mathbb{N}): S(n) \neq 0.
-	\end{equation}
+  \begin{equation*}
+    \forall (n \in \mathbb{N}): S(n) \neq 0.
+  \end{equation*}
 \end{axiom}
 
-Now let's see how these axioms create the natural numbers as we know it. Firstly, \cref{ax:naturals_successor_closed} says that for all natural numbers, there is always a \emph{next one,} which is given by the successor. Using \cref{ax:naturals_has_zero}, we can directly form a chain of naturals from zero using the successor function:
-\begin{gather}
-	0, S(0), S(S(0)), S(S(S(0))), \dots,
-\end{gather}
-and by \cref{ax:naturals_successor_closed}, we can guarantee that all the elements in this chain will be a natural number. To make sure that the next natural number is different from the current natural number, \cref{ax:naturals_successor_injection} is imposed, so cases like
-\begin{equation}
-	S(n) = n
-\end{equation}
-does not happen. Finally, we impose that zero is not the successor of anything by \cref{ax:naturals_zero_no_successor}
+\begin{remark}{On the beginning of the natural numbers}{}
+  A looser yet perfectly valid way to express \cref{ax:naturals_has_zero,ax:naturals_zero_no_successor} would be: there exists an element in the naturals that is \emph{not} the successor of any other numbers. Peano just decided to use zero. But generally, this element could be anything. One, two, a cat, you, etc.
+\end{remark}
 
-Traditionally, we assign names and symbols to each of the successor of zero:
+To simplify the rest of the discussion, I shall refer to the number system that is formed by the Hindus-Arabic numerals under the following relations:
 \begin{equation}
-	\begin{aligned}
-		S(0)          & \equiv 1        \\
-		S(S(0))       & = S(1) \equiv 2 \\
-		S(S(S(0)))    & = S(2) \equiv 3 \\
-		S(S(S(S(0)))) & = S(3) \equiv 4
-		              & \dots
-	\end{aligned} \label{eq:naturals_chain}
+  \begin{aligned}
+    S(0)          & \coloneqq 1,        \\
+    S(S(0))       & = S(1) \coloneqq 2, \\
+    S(S(S(0)))    & = S(2) \coloneqq 3, \\
+    S(S(S(S(0)))) & = S(3) \coloneqq 4, \\
+                  & \vdots
+  \end{aligned} \label{eq:naturals_chain}
 \end{equation}
-and just like that, we have constructed the naturals. This sounds like a complete and functioning set of axioms. But, there are still some subtle details to it that we're missing. Let's say we have a chain of naturals:
-\begin{align}
-	S(0) = 1, S(1) = 2, S(2) = 3, \dots.
-\end{align}
-Let's add another two elements which is separate from the chain, $a$ and $b$ which has the following relation:
+as the \textbf{ideal natural number system}, or shortly, \textbf{the naturals}
+
+The rest of the rules tell you how each element are connected by the successor function: they dictate the behavior of the successor function.
+
+\ref{ite:naturals-rule-2} requires all naturals to have a successor. Otherwise, there would be some element in the number line that is left floating and disconnected from the line of naturals as in the sixth example of \cref{fig:naturals-pathological_examples}. This is done through the third axiom:
+\begin{axiom}{The successor function is closed in the naturals}{naturals_successor_closed}
+  \begin{equation*}
+    \forall (n \in \mathbb{N}) : S(n) \in \mathbb{N}
+  \end{equation*}
+\end{axiom}
+This axiom contains more than the disconnection of number lines. It also contains the requirement that the successor of a natural number is still is in the set. Without this, \(S\) could take a number from the ideal natural number system and point it to \(\cpi\), \(\e\), or even a sheep!
+
+\ref{ite:naturals-rule-3} says that the natural number system must have no branch. This is enforced in two ways:
+\begin{itemize}
+  \item The natural numbers must not branch outwards, and
+  \item There must be no other branch that connects to the main branch.
+\end{itemize}
+Under the condition that the successor is a \emph{function}, there is no branching outwards because a \emph{function} can't be one-to-many; therefore, things like
 \begin{equation}
-	S(a) = b, S(b) = a.
+  S(0) = 1, \mathand S(0) = 1',
 \end{equation}
-It should be easy to convince yourself that all the axioms stated earlier (\cref{ax:naturals_successor_injection,ax:naturals_successor_closed,ax:naturals_zero_no_successor}) do permit $a$ and $b$ to exist as a part of the naturals. But this shouldn't happen as they're not in the chain of naturals that originated from zero. They would render $\mathbb{N}$ to be bigger than it should be. So, we have to add in another axiom that limit the natural to be the smallest set that satisfy all axioms prior (\cref{ax:naturals_successor_injection,ax:naturals_successor_closed,ax:naturals_zero_no_successor}): the induction axiom.
+can't happen. This condition alone however is not enough to stop a branch that originated elsewhere to conjoin with the main branch.
+
+E.g., let \(T\) be a set that includes the ideal naturals, and let \(1'\) and \(2'\) be an element that aren't equal to any of the naturals such that
+\begin{equation}
+  1', 2' \in T, \quad S(1') = 2' \mathand S(2') = 3.
+\end{equation}
+The set \(T\) is illustrated in \cref{fig:naturals_pathological-1}.
+\begin{figure}[ht]
+  \centering
+  \includegraphics{realanalysis/naturals/pathological_example-1.pdf}
+  \caption{Pathological example of naturals with unrelated branches joining to the main branch}
+  \label{fig:naturals_pathological-1}
+\end{figure}
+Notice that the condition \(S\) must be a \emph{function} still allows this situation to happen. So, we need to impose injectivity of \(S\) to prevent this. Let's see how.
+
+\begin{axiom}{The successor function is an injection}{naturals_successor_injection}
+  \begin{equation*}
+    \forall (n, m \in \mathbb{N}): \ab(S(n) = S(m)) \implies (n = m).
+  \end{equation*}
+\end{axiom}
+
+From \cref{fig:naturals_pathological-1},
+\begin{equation}
+  S(2') = 3 \mathand S(2) = 3,
+\end{equation}
+which means
+\begin{equation}
+  S(2') = S(2)
+\end{equation}
+If \(S\) is injective, then this implies
+\begin{equation}
+  2' = 2,
+\end{equation}
+which contradicts our assumption that \(2' \neq 2\). In order to resolve this contradiction, \(2'\) must not be a part of the natural number system in the first place. This would leave \(1'\) to still be a part of the natural number system. But since \(1'\) has no successor now, \cref{ax:naturals_successor_closed} says that \(1'\) can't be a part of the natural number system as well. Hence, we're left with the ideal natural number system as desired.
+
+Let's now consider a more illustrative pathological example. Consider a set \(T\) which contains the ideal naturals and two other elements $a$ and $b$ which is not in the ideal naturals. These two extra elements have the relation such that
+\begin{equation}
+  S(a) = b, \mathand S(b) = a.
+\end{equation}
+It should be easy to convince yourself that all the axioms stated earlier (\cref{ax:naturals_successor_injection,ax:naturals_successor_closed,ax:naturals_zero_no_successor}) do permit \(T\) to qualify as the naturals. But this shouldn't happen! The naturals should only form \emph{one singular chain} and no more loops!
+
+Another such example is to construct a set \(R\) which has the ideal naturals and another chain of numbers such that
+\begin{equation}
+  S(0') = 1', S(1') = 2', S(2') = 3', \dots.
+\end{equation}
+Similarly, all axioms stated earlier do permit \(R\) to be the naturals. But this shouldn't happen because the naturals can't have more than one chain.
+
+Now, I shall state the induction axiom and illustrate how it eliminates all these other pathological number systems.
+
 \begin{axiom}{Induction axiom}{naturals_induction}
-	Consider any set $T$. If $0$ is an element of the set, and that for every element $n$ in $T$, $S(n)$ is also in $T$, then $T$ must be isomorphic to $\mathbb{N}$. I.e.,
-	\begin{equation}
-		\forall T : \ab((0 \in T) \land \ab[\forall(n \in T) : S(n) \in T]) \implies T \cong \mathbb{N}.
-	\end{equation}
+  Consider any set $T$. If all subsets \(A \subseteq T\) that has the property that \(0 \in A\) and \(\forall (n \in A) : S(n) \in A\) also has the property that \(A = T\), then \(T\) is the naturals.\footnote{The converse of this statement is proven in \cref{co:naturals-induction_converse}} I.e.,
+  \begin{equation*}
+    \begin{aligned}
+      \ab[\forall (A \subseteq T) : [(0 \in A) \land (\forall (n \in A) : S(n) \in A)] \implies (A = T)] \\ \implies (T \cong \mathbb{N})
+    \end{aligned}
+  \end{equation*}
+  where \(\cong\) roughly means, having the same properties. So \(T \cong \mathbb{N}\) means, \(T\) have the same properties as \(\mathbb{N}\)
+  \index{induction axiom|see {natural numbers}} \index{natural numbers!induction axiom}
 \end{axiom}
-This axiom assures that $\mathbb{N}$ is the smallest possible, and is analogous to the more well known \enquote{mathematical induction,} which states that
+
+\begin{remark}{On the beginning element of induction}{}
+  In a looser sense, \(A\) doesn't have to include zero, but it just has to include an element that is not a successor of any other elements.
+\end{remark}
+
+Let's now go back to the set \(T\). Let \(A = \{0, 1, 2, \dots\}\) (\(a, b \not\in A\)). Since \(0 \in A\) and all elements in \(A\) have a following element: \(S(0) = 1, S(1) = 2, \dots\) but \(A \neq T\) because \(a, b \not\in A\), \(T\) can't form the natural number system by the induction axiom.
+
+For the set \(R\), let \(A = \{0, 1, 2, \dots\}\). \(A\) has zero and all elements in \(A\) have a following element. However, \(A \neq R\) because \(1', 2', \dots \not\in A\), \(A\) can't form the natural number system by the induction axiom.
+
+The consequence of this axiom is: if \(T\) is a set with multiple lines, then you can choose \(A\) to be a set that contains just one of the lines in \(T\). Because there are other lines in \(T\), \(A \neq T\); hence, \(T\) can't form the natural number system. The exact proof of the concept is in the well-ordering principle, which will be discussed soon. But for now, this should convince you that the induction axiom is capable of getting rid of systems with multiple lines or loops.
+
+Now that the fundamental behaviors of the natural number system has been established. It's time to construct the arithmetical systems from said axioms.
+
+\section{Mathematical induction}
+
+The first step of constructing the system of arithmetic is to cast the induction axiom into a more practical form: mathematical induction.
+
 \begin{theorem}{Mathematical induction}{naturals_mathematical_induction}
-	Let there be a statement $P(n)$ associated with all natural numbers $n$. If $P(0)$ is true, and $P(n)$ is true implies $P(S(n))$, then $P(n)$ is true for all natural numbers. I.e.,
-	\begin{equation}
-		P(0) \land \ab[\forall(n \in \mathbb{N}) : P(n) \implies P(S(n))] \implies \ab[\forall(m \in \mathbb{N}) : P(m)].
-	\end{equation}
+  \index{mathematical induction|see {induction}} \index{induction}
+  Let there be a proposition \(P(n)\) where the truth value of this proposition depends on the natural number $n$. If $P(0)$ is true, and $P(n)$ is true implies $P(S(n))$, then $P(n)$ is true for all natural numbers. I.e.,
+  \begin{equation*}
+    \ab[P(0) \land \ab[\forall(n \in \mathbb{N}) : P(n) \implies P(S(n))]] \implies \ab[\forall(m \in \mathbb{N}) : P(m)].
+  \end{equation*}
 \end{theorem}
-Often times, we shall call $P(0)$ the \textbf{base case of induction}, and the step $P(n) \implies P(S(n))$, the \textbf{induction step}. Since we have to hypothesize first that $P(n)$ is true, then use that to prove that $P(n + 1)$ must also be true, we also call the hypothesis that $P(n)$ is true, the \textbf{inductive hypothesis}. \index{induction!base case}\index{induction!induction step}
 
-For the rest of this textbook, induction should refer to \cref{th:naturals_mathematical_induction}, as it's the easier version to work with. Still, we shall proof that \cref{ax:naturals_induction} and \cref{th:naturals_mathematical_induction} are equivalent.
+The statement $P(0)$ is called the \textbf{base case of induction}, and the step of proving that \(P(n) \implies P(S(n))\) is called the \textbf{induction step}. Since we have to first hypothesize that $P(n)$ is true, then use that to prove that $P(S(n))$ must also be true, the assumption that $P(n)$ is true is called the \textbf{inductive hypothesis}. \index{induction!base case}\index{induction!induction step}
 
-	{\color{red} Insert proof here}
+Mathematical induction is sometimes thought as a chain of dominoes. Each \(P(n)\) is like a domino that's waiting to be knocked down. If you can somehow show that each domino is arranged in a way such that if one fall down, the next one would also fall, i.e., \(P(n)\) implies \(P(S(n))\), and that the first one has already fallen, i.e., \(P(0)\) is true, then you can conclude that all dominoes must have also fallen, i.e., \(P(n)\) is true for all natural numbers.
 
-One important remark with \cref{th:naturals_mathematical_induction} is that one does not have to start from $0$. However, that will be discussed after we've introduced the concept of order in \cref{sec:naturals_order}.
+Before we prove that this is equivalent to the established induction axiom, we shall go through how we could use this in proofs first. For the ease of pedagogy, let's \emph{informally} assume that all the laws of arithmetics on the naturals have been constructed. We shall also \emph{informally} assume that \(S(n) = n + 1\).
+
+\subsection{Basics of proof by induction}
+
+\begin{prop}{}{}
+  \(\forall (n \in \mathbb{N}) : 0 + 1 + 2 + \dots + n = \frac{1}{2} n (n + 1) \)
+\end{prop}
+
+\begin{proof}
+  Let the proposition \(P(n)\) be true \ifft
+  \begin{equation}
+    0 + 1 + 2 + \dots + n = \frac{1}{2} n (n + 1)
+  \end{equation}
+  is also true.
+
+  To begin the induction, first check that the base case (\(P(0)\)) is true. The truth value of \(P(0)\) is equivalent to the truthfulness of the sentence
+  \begin{equation}
+    0 = \frac{1}{2}(0)\ab((0) + 1).
+  \end{equation}
+  Since the R.H.S. also evaluates to zero, the sentence is true; hence, \(P(0)\) is also true, proving the base case of induction.
+
+  Now, let's hypothesize that \(P(n)\) is true, i.e.,
+  \begin{equation}
+    0 + 1 + 2 + \dots + n = \frac{1}{2} n (n + 1)
+  \end{equation}
+  is true. This is our induction hypothesis. From this, we show that \(P(S(n))\) must also be true.
+
+  The truth value of \(P(S(n))\) is equivalent to the truthfulness of the sentence
+  \begin{equation}
+    0 + 1 + 2 + \dots + n + S(n) = \frac{1}{2}S(n) (S(n) + 1)
+  \end{equation}
+  Starting from the L.H.S.,
+  \begin{align*}
+     & 0 + 1 + 2 + \dots + n + S(n)                                                        \\
+     & = (0 + 1 + 2 + \dots + n) + S(n)                                                    \\
+     & = \frac{1}{2}n(n + 1) + S(n)         &  & \textrm{Induction hypothesis}             \\
+     & = \frac{1}{2}n(n + 1) + (n + 1)      &  & \textrm{Assumption that \(S(n) = n + 1\)} \\
+     & = (n + 1)\ab[\frac{1}{2}n + 1]                                                      \\
+     & = (n + 1)\ab[\frac{n + 2}{2}]                                                       \\
+     & = \frac{1}{2}(n + 1)\ab[(n + 1) + 1]                                                \\
+     & = \frac{1}{2}S(n)\ab(S(n) + 1).      &  & \textrm{Assumption that \(S(n) = n + 1\)}
+  \end{align*}
+  I.e., the sentence is true; hence, \(P(S(n))\) must also be true.
+
+  In conclusion, the base case is true and \(P(S(n))\) follows from \(P(n)\). By the mathematical induction theorem (\cref{th:naturals_mathematical_induction}), \(P(n)\) must be true for all naturals. Hence,
+  \begin{equation*}
+    \forall(n \in \mathbb{N}) : 0 + 1 + 2 + \dots + n = \frac{1}{2}n(n + 1) \qedhere
+  \end{equation*}
+\end{proof}
+
+You might need to reread the previous proof multiple times, and that's normal. Induction does take a while to get used to. Hence, I've prepared another example.
+
+\begin{prop}{}{}
+  \(\forall (n \in \mathbb{N}) : 2^0 + 2^1 + \dots + 2^n = 2^{n + 1} - 1\)
+\end{prop}
+
+\begin{proof}
+  Let the proposition \(P(n)\) be true \ifft
+  \begin{equation}
+    2^0 + 2^1 + \dots + 2^n = 2^{n + 1} - 1 \label{eq:naturals-induction_ex-1}
+  \end{equation}
+  is also true.
+
+  The base case \(P(0)\) is obviously true because the L.H.S. of the mathematical sentence associated to \(P(0)\) evaluates to \(2^0 = 1\), and the R.H.S. also evaluates to \(2^{0 + 1} - 1 = 1\).
+
+  Now, let's assume that the sentence associated to \(P(n)\) is true, i.e., \cref{eq:naturals-induction_ex-1} is true. This assumption is the inductive hypothesis. Let's now prove that the sentence associated to \(P(S(n))\) is also true, i.e.,
+  \begin{equation}
+    2^0 + 2^1 + \dots + 2^n + 2^{S(n)} = 2^{S(n) + 1} - 1.
+  \end{equation}
+  Starting from the L.H.S.,
+  \begin{align*}
+     & 2^0 + 2^1 + \dots + 2^n + 2^{S(n)}                                                    \\
+     & = (2^0 + 2^1 + \dots + 2^n) + 2^{S(n)}                                                \\
+     & = (2^{n + 1} - 1) + 2^{S(n)}           &  & \textrm{Inductive hypothesis}             \\
+     & = 2^{n + 1} + 2^{S(n)} - 1                                                            \\
+     & = 2^{n + 1} + 2^{n + 1} - 1            &  & \textrm{Assumption that \(S(n) = n + 1\)} \\
+     & = 2^{n + 2} - 1                                                                       \\
+     & = 2^{(n + 1) + 1} - 1                                                                 \\
+     & = 2^{S(n) + 1} - 1,                    &  & \textrm{Assumption that \(S(n) = n + 1\)}
+  \end{align*}
+  i.e., the mathematical sentence is true; hence, \(P(S(n))\) must also be true.
+
+  In conclusion, the base case is true and \(P(S(n))\) follows from \(P(n)\). By the mathematical induction theorem (\cref{th:naturals_mathematical_induction}), \(P(n)\) must be true for all naturals as well. Hence,
+  \begin{equation*}
+    \forall(n \in \mathbb{N}) 2^0 + 2^1 + \dots + 2^n = 2^{n + 1} - 1 \qedhere
+  \end{equation*}
+\end{proof}
+
+On the next example, I shall shorten the proof a bit to save on some spaces and some typing time.
+
+\begin{prop}{}{}
+  \(\forall (n \in \mathbb{N}) : 2^n \geq n\)
+\end{prop}
+
+\begin{proof}
+  Let \(P(n)\) be a proposition associated with
+  \begin{equation*}
+    2^n \geq n
+  \end{equation*}
+
+  \basecase \(P(0)\) is associated with
+  \begin{equation}
+    2^0 \geq 0
+  \end{equation}
+  The L.H.S. is \(2^0\), which evaluates to \(1\). The R.H.S. is \(0\). Because \(1 \geq 0\) is true, \(P(0)\) is also true, proving the base case.
+
+  \inductivestep Assume that \(P(n)\) is true, i.e.,
+  \begin{equation*}
+    2^n \geq n
+  \end{equation*}
+  We shall then prove that \(P(S(n))\) follows, i.e., \(2^{S(n)} \geq S(n)\). Starting from the L.H.S.,
+  \begin{align*}
+    2^{S(n)} & = 2^{n + 1}    &  & \textrm{Assumption that \(S(n) = n + 1\)} \\
+             & = 2^n \times 2                                                \\
+             & \geq 2n        &  & \textrm{Inductive hypothesis}
+  \end{align*}
+  To go forward, we shall prove that \(2n \geq S(n)\) for all naturals in order to conclude that \(2^{S(n)} \geq S(n)\)
+
+  \begin{enumerate}
+    \item For \(n = 0\), \(2n \geq S(n)\) is false because \(2 \times 0 = 0\), \(S(0) = 0 + 1 = 1\), and \(0 \not\geq 1\). However, this doesn't matter because the original statement that we're trying to prove is \(P(S(0))\), which states that \(2^{S(0)} \geq S(0)\). The L.H.S. evaluates to \(1\), the R.H.S. evaluates to \(1\) as well, and \(1 \geq 1\). Hence, \(P(S(0))\) is true, and we move on to other cases.
+    \item For \(n \geq 1\), we get that \(2n = n + n \geq n + 1 = S(n)\). Hence, \(2n \geq S(n)\)
+  \end{enumerate}
+
+  Since the base case and the inductive step is true, the theorem of mathematical induction assures that \(P(n)\) is true for all naturals, closing the induction.
+\end{proof}
+
+\begin{remark}{}{}
+  The ability to split the natural numbers into three parts is called the trichotomy of order. I.e., for all natural numbers \(n\), and a fixed natural number \(m\), either
+  \begin{equation*}
+    n > m, \quad n = m, \mathor n < m.
+  \end{equation*}
+  Or stated in the other way,
+  \begin{equation*}
+    \{n \in \mathbb{N} : n > m\} \cup \{n \in \mathbb{N} : n < m\} \cup \{m\} = \mathbb{N}
+  \end{equation*}
+  Even though this property is trivial, it has its own proof, and it opens the door to so much more. This property will be discussed in detail when the notion of order has been constructed.
+\end{remark}
+
+\subsection{Induction that doesn't start at zero}
+\label{sec:naturals-induction_after_zero}
+
+Sometimes, there are statements that isn't true for naturals up to \(m\), but true for all naturals that is greater than \(m\). Such examples are
+\begin{equation*}
+  2^n < n!.
+\end{equation*}
+As you should verify, this statement is true for all naturals except \(1, 2, 3\). In order to tackle these proofs, I shall remind you of a very important concept in mathematical logic:
+\begin{displayquote}
+  \emph{From falsehood, \textbf{anything} follows,}
+\end{displayquote}
+i.e., \emph{false implies anything} is true. This quirk of the implication symbol is abused to pave ways for induction on said statements.
+
+There are two ways of proving a statement that is true for all naturals that is greater than a certain natural number. The first way is to use the said vacuous truth, which I think is richer in theory, and the second way is to use a repeated application of the successor function, which I honestly think is just brute force.
+
+\begin{prop}{}{}
+  \(\forall (n \in \mathbb{N} ; n \geq 4) : 2^n < n!\)
+\end{prop}
+
+Let \(P(n)\) be a proposition that's true if
+\begin{equation*}
+  2^n < n!
+\end{equation*}
+is true.
+
+To prove that \(P(n)\) is true for all naturals number greater than \(3\) using the second method, create a new proposition \(Q(n)\) that's associated with the sentence
+\begin{equation*}
+  2^{S(S(S(S(n))))} < S(S(S(S(n))))!.
+\end{equation*}
+\(Q(n)\) is true if \(P(n + 4)\) is true. Since \(S(S(S(S(0)))) = 4\), and \(2^4 = 16 < 4! = 24\), the base case of \(Q(n)\) is true. If it is possible to show that \(Q(n) \implies Q(S(n))\) and \(Q(0)\) is true, then \(Q(n)\) is true for all naturals and \(P(n)\) is true for all naturals greater than four.
+
+This is a valid proof, but in my humble opinion, it is by no means fruitful. I see it as hacky trick. So, I've provided the method of vacuous truth, which is perhaps a bit less hacky.
+
+\begin{proof}
+  In order to prove this, the proposition has to be cast to
+  \begin{equation*}
+    \forall (n \in \mathbb{N}) : (n \geq 4) \implies (2^n < n!)
+  \end{equation*}
+  The base case is vacuously true because if \(n = 0\), then \(n \geq 4\) is false. From falseness, anything follows. Hence, the implication that \((0 \geq 4) \implies (2^n < n!)\). The sentence is also vacuously true for \(n = 1, 2, 3\).
+
+  Let's now move on to the inductive step to show that \emph{for all} natural numbers, \(P(n) \implies P(S(n))\). Let's split the natural numbers into three parts. Less than four, equal to four, and more than four.
+
+  For naturals less than four, the implication is vacuously true.
+
+  At four, the implication is \emph{not} vacuously true but is still true because \(2^4 = 16 < 4! = 24\).
+
+  For naturals more than four, let's assume that \(P(n)\) is true, i.e., \(2^n < n!\), then prove that \(P(S(n))\) is also true, i.e., \(2^{S(n)} < n!\)
+  \begin{align*}
+    2^{S(n)} & = 2^{n + 1}                                         \\
+             & = 2 \times 2^n                                      \\
+             & < 2 \times n!    &  & \textrm{Induction hypothesis} \\
+    \shortintertext{Since \(n > 4\), \(S(n) > 2\).}
+             & < S(n) \times n!                                    \\
+             & = S(n)!
+  \end{align*}
+  In conclusion, \(2^{S(n)} < S(n)!\) for follows \(2^n < n!\) for all natural numbers, closing the induction.
+\end{proof}
+
+\subsection{Induction axiom, inductive sets, and mathematical induction}
+
+In this subsection, I shall finally give a proof that mathematical induction is a consequence of the induction axiom. Before that, I'd like to introduce the notion of \textbf{inductive set}.
+
+\begin{df}{Inductive sets}{naturals_inductive_set}
+  \index{inductive sets}
+  A set \(A\) is \textbf{inductive} under the successor function \(S\) \emph{iff} \(0 \in A\) and \((n \in A) \implies \ab(S(n) \in A)\). I.e.,
+  \begin{equation*}
+    (0 \in A) \land \ab[\forall(n \in A) : S(n) \in A]
+  \end{equation*}
+\end{df}
+
+This notion is introduced to simplify the induction axiom to
+\begin{cor}{Induction axiom using inductive set}{}
+  \index{natural numbers!inductive sets}
+  Let \(T\) be a set. If all inductive subsets \(A \subseteq T\) under the successor function \(S\) is equal to \(T\), then \(T\) along with \(S\) form a system of natural numbers.
+\end{cor}
+
+The ideal natural number system forms an inductive set; however, it is not the only inductive set. The fourth and fifth pathological examples from \cref{fig:naturals-pathological_examples} and the pathological example from \cref{fig:naturals_pathological-1} also forms an inductive set. Hence, the natural number system is just a special case of an inductive set. What sets the natural number system apart is that it is the \emph{smallest inductive set}.
+
+To prove this, we need to develop some operations on inductive sets
+
+\begin{lemma}{The intersection of inductive sets is inductive}{naturals-inductive_intersect}
+  If \(A\) and \(B\) are inductive under \(S\), then \(A \cap B\) is also inductive under \(S\).
+\end{lemma}
+
+\begin{proof}
+  By the property of inductive sets, both \(0 \in A\) and \(0 \in B\). Hence, \(0 \in A \cap B\) as well.
+
+  To prove that \(A \cap B\) is inductive, we shall do some elements chasing. Let \(x \in A \cap B\). By the definition of the intersection, \(x \in A \land x \in B\). Since both sets are inductive, \(S(x) \in A \land S(x) \in B\). By the definition of the intersection again, \(S(x) \in A \cap B\).
+
+  In conclusion, we've proven that \(0 \in A\) and \(\forall (x \in A \cup B) : S(x) \in A \cap B\); hence, \(A \cap B\) must be inductive under \(S\).
+\end{proof}
+
+The next thing to prove is that if a set \(T\) equipped with a successor function \(S\) forms a natural number system, i.e., all the inductive subsets \(A \subseteq T\) is equal to \(T\), then it \(T\) is the smallest inductive set.
+
+\begin{lemma}{The natural number system is the smallest inductive set}{naturals_smallest_inductive_set}
+  If \(I\) is an inductive set under the successor \(S\) and \(T\) satisfies the induction axiom (\cref{ax:naturals_induction}) under \(S\), then \(T \subseteq I\). \index{natural numbers!inductive sets}
+\end{lemma}
+
+\begin{proof}
+  Let \(T\) be a set that satisfies the induction axiom, and let \(I\) be \emph{any} inductive set.
+
+  Consider the set \(A = I \cap T\). By the definition of intersection, \(A \subseteq T\). Since both \(I\) and \(T\) are inductive, by \cref{le:naturals-inductive_intersect} \(A\) is also inductive.
+
+  Because \(T\) satisfies the induction axiom, \(A = T\) because \(A\) is an inductive subset of \(T\). By the construction of \(A\), \(A = I \cap T\) as well; hence,
+  \begin{equation}
+    A = T = I \cap T
+  \end{equation}
+  By the definition of the intersection, \(T\) must be contained in \(I\). Since this is true for all inductive sets \(I\), \(T\) is contained in every inductive set. Hence, it must be the smallest inductive set.
+\end{proof}
+
+Before proving the mathematical induction theorem, I'd like to remind you about the converse of the induction axiom is also true:
+\begin{cor}{Converse of the induction axiom}{naturals-induction_converse}
+  \begin{multline*}
+    (T \cong \mathbb{N}) \\
+    \implies [\forall (A \subseteq T) : [(0 \in A) \land \forall (n \in A) : S(n) \in A] \implies (A = T) ]
+  \end{multline*}
+\end{cor}
+\begin{proof}
+  Since \(T \cong \mathbb{N}\), it's possible to find a subset \(A \subseteq T\) such that \(0 \in A\), and for all \(n \in T\), \(S(n) \in T\). Hence, \(A\) is inductive.
+
+  By \cref{le:naturals_smallest_inductive_set}, \(T\) is the smallest inductive set because \(T \cong \mathbb{N}\) but since \(A \subseteq T\) and \(A\) is inductive as well and \(A \subseteq T\), \(A = T\).
+\end{proof}
+
+Here, we can finally prove the mathematical induction theorem.
+
+\begin{proof}[Proof of \cref{th:naturals_mathematical_induction}]
+  Let \(A\) be a set that contains every natural number \(n\) that makes \(P(n)\) true, i.e.,
+  \begin{equation}
+    A = \ab\{n \in \mathbb{N} : P(n)\}
+  \end{equation}
+  This also has a pretty little consequence that \(A \subseteq \mathbb{N}\)
+
+  Assume that \(P(0)\) is true and the implication \(P(n) \implies P(S(n))\) is also true, then by the construction of the set \(A\),
+  \begin{equation}
+    0 \in A \mathand (n \in A) \implies \ab(S(n) \in A).
+  \end{equation}
+  This means that \(A\) is inductive.
+
+  Since the naturals are an inductive set that follows the induction axiom, by \cref{le:naturals_smallest_inductive_set}, \(\mathbb{N} \subseteq A\). But since \(A \subseteq \mathbb{N}\) as well, \(A\) must equal \(\mathbb{N}\). Hence, if both the base case and the inductive step has been proven for \(P(n)\), \(A\) must be equal to \(\mathbb{N}\) and by the construction of \(A\), \(P(n)\) must be true for all natural numbers.
+  \index{induction!mathematical induction}
+\end{proof}
 
 \section{Set theoretical description of the naturals*}
+\index{natural numbers!construction!von-Neumann (set theory)}
 
-So far, we've tried to construct the naturals without actually referencing what they actually are. Anything that follows \cref{ax:naturals_has_zero,ax:naturals_successor_closed,ax:naturals_successor_injection,ax:naturals_zero_no_successor} are said to behave exactly like the naturals; therefore, they are the naturals. Even though this abstract definition works, it might lack the intuitive tangibility one would expect for such a simple thing like the naturals. Therefore, I shall demonstrate how one may construct the naturals out of sets in this section.
+This section can be skipped without any loss of contents flow.
 
-The most accepted set-theoretical description of the natural numbers is the von-Neumann description which defines the following.
-\begin{df}{Zero (von-Neumann description)}{naturals_neumann_zero}
-	Zero is represented by the empty set ($\varnothing$), i.e.,
-	\begin{equation*}
-		0 \equiv \varnothing = \ab\{\}.
-	\end{equation*}
+The Peano's axiom, even though fruitful, doesn't mention what the natural numbers actually are. It is an \textbf{implicit definition}, i.e., anything that follows \cref{ax:naturals_has_zero,ax:naturals_successor_closed,ax:naturals_successor_injection,ax:naturals_zero_no_successor,ax:naturals_induction} are the naturals. It's like saying that if it looks like a duck, swims like a duck, and quacks like a duck, then it \emph{is} a duck.
+
+Even though this abstract definition works, it might lack the intuitive tangibility one would expect for such a simple thing like the naturals. Thus in this section, I shall demonstrate the construction of the naturals using sets using the von-Neumann's method. \footnote{If you're skeptical, you might ask: how can you be so sure that this is only the naturals? The solution to this question is greatly beyond the scope of this book, but for the curious I shall reference a brilliant answer from Mathematics Stack Exchange \cite{N-uniqueness}.}
+
+The von-Neumann's method replaces zero with an empty set:
+\begin{df}{Von-Neumann's zero}{naturals_neumann_zero}
+  \begin{equation*}
+    0 \coloneqq \varnothing = \ab\{\}.
+  \end{equation*}
 \end{df}
-\begin{df}{Successor function (von-Neumann description)}{naturals_neumann_successor}
-	The successor function of a natural number $n$ is defined as the union between $n$ and $\ab\{n\}$, i.e.,
-	\begin{equation*}
-		S(n) = n \cup \ab\{n\}.
-	\end{equation*}
+It also replaces the successor function with
+\begin{df}{Von-Neumann's successor}{naturals_neumann_successor}
+  The successor of a natural number \(n\) is defined as
+  \begin{equation*}
+    S(n) \coloneqq n \cup \ab\{n\}.
+  \end{equation*}
+\end{df}
+Referring back to the ideal naturals in \cref{eq:naturals_chain}, they can all be cast into sets
+\begin{equation}
+  \begin{aligned}
+    S(0) & \coloneqq 1 = 0 \cup \{0\} = \varnothing \cup \{0\} &  & = \{0\}          \\
+    S(1) & \coloneqq 2 = 1 \cup \{1\} = \{0\} \cup \{1\}       &  & = \{0, 1\}       \\
+    S(2) & \coloneqq 3 = 2 \cup \{2\} = \{0, 1\} \cup \{2\}    &  & = \{0, 1, 2\}    \\
+    S(3) & \coloneqq 4 = 3 \cup \{3\} = \{0, 1, 2\} \cup \{3\} &  & = \{0, 1, 2, 3\} \\
+         & \vdots
+  \end{aligned}
+\end{equation}
+The proof that this construction obeys the first four Peano's axioms is quite routine; hence, I shall leave it as an exercise for the reader. However, proving that this construction obeys the induction axiom is a bit tricky, and is a subject of set theory which I shall not cover in this text. For the curious, you can look up the proof in \citeauthor{goldrei-1996}'s book, \citetitle{goldrei-1996} \cite{goldrei-1996}.
+
+The reason that I've brought up this construction is because maximums and minimums are easier to construct here.
+
+\begin{df}{Maximum and minimum}{}
+  Let \(a, b\) be von-Neumann natural numbers, define
+  \begin{equation}
+    \max \ab\{a, b\} = a \cup b, \mathand \min \ab\{a, b\} = a \cap b
+  \end{equation}
 \end{df}
 
-With the chain of naturals defined in \cref{eq:naturals_chain}, let's try to construct the first natural number.
+It's easy to see why this holds. E.g.,
+\begin{align}
+  \max \ab\{2, 4\} & = \ab\{0, 1\} \cup \ab\{0, 1, 2, 3\} \\
+                   & = \ab\{0, 1, 2, 3\}                  \\
+                   & = 4
+\end{align}
+and,
+\begin{align}
+  \min \ab\{2, 4\} & = \ab\{0, 1\} \cap \ab\{0, 1, 2, 3\} \\
+                   & = \ab\{0, 1\}                        \\
+                   & = 2.
+\end{align}
 
 \section{Addition on the naturals}
+\index{addition (naturals)|see {natural numbers, addition}}
 
 Now that the naturals are constructed, we then construct a system of arithmetic from the ground up. Starting with addition.
 \begin{df}{Addition on the naturals}{naturals_addition}
-	\begin{equation}
-		\forall(n, m \in \mathbb{N}) : n + S(m) = S(n + m).
-	\end{equation}
+  \index{natural numbers!addition!definition}
+  \begin{equation}
+    \forall(n, m \in \mathbb{N}) : n + S(m) = S(n + m).
+  \end{equation}
 \end{df}
 \begin{df}{Zero and addition}{naturals_addition_identity}
-	\begin{equation}
-		\forall(n \in \mathbb{N}) : n + 0 = n.
-	\end{equation}
+  \index{natural numbers!addition!identity element}
+  \begin{equation}
+    \forall(n \in \mathbb{N}) : n + 0 = n.
+  \end{equation}
 \end{df}
 
-There has been nothing said about commutativity or associativity of addition yet; therefore, the order in which the successor function or zero is placed is very strict. Zero is defined solely as the \textbf{right identity element} of addition; therefore, we can't blindly conclude that $0 + n = n$. \Cref{df:naturals_addition} does not say about the successor function being placed on $n$ instead of $m$ either; therefore, statements like $S(n) + m = S(n + m)$ which seems trivial, still has to be rigorously proven. But before that, let's see some examples of how \cref{df:naturals_addition,df:naturals_addition_identity} comes together and capture the behavior of addition that we know.
+There has been nothing said about commutativity or associativity of addition yet; therefore, the order in which the successor function or zero is placed is very strict. Zero is defined solely as the \textbf{right identity element} of addition; therefore, we can't blindly conclude that $0 + n = n$. \Cref{df:naturals_addition} does not say about the successor function being placed on $n$ instead of $m$ either; therefore, statements like $S(n) + m = S(n + m)$ which seems trivial, still have to be rigorously proven. But first, let's see an example of how \cref{df:naturals_addition,df:naturals_addition_identity} captures the behavior of addition that we know.
 
 \begin{exmp}{$2 + 2 = 4$}{}
-	Given this chain of naturals
-	\begin{align*}
-		S(0)          & \equiv 1,        \\
-		S(S(0))       & = S(1) \equiv 2, \\
-		S(S(S(0)))    & = S(2) \equiv 3, \\
-		S(S(S(S(0)))) & = S(3) \equiv 4, \\
-		              & \vdots
-	\end{align*}
-	we have
-	\begin{align}
-		2 + 2    & = 2 + S(1)                                                       \\
-		         & = S(2 + 1).   &  & \textrm{\Cref{df:naturals_addition}}
-		\shortintertext{
-			and,
-		}
-		S(2 + 1) & = S(2 + S(0))                                                    \\
-		         & = S(S(2 + 0)) &  & \textrm{\Cref{df:naturals_addition}}          \\
-		         & = S(S(2)).    &  & \textrm{\Cref{df:naturals_addition_identity}}
-	\end{align}
-	Since $2 = S(S(0))$,
-	\begin{equation}
-		S(S(2)) = S(S(S(S(0)))) = 4;
-	\end{equation}
-	therefore, $2 + 2 = 4$.
+  Given this chain of naturals
+  \begin{align*}
+    S(0)          & \equiv 1,        \\
+    S(S(0))       & = S(1) \equiv 2, \\
+    S(S(S(0)))    & = S(2) \equiv 3, \\
+    S(S(S(S(0)))) & = S(3) \equiv 4, \\
+                  & \vdots
+  \end{align*}
+  we have
+  \begin{align}
+    2 + 2    & = 2 + S(1)                                                       \\
+             & = S(2 + 1).   &  & \textrm{\Cref{df:naturals_addition}}
+    \shortintertext{
+      and,
+    }
+    S(2 + 1) & = S(2 + S(0))                                                    \\
+             & = S(S(2 + 0)) &  & \textrm{\Cref{df:naturals_addition}}          \\
+             & = S(S(2)).    &  & \textrm{\Cref{df:naturals_addition_identity}}
+  \end{align}
+  Since $2 = S(S(0))$,
+  \begin{equation}
+    S(S(2)) = S(S(S(S(0)))) = 4;
+  \end{equation}
+  therefore, $2 + 2 = 4$.
 \end{exmp}
 
 Since we're building this from the ground up, it's going to be a very long process. So, let's set a roadmap. For all natural numbers $n, m$ and $k$,
 \begin{enumerate}[noitemsep]
-	\item $0 + n = n$ (\Cref{le:naturals_addition_identity_right})
-	\item $S(n) + m = S(n + m)$ (\Cref{le:naturals_addition_two_sided})
-	\item $n + m = m + n$ (\Cref{le:naturals_addition_commutativity})
-	\item $(n + m) + k = n + (m + k)$ (\Cref{le:naturals_addition_associativity})
-	\item $(m + n = k + n) \implies (m = k)$ (\Cref{le:naturals_addition_cancellation})
-	\item $n + 1 = S(n)$ (\Cref{co:naturals_successor_adding_one})
+  \item $0 + n = n$ (\Cref{le:naturals_addition_identity_right})
+  \item $S(n) + m = S(n + m)$ (\Cref{le:naturals_addition_two_sided})
+  \item $n + m = m + n$ (\Cref{le:naturals_addition_commutativity})
+  \item $(n + m) + k = n + (m + k)$ (\Cref{le:naturals_addition_associativity})
+  \item $(m + n = k + n) \implies (m = k)$ (\Cref{le:naturals_addition_cancellation})
+  \item $n + 1 = S(n)$ (\Cref{co:naturals_successor_adding_one})
 \end{enumerate}
-It's also worth knowing that there is no arithmetical rules yet. The only thing available for us are just the induction axiom and the rules of equality. So, both this section and the next section (\cref{sec:naturals_multiplication}) shall serve as a very great way to practice mathematical induction.
+It's also worth knowing that there are no rules of arithmetic yet. The only thing available for us are just the five Peano's axiom, mathematical induction, and the rules of equality. The most powerful tool we have right now is the mathematical induction theorem. It's littered \emph{everywhere}. Hence, both this section and the next section (\cref{sec:naturals_multiplication}) shall serve as a very great way to practice induction.
 
 \begin{lemma}{Zero and addition from the left}{naturals_addition_identity_right}
-	\begin{equation*}
-		\forall(n \in \mathbb{N}) : 0 + n = n.
-	\end{equation*}
+  \begin{equation*}
+    \forall(n \in \mathbb{N}) : 0 + n = n.
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	Let $P(n)$ be a statement that is true if $0 + n = n$.
+  Let $P(n)$ be a statement that is true if $0 + n = n$.
 
-	\basecase Show that $P(0)$ is true. By \cref{df:naturals_addition_identity},
-	\begin{equation}
-		{\color{blue}0} + 0 = 0 + {\color{blue}0} = 0.
-	\end{equation}
+  \basecase Show that $P(0)$ is true. By \cref{df:naturals_addition_identity},
+  \begin{equation}
+    {\color{blue}0} + 0 = 0 + {\color{blue}0} = 0.
+  \end{equation}
 
-	\inductivestep As an inductive hypothesis, assume that $P(n)$ is true, i.e., $0 + n = n$. Use this to prove that $P(S(n))$ is true, i.e., $0 + S(n) = S(n)$.
-	\begin{align}
-		0 + S(n) & = S(0 + n) &  & \textrm{\Cref{df:naturals_addition}} \\
-		         & = S(n),    &  & \textrm{Inductive hypothesis}
-	\end{align}
-	completing the induction
+  \inductivestep As an inductive hypothesis, assume that $P(n)$ is true, i.e., $0 + n = n$. Use this to prove that $P(S(n))$ is true, i.e., $0 + S(n) = S(n)$.
+  \begin{align}
+    0 + S(n) & = S(0 + n) &  & \textrm{\Cref{df:naturals_addition}} \\
+             & = S(n),    &  & \textrm{Inductive hypothesis}
+  \end{align}
+  completing the induction
 \end{proof}
 
 Before proving that addition is commutative, we must first prove that \cref{df:naturals_addition} works from both sides:
 \begin{lemma}{Addition from the left}{naturals_addition_two_sided}
-	\begin{equation*}
-		\forall (n, m \in \mathbb{N}) : S(n) + m = S(n + m).
-	\end{equation*}
+  \begin{equation*}
+    \forall (n, m \in \mathbb{N}) : S(n) + m = S(n + m).
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	We induct on $m$ while keeping $n$ fixed; thus, let $P(m)$ be a statement that's true when $S(n) + m = S(n + m)$.
+  We induct on $m$ while keeping $n$ fixed; thus, let $P(m)$ be a statement that's true when $S(n) + m = S(n + m)$.
 
-	\basecase Show that $P(0)$ is true.
-	\begin{align}
-		S(n) + 0 & = S(n)      &  & \textrm{\Cref{df:naturals_addition}}          \\
-		         & = S(n + 0). &  & \textrm{\Cref{df:naturals_addition_identity}}
-	\end{align}
+  \basecase Show that $P(0)$ is true.
+  \begin{align}
+    S(n) + 0 & = S(n)      &  & \textrm{\Cref{df:naturals_addition}}          \\
+             & = S(n + 0). &  & \textrm{\Cref{df:naturals_addition_identity}}
+  \end{align}
 
-	\inductivestep As an inductive hypothesis, assume that $P(m)$ is true, i.e., $S(n) + m = S(n + m)$. Use this to prove that $P(S(m))$ is true, i.e., $S(n) + S(m) = S(n + S(m))$.
-	\begin{align}
-		S(n) + S(m) & = S(S(n) + m)  &  & \textrm{\Cref{df:naturals_addition}} \\
-		            & = S(S(n + m))  &  & \textrm{Inductive hypothesis}        \\
-		            & = S(n + S(m)), &  & \textrm{\Cref{df:naturals_addition}}
-	\end{align}
-	completing the induction.
+  \inductivestep Assume inductively that $P(m)$ is true, i.e., $S(n) + m = S(n + m)$. Now, prove that $P(S(m))$ is true, i.e., $S(n) + S(m) = S(n + S(m))$. Starting with the L.H.S.,
+  \begin{align}
+    S(n) + S(m) & = S(S(n) + m)  &  & \textrm{\Cref{df:naturals_addition}} \\
+                & = S(S(n + m))  &  & \textrm{Inductive hypothesis}        \\
+                & = S(n + S(m)), &  & \textrm{\Cref{df:naturals_addition}}
+  \end{align}
+  completing the induction.
 \end{proof}
 
-We're now ready to prove that addition is \textbf{commutative}, i.e., changing the order in which the numbers are positioned does not affect the answer. \index{addition!commutativity}
+We're now ready to prove that addition is \textbf{commutative}, i.e., changing the order in which the numbers are positioned does not affect the answer. \index{natural numbers!addition!commutativity}
 \begin{lemma}{Commutativity of addition}{naturals_addition_commutativity}
-	\begin{equation*}
-		\forall (n, m \in \mathbb{N}) : n + m = m + n.
-	\end{equation*}
+  \begin{equation*}
+    \forall (n, m \in \mathbb{N}) : n + m = m + n.
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	We induct on $m$ while keeping $n$ fixed; thus, let $P(m)$ be a statement that's true when $n + m = m + n$.
+  We induct on $m$ while keeping $n$ fixed; thus, let $P(m)$ be a statement that's true when $n + m = m + n$.
 
-	\basecase Show that $P(0)$ is true, i.e., $n + 0 = 0 + n$. By \cref{df:naturals_addition_identity,le:naturals_addition_identity_right},
-	\begin{align}
-		n + 0 = 0 + n = n.
-	\end{align}
+  \basecase Show that $P(0)$ is true, i.e., $n + 0 = 0 + n$. By \cref{df:naturals_addition_identity,le:naturals_addition_identity_right},
+  \begin{align}
+    n + 0 = 0 + n = n.
+  \end{align}
 
-	\inductivestep As an inductive hypothesis, assume that $P(m)$ is true, i.e., $n + m = m + n$. Use this to prove that $P(S(m))$ is true, i.e., $n + S(m) = S(m) + n$.
-	\begin{align}
-		n + S(m) & = S(n + m)  &  & \textrm{\Cref{df:naturals_addition}}           \\
-		         & = S(m + n)  &  & \textrm{Inductive hypothesis}                  \\
-		         & = S(m) + n, &  & \textrm{\Cref{le:naturals_addition_two_sided}}
-	\end{align}
-	completing the induction.
+  \inductivestep As an inductive hypothesis, assume that $P(m)$ is true, i.e., $n + m = m + n$. Use this to prove that $P(S(m))$ is true, i.e., $n + S(m) = S(m) + n$.
+  \begin{align}
+    n + S(m) & = S(n + m)  &  & \textrm{\Cref{df:naturals_addition}}           \\
+             & = S(m + n)  &  & \textrm{Inductive hypothesis}                  \\
+             & = S(m) + n, &  & \textrm{\Cref{le:naturals_addition_two_sided}}
+  \end{align}
+  completing the induction.
 \end{proof}
 
 The next thing is that addition is \textbf{associative}, i.e., changing the order of groupings does not affect the result.
 \begin{lemma}{Associativity of addition on the naturals}{naturals_addition_associativity}
-	\begin{equation*}
-		\forall (n, m, k \in \mathbb{N}) : (n + m) + k = n + (m + k).
-	\end{equation*}
+  \index{natural numbers!addition!associativity}
+  \begin{equation*}
+    \forall (n, m, k \in \mathbb{N}) : (n + m) + k = n + (m + k).
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	We induct on $k$ while keeping both $n$ and $m$ fixed; thus, let $P(k)$ be a statement that's true if $(n + m) + k = n + (m + k)$.
+  We induct on $k$ while keeping both $n$ and $m$ fixed; thus, let $P(k)$ be a statement that's true if $(n + m) + k = n + (m + k)$.
 
-	\basecase Show that $P(0)$ is true, i.e., $(n + m) + 0 = n + (m + 0)$.
-	\begin{align}
-		(n + m) + 0 & = n + m        &  & \textrm{\Cref{df:naturals_addition_identity}} \\
-		            & = n + (m + 0). &  & \textrm{\Cref{df:naturals_addition_identity}}
-	\end{align}
+  \basecase Show that $P(0)$ is true, i.e., $(n + m) + 0 = n + (m + 0)$.
+  \begin{align}
+    (n + m) + 0 & = n + m        &  & \textrm{\Cref{df:naturals_addition_identity}} \\
+                & = n + (m + 0). &  & \textrm{\Cref{df:naturals_addition_identity}}
+  \end{align}
 
-	\inductivestep As an inductive hypothesis, assume that $P(k)$ is true, i.e., $(n + m) + k = n + (m + k)$. Use this to prove that $P(S(k))$ is true, i.e., $(n + m) + S(k) = n + (m + S(k))$.
-	\begin{align}
-		(n + m) + S(k) & = S((n + m) + k)  &  & \textrm{\Cref{df:naturals_addition}} \\
-		               & = S(n + (m + k))  &  & \textrm{Inductive hypothesis}        \\
-		               & = n + S(m + k)    &  & \textrm{\Cref{df:naturals_addition}} \\
-		               & = n + (m + S(k)), &  & \textrm{\Cref{df:naturals_addition}}
-	\end{align}
-	completing the induction.
+  \inductivestep As an inductive hypothesis, assume that $P(k)$ is true, i.e., $(n + m) + k = n + (m + k)$. Use this to prove that $P(S(k))$ is true, i.e., $(n + m) + S(k) = n + (m + S(k))$.
+  \begin{align}
+    (n + m) + S(k) & = S((n + m) + k)  &  & \textrm{\Cref{df:naturals_addition}} \\
+                   & = S(n + (m + k))  &  & \textrm{Inductive hypothesis}        \\
+                   & = n + S(m + k)    &  & \textrm{\Cref{df:naturals_addition}} \\
+                   & = n + (m + S(k)), &  & \textrm{\Cref{df:naturals_addition}}
+  \end{align}
+  completing the induction.
 \end{proof}
 
 Finally, we give ourselves the ability to cancel two sides of the equation.
 \begin{lemma}{Cancellation law of the addition on the naturals}{naturals_addition_cancellation}
-	\begin{equation*}
-		\forall (n, m, k \in \mathbb{N}) : (m + n = k + n) \implies (m = k).
-	\end{equation*}
+  \index{natural numbers!addition!cancellation law}
+  \begin{equation*}
+    \forall (n, m, k \in \mathbb{N}) : (m + n = k + n) \implies (m = k).
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	We induct on $n$ while keeping both $m$ and $k$ fixed; thus, let $P(n)$ be a statement that's true if $(m + n = k + n) \implies (m = k)$.
+  We induct on $n$ while keeping both $m$ and $k$ fixed; thus, let $P(n)$ be a statement that's true if $(m + n = k + n) \implies (m = k)$.
 
-	\basecase Show that $P(0)$ is true, i.e., $(m + 0 = k + 0) \implies (m = k)$.
-	\begin{align}
-		m + 0 & = k + 0                                                          \\
-		m     & = k.    &  & \textrm{\Cref{le:naturals_addition_identity_right}}
-	\end{align}
+  \basecase Show that $P(0)$ is true, i.e., $(m + 0 = k + 0) \implies (m = k)$.
+  \begin{align}
+    m + 0 & = k + 0                                                          \\
+    m     & = k.    &  & \textrm{\Cref{le:naturals_addition_identity_right}}
+  \end{align}
 
-	\inductivestep As an inductive hypothesis, assume that $P(n)$ is true, i.e., $(m + n = k + n) \implies (m = k)$. Use this to prove that $P(S(n))$ is true, i.e. $(m + S(n) = k + S(n)) \implies (m = k)$.
-	\begin{align}
-		m + S(n) & = k + S(n)                                                      \\
-		S(m + n) & = S(k + n) &  & \textrm{\Cref{le:naturals_addition_two_sided}}  \\
-		m + n    & = k + n    &  & \textrm{\Cref{ax:naturals_successor_injection}} \\
-		m        & = k.       &  & \textrm{Inductive hypothesis}
-	\end{align}
-	which completes the induction.
+  \inductivestep As an inductive hypothesis, assume that $P(n)$ is true, i.e., $(m + n = k + n) \implies (m = k)$. Use this to prove that $P(S(n))$ is true, i.e. $(m + S(n) = k + S(n)) \implies (m = k)$.
+  \begin{align}
+    m + S(n) & = k + S(n)                                                      \\
+    S(m + n) & = S(k + n) &  & \textrm{\Cref{le:naturals_addition_two_sided}}  \\
+    m + n    & = k + n    &  & \textrm{\Cref{ax:naturals_successor_injection}} \\
+    m        & = k.       &  & \textrm{Inductive hypothesis}
+  \end{align}
+  which completes the induction.
 \end{proof}
 
 To ease the usability of this system, we shall define the notion of \emph{adding one.} Intuitively, the concept of \emph{adding one} is analogous to the successor function. It is then left for us to establish the connection formally. Note that induction isn't used to prove the following corollary.
 
 \begin{cor}{The successor function is analogous to addition of one}{naturals_successor_adding_one}
-	\begin{equation*}
-		S(0) \equiv 1, \quad \forall (n \in \mathbb{N}) : S(n) = n + 1.
-	\end{equation*}
+  \index{natural numbers!addition!addition by one}
+  \begin{equation*}
+    S(0) \equiv 1, \quad \forall (n \in \mathbb{N}) : S(n) = n + 1.
+  \end{equation*}
 \end{cor}
 
 \begin{proof}
-	\begin{align}
-		\forall (n \in \mathbb{N}) : S(n) & = S(n + 0) &  & \textrm{\Cref{le:naturals_addition_identity_right}} \\
-		                                  & = n + S(0) &  & \textrm{\Cref{le:naturals_addition_two_sided}}      \\
-		                                  & = n + 1.   &  & \textrm{Definition of number $1$} \qedhere
-	\end{align}
+  \begin{align}
+    \forall (n \in \mathbb{N}) : S(n) & = S(n + 0) &  & \textrm{\Cref{le:naturals_addition_identity_right}} \\
+                                      & = n + S(0) &  & \textrm{\Cref{le:naturals_addition_two_sided}}      \\
+                                      & = n + 1.   &  & \textrm{Definition of number $1$} \qedhere
+  \end{align}
 \end{proof}
 
-Now that's we've proven that $n + 1 = S(n)$, it's very tempting to deprecate the successor function in favor of the plus sign. But when this is done in proof by induction, it can lead to some issues with clarity. Therefore, we shall keep it when we're using proof by induction, but use the plus one elsewhere in general arithmetic.
+Now that's we've proven that $n + 1 = S(n)$, it's very tempting to deprecate the successor function in favor of the plus sign. But when this is done in induction proofs, it leads to clarity issues. Therefore, we shall keep it the successor notation in induction proofs, but use the plus one notation elsewhere in general arithmetic.
 
 \section{Multiplication}
 \label{sec:naturals_multiplication}
+\index{multiplication (naturals)|see {natural numbers!multiplication}}
 
 Similar to how addition is defined, it's also possible to define multiplication based on just two definitions. Informally, the first definition captures the fact that multiplication distributes over addition.
 \begin{df}{Multiplication on the naturals}{naturals_multiplication}
-	\begin{equation*}
-		\forall (n, m \in \mathbb{N}) : S(n) \times m = (n \times m) + m.
-	\end{equation*}
+  \index{natural numbers!multiplication!definition}
+  \begin{equation*}
+    \forall (n, m \in \mathbb{N}) : S(n) \times m = (n \times m) + m.
+  \end{equation*}
 \end{df}
 And, the second states that there exists an \textbf{absorbing element}, i.e., an element that when combined with any other element in the set yields the absorbing element itself. \index{multiplication!absorbing element}
 \begin{df}{Absorbing element of multiplication}{naturals_multiplication_absorption_element}
-	\begin{equation*}
-		\forall (n \in \mathbb{N}) : 0 \times n = 0.
-	\end{equation*}
+  \index{natural numbers!multiplication!absorbing element}
+  \begin{equation*}
+    \forall (n \in \mathbb{N}) : 0 \times n = 0.
+  \end{equation*}
 \end{df}
 We shall then prove the following: for all natural numbers $n, m$ and $k$,
 \begin{enumerate}[noitemsep]
-	\item $n \times 0 = 0$ (\Cref{le:naturals_multiplication_absorption_element_left})
-	\item $n \times S(m) = (n \times m) + n$ (\Cref{le:naturals_multiplication_two_sided})
-	\item $n \times m = m \times n$ (\Cref{le:naturals_multiplication_commutativity})
-	\item $n \times (m + k) = (n \times m) + (n \times k)$ (\Cref{le:naturals_multiplication_distributivity})
-	\item $(n \times m) \times k = n \times (m \times k)$ (\Cref{le:naturals_multiplication_associativity})
-	\item $n \times 1 = n$ (\Cref{le:naturals_multiplication_identity})
+  \item $n \times 0 = 0$ (\Cref{le:naturals_multiplication_absorption_element_left})
+  \item $n \times S(m) = (n \times m) + n$ (\Cref{le:naturals_multiplication_two_sided})
+  \item $n \times m = m \times n$ (\Cref{le:naturals_multiplication_commutativity})
+  \item $n \times (m + k) = (n \times m) + (n \times k)$ (\Cref{le:naturals_multiplication_distributivity})
+  \item $(n \times m) \times k = n \times (m \times k)$ (\Cref{le:naturals_multiplication_associativity})
+  \item $n \times 1 = n$ (\Cref{le:naturals_multiplication_identity})
 \end{enumerate}
 In favor of conciseness, I shall quickly go through these and not spend much time on the induction process. Also, since addition is already built, I shall no longer reference the lemmas in this chapter. Let addition work normally as expected.
 
 \begin{lemma}{Zero is the absorbing element of multiplication}{naturals_multiplication_absorption_element_left}
-	\begin{equation*}
-		\forall (n \in \mathbb{N}) : n \times 0 = 0 \times n = 0
-	\end{equation*}
+  \begin{equation*}
+    \forall (n \in \mathbb{N}) : n \times 0 = 0 \times n = 0
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	Let $P(n)$ be true whenever $n \times 0 = 0$ is true.
+  Let $P(n)$ be true whenever $n \times 0 = 0$ is true.
 
-	\basecase This is similar to the proof of \cref{le:naturals_addition_identity_right}
-	\begin{equation}
-		{\color{blue}0} \times 0 = 0 \times {\color{blue}0} = 0.
-	\end{equation}
+  \basecase This is similar to the proof of \cref{le:naturals_addition_identity_right}
+  \begin{equation}
+    {\color{blue}0} \times 0 = 0 \times {\color{blue}0} = 0.
+  \end{equation}
 
-	\inductivestep Assume that $n \times 0 = 0$; prove that $S(n) \times 0 = 0$
-	\begin{align}
-		S(n) \times 0 & = (n \times 0) + 0                                    \\
-		              & = n \times 0       &  & \textrm{Inductive hypothesis} \\
-		              & = 0,
-	\end{align}
-	completing the induction.
+  \inductivestep Assume that $n \times 0 = 0$; prove that $S(n) \times 0 = 0$
+  \begin{align}
+    S(n) \times 0 & = (n \times 0) + 0                                    \\
+                  & = n \times 0       &  & \textrm{Inductive hypothesis} \\
+                  & = 0,
+  \end{align}
+  completing the induction.
 \end{proof}
 
 \begin{lemma}{The definition of multiplication works from both sides}{naturals_multiplication_two_sided}
-	\begin{equation*}
-		\forall (n, m \in \mathbb{N}) : n \times S(m) = (n \times m) + n
-	\end{equation*}
+  \begin{equation*}
+    \forall (n, m \in \mathbb{N}) : n \times S(m) = (n \times m) + n
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	We induct on $n$ while keeping $m$ fixed.
+  We induct on $n$ while keeping $m$ fixed.
 
-	\basecase
-	\begin{align}
-		0 \times S(m) & = 0                 &  & \textrm{\Cref{le:naturals_multiplication_absorption_element_left}} \\
-		              & = 0 + 0                                                                                     \\
-		              & = (0 \times m) + 0. &  & \textrm{\Cref{le:naturals_multiplication_absorption_element_left}}
-	\end{align}
+  \basecase
+  \begin{align}
+    0 \times S(m) & = 0                 &  & \textrm{\Cref{le:naturals_multiplication_absorption_element_left}} \\
+                  & = 0 + 0                                                                                     \\
+                  & = (0 \times m) + 0. &  & \textrm{\Cref{le:naturals_multiplication_absorption_element_left}}
+  \end{align}
 
-	\inductivestep Assume that $n \times S(m) = (n \times m) + n$; prove that $S(n) \times S(m) = (S(n) \times m) + S(n)$.
-	\begin{align}
-		S(n) \times S(m) & = (n \times S(m)) + S(m)    &  & \textrm{\Cref{df:naturals_multiplication}} \\
-		                 & = ((n \times m) + n) + S(m) &  & \textrm{Inductive hypothesis}              \\
-		                 & = (n \times m) + n + S(m))                                                  \\
-		                 & = (n \times m) + S(n) + m                                                   \\
-		                 & = ((n \times m) + m + S(n)                                                  \\
-		                 & = (S(n) \times m) + S(n),   &  & \textrm{\Cref{df:naturals_multiplication}}
-	\end{align}
-	completing the induction
+  \inductivestep Assume that $n \times S(m) = (n \times m) + n$; prove that $S(n) \times S(m) = (S(n) \times m) + S(n)$.
+  \begin{align}
+    S(n) \times S(m) & = (n \times S(m)) + S(m)       &  & \textrm{\Cref{df:naturals_multiplication}} \\
+                     & = \ab((n \times m) + n) + S(m) &  & \textrm{Inductive hypothesis}              \\
+                     & = (n \times m) + n + S(m)                                                      \\
+                     & = (n \times m) + S(n) + m                                                      \\
+                     & = \ab((n \times m) + m) + S(n)                                                 \\
+                     & = \ab(S(n) \times m) + S(n),   &  & \textrm{\Cref{df:naturals_multiplication}}
+  \end{align}
+  completing the induction
 \end{proof}
 
 \begin{lemma}{Commutativity of multiplication}{naturals_multiplication_commutativity}
-	\begin{equation*}
-		\forall (n, m \in \mathbb{N}) : n \times m = m \times n
-	\end{equation*}
+  \index{natural numbers!multiplication!commutativity}
+  \begin{equation*}
+    \forall (n, m \in \mathbb{N}) : n \times m = m \times n
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	We induct on $n$ while keeping $m$ fixed.
+  We induct on $n$ while keeping $m$ fixed.
 
-	\basecase By \cref{df:naturals_multiplication,le:naturals_multiplication_two_sided},
-	\begin{equation}
-		0 \times m = 0 = m \times 0.
-	\end{equation}
+  \basecase By \cref{df:naturals_multiplication,le:naturals_multiplication_two_sided},
+  \begin{equation}
+    0 \times m = 0 = m \times 0.
+  \end{equation}
 
-	\inductivestep Assume that $n \times m = m \times n$; prove that $S(n) \times m = m \times S(n)$.
-	\begin{align}
-		S(n) \times m & = (n \times m) + m &  & \textrm{\Cref{df:naturals_multiplication}}           \\
-		              & = (m \times n) + m &  & \textrm{Inductive hypothesis}                        \\
-		              & = m \times S(n),   &  & \textrm{\Cref{le:naturals_multiplication_two_sided}}
-	\end{align}
-	completing the induction.
+  \inductivestep Assume that $n \times m = m \times n$; prove that $S(n) \times m = m \times S(n)$.
+  \begin{align}
+    S(n) \times m & = (n \times m) + m &  & \textrm{\Cref{df:naturals_multiplication}}           \\
+                  & = (m \times n) + m &  & \textrm{Inductive hypothesis}                        \\
+                  & = m \times S(n),   &  & \textrm{\Cref{le:naturals_multiplication_two_sided}}
+  \end{align}
+  completing the induction.
 \end{proof}
 
 \begin{lemma}{Distributivity of multiplication over addition}{naturals_multiplication_distributivity}
-	\begin{equation*}
-		\forall (n, m, k \in \mathbb{N}) : n \times (m + k) = (n \times m) + (n \times k)
-	\end{equation*}
+  \index{natural numbers!multiplication!distributivity}
+  \begin{equation*}
+    \forall (n, m, k \in \mathbb{N}) : n \times (m + k) = (n \times m) + (n \times k)
+  \end{equation*}
 \end{lemma}
 
 \begin{proof}
-	We induct on $k$ while keeping $n$ and $m$ fixed.
+  We induct on $k$ while keeping $n$ and $m$ fixed.
 
-	\basecase
-	\begin{align}
-		n \times (m + 0) & = n \times m                                                                                      \\
-		                 & = n \times m + 0                                                                                  \\
-		                 & = (n \times m) + (n \times 0). &  & \textrm{\Cref{df:naturals_multiplication_absorption_element}}
-	\end{align}
+  \basecase
+  \begin{align}
+    n \times (m + 0) & = n \times m                                                                                      \\
+                     & = n \times m + 0                                                                                  \\
+                     & = (n \times m) + (n \times 0). &  & \textrm{\Cref{df:naturals_multiplication_absorption_element}}
+  \end{align}
 
-	\inductivestep Assume that $n \times (m + k) = (n \times m) + (n \times k)$; prove that $n \times (m + S(k)) = (n \times m) + (n \times S(k))$
-	\begin{align}
-		n \times (m + S(k)) & = n \times S(m + k)                                                                            \\
-		                    & = \ab(n \times (m + k)) + n          &  & \textrm{\Cref{le:naturals_multiplication_two_sided}} \\
-		                    & = (n \times m) + (n \times k) + n                                                              \\
-		                    & = (n \times m) + \ab(n \times S(k)), &  & \textrm{\Cref{le:naturals_multiplication_two_sided}}
-	\end{align}
-	completing the induction.
+  \inductivestep Assume that $n \times (m + k) = (n \times m) + (n \times k)$; prove that $n \times (m + S(k)) = (n \times m) + (n \times S(k))$
+  \begin{align}
+    n \times (m + S(k)) & = n \times S(m + k)                                                                            \\
+                        & = \ab(n \times (m + k)) + n          &  & \textrm{\Cref{le:naturals_multiplication_two_sided}} \\
+                        & = (n \times m) + (n \times k) + n    &  & \textrm{Inductive hypothesis}                        \\
+                        & = (n \times m) + \ab(n \times S(k)), &  & \textrm{\Cref{le:naturals_multiplication_two_sided}}
+  \end{align}
+  completing the induction.
 \end{proof}
 
 \begin{lemma}{Associativity of multiplication}{naturals_multiplication_associativity}
-	\begin{equation*}
-		\forall (n, m, k \in \mathbb{N}) : (n \times m) \times k = n \times (m \times k).
-	\end{equation*}
+  \index{natural numbers!multiplication!identity}
+  \begin{equation*}
+    \forall (n, m, k \in \mathbb{N}) : (n \times m) \times k = n \times (m \times k).
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	We induct on $k$ while keeping $n$ and $m$ fixed.
+  We induct on $k$ while keeping $n$ and $m$ fixed.
 
-	\basecase
-	\begin{align}
-		(n \times m) \times 0 & = 0                      &  & \textrm{\Cref{df:naturals_multiplication_absorption_element}} \\
-		                      & = n \times 0                                                                                \\
-		                      & = n \times (m \times 0). &  & \textrm{\Cref{df:naturals_multiplication_absorption_element}}
-	\end{align}
+  \basecase
+  \begin{align}
+    (n \times m) \times 0 & = 0                      &  & \textrm{\Cref{df:naturals_multiplication_absorption_element}} \\
+                          & = n \times 0                                                                                \\
+                          & = n \times (m \times 0). &  & \textrm{\Cref{df:naturals_multiplication_absorption_element}}
+  \end{align}
 
-	\inductivestep Assume that $(n \times m) \times k = n \times (m \times k)$; prove that $(n \times m) \times S(k) = n \times (m \times S(k))$.
-	\begin{align}
-		(n \times m) \times S(k) & = (n \times m) \times k + (n \times m) &  & \textrm{\Cref{df:naturals_multiplication}}                \\
-		                         & = n \times (m \times k) + (n \times m) &  & \textrm{Inductive hypothesis}                             \\
-		                         & = n \times \ab((m \times k) + m)       &  & \textrm{\Cref{le:naturals_multiplication_distributivity}} \\
-		                         & = n \times (m \times S(k)),            &  & \textrm{\Cref{le:naturals_multiplication_two_sided}}
-	\end{align}
-	completing the induction.
+  \inductivestep Assume that $(n \times m) \times k = n \times (m \times k)$; prove that $(n \times m) \times S(k) = n \times (m \times S(k))$.
+  \begin{align}
+    (n \times m) \times S(k) & = (n \times m) \times k + (n \times m) &  & \textrm{\Cref{df:naturals_multiplication}}                \\
+                             & = n \times (m \times k) + (n \times m) &  & \textrm{Inductive hypothesis}                             \\
+                             & = n \times \ab((m \times k) + m)       &  & \textrm{\Cref{le:naturals_multiplication_distributivity}} \\
+                             & = n \times (m \times S(k)),            &  & \textrm{\Cref{le:naturals_multiplication_two_sided}}
+  \end{align}
+  completing the induction.
 \end{proof}
 
-Structurally, it would make more sense if I just introduce the cancellation law for multiplication straightaway. However, it requires a more general concept of induction, as the base case starts at one instead of zero. Therefore, I shall postpone it until we've fully discussed the concepts of order in \cref{sec:naturals_order}. For those who want to skip through and read it straightawawy, it's at \cref{le:naturals_multiplication_cancellation}.
+Structurally, it would make more sense if I just introduce the cancellation law for multiplication straightaway. However, the cancellation law is only true for natural numbers that aren't zero. As we've seen earlier, the concept of vacuous truth is not sufficient. It requires trichotomy to break the natural number line into three parts: less than zero (empty set), equal to zero, and more than zero. Since trichotomy hasn't been developed yet, I shall postpone the proof of the cancellation law for multiplication until we've fully discussed these concepts in \cref{sec:naturals_order}. For those who want to skip through and read it straightaway, it's at \cref{le:naturals_multiplication_cancellation}.
 
 Next, we prove that one is the identity of multiplication
 \begin{lemma}{Identity of multiplication}{naturals_multiplication_identity}
-	\begin{equation*}
-		\forall (n \in \mathbb{N}) : n \times 1 = n.
-	\end{equation*}
+  \index{natural numbers!multiplication!identity}
+  \begin{equation*}
+    \forall (n \in \mathbb{N}) : n \times 1 = n.
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	\basecase $0 \times 1 = 0$
+  \basecase $0 \times 1 = 0$
 
-	\inductivestep Assume that $n \times 1 = n$, prove that $S(n) \times 1 = S(n)$.
-	\begin{align}
-		S(n) \times 1 & = (n \times 1) + 1 &  & \text{\Cref{df:naturals_multiplication}}       \\
-		              & = n + 1            &  & \text{Induction hypothesis}                    \\
-		              & = S(n),            &  & \text{\Cref{co:naturals_successor_adding_one}}
-	\end{align}
-	completing the induction.
+  \inductivestep Assume that $n \times 1 = n$, prove that $S(n) \times 1 = S(n)$.
+  \begin{align}
+    S(n) \times 1 & = (n \times 1) + 1 &  & \text{\Cref{df:naturals_multiplication}}       \\
+                  & = n + 1            &  & \text{Induction hypothesis}                    \\
+                  & = S(n),            &  & \text{\Cref{co:naturals_successor_adding_one}}
+  \end{align}
+  completing the induction.
 \end{proof}
 
 \section{Positivity of natural numbers}
@@ -477,272 +952,340 @@ Next, we prove that one is the identity of multiplication
 
 This section concerns the property of \textbf{positive numbers} and the ordering of naturals.
 \begin{df}{Positive natural numbers}{naturals_positive}
-	\begin{equation*}
-		(n \textrm{ is a positive natural}) \iff \ab[(n \neq 0 \in \mathbb{N})].
-	\end{equation*}
+  \index{natural numbers!positivity}
+  \begin{equation*}
+    (n \textrm{ is a positive natural}) \iff \ab[(n \neq 0 \in \mathbb{N})].
+  \end{equation*}
 \end{df}
 To be fair, we wouldn't be using this definition much because we could just say $n \neq 0$, and it's more compact notationally.
 
-With the definition of positive natural numbers, we've essentially split the naturals into two categories: zero and positive.
+The definition of positive natural numbers split the naturals into two: zero and positive.
 \begin{cor}{Dichotomy of natural numbers}{}
-
-	For all natural numbers $n$, either $n$ is zero, or $n$ is positive.
+  For all natural numbers $n$, either $n$ is zero, or $n$ is positive.
+  \index{natural numbers!dichotomy of positivity}
 \end{cor}
 \begin{proof}
-	If $n$ is zero, then by \cref{df:naturals_positive}, it isn't positive. If it is positive, then by \cref{df:naturals_positive}, it isn't zero.
+  If $n$ is zero, then by \cref{df:naturals_positive}, it isn't positive. If it is positive, then by \cref{df:naturals_positive}, it isn't zero.
 \end{proof}
 
 The next corollary is a simple deduction of \cref{ax:naturals_zero_no_successor} which says that there are no naturals in which its successor is zero.
 \begin{cor}{Positive numbers are a successor of other numbers}{naturals_positive_successor_existence}
-	\begin{equation*}
-		\forall (n \neq 0 \in \mathbb{N}) \exists (m \in \mathbb{N}) : n = S(m)
-	\end{equation*}
+  \begin{equation*}
+    \forall (n \neq 0 \in \mathbb{N}) \exists (m \in \mathbb{N}) : S(m) = n
+  \end{equation*}
 \end{cor}
 
 For the rest of this section, we shall develop how positivity interacts with the arithmetical operations that we've defined. Firstly, addition.
 
 \begin{lemma}{The sum of a positive number and a natural is positive}{naturals_positive_sum_is_positive}
-	\begin{equation*}
-		\forall(n \neq 0 \in \mathbb{N})\forall(m \in \mathbb{N}) : n + m \neq 0.
-	\end{equation*}
+  \begin{equation*}
+    \forall(n \neq 0 \in \mathbb{N})\forall(m \in \mathbb{N}) : n + m \neq 0.
+  \end{equation*}
 \end{lemma}
 Note that $n$ is restricted to be positive, but $m$ isn't.
 
 \begin{proof}
-	From \cref{co:naturals_positive_successor_existence},
-	\begin{equation}
-		(n \neq 0 \in \mathbb{N}) \implies \ab[ \exists (k \in \mathbb{N}) : n = S(k) ];
-	\end{equation}
-	therefore,
-	\begin{align}
-		n + m & = S(k) + m  \\
-		      & = S(k + m).
-	\end{align}
-	From \cref{ax:naturals_zero_no_successor}, $S(k + m)$ can't be zero, meaning that $n + m$ isn't zero either; hence, $n + m$ is positive.
+  From \cref{co:naturals_positive_successor_existence},
+  \begin{equation}
+    (n \neq 0 \in \mathbb{N}) \implies \ab[ \exists (k \in \mathbb{N}) : n = S(k) ];
+  \end{equation}
+  therefore,
+  \begin{align}
+    n + m & = S(k) + m  \\
+          & = S(k + m).
+  \end{align}
+  From \cref{ax:naturals_zero_no_successor}, $S(k + m)$ can't be zero, meaning that $n + m$ isn't zero either; hence, $n + m$ is positive.
 \end{proof}
 
 The converse statement is also true
 \begin{cor}{}{naturals_sum_zero_components_zero}
-	\begin{equation*}
-		\forall (n, m \in \mathbb{N}) : (n + m = 0) \implies \ab((n = 0) \land (m = 0)).
-	\end{equation*}
+  \begin{equation}
+    \forall (n, m \in \mathbb{N}) : (n + m = 0) \implies \ab((n = 0) \land (m = 0))
+  \end{equation}
 \end{cor}
 
 This is the first time that a proof by contradiction is used. To prove a statement by contradiction, we begin by assuming that its negation is true. Next, we show that the assumption that the negation is true leads to a contradiction, implying that the negation cannot possibly hold; therefore, the original statement must be true. Since the corollary above is a three part statement, let's declare some propositions to ease the proof.
 
 \begin{proof}
-	Let $p$ represents $n + m = 0$, $q$ represents $n = 0$, and $r$ represents $m = 0$. The original statement can then be written as $p \implies (q \land r)$. The negation of this statement is then
-	\begin{align}
-		 & \neg \ab( p \implies (q \land r) ) \notag                                                       \\
-		 & \equiv \neg \ab( p \lor \neg(q \land r) )               &  & \textrm{Definition of conditional} \\
-		 & \equiv \neg p \land (q \land r)                         &  & \textrm{de Morgan's law}           \\
-		 & \equiv \neg (n + m = 0) \land (n = 0) \land (m = 0)                                             \\
-		 & \equiv ( n + m \neq 0 ) \land ( n = 0 ) \land ( m = 0 )
-	\end{align}
-	Since the negation of \emph{for all} ($\forall$) is \emph{there exists} ($\exists$), the negated statement can be written as
-	\begin{equation}
-		\exists (n, m \in \mathbb{N}) : (n + m \neq 0) \land (n = 0) \land (m = 0) \label{eq:dummy}
-	\end{equation}
-	To show that this is definitely false, let's assume that $(n = 0) \land (m = 0)$ is true. The sum $n + m$ must be equal to zero, which creates a contradiction because in order for \cref{eq:dummy} to be true, $n + m$ must not be equal to zero. Therefore, the original proposition
-	\begin{equation}
-		\forall ( n, m \in \mathbb{N} ) : ( n + m = 0 ) \implies \ab( ( n = 0 ) \land ( m = 0 ) )
-	\end{equation}
-	must be true.
+  Let $p$ represents $n + m = 0$, $q$ represents $n = 0$, and $r$ represents $m = 0$. The original statement can then be written as $p \implies (q \land r)$. The negation of this statement is then
+  \begin{align}
+     & \neg \ab(p \implies (q \land r))                                                                           \\
+     & \equiv \neg \ab(\neg p \lor (q \land r))                 &  & \textrm{Definition of conditional} \nonumber \\
+     & \equiv p \land \neg (q \land r)                          &  & \textrm{de Morgan's law}                     \\
+     & \equiv p \land (\neg q \lor \neg r)                      &  & \textrm{de Morgan's law}                     \\
+     & \equiv (n + m = 0) \land \ab((n \neq 0) \lor (m \neq 0))
+  \end{align}
+  For this statement to be true, both \(n + m = 0\) and \((n \neq 0) \lor (m \neq 0)\) must hold at the same time. Let's prove that this can't be the case.
+
+  Assume that both of the statements are true. For \((n \neq 0) \lor (m \neq 0)\) to be true, either \(n \neq 0\) or \(m \neq 0\). Let's assume first that \(n \neq 0\) but \(m = 0\). If \(n \neq 0\), then it is a successor of some naturals \(a\). Hence,
+  \begin{align}
+    n + m & = S(a) + 0 \\
+          & = S(a)
+  \end{align}
+  Because zero isn't the successor of any natural numbers (\cref{ax:naturals_zero_no_successor}), \(S(a)\) can't be zero, contradicting the assumption that \(n + m = 0\).
+
+  If both \(n \neq 0\) and \(m \neq 0\), then \(n = S(a)\) and \(m = S(b)\) for some naturals \(a\) and \(b\); then,
+  \begin{align}
+    n + m & = S(a) + S(b)  \\
+          & = S(a + S(b)).
+  \end{align}
+  The same argument from earlier applies.
+
+  As seen, assuming that the opposite is true always lead to a contradiction. The only way for the statement to be true is for the original statement to be true in the first place, closing the proof.
 \end{proof}
 
 We next deal with the interaction between positivity and multiplication.
 \begin{lemma}{The product of two positive numbers is positive}{}
-	\begin{equation*}
-		\forall (n, m \in \mathbb{N}) : \ab((n \neq 0) \land (m \neq 0)) \implies (n \times m \neq 0).
-	\end{equation*}
+  \begin{equation*}
+    \forall (n, m \in \mathbb{N}) : \ab((n \neq 0) \land (m \neq 0)) \implies (n \times m \neq 0).
+  \end{equation*}
 \end{lemma}
 \begin{proof}
-	Let $p$ represents $n \neq 0$, $q$ represents $m \neq 0$, and $n \times m \neq 0$. The original statement can be written as $(p \land q) \implies r$. The negation of this statement is then
-	\begin{align}
-		 & \neg \ab((p \land q) \implies r) \nonumber                                                                                 \\
-		 & \equiv \neg \ab((p \land q) \lor \neg r)                                   &  & \text{Definition of conditional} \nonumber \\
-		 & \equiv \neg (p \land q) \land r                                            &  & \text{de Morgan's law}                     \\
-		 & \equiv (\neg p \lor \neg q) \land r                                        &  & \textrm{de Morgan's law}                   \\
-		 & \equiv \ab(\neg (n \neq 0) \lor \neg (m \neq 0)) \land (n \times m \neq 0)                                                 \\
-		 & \equiv \ab((n = 0) \lor (m = 0)) \land (n \times m \neq 0).
-	\end{align}
-	Since the negation of \emph{for all} ($\forall$) is \emph{there exists} ($\exists$), the negated statement can be written as
-	\begin{equation}
-		\exists (n, m \in \mathbb{N}) : \ab((n = 0) \lor (m = 0)) \land (n \times m \neq 0) \label{eq:dummy2}
-	\end{equation}
-	To show that this is definitely false, let's assume that $(n = 0) \lor (m = 0)$ is true, meaning that either $n = 0$ or $m = 0$. Either ways, from \cref{df:naturals_multiplication_absorption_element,le:naturals_multiplication_absorption_element_left}, the product $n \times m$ must be zero, which creates a contradiction. In order for \cref{eq:dummy2} to be true, $n \times m$ must not be equal to zero. Therefore, the original proposition
-	\begin{equation}
-		\forall ( n, m \in \mathbb{N} ) : \ab((n \neq 0) \land (m \neq 0)) \implies (n \times m \neq 0)
-	\end{equation}
-	must be true.
+  Let $p$ represents $n \neq 0$, $q$ represents $m \neq 0$, and $n \times m \neq 0$. The original statement can be written as $(p \land q) \implies r$. The negation of this statement is then
+  \begin{align}
+     & \neg \ab((p \land q) \implies r) \nonumber                                   \\
+     & \equiv \neg \ab( \neg (p \land q) \lor r)  &  & \textrm{Def. of conditional} \\
+     & \equiv p \land q \land \neg r              &  & \textrm{de Morgan's law}
+  \end{align}
+  Since the negation of \emph{for all} ($\forall$) is \emph{there exists} ($\exists$), the negated statement can be written as
+  \begin{equation}
+    \exists (n, m \in \mathbb{N}) : (n \neq 0) \land (m \neq 0) \land (n \times m = 0) \label{eq:dummy2}
+  \end{equation}
+  Since both \(n\) and \(m\) isn't zero, they are positive.
+\end{proof}
+Conversely,
+\begin{cor}{}{}
+  \(\forall (n, m \in \mathbb{N}) : n \times m = 0 \implies \ab((n = 0) \lor (m = 0))\)
+\end{cor}
+\begin{proof}
+  Use de Morgan's law on the lemma above.
 \end{proof}
 
 \section{Ordering of the natural numbers}
 \label{sec:naturals_order}
 
-The ultimate goal of this section is to show that the natural numbers has a well-ordering property, i.e., every non-empty subset of the naturals have a smallest element. The statement of well-ordering property is actually equivalent to the induction axiom, and one can be used to prove the other. To do that, we first have to discuss the concept of order.
+The ultimate goal of this section is to show that the natural numbers have the well-ordering property, i.e., every non-empty subset of the naturals have the smallest element. The statement of well-ordering property is actually equivalent to the induction axiom, and one can be used to prove the other. To do that, we first have to discuss the concept of order.
 
 \begin{df}{Orders on the naturals}{naturals_order}
-	For all naturals $n$ and $m$, $n$ is \textbf{strictly greater than} $m$ and $m$ is \textbf{strictly less than} $n$, if there exists a positive number $a$ such that $n = m + a$. This relation is denoted as $n > m$ and $m < n$ respectively.
-	\begin{multline*}
-		\forall (n, m \in \mathbb{N}) : \\ \ab[ (n > m) \land (m < n) ] \iff \ab[ \exists (a \neq 0 \in \mathbb{N}) : n = m + a ].
-	\end{multline*}
-	If $a$ isn't restricted to be positive, we say that $n$ is \textbf{greater than or equal to} $m$ and $m$ is \textbf{less than or equal to} $n$, denoted as $n \geq m$ and $m \leq n$ respectively.
-	\begin{equation*}
-		\forall (n, m \in \mathbb{N}) : \ab[ (n \geq m) \land (m \leq n) ] \iff \ab[ \exists (a \in \mathbb{N}) : n = m + a ].
-	\end{equation*}
+  \index{natural numbers!order}
+  Let \(n, m \in \mathbb{N}\). The number $n$ is \textbf{strictly greater than} $m$ and $m$ is \textbf{strictly less than} $n$ if there exists a positive number $a$ such that $n = m + a$. This relation is denoted as $n > m$ and $m < n$ respectively.
+  \begin{multline*}
+    \forall (n, m \in \mathbb{N}) : \\ \ab[ (n > m) \iff (m < n) ] \iff \ab[ \exists (a \neq 0 \in \mathbb{N}) : n = m + a ].
+  \end{multline*}
+  If $a$ isn't restricted to be positive, we say that $n$ is \textbf{greater than or equal to} $m$ and $m$ is \textbf{less than or equal to} $n$, denoted as $n \geq m$ and $m \leq n$ respectively.
+  \begin{equation*}
+    \forall (n, m \in \mathbb{N}) : \ab[ (n \geq m) \iff (m \leq n) ] \iff \ab[ \exists (a \in \mathbb{N}) : n = m + a ].
+  \end{equation*}
 \end{df}
 
 In text, we usually write \emph{greater than} and \emph{less than} instead of the \emph{strictly greater than} and \emph{strictly less than} in favor of concision.
 
 There's also another commonly accepted definition of non-strict ordering that's equivalent to \cref{df:naturals_order}, i.e.,
 \begin{multline*}
-	\forall (n, m \in \mathbb{N}) : \ab[ (n \geq m) \land (m \leq n) ] \\ \iff \ab[ \ab(\exists (a \neq 0 \in \mathbb{N}) : n = m + a) \land (n \neq m)].
+  \forall (n, m \in \mathbb{N}) : \ab[ (n > m) \iff (m < n) ] \\ \iff \ab[ \ab(\exists (a \in \mathbb{N}) : n = m + a) \land (n \neq m)].
 \end{multline*}
 It's trivial to prove that this definition and the one of \cref{df:naturals_order} is actually equivalent, and is left as a side-exercise for the reader.
 
 We then begin to prove the basic properties of order. Since these proofs are pretty short, I've contained all of them in one proposition.
 \begin{prop}{Basic properties of order on the naturals}{naturals_order_properties}
-	For all natural numbers $n$, $m$ and $k$,
-	\begin{enumerate}[noitemsep]
-		\item $n \geq n$ (Reflexivity) \label{ite:naturals_order_reflexivity}
-		\item $\ab[(n \geq m) \land (m \geq k)] \implies (n \geq k)$ (Transitivity) \label{ite:naturals_order_transitivity}
-		\item $\ab[(n \geq m) \land (m \geq n)] \implies (n = m)$ (Symmetric) \label{ite:naturals_order_symmetric}
-		\item $(n \geq m) \iff (n + k \geq m + k)$ \label{ite:naturals_order_preserve_addition}
-		\item $(n > m) \iff \ab(n \geq S(m))$ \label{ite:naturals_order_strict_and_standard}
-	\end{enumerate}
+  For all natural numbers $n$, $m$ and $k$,
+  \begin{enumerate}[noitemsep]
+    \item $n \geq n$ (Reflexivity) \label{ite:naturals_order_reflexivity}
+    \item $\ab[(n \geq m) \land (m \geq k)] \implies (n \geq k)$ (Transitivity) \label{ite:naturals_order_transitivity}
+    \item $\ab[(n \geq m) \land (m \geq n)] \implies (n = m)$ (Symmetric) \label{ite:naturals_order_symmetric}
+    \item $(n \geq m) \iff (n + k \geq m + k)$ \label{ite:naturals_order_preserve_addition}
+    \item $(n > m) \iff \ab(n \geq S(m))$ \label{ite:naturals_order_strict_and_standard}
+  \end{enumerate}
 \end{prop}
 \begin{proof}[Proof of \cref{ite:naturals_order_reflexivity} of \cref{pr:naturals_order_properties}]
-	From \cref{df:naturals_order}, we must show that there exists a natural $a$ which for all naturals $n$, $n = n + a$. Obviously, $a = 0$, proving that $n \geq n$ for all $n$.
+  From \cref{df:naturals_order}, we must show that there exists a natural $a$ which for all naturals $n$, $n = n + a$. Obviously, $a = 0$, proving that $n \geq n$ for all $n$.
 \end{proof}
 \begin{proof}[Proof of \cref{ite:naturals_order_transitivity} of \cref{pr:naturals_order_properties}]
-	From \cref{df:naturals_order},
-	\begin{gather}
-		n \geq m \iff \ab[\exists (a \in \mathbb{N}) : n = m + a], \\
-		m \geq k \iff \ab[\exists (b \in \mathbb{N}) : m = k + b].
-	\end{gather}
-	Substituting $m = k + b$ into $n = m + a$ yields
-	\begin{equation}
-		n = k + (a + b).
-	\end{equation}
-	Let $(a + b) = c$, we get $n = k + c$; thus by \cref{df:naturals_order}, $n \geq k$.
+  From \cref{df:naturals_order},
+  \begin{gather}
+    n \geq m \iff \ab[\exists (a \in \mathbb{N}) : n = m + a], \\
+    m \geq k \iff \ab[\exists (b \in \mathbb{N}) : m = k + b].
+  \end{gather}
+  Substituting $m = k + b$ into $n = m + a$ yields
+  \begin{equation}
+    n = k + (a + b).
+  \end{equation}
+  Let $(a + b) = c$, we get $n = k + c$; thus by \cref{df:naturals_order}, $n \geq k$.
 \end{proof}
 \begin{proof}[Proof of \cref{ite:naturals_order_symmetric} of \cref{pr:naturals_order_properties}]
-	From \cref{df:naturals_order},
-	\begin{gather}
-		n \geq m \iff \ab[\exists (a \in \mathbb{N}) : n = m + a], \\
-		m \geq n \iff \ab[\exists (b \in \mathbb{N}) : m = n + b].
-	\end{gather}
-	Combining $n = m + a$ and $m = n + b$ yields
-	\begin{align}
-		n + m & = m + n + a + b                                                      \\
-		0     & = a + b.        &  & \text{\Cref{le:naturals_addition_cancellation}}
-	\end{align}
-	By \cref{co:naturals_sum_zero_components_zero}, $a = 0$ and $b = 0$ meaning that $n = m + 0$ and $m = n + 0$; thus, $n = m$.
+  From \cref{df:naturals_order},
+  \begin{gather}
+    n \geq m \iff \ab[\exists (a \in \mathbb{N}) : n = m + a], \\
+    m \geq n \iff \ab[\exists (b \in \mathbb{N}) : m = n + b].
+  \end{gather}
+  Combining $n = m + a$ and $m = n + b$ yields
+  \begin{align}
+    n + m & = m + n + a + b                                                      \\
+    0     & = a + b.        &  & \text{\Cref{le:naturals_addition_cancellation}}
+  \end{align}
+  By \cref{co:naturals_sum_zero_components_zero}, $a = 0$ and $b = 0$ meaning that $n = m + 0$ and $m = n + 0$; thus, $n = m$.
 \end{proof}
 \begin{proof}[Proof of \cref{ite:naturals_order_preserve_addition} of \cref{pr:naturals_order_properties}]
-	Since this is a biconditional, we must prove both the forwards and backwards direction, i.e.,
-	\begin{multline}
-		\forall (n, m, k \in \mathbb{N}) :
-		\ab[(n \geq m) \implies (n + k \geq m + k)] \land \\
-		\ab[(n + k \geq m + k) \implies (n \geq m)].
-	\end{multline}
-	Either ways, we can start with \cref{df:naturals_order}
-	\begin{equation}
-		(n \geq m) \iff \ab[\exists (a \in \mathbb{N}) : n = m + a].
-	\end{equation}
-	To prove the forward direction, we can add $k = k$ to $n = m + a$ to get
-	\begin{equation}
-		n + k = m + k + a.
-	\end{equation}
-	By \cref{df:naturals_order}, $n + k \geq m + k$. And for the backwards direction, just use the cancellation law for addition on the naturals (\cref{le:naturals_addition_cancellation}).
+  Since this is a biconditional, we must prove both the forwards and backwards direction, i.e.,
+  \begin{multline}
+    \forall (n, m, k \in \mathbb{N}) :
+    \ab[(n \geq m) \implies (n + k \geq m + k)] \land \\
+    \ab[(n + k \geq m + k) \implies (n \geq m)].
+  \end{multline}
+  Either ways, we can start with \cref{df:naturals_order}
+  \begin{equation}
+    (n \geq m) \iff \ab[\exists (a \in \mathbb{N}) : n = m + a].
+  \end{equation}
+  To prove the forward direction, we can add $k = k$ to $n = m + a$ to get
+  \begin{equation}
+    n + k = m + k + a.
+  \end{equation}
+  By \cref{df:naturals_order}, $n + k \geq m + k$. And for the backwards direction, just use the cancellation law for addition on the naturals (\cref{le:naturals_addition_cancellation}).
 \end{proof}
 \begin{proof}[Proof of \cref{ite:naturals_order_strict_and_standard} of \cref{pr:naturals_order_properties}]
-	Similarly, this is also a biconditional. Let's start with the forward direction, i.e.,
-	\begin{equation}
-		\forall (n, m \in \mathbb{N}) : (n > m) \implies \ab(S(n) \geq m).
-	\end{equation}
-	By \cref{df:naturals_order},
-	\begin{equation}
-		(n > m) \iff \ab[\exists (a \in \mathbb{N}) : (a \neq 0) \land (n = m + a)],
-	\end{equation}
-	where $a$ is positive. Because positive numbers are a successor of other naturals (\cref{co:naturals_positive_successor_existence}), there exists a natural $b$ in which $a = S(b)$; therefore,
-	\begin{align}
-		n & = m + S(b)  \\
-		  & = S(m) + b.
-	\end{align}
-	Since $b$ isn't constrained to be positive, $n \geq S(m)$. To prove the backwards direction, i.e.,
-	\begin{equation}
-		\forall (n, m \in \mathbb{N}) : \ab(S(n) \geq m) \implies (n > m),
-	\end{equation}
-	we first notice that $n \geq S(m)$ means there exists some natural $a$ in which $n = S(m) + a$. Rewriting this gives $n = m + S(a)$. By \cref{ax:naturals_zero_no_successor}, $S(a) \neq 0$, meaning $S(a)$ is positive. Thus, $n \geq m$ by \cref{df:naturals_order}.
+  Similarly, this is also a biconditional. Let's start with the forward direction, i.e.,
+  \begin{equation}
+    \forall (n, m \in \mathbb{N}) : (n > m) \implies \ab(S(n) \geq m).
+  \end{equation}
+  By \cref{df:naturals_order},
+  \begin{equation}
+    (n > m) \iff \ab[\exists (a \in \mathbb{N}) : (a \neq 0) \land (n = m + a)],
+  \end{equation}
+  where $a$ is positive. Because positive numbers are a successor of other naturals (\cref{co:naturals_positive_successor_existence}), there exists a natural $b$ in which $a = S(b)$; therefore,
+  \begin{align}
+    n & = m + S(b)  \\
+      & = S(m) + b.
+  \end{align}
+  Since $b$ isn't constrained to be positive, $n \geq S(m)$. To prove the backwards direction, i.e.,
+  \begin{equation}
+    \forall (n, m \in \mathbb{N}) : \ab(n \geq S(m)) \implies (n > m),
+  \end{equation}
+  we first notice that $n \geq S(m)$ means there exists some natural $a$ in which $n = S(m) + a$. Rewriting this gives $n = m + S(a)$. By \cref{ax:naturals_zero_no_successor}, $S(a) \neq 0$, meaning $S(a)$ is positive. Thus, $n > m$ by \cref{df:naturals_order}.
 \end{proof}
 
-The next thing that I'd like to focus on is the trichotomy for orders.
+Finally, we've arrived at the trichotomy property of the naturals.
 \begin{lemma}{Order trichotomy}{naturals_order_trichotomy}
-	For all natural numbers $n$ and $m$, only one of these statements are true: $n = m$, $n > m$, or $n < m$.
+  For all natural numbers $n$ and $m$, only one of these statements are true: $n = m$, $n > m$, or $n < m$.
+  \index{natural numbers!trichotomy of order}
 \end{lemma}
-\textbf{Trichotomy} means a \emph{division into three category}. If something is trichotomous, then that thing can be in only one of the category at a time. These families of trichotomy statement also appear in the construction of the integers, rationals and reals, where the numbers are distinctly categorized into negatives, zero, and positive. In the naturals, order trichotomy is used to develop a stronger form of mathematical induction called the \emph{strong induction}, and also used to prove the cancellation law for multiplication. It can also be used to prove various statements on the reals.
+\textbf{Trichotomy} means a \emph{division into three categories}. If something is trichotomous, then that thing can be in only one of the three categories at a time. Trichotomous statements also appear in the construction of the integers, rationals and reals, where the numbers are distinctly categorized into negatives, zero, and positive.
+
+As seen earlier in \cref{sec:naturals-induction_after_zero}, trichotomy is useful for proofs which requires different methods depending on whether the number is less than, more than, or equal to some other number \(m\). On the naturals, order trichotomy is also used to develop a stronger form of mathematical induction called the \emph{strong induction}, and also used to prove the cancellation law for multiplication.
 
 The logical form of a trichotomous statement is given as follows. Let there be an object $x$, and three disjoint sets $A$, $B$, and $C$. Let $p$ represents $x \in A$, $q$ represents $x \in B$, and $r$ represents $x \in C$. If $x$ is trichotomous, then
 \begin{equation}
-	\ab(p \land \lnot q \land \lnot r) \lor \ab(\lnot p \land q \land \lnot r) \lor \ab(\lnot p \land \lnot q \land r).
+  \ab(p \land \lnot q \land \lnot r) \lor \ab(\lnot p \land q \land \lnot r) \lor \ab(\lnot p \land \lnot q \land r).
 \end{equation}
 An equivalent form of this statement is
 \begin{equation}
-	\ab(p \lor q \lor r) \land \lnot \ab((p \land q) \lor (q \land r) \lor (p \land r))
+  \ab(p \lor q \lor r) \land \lnot \ab((p \land q) \lor (q \land r) \lor (p \land r))
 \end{equation}
 which is easier to both interpret and prove. The first part ($p \lor q \lor r$) directly translates to \enquote{\emph{at least one of the statement is true.}} The second part $(p \land q) \lor (q \land r) \lor (p \land r)$ translates to \enquote{\emph{at least one of the statement is true.}} Together, they ensure that one of the statements are guaranteed to be true. With this simplified logical form, we can then prove the order trichotomy of the naturals.
 
 \begin{proof}
-	Let there be two naturals $n$ and $m$. Firstly, we prove that no two statements can hold simultaneously.
-	\begin{enumerate}
-		\item Proving that $n < m$ and $n = m$ can't be true simultaneously: If $n < m$, then by \cref{df:naturals_order}, $n \neq m$
-		\item Proving that $n > m$ and $n = m$ can't be true simultaneously: If $n > m$, then by \cref{df:naturals_order}, $n \neq m$.
-		\item Proving that $n < m$ and $n > m$ can't be true simultaneously: For the sake of contradiction, assume that $n < m$ and $n > m$. Then by \cref{pr:naturals_order_properties}, $n = m$ which by the two statement that's proven earlier, is a contradiction.
-	\end{enumerate}
-	And secondly, we prove that at least one of the statement is true. We induct on $n$ while keeping $m$ fixed. Let $P(n)$ be the statement $(n < m) \lor (n > m) \lor (n = m)$.
+  Let there be two naturals $n$ and $m$. Firstly, we prove that no two statements can hold simultaneously.
+  \begin{enumerate}
+    \item Proving that $n < m$ and $n = m$ can't be true simultaneously: If $n < m$, then by \cref{df:naturals_order}, $n \neq m$
+    \item Proving that $n > m$ and $n = m$ can't be true simultaneously: If $n > m$, then by \cref{df:naturals_order}, $n \neq m$.
+    \item Proving that $n < m$ and $n > m$ can't be true simultaneously: For the sake of contradiction, assume that $n < m$ and $n > m$. Then by \cref{pr:naturals_order_properties}, $n = m$ which by the two statement that's proven earlier, is a contradiction.
+  \end{enumerate}
+  And secondly, we prove that at least one of the statement is true. We induct on $n$ while keeping $m$ fixed. Let $P(n)$ be the statement $(n < m) \lor (n > m) \lor (n = m)$.
 
-	\basecase When $n = 0$, $n \leq m$ for all naturals $m$; thus, either $n = m$ or $n < m$.
+  \basecase When $n = 0$, $n \leq m$ for all naturals $m$; thus, either $n = m$ or $n < m$.
 
-	\inductivestep Assume that $P(n)$ is true, check that $P(S(n))$ is also true.
-	\begin{enumerate}
-		\item If $n < m$, then by \cref{pr:naturals_order_properties}, $S(n) \leq m$, i.e., either $S(n) < m$ or $S(n) = m$. Therefore, $P(S(n))$ is true because there is at least one true statement.
-		\item If $n = m$, then by \cref{pr:naturals_order_properties}, $S(n) > m$: $P(S(n))$ is true.
-		\item If $n > m$, then by \cref{pr:naturals_order_properties}, $S(n) > m$: $P(S(n))$ is true.
-	\end{enumerate}
-	Therefore, $P(n)$ must hold true for all natural numbers, i.e., either $n = m$, $n < m$, or $n > m$. Combined with the earlier proof that no two statements can hold simultaneously, we've shown that the order trichotomy is true for all natural numbers $n$ and $m$.
+  \inductivestep Assume that $P(n)$ is true, check that $P(S(n))$ is also true.
+  \begin{enumerate}
+    \item If $n < m$, then by \cref{pr:naturals_order_properties}, $S(n) \leq m$, i.e., either $S(n) < m$ or $S(n) = m$. Therefore, $P(S(n))$ is true because there is at least one true statement.
+    \item If $n = m$, then by \cref{pr:naturals_order_properties}, $S(n) > m$: $P(S(n))$ is true.
+    \item If $n > m$, then by \cref{pr:naturals_order_properties}, $S(n) > m$: $P(S(n))$ is true.
+  \end{enumerate}
+  Therefore, $P(n)$ must hold true for all natural numbers, i.e., either $n = m$, $n < m$, or $n > m$. Combined with the earlier proof that no two statements can hold simultaneously, we've shown that the order trichotomy is true for all natural numbers $n$ and $m$.
 \end{proof}
 
-Then, we can develop a stronger form of induction which is equivalent to \cref{th:naturals_mathematical_induction}:
-\begin{theorem}{Strong mathematical induction}{naturals_mathematical_induction_strong}
-	Let there be a statement $P(n)$ associated with all natural numbers. Let there be two naturals that's less than $m$, $m_0$ where $m > m_0$. If the following proposition is true: $P(n)$ is true for all $m_0 \leq n < m$ implies $P(m)$ is true, then $P(n)$ is true for all natural numbers that's more than $m_0$. I.e.,
-	\begin{multline}
-		\ab[\ab\{\forall (n \in \mathbb{N}: m_0 \leq n \leq m \in \mathbb{N}) : P(n)\} \implies P \ab( S(m) )] \\ \implies [\forall (k \geq m_0) : P(k)].
-	\end{multline}
-\end{theorem}
+The order trichotomy allows us to define two other operations: maximum and minimum.
+\begin{df}{Maximum and minimum}{}
+  For all natural numbers \(n, m\),
+  \begin{equation*}
+    \max \ab\{n, m\} = \begin{cases}
+      n & n > m    \\
+      m & n \leq m
+    \end{cases}, \mathand
+    \min \ab\{n, m\} = \begin{cases}
+      n & n \leq m \\
+      m & n > m
+    \end{cases}
+  \end{equation*}
+\end{df}
 
-Before completing the arithmetical system on the naturals by proving the cancellation law for multiplication, we first prove that \cref{th:naturals_mathematical_induction} and \cref{th:naturals_mathematical_induction_strong} are equivalent.
+The maximum and minimum is well-defined because it uses order: a well-defined property. However, it wouldn't be of much use right now. Still, I shall list down some properties of these operations for completeness' sake.
+
+\begin{cor}{Properties of maximum and minimum}{}
+  For all natural numbers \(n, m\) and \(c\),
+  \begin{enumerate}[noitemsep]
+    \item \(\max\ab\{n, m\} = \max\ab\{n, m\}\) (Commutativity)
+    \item \(\max\ab\{n, m\} + c = \max\ab\{n + c, m + c\}\)
+  \end{enumerate}
+\end{cor}
 
 \begin{proof}
-	Let $Q(n)$ be a statement that's true when $P(n)$ is true for all $m_0 \leq m < n$.
+  {\color{red} W.I.P.}
 \end{proof}
-
-Proof by strong induction also includes the base case and the inductive step, just like the standard mathematical induction. First, we show that $P(m_0)$ is true. Then, we assume that $P(m_0)$ all the way to $P(m)$ is true for some natural $m$ as our induction hypothesis, and show that $P(S(m))$ is true, closing the induction.
 
 Finally, we can complete the arithmetical systems on the naturals by proving the cancellation law for multiplication
 
 \begin{lemma}{Cancellation law for multiplication}{naturals_multiplication_cancellation}
-	\begin{equation*}
-		\forall (n, m \in \mathbb{N}) \forall (c \neq 0 \in \mathbb{N}) : \ab(n \times c = m \times c) \implies (n = m).
-	\end{equation*}
+  \index{natural numbers!multiplication!cancellation}
+  \begin{equation*}
+    \forall (n, m \in \mathbb{N}) \forall (c \neq 0 \in \mathbb{N}) : \ab(n \times c = m \times c) \implies (n = m).
+  \end{equation*}
 \end{lemma}
 
 \begin{proof}
-	Using prove by contradiction, we assume that the negation of the statement is true, i.e., let
-	\begin{equation}
-		\exists (n, m \in \mathbb{N}) \exists (c \neq 0 \in \mathbb{N}) : (n \times c \neq m \times c) \land (n = m)
-	\end{equation}
+  Using proof by contradiction, we assume that the negation of the statement is true, i.e., let
+  \begin{equation}
+    \exists (n, m \in \mathbb{N}) \exists (c \neq 0 \in \mathbb{N}) : (n \times c \neq m \times c) \land (n = m)
+  \end{equation}
 
-	We assume that $n \times c \neq m \times c$. By the trichotomy of order, either $n \times c < m \times c$, $n \times c = m \times c$, or $n \times c > m \times c$.
+  We assume that $n \times c \neq m \times c$. By the trichotomy of order, either $n \times c < m \times c$, $n \times c = m \times c$, or $n \times c > m \times c$.
 \end{proof}
+
+\section{What if zero isn't in the naturals?}
+\label{sec:naturals_without-zero}
+
+It is highly debated whether zero is in naturals or not. The debate is so fiery, that some even propose that the naturals start at $\frac{1}{2}$ instead of $0$ as a compromise. \Cref{fig:naturals-zero_in_N_or_not} shows my impression of the debate in greater detail.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width = 0.5\textwidth]{realanalysis/naturals/naturals_meme.jpg}
+  \caption{Is zero in $\mathbb{N}$? I don't know!}
+  \label{fig:naturals-zero_in_N_or_not}
+\end{figure}
+
+As the figure suggests, I'm not into politics. Therefore, I shall settle both side by also providing a template for how the naturals \emph{can} be constructed without zero.
+
+\begin{axiom}{Peano's axiom without zero}{}
+  The first three axioms stay the same, but we modify the last two.
+  \begin{enumerate}[noitemsep]
+    \item \(1 \in \mathbb{N}\)
+    \item \(\forall ( n \in \mathbb{N} ) : S(n) \in \mathbb{N}\)
+    \item \(\forall ( n, m \in \mathbb{N} ) : \ab(S(n) = S(m)) \implies \ab(n = m)\)
+    \item \(\forall ( n \in \mathbb{N} ) : S(n) \neq 1\)
+    \item \(\forall T : \ab( (1 \in T) \land \ab[ \forall ( n \in T ) : S(n) \in T ] ) \implies T \cong \mathbb{N}\)
+  \end{enumerate}
+\end{axiom}
+
+Even though it's possible to exclude zero, I personally think that the inclusion of zero allows us to develop a richer theory of arithmetic, as it functions as the identity of addition and the absorbing element of multiplication. If zero isn't included, we'd have to define addition and multiplication by using one instead:
+
+\begin{df}{Addition and multiplication without zero}{}
+  For all $n, m \in \mathbb{N}$:
+  \begin{enumerate}[noitemsep]
+    \item \(n + 1 = S(n)\)
+    \item \(n + S(m) = S(n + m)\)
+    \item \(n \times 1 = n\)
+    \item \(S(n) \times m = (n \times m) + m\)
+  \end{enumerate}
+\end{df}
+
+Since I don't want to start over and prove everything again, I shall leave the construction of naturals without zero to the reader. Or if you're impatient, check out Edmund Landau's book on \citetitle{landau-2001} \cite{landau-2001} and C. H. C. Little's book on \citetitle{little-2003} \cite{little-2003} for an in-depth treatment of naturals without zero.
+
+The next step is to extend the natural numbers to the integers.

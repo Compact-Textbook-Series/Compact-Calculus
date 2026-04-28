@@ -1,13 +1,82 @@
-\chapter{Sequences}
+\chapter{Limits of sequences}
 
 It's now time to study the sequence of reals in full. All the definitions about sequences in the chapter earlier that includes $\mathbb{Q}$ can now be replaced with $\mathbb{R}$.
 
-\section{Boundedness and convergence}
+\section{Convergence of sequences}
 
-\begin{df}{Convergence of sequences}{reals-convergence}
-	A sequence $\sequence{a_n}{n = m}{\infty}$ converges to a rational $L$ \ifft for all rational $\epsilon > 0$, there exists a natural $N$ such that for all natural $n \geq N$, $|a_n - L| \leq \epsilon$. When this happens, $L$ is called the limit of $a_n$, denoted $\lim_{n \appr \infty} (a_n)$. Formally, this can be written as
-	\begin{multline}
-		\lim_{n \appr \infty} (a_n) = L \iff \\
-		\forall (\epsilon > 0 \in \mathbb{Q}) \exists (N \in \mathbb{N}) \forall (n \geq N \in \mathbb{N}) : |a_n - L| \leq \epsilon
-	\end{multline}
+The definition of Cauchy sequence still persists:
+\begin{df}{Cauchy sequence of the reals}{}
+  A sequence \(\sequence{a_n}{n = m}{\infty}\) is Cauchy \ifft
+  \begin{equation}
+    \forall (\epsilon > 0 \in \mathbb{R}) \exists (N \in \mathbb{N}) \forall (i, j \geq N \in \mathbb{N}) : |a_i - a_j| \leq \epsilon
+  \end{equation}
 \end{df}
+This is equivalent to the definition of Cauchy sequence used prior because the rationals are interspersed in the reals.
+
+Since the reals were constructed from the limits of Cauchy sequences, all Cauchy sequences must converge onto a real number, and we define the notion of convergence as follows:
+\begin{df}{Convergence of sequences}{sequences-convergence}
+  A sequence $\sequence{a_n}{n = m}{\infty}$ converges to a rational $L$ \ifft for all rational $\epsilon > 0$, there exists a natural $N$ such that for all natural $n \geq N$, $|a_n - L| \leq \epsilon$. When this happens, $L$ is called the limit of $a_n$, denoted $\lim_{n \appr \infty} (a_n)$. Formally, this can be written as
+  \begin{multline}
+    \lim_{n \appr \infty} (a_n) = L \iff \\
+    \forall (\epsilon > 0 \in \mathbb{R}) \exists (N \in \mathbb{N}) \forall (n \geq N \in \mathbb{N}) : |a_n - L| \leq \epsilon
+  \end{multline}
+\end{df}
+
+\section{Boundedness and monotonicity}
+
+Sometimes, proving that a sequence is Cauchy, or that it converges to anything is hard. But maybe that's not what we want. We just want to know whether the sequence \emph{converges} or not.
+
+Consider, the sequence of logarithms:
+\begin{equation}
+  \ln(1), \ln(2), \ln(3), \ln(4), \ln(5), \dots
+\end{equation}
+This sequence behaves like the logarithm. It looks like it will converge. The growth rate of the sequence is diminishingly slow. However, the sequence still manages to creep its way up and diverge to infinity. So, it'd be a waste of time trying to find the limit of this sequence. It'd be better if we can just tell that this sequence doesn't converge in the first place. Developing the tool to do so is the goal of this section.
+
+\begin{df}{Boundedness of sequences}{sequences-boundedness}
+  A sequence \(\sequence{a_n}{n = m}{\infty}\) is bounded by a real number \(M\) \ifft
+  \begin{equation}
+    \forall (n \geq m \in \mathbb{N}): |a_n| < M,
+  \end{equation}
+  The number \(M\) is the bound of the sequence. If it exists, the sequence is \emph{bounded}
+\end{df}
+
+Similar to the notion of boundedness from \(\mathbb{Q}\), finite sequences are always bounded (\cref{co:reals-finite_sequences_bounded}), and every Cauchy sequences are bounded (\cref{pr:reals-boundedness-cauchy}).
+
+This bound can be made more specific by introducing upper and lower bounds:
+\begin{df}{Upper bounds, lower bounds}{sequences-upper_lower_bound}
+  \(U\) is the upper bound of a sequence \(\sequence{a_n}{n = m}{\infty}\) \ifft
+  \begin{equation}
+    \forall (n \geq m \in \mathbb{N}) : a_n < U.
+  \end{equation}
+  If \(U\) exists, then the sequence is \emph{bounded from above}. Similarly, \(L\) is the lower bound of the sequence \ifft
+  \begin{equation}
+    \forall (n \geq m \in \mathbb{N}) : L < a_n.
+  \end{equation}
+  If \(L\) exists, then the sequence is \emph{bounded from below}
+\end{df}
+
+Notice that a sequence can be bounded from above or below, but isn't overall bounded. E.g., the sequence
+\begin{equation}
+  1, 2, 3, 4, 5, \dots
+\end{equation}
+is bounded from below by \(0\) but isn't bounded from above. It's also not bounded. However, a bounded sequence must be bounded from both below and above.
+\begin{cor}{Boundedness and upper/lower bounds}{}
+  If a sequence \(\sequence{a_n}{n = m}{m'}\) has a bound \(M\), then there must be a lower bound \(L\) and an upper bound \(U\).
+\end{cor}
+\begin{proof}
+  If \(\sequence{a_n}{n = m}{m'}\) is bounded, then
+  \begin{equation}
+    \forall (n \in \mathbb{N} ; m \leq n \leq m') : |a_n| < M, \quad \textrm{i.e.,} - M < a_n < M:
+  \end{equation}
+  the sequence is bounded above by \(M\) and bounded below by \(-M\)
+\end{proof}
+
+
+
+\section{Divergence}
+
+\section{Subsequences}
+
+\section{Limits of functions}
+
+\section{Continuity}

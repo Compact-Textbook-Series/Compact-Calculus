@@ -1,0 +1,80 @@
+\chapter{Approximation methods}
+
+Prior to this, I've been using a lot of \enquote{sloppy} approximations to simplify various calculations. There are two families of such sloppiness: \emph{negligence} and \emph{equivalence}.
+
+Such example of negligence are: if \(n \appr \infty\) and \(r_1, r_2\) are two finite real numbers, then
+\begin{equation}
+  \frac{(n + r_1)(n + r_2)}{n^2} \approx \frac{(n)(n)}{n^2} = 1
+\end{equation}
+because when \(n \appr \infty\), \(r_1\) and \(r_2\) is negligible compared to \(n\).
+
+The \emph{equivalence} type of approximation is reflected in the small angle approximation: when \(\theta \appr 0\),
+\begin{equation}
+  \sin \theta \approx \tan \theta \approx \theta,
+\end{equation}
+and
+\begin{equation}
+  \cos \theta \approx 1 - \frac{\theta^2}{2}
+\end{equation}
+These approximations are very useful in physical systems. But in mathematics, we ask a totally different set of questions: when is an approximation justified, when are approximations effective, what type of approximations are there, etc. These are the questions that will be answered in this chapter.
+
+\section{Approximation by negligence}
+
+To develop the theory, consider some examples of common approximations by negligence:
+
+\begin{exmp}{Large numbers}{}
+  A moderately sized constant is negligible compared to a very large number. E.g., \(37\) is negligible when compared to \(\num{69420284767}\). So, you could say that
+  \begin{equation*}
+    \num{69420284767} + 37 \approx \num{69420284767}
+  \end{equation*}
+\end{exmp}
+
+\begin{exmp}{Small numbers}{}
+  A very small constant is negligible compared to a moderately sized constant. E.g., \(\num{0.000000013}\) is very small compared to \(69\), so you could say that
+  \begin{equation}
+    69 + \num{0.000000013} \approx 69
+  \end{equation}
+\end{exmp}
+
+Although these approximations are very useful in general science, it's not so acceptable in the land of mathematics. Mathematics is more interested in approximations that help us understand the behavior of functions. E.g., does the function plateaus into a single value, does it blow up, or does it decrease to zero.
+
+\begin{exmp}{Large functions}{}
+  If a function \(f(x)\) blows up to infinity when \(x \appr c\), then adding a constant wouldn't change the fact that the function is still blowing up:
+  \begin{equation}
+    \lim_{x \appr c} \ab(f(x) + N) = \lim_{x \appr c} f(x) = \infty
+  \end{equation}
+  for any finite constants \(N\). However, note that
+  \begin{equation}
+    \lim_{x \appr c} Nf(x) \neq \lim_{x \appr c} f(x)
+  \end{equation}
+
+  This can be further generalized. If a function \(g(x)\) doesn't blow up to infinity at \(c\), then
+  \begin{equation}
+    \lim_{x \appr c} \ab(f(x) + g(x)) = \lim_{x \appr c} f(x),
+  \end{equation}
+  and we can say that around \(c\),
+  \begin{equation}
+    f(x) + g(x) \approx f(x)
+  \end{equation}
+  or that \(g(x)\) is negligible compared to \(f(x)\).
+\end{exmp}
+
+It is very tempting to say that
+\begin{align}
+  \lim_{x \appr c} \ab(f(x) + g(x))                         & = \lim_{x \appr c} f(x) \\
+  \lim_{x \appr c} \ab(f(x) + g(x)) - \lim_{x \appr c} f(x) & = 0                     \\
+  \lim_{x \appr c} \ab(f(x) + g(x) - f(x))                  & = 0                     \\
+  \lim_{x \appr c} g(x)                                     & = 0.
+\end{align}
+But this is wrong because the algebraic limit theorem works \ifft the limit exists as a real number. Here, \(\lim_{x \appr c} \ab(f(x) + g(x)) = \infty\) is not a real number. Hence,
+\begin{equation}
+  \lim_{x \appr c} \ab(f(x) + g(x)) - \lim_{x \appr c} f(x) \neq \lim_{x \appr c} \ab(f(x) + g(x) - f(x)).
+\end{equation}
+
+\begin{exmp}{Small polynomials}{}
+  If for \(x \appr c\), \(g(x)\) is very small compared to \(f(x)\), then
+  \begin{equation}
+    \lim_{x \appr c} f(x) + g(x) = \lim_{x \appr c} f(x)
+  \end{equation}
+\end{exmp}
+

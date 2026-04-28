@@ -1,0 +1,56 @@
+\chapter{The derivative}
+
+\section{Invitation: do you understand derivative?}
+
+For a full explanation and motivation on derivatives, I'd invite you to go back and read \cref{sec:derivatives}. But just to remind you, the derivative of a function \(f(x)\) is the rate of change, or the slope of the tangent line of \(f\). It is defined as
+\begin{equation}
+  f'(x) = \odv{f}{x} = \lim_{h \appr 0} \frac{f(x + h) - f(x)}{h},
+\end{equation}
+which is just the ratio between the increase of the function \(f\) when \(x\) is incremented by a very small value \(h\). It all makes sense, but why isn't the derivative defined this way instead?
+\begin{equation}
+  \odv{f}{x} \overset{?}{=} \lim_{h \appr 0} \frac{f(x + h) - f(x - h)}{2h}.
+\end{equation}
+Geometrically, this is like comparing the point that succeeds \(x\) and the point that precedes \(x\) as shown on the left of \cref{fig:derivatives-symmetric_derivative}. When \(h \appr 0\), these two limits should intuitively converge to the same value. In fact, one can check that for the function in the example, \(f(x) = \frac{x^2}{5}\), these two definitions give the same value. The standard derivative of \(\frac{x^2}{5}\) gives \(\frac{2}{5}x\). The alternate definition of the derivative can be calculated as follows:
+\begin{align}
+   & \lim_{h \appr 0} \frac{f(x + h) - f(x - h)}{2h}                             \\
+   & = \lim_{h \appr 0} \frac{\frac{1}{5}(x + h)^2 - \frac{1}{5}(x - h)^2}{2h}   \\
+   & = \frac{1}{10} \lim_{h \appr 0} \frac{(x + h)^2 - (x - h)^2}{h}             \\
+   & = \frac{1}{10} \lim_{h \appr 0} \frac{x^2 + 2xh + h^2 - x^2 + 2xh - h^2}{h} \\
+   & = \frac{1}{10} \lim_{h \appr 0} \frac{4xh}{h}                               \\
+   & = \frac{1}{10}(4x) = \frac{2}{5}x
+\end{align}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{realanalysis/derivatives/symmetric_derivative}
+  \caption{Graph of function \(\frac{x^2}{5}\) (Left) Alternate definition of the derivative (Right) Standard definition of the derivative}
+  \label{fig:derivatives-symmetric_derivative}
+\end{figure}
+
+In fact, we can take this further and define the derivative as
+\begin{equation}
+  \lim_{h \appr 0} \frac{f(x + ah) - f(x - bh)}{(a + b)h},
+\end{equation}
+and for the most part, it will give the same result. So why do we not do this? Is there some intrinsic properties that is only captured by the standard derivative but not captured at all in these other definitions?
+
+The key lies in the notion of continuity and smoothness, which I shall break in two.
+
+\section{Mean value theorems}
+
+\section{Graph sketching}
+
+In \cref{sec:calculus-and-geometry}, we've already seen how calculus can be used to sketch simple graphs of function and understand their geometry. However, I've left out the details of each proofs because real analysis still hasn't been developed. Now that we have those in our hands, let's go back and see why the methods of extrema and concavity actually works.
+
+\section{First derivatives: extrema}
+
+\section{Second derivatives: concavity}
+
+Concavity is a geometrical feature of graphs, and is defined independently from derivatives.
+
+First, let's consider the tangent line of a real function.
+\begin{df}{Concavity}{}
+  A function \(f\) is \emph{concave} in an interval \(I\) \ifft
+  \begin{equation}
+    \forall (x \in I) :
+  \end{equation}
+\end{df}

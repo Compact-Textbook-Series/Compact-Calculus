@@ -3,123 +3,123 @@
 
 This chapter covers the derivatives and integrals of common functions: polynomials, exponential, and logarithms; focusing on their geometrical interpretation. It prepares you for the real deal:  differential equations. So, it's better if you can study these contents very thoroughly and get very familiar with doing derivatives and integrals. Most of these rules can be done mentally, and it's advised to practice these skills, so you will have an easier time solving differential equations.
 
-\prerequisites{binomial theorem (\cref{appendix:binomialexpansion}), basic trigonometry, derivatives, and integrals}
+\prerequisites{binomial theorem, basic trigonometry, derivatives, and integrals}
 
 \paragraph{Terminologies:} The integral refers to the area under the curve. The antiderivative refers to the function $A(x')$ that outputs the area under the curve from $0$ to $x'$.
 
-\section{Basic rules}
+\section{Basic rules of differentiation and integration}
 \label{sec:trivial_rules}
 
 \index{derivatives!chain rule}
-\paragraph{The chain rule} The Leibniz' notation treats derivative as fractions; thus, we can cancel terms (\cref{eq:prechainrule}). We exploit this property to find derivatives of composite functions. Consider two functions $f(x)$ and $g(x)$, the derivative of $f(g(x))$ can be found by a simple substitution. First let $g(x) = u$.
+\paragraph{The chain rule:}The Leibniz' notation treats derivative as fractions. In a sense, we "can" cancel terms\footnote{The actual proof of the chain rule is very nuanced. Keep it in the back of your mind that Leibniz' notation is just a syntactic sugar, and not an actual proof for the chain rule.} (\cref{eq:prechainrule}). We exploit this property to find derivatives of composite functions. Consider two functions $f(x)$ and $g(x)$, the derivative of $f(g(x))$ can be found by a simple substitution. First let $g(x) = u$.
 \begin{equation*}
-	\odv*{f\ab(g(x))}{x} = \odv{f(u)}{x}.
+  \odv*{f\ab(g(x))}{x} = \odv{f(u)}{x}.
 \end{equation*}
 Let $1 = \odv{u}{u}$, then
 \begin{equation*}
-	\odv*{f(u)}{x} = \odv*{f(u)}{x} \times 1 = \odv{f(u)}{x} \odv{u}{u}.
+  \odv*{f(u)}{x} = \odv*{f(u)}{x} \times 1 = \odv{f(u)}{x} \odv{u}{u}.
 \end{equation*}
 Perform a change of denominator, then substitute back $u = g(x)$:
 \begin{equation*}
-	\odv*{f\ab(g(x))}{x} = \odv{f(u)}{u}\odv{g(x)}{x}.
+  \odv*{f\ab(g(x))}{x} = \odv{f(u)}{u}\odv{g(x)}{x}.
 \end{equation*}
 This is what we call the chain rule, or more generally
-\begin{equation}
-	\odv{y}{x} = \odv{y}{u} \times \odv{u}{x}. \label{eq:chainrule}
-\end{equation}
-where $u$ is a function of $y$.
+\begin{prop}{The chain rule}{}
+  If \(y\) is a function of \(x\), and \(u\) is a function of \(x\), then \(\odv{y}{x} = \odv{y}{u} \times \odv{u}{x}\).
+  \footnote{This only works when \(y\), \(u\), and \(x\) follows a set of conditions that we'll discuss further in analysis.}
+\end{prop}
 
 The chain rule holds the intuition of how rate of changes relate to each other. E.g., the cheetah's speed is $10$ times the bicycle's speed, which is $4$ times the walking speed. The ratio between the cheetah's speed compared to walking speed would obviously be $10\cdot 4 = 40$:
 \begin{equation}
-	\odv{\textrm{Cheetah}}{\textrm{Walking}} = \odv{\textrm{Cheetah}}{\textrm{Bicycle}} \times \odv{\textrm{Bicycle}}{\textrm{Walking}}.
+  \odv{\textrm{Cheetah}}{\textrm{Walking}} = \odv{\textrm{Cheetah}}{\textrm{Bicycle}} \times \odv{\textrm{Bicycle}}{\textrm{Walking}}.
 \end{equation}
 
 \index{integral constant}
 \paragraph{Integral constant} In \cref{sec:function_in_the_haystack}, each time we evaluate the antiderivative, we add an initial condition term, i.e., $v_0$ and $r_0$. So for any function $f(x)$,
 \begin{equation}
-	\int f(x)\odif{x} = A(x) + C,
+  \int f(x)\odif{x} = A(x) + C,
 \end{equation}
 where $C$ is any constant. However, \cref{th:fundamentalthmofcalc2} still holds for integrals with bounds.
 \begin{center}
-	\textbf{
-		\large Always add an integral constant after evaluating the antiderivative
-	}
+  \textbf{\large Always add an integral constant after evaluating the antiderivative}
 \end{center}
 
 \index{integrals!of an infinitesimal}
 \paragraph{Integral of the infinitesimal} The antiderivative of the small rectangles $\odif{x}$ is just the total rectangle $x$ plus the integral constant $C$. 
 \begin{equation}
-	\int \odif{x} = x + C.
+  \int \odif{x} = x + C.
 \end{equation}
 
 \paragraph{Rules of equality} If two arguments are equal, their derivatives and antiderivatives w.r.t. the same variable must also be equal.
 \begin{equation*}
-	\textrm{If}~f = g,\textrm{ then }\odv{f}{x} = \odv{g}{x},\textrm{ and }\int f\odif{x} = \int g\odif{x} + C
+  \textrm{If}~f = g,\textrm{ then }\odv{f}{x} = \odv{g}{x},\textrm{ and }\int f\odif{x} = \int g\odif{x} + C
 \end{equation*}
 
 \index{derivatives!of a constant}\paragraph{Derivative of a constant} A constant doesn't change; thus, the derivative of a constant is zero. 
 \begin{equation}
-	\odv*{(c)}{x} = 0.
+  \odv*{(c)}{x} = 0.
 \end{equation}
 
 \section{Linearity of differentiation and integration}
 \label{sec:diff_int_linearity}
 
 \begin{figure}[ht]
-	\centering
-	\begin{subfigure}[t]{0.75\textwidth}
-		\centering
-		\includegraphics{basicderivativesandintegrals/derivativeconstantmultiple}
-		\caption{for derivatives}
-		\label{fig:derivativesconstantmultiple}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.36\textwidth}
-		\centering
-		\includegraphics{basicderivativesandintegrals/integralconstantmultiple}
-		\caption{for integrals}
-		\label{fig:integralsconstantmultiple}
-	\end{subfigure}
-	\caption{Constant multiple rules}
+  \centering
+  \subbottom[for derivatives\label{fig:derivativesconstantmultiple}]{
+    \includegraphics{basicderivativesandintegrals/derivativeconstantmultiple}
+  }
+  \subbottom[for integrals\label{fig:integralsconstantmultiple}]{
+    \includegraphics{basicderivativesandintegrals/integralconstantmultiple}
+  }
+  \caption{Constant multiple rules}
 \end{figure}
 
-A \textbf{linear} mathematical entity are defined as anything that is compatible with addition and scaling. E.g., for a function $f(x)$ to be linear, it must obey
-\begin{enumerate}[noitemsep]
-	\item Additivity: $f(x + y) = f(x) + f(y)$
-	\item Homogeneity of degree one: $f(ax) = af(x)$ for all constant $a$
-\end{enumerate}
-The simplest linear function there is, is a line that passes through the origin: $f(x) = ax$, in which
+\begin{df}{Linear-ness}{}
+  A \textbf{linear} mathematical entity are defined as anything that is compatible with addition and scaling. E.g., for a function $f(x)$ to be linear, it must obey
+  \begin{enumerate}[noitemsep]
+    \item Additivity: $f(x + y) = f(x) + f(y)$
+    \item Homogeneity of degree one: $f(ax) = af(x)$ for all constant $a$
+  \end{enumerate}
+\end{df}
+The simplest linear function is a line that passes through the origin: $f(x) = ax$, in which
 \begin{gather}
-	f(x + y) = a(x + y) = ax + ay = f(x) + f(y), \\
-	f(cx) = a(cx) = c(ax) = cf(x).
+  f(x + y) = a(x + y) = ax + ay = f(x) + f(y), \\
+  f(cx) = a(cx) = c(ax) = cf(x).
 \end{gather}
-Because this property, we associate a line with being linear. However, linearity doesn't have to always refer to lines.
+Because the line has this property, it is linear. The property of linearity however is not limited to lines - other mathematical objects can also posess this property.
 
 Both derivatives and integrals are linear; for any function $f(x)$, $g(x)$, and constants $a$, $b$, the following rules follow.
-\index{derivatives!constant multiple rule}\index{integrals!constant multiple rule}\paragraph{The constant multiple rule:}
-\begin{align}
-	\odv*{(af(x))}{x}   & = a \odv{f(x)}{x},     & \alc[0.3]{Illustrated in \cref{fig:derivativesconstantmultiple}}\label{eq:derivativesconstantmultiple} \\
-	\int af(x) \odif{x} & = a \int f(x)\odif{x}. & \alc[0.3]{Illustrated in \cref{fig:integralsconstantmultiple}}\label{eq:integralsconstantmultiple}
-\end{align}
+\index{derivatives!constant multiple rule}\index{integrals!constant multiple rule}
+
+\begin{prop}{The constant multiple rule}{}
+  \begin{align}
+    \odv*{(af(x))}{x}   & = a \odv{f(x)}{x},     & \alc[0.35]{Illustrated in \cref{fig:derivativesconstantmultiple}}\label{eq:derivativesconstantmultiple} \\
+    \int af(x) \odif{x} & = a \int f(x)\odif{x}. & \alc[0.35]{Illustrated in \cref{fig:integralsconstantmultiple}}\label{eq:integralsconstantmultiple}
+  \end{align}
+\end{prop}
 The geometrical interpretation of these two rules are very simple. When a function is multiplied by a constant $c$, its value is increased by a factor of $c$ everywhere. The slope must also be increased by $c$, and thus the function's area also.
-\index{derivatives!sum rule}\index{integrals!sum rule}\paragraph{The sum rule:}
-\begin{align}
-	\odv*{\ab(f(x) + g(x))}{x} & = \odv*{f(x)}{x} + \odv*{g(x)}{x}, \label{eq:derivativesumrule}      \\
-	\int f(x) + g(x)\odif{x}   & = \int f(x)\odif{x} + \int g(x)\odif{x}. \label{eq:integralssumrule}
-\end{align}
+
+\begin{prop}{The sum rule}{}
+  \index{derivatives!sum rule}\index{integrals!sum rule}
+  \begin{align}
+    \odv*{\ab(f(x) + g(x))}{x} & = \odv*{f(x)}{x} + \odv*{g(x)}{x}, \label{eq:derivativesumrule}      \\
+    \int f(x) + g(x)\odif{x}   & = \int f(x)\odif{x} + \int g(x)\odif{x}. \label{eq:integralssumrule}
+  \end{align}
+\end{prop}
 I.e., adding two functions increases its slope, thus also increasing its area under the graph.
 
 \section{Derivatives and antiderivatives of polynomials}
 
 Now that we've discussed the \enquote{trivial rules}, we're ready to tackle the easiest family of functions: the \textbf{polynomials}\index{polynomials}. They're in the form
 \begin{equation}
-	f(x) = a_0 + a_1x + a_2x^2 + a_3x^3 + \dots. \label{eq:polynomial_form}
+  f(x) = a_0 + a_1x + a_2x^2 + a_3x^3 + \dots. \label{eq:polynomial_form}
 \end{equation}
 Let's focus on the antiderivative first; we'll see later how the antiderivative of polynomials can be found with just a simple substitution trick.
 
 The form mentioned in \cref{eq:polynomial_form} is quite useless if we want to make progress. We can break it down by using the linearity of derivatives:
 \begin{align}
-	\odv{f(x)}{x} & = \odv*{(a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots)}{x}            \\
-	              & = a_1\odv{x^1}{x} + a_2\odv{x^2}{x} + a_3\odv{x^3}{x} + \dots.
+  \odv{f(x)}{x} & = \odv*{(a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots)}{x}            \\
+                & = a_1\odv{x^1}{x} + a_2\odv{x^2}{x} + a_3\odv{x^3}{x} + \dots.
 \end{align}
 Now we're left with derivatives of \emph{monomials} in the form of $x^n$. So let's do that instead.
 
@@ -128,36 +128,36 @@ Now we're left with derivatives of \emph{monomials} in the form of $x^n$. So let
 
 The method of increments allows us to quickly evaluate the derivative of $x^n$.
 \begin{equation}
-	\odv*{(x^n)}{x} = \lim_{h \appr 0}\frac{(x + h)^n - x^n}{h}.
+  \odv*{(x^n)}{x} = \lim_{h \appr 0}\frac{(x + h)^n - x^n}{h}.
 \end{equation}
-By using the binomial expansion (\cref{appendix:binomialexpansion}), 
+By using the binomial expansion,
 \begin{align}
-	 & = \lim_{h \appr 0}\frac{\left(\sum_{k = 0}^n{n\choose k}x^{n - k}\cdot h^n\right) - x^n}{h}                                            \\
-	 & = \lim_{h \appr 0}{{n\choose 0}x^nh^0 + {n\choose 1}x^{n - 1}h^1 + {n\choose 2}x^{n - 2}h^2 +\dots {n\choose n} + x^0h^n - x^n\over h} \\
-	 & = \lim_{h \appr 0}\frac{x^n + nx^{n - 1}h^1 + {n\choose 2}x^{n - 2}h^2 + \dots + h^n -x^n}{h}                                          \\
-	 & = \lim_{h \appr 0}nx^{n - 1} + {n\choose 2}x^{n - 2}h + {n\choose 3}x^{n - 3}h^2 + h^{n - 1}
+   & = \lim_{h \appr 0}\frac{\left(\sum_{k = 0}^n{n\choose k}x^{n - k}\cdot h^n\right) - x^n}{h}                                            \\
+   & = \lim_{h \appr 0}{{n\choose 0}x^nh^0 + {n\choose 1}x^{n - 1}h^1 + {n\choose 2}x^{n - 2}h^2 +\dots {n\choose n} + x^0h^n - x^n\over h} \\
+   & = \lim_{h \appr 0}\frac{x^n + nx^{n - 1}h^1 + {n\choose 2}x^{n - 2}h^2 + \dots + h^n -x^n}{h}                                          \\
+   & = \lim_{h \appr 0}nx^{n - 1} + {n\choose 2}x^{n - 2}h + {n\choose 3}x^{n - 3}h^2 + h^{n - 1}
 \end{align}
 The terms with $h$ vanishes when $h \appr 0$; therefore,
 \begin{equation}
-	\odv*{(x^n)}{x} = nx^{n - 1}. \label{eq:power_rule}
+  \odv*{(x^n)}{x} = nx^{n - 1}. \label{eq:power_rule}
 \end{equation}
 The equation above is what we call the \textbf{power rule}. Because the binomial theorem work for all real numbers, this is true for any powers of $n$.
 
 Now, what is the geometrical interpretation of the power rule? Let's try to answer this question by geometrically interpreting the simplest non-trivial monomial: $x^2$. This function represents the area of a square sidelength $x$. Its derivative then represents the ratio between the change in $x$, and the change of area when the sidelength is increased by $\odif{x}$.
 
 \begin{figure}[t]
-	\centering
-	\includegraphics{basicderivativesandintegrals/xsquaredpowerrule}
-	\caption{Interpretation of $\odv{x^2}{x}$ ($\odif{x}$ exaggerated)}
-	\label{fig:xsquaredpowerrule}
+  \centering
+  \includegraphics{basicderivativesandintegrals/xsquaredpowerrule}
+  \caption{Interpretation of $\odv{x^2}{x}$ ($\odif{x}$ exaggerated)}
+  \label{fig:xsquaredpowerrule}
 \end{figure}
 Illustrated in \cref{fig:xsquaredpowerrule},
 \begin{equation}
-	\odv*{(x^2)}{x} = \lim_{\odif{x} \appr 0} \frac{x\odif{x} + x\odif{x} + \odif{x}^2}{\odif{x}}. \label{eq:xsquaredpowerrule}
+  \odv*{(x^2)}{x} = \lim_{\odif{x} \appr 0} \frac{x\odif{x} + x\odif{x} + \odif{x}^2}{\odif{x}}. \label{eq:xsquaredpowerrule}
 \end{equation}
 When $\odif{x} \appr 0$, the $\odif{x^2}$ square would just become a single point. Compared to the big $x\odif{x}$ on the side, it's negligible; therefore, we can safely ignore it. The equation then becomes
 \begin{align*}
-	\odv*{(x^2)}{x} = \lim_{\odif{x} \appr 0}\frac{2x\odif{x}}{\odif{x}} = 2x,
+  \odv*{(x^2)}{x} = \lim_{\odif{x} \appr 0}\frac{2x\odif{x}}{\odif{x}} = 2x,
 \end{align*}
 which is equivalent to the result from the power rule.
 
@@ -165,14 +165,14 @@ Deriving $\odv*{(x^3)}{x}$ geometrically shouldn't be too hard either. Take a cu
 
 Here I leave some exercises which shouldn't be too hard to do. The fourth and fifth one requires you to convert the fractions into negative exponents such as $\frac{1}{x} = x^{-1}$, then use the power rule. The sixth one requires you to convert square roots into fractional exponents. And, the final two would need you to expand the polynomial first, then use the power rule.
 \begin{enumerate}
-	\item $\odv*{(x^2 - 2x + 16)}{x}$ \hfill $2x - 2$
-	\item $\odv*{(x^3 + x^2 + x + 1)}{x}$ \hfill $3x^2 + 2x + 1$
-	\item $\odv*{(3x^4 + 24x^3 - 2x^2 - 32x + 88)}{x}$ \hfill $12x^3 + 72x^2 - 4x - 32$
-	\item $\odv*{\ab(\frac{1}{x^2} + \frac{1}{x} + x)}{x}$ \hfill $-2x^{-3} -1x^{-2} + 1$
-	\item $\odv*{\ab(\frac{3}{x} + x^2 + \frac{1}{4}x^{-4})}{x}$ \hfill $-3x^{-2} + 2x - x^{-5}$
-	\item $\odv*{\ab(\sqrt{x} + \sqrt[3]{x})}{x}$ \hfill $\frac{1}{2}x^{-\flatfrac{1}{2}} + \frac{1}{3}x^{-\flatfrac{2}{3}}$
-	\item $\odv*{\ab((x^2 + 3x)^2)}{x}$ \hfill $4x^3 + 12x^2 + 8x$
-	\item $\odv*{\ab((x^2 + 1)^2(x - 2))}{x}$ \hfill $5x^4 - 8x^3 + 6x^2 - 8x + 1$
+  \item $\odv*{(x^2 - 2x + 16)}{x}$ \hfill $2x - 2$
+  \item $\odv*{(x^3 + x^2 + x + 1)}{x}$ \hfill $3x^2 + 2x + 1$
+  \item $\odv*{(3x^4 + 24x^3 - 2x^2 - 32x + 88)}{x}$ \hfill $12x^3 + 72x^2 - 4x - 32$
+  \item $\odv*{\ab(\frac{1}{x^2} + \frac{1}{x} + x)}{x}$ \hfill $-2x^{-3} -1x^{-2} + 1$
+  \item $\odv*{\ab(\frac{3}{x} + x^2 + \frac{1}{4}x^{-4})}{x}$ \hfill $-3x^{-2} + 2x - x^{-5}$
+  \item $\odv*{\ab(\sqrt{x} + \sqrt[3]{x})}{x}$ \hfill $\frac{1}{2}x^{-\flatfrac{1}{2}} + \frac{1}{3}x^{-\flatfrac{2}{3}}$
+  \item $\odv*{\ab((x^2 + 3x)^2)}{x}$ \hfill $4x^3 + 12x^2 + 8x$
+  \item $\odv*{\ab((x^2 + 1)^2(x - 2))}{x}$ \hfill $5x^4 - 8x^3 + 6x^2 - 8x + 1$
 \end{enumerate}
 
 \subsection{Antiderivatives of polynomials: the reversed power rule}
@@ -180,59 +180,59 @@ Here I leave some exercises which shouldn't be too hard to do. The fourth and fi
 
 For the antiderivative of $x^n$, we use the fundamental theorem of calculus (\cref{th:fundamentalthmofcalc1}) on the power rule (\cref{eq:power_rule}),
 \begin{equation*}
-	x^n = \int nx^{n - 1} \odif{x}.
+  x^n = \int nx^{n - 1} \odif{x}.
 \end{equation*}
 Substitute $n$ with $n + 1$
 \begin{equation*}
-	\int (n + 1)x^{n}\odif{x} = x^{n + 1} + C,
+  \int (n + 1)x^{n}\odif{x} = x^{n + 1} + C,
 \end{equation*}
 and by the linearity of integrations (\cref{eq:integralsconstantmultiple}), we get the \index{integrals!reversed power rule}\textbf{reversed power rule}:
 \begin{equation}
-	\int x^{n}\odif{x} = \frac{x^{n + 1}}{n + 1} + C. \label{eq:reversed-power-rule}
+  \int x^{n}\odif{x} = \frac{x^{n + 1}}{n + 1} + C. \label{eq:reversed-power-rule}
 \end{equation}
 
 Notice, this rule does not work for $n = 1$ because we can't divide by zero\dots \emph{or can we???} (Discussed further in \cref{sec:logarithms,sec:integral-of-the-reciprocal})
 
 In just the same way, it's very important to familiarize yourself to these integrals. Therefore, here I leave some examples for practice. For the forth and fifth one, you also need to turn the fractions into a negative exponent. And the last two, expand the polynomial first.
 \begin{enumerate}
-	\item $\int x^2 + 1\odif{x}$ \hfill $\frac{x^3}{3} + x + C$
-	\item $\int 2x^3 + x^2 + 3\odif{x}$ \hfill $\frac{x^4}{2} + \frac{x^3}{3} + 3x + C$
-	\item $\int 3x^2 - 5x + 2\odif{x}$ \hfill $x^3 - \frac{5x^2}{2} + 2x + C$
-	\item $\int \sqrt{x} + \frac{1}{3}\sqrt[3]{x}\odif{x}$ \hfill $\frac{2x^{\flatfrac{3}{2}}}{3} + \frac{x^{\flatfrac{4}{3}}}{4}$
-	\item $\int 3x^{-\flatfrac{5}{2}} + \frac{x^{\flatfrac{7}{3}}}{3}$ \hfill $\frac{x^{\flatfrac{10}{3}}}{10} - 2x^{-\flatfrac{3}{2}}$
-	\item $\int (x^2 + 3x + 1)^2 \odif{x}$ \hfill $\frac{x^5}{5} + \frac{3x^4}{2} + \frac{11x^3}{3} + 3x^2 + x$
-	\item $\int (x + 1)(x - 1)(x + 2)\odif{x}$ \hfill $\frac{x^4}{4} + \frac{2x^3}{3} - \frac{x^2}{2} - 2x$
+  \item $\int x^2 + 1\odif{x}$ \hfill $\frac{x^3}{3} + x + C$
+  \item $\int 2x^3 + x^2 + 3\odif{x}$ \hfill $\frac{x^4}{2} + \frac{x^3}{3} + 3x + C$
+  \item $\int 3x^2 - 5x + 2\odif{x}$ \hfill $x^3 - \frac{5x^2}{2} + 2x + C$
+  \item $\int \sqrt{x} + \frac{1}{3}\sqrt[3]{x}\odif{x}$ \hfill $\frac{2x^{\flatfrac{3}{2}}}{3} + \frac{x^{\flatfrac{4}{3}}}{4}$
+  \item $\int 3x^{-\flatfrac{5}{2}} + \frac{x^{\flatfrac{7}{3}}}{3}$ \hfill $\frac{x^{\flatfrac{10}{3}}}{10} - 2x^{-\flatfrac{3}{2}}$
+  \item $\int (x^2 + 3x + 1)^2 \odif{x}$ \hfill $\frac{x^5}{5} + \frac{3x^4}{2} + \frac{11x^3}{3} + 3x^2 + x$
+  \item $\int (x + 1)(x - 1)(x + 2)\odif{x}$ \hfill $\frac{x^4}{4} + \frac{2x^3}{3} - \frac{x^2}{2} - 2x$
 \end{enumerate}
 
 \subsection{Extending the equations of linear motion}
 
 Let's use the power rule to extend the equation of linear motions in \cref{sec:fiveequationsoflinearmotion} to include a constant jerk $j$, i.e.,
 \begin{equation}
-	\odv{a}{t} = j
+  \odv{a}{t} = j
 \end{equation}
 Then, we can move the $\odif{t}$ around and integrate both sides by using the reversed power rule.
 \begin{align*}
-	\int j\odif{t} & = \int\odif{a}                                   \\
-	j\int \odif{t} & = \int\odif{a} \alc[0.3]{Linearity of integrals} \\
-	jt + a_0       & = a \alc[0.3]{Integral constant $a_0$}
+  \int j\odif{t} & = \int\odif{a}                                   \\
+  j\int \odif{t} & = \int\odif{a} \alc[0.3]{Linearity of integrals} \\
+  jt + a_0       & = a \alc[0.3]{Integral constant $a_0$}
 \end{align*}
 Because $a$ is the derivative of $v$, 
 \begin{align*}
-	\odv{v}{t}    & = jt + a_0                                                        \\
-	\int \odif{v} & = \int jt + a_0 \odif{t}                                          \\
-	v             & = j\int t\odif{t} + \int a_0\odif{t} \alc{Linearity of integrals} \\
-	v             & = \frac{1}{2}jt^2 + a_0t + v_0. \alc{Reversed power rule}
+  \odv{v}{t}    & = jt + a_0                                                        \\
+  \int \odif{v} & = \int jt + a_0 \odif{t}                                          \\
+  v             & = j\int t\odif{t} + \int a_0\odif{t} \alc{Linearity of integrals} \\
+  v             & = \frac{1}{2}jt^2 + a_0t + v_0. \alc{Reversed power rule}
 \end{align*}
 We add $v_0$ as an integral constant in a similar manner. Since $v$ is the derivative of $r$,
 \begin{align*}
-	\odv{r}{t}    & = \frac{1}{2}jt^2 + a_0t + v_0                                       \\
-	\int \odif{r} & = \int\frac{1}{2}jt^2 + a_0t + v_0 \odif{t}                          \\
-	r             & = \frac{1}{2}j\int t^2\odif{t} + a_0\int t\odif{t} + v_0\int\odif{t} \\
-	r             & = \frac{1}{6}jt^3 + \frac{1}{2}a_0t^2 + v_0t + r_0.
+  \odv{r}{t}    & = \frac{1}{2}jt^2 + a_0t + v_0                                       \\
+  \int \odif{r} & = \int\frac{1}{2}jt^2 + a_0t + v_0 \odif{t}                          \\
+  r             & = \frac{1}{2}j\int t^2\odif{t} + a_0\int t\odif{t} + v_0\int\odif{t} \\
+  r             & = \frac{1}{6}jt^3 + \frac{1}{2}a_0t^2 + v_0t + r_0.
 \end{align*}
 And there you have it! Further extensions can be made from here: the jerk could be time-dependent. But that's probably enough to illustrate my point. If you'd like to try, extend the equation of motion to have a constant snap: $\odv{j}{t} = s$. You should get
 \begin{equation*}
-	r = \frac{1}{24}st^4 + \frac{1}{6}jt^3 + \frac{1}{2}a_0t^2 + v_0t + r_0.
+  r = \frac{1}{24}st^4 + \frac{1}{6}jt^3 + \frac{1}{2}a_0t^2 + v_0t + r_0.
 \end{equation*}
 
 \section{Exponentials and growth}
@@ -240,137 +240,156 @@ And there you have it! Further extensions can be made from here: the jerk could 
 
 The next function that we're going to discuss is exponentials: the mathematical representation of growth and decay. As an example, let's say there's a magical drop of water that doubles its volume $V$ every hour. I.e., for any time $t$,
 \begin{equation}
-	V(t + 1) = 2V(t). \label{eq:exponentialsrecurrencerelations}
+  V(t + 1) = 2V(t). \label{eq:exponentialsrecurrencerelations}
 \end{equation}
 If the drop starts at one unit of volume, $V(0) = 1$; thus,
 \begin{align*}
-	V(1) & = 2V(0) = 2,            \\
-	V(2) & = 2V(1) = 2(2) = 2^2,   \\
-	V(3) & = 2V(2) = 2(2^2) = 2^3, \\
-	V(4) & = 2V(3) = 2(2^3) = 2^4, \\
-	     & \vdots
+  V(1) & = 2V(0) = 2,            \\
+  V(2) & = 2V(1) = 2(2) = 2^2,   \\
+  V(3) & = 2V(2) = 2(2^2) = 2^3, \\
+  V(4) & = 2V(3) = 2(2^3) = 2^4, \\
+       & \vdots
 \end{align*}
 \begin{table}
-	\centering
-	\begin{tabular}{C | C | C}
-		t & V(t) & V(t) - V(t - 1) \\
-		\hline
-		0 & 1    &                 \\
-		1 & 2    & 2 - 1 = 1       \\
-		2 & 4    & 4 - 2 = 2       \\
-		3 & 8    & 8 - 4 = 4       \\
-		4 & 16   & 16 - 8 = 8      \\
-		5 & 32   & 32 - 16 = 16    \\
-		6 & 64   & 64 - 32 = 32    \\
-		7 & 128  & 128 - 64 = 64   \\
-		8 & 256  & 256 - 128 = 128 \\
-	\end{tabular}
-	\caption{$V(t) = 2^t$ from $0$ to $8$}
-	\label{tab:exponentialbase2}
+  \centering
+  \begin{tblr}{C | C | C}
+    t & V(t) & V(t) - V(t - 1) \\
+    \hline
+    0 & 1    &                 \\
+    1 & 2    & 2 - 1 = 1       \\
+    2 & 4    & 4 - 2 = 2       \\
+    3 & 8    & 8 - 4 = 4       \\
+    4 & 16   & 16 - 8 = 8      \\
+    5 & 32   & 32 - 16 = 16    \\
+    6 & 64   & 64 - 32 = 32    \\
+    7 & 128  & 128 - 64 = 64   \\
+    8 & 256  & 256 - 128 = 128 \\
+  \end{tblr}
+  \caption{$V(t) = 2^t$ from $0$ to $8$}
+  \label{tab:exponentialbase2}
 \end{table}
-It's clear that the pattern is $V(t) = 2^t$: an exponential function. A natural question to ask is \enquote{\emph{what is its rate of change?}}. Let's start by plotting the function over time (\cref{fig:exponentialgraph}). But, exponentials grow too quick to plot! By $V(7)$, we're already in the hundreds. So, it'd probably be better to list the values of each point on a table.
+It's clear that the pattern is $V(t) = 2^t$: an exponential function. A natural question to ask is \enquote{\emph{what is its rate of change?}}. Let's start by plotting the function over time (\cref{fig:exponentialgraph}). As you can see, exponentials grow too quick to plot. By $V(7)$, we're already in the hundreds. So, it'd probably be better to list the values of each point on a table.
 \begin{figure}[t]
-	\centering
-	\includegraphics{basicderivativesandintegrals/exponentials}
-	\caption{Exponential function $2^x$ plotted from $0$ to $8$}
-	\label{fig:exponentialgraph}
+  \centering
+  \includegraphics{basicderivativesandintegrals/exponentials}
+  \caption{Exponential function $2^x$ plotted from $0$ to $8$}
+  \label{fig:exponentialgraph}
 \end{figure}
 Notice that on the right most column of \cref{tab:exponentialbase2}, the difference between $V(t)$ and $V(t - 1)$ is exactly $V(t - 1)$: the function changes as much as its past-self. So does that mean that $\odv*{(2^x)}{x} = 2^x$?
 
 Sadly not, but it's very close. See, \cref{tab:exponentialbase2} only shows a \emph{discrete} step where $\odif{x} = 1$. You can write it out as
 \begin{equation}
-	\frac{2^{x + 1} - 2^x}{1} = 2^x\left(\frac{2 - 1}{1}\right) = 2^x,
+  \frac{2^{x + 1} - 2^x}{1} = 2^x\left(\frac{2 - 1}{1}\right) = 2^x,
 \end{equation}
-that is why $V(t) - V(t - 1) = V(t - 1)$. But we still need the method of increments to calculate the derivative of $2^x$:
+that is why $V(t) - V(t - 1) = V(t - 1)$. But to evaluate the derivative of $2^x$, this increment can't be one. It must be infinitesimally small. Hence, we recall the method of increments:
 \begin{align*}
-	\odv*{(2^x)}{x} & = \lim_{h \appr 0}\frac{2^{x + h} - 2^x}{\odif{x}}    \\
-	                & = 2^x\lim_{h \appr 0}\left(\frac{2^h - 1}{h}\right).
+  \odv*{(2^x)}{x} & = \lim_{h \appr 0}\frac{2^{x + h} - 2^x}{h}           \\
+                  & = 2^x\lim_{h \appr 0}\left(\frac{2^h - 1}{h}\right).
 \end{align*}
-Now you could try plugging in a really small value of $h$, say $0.000001$. The term $\frac{2^h - 1}{h}$ will approach $0.69314\dots$. If you try other bases of exponents, say $3$, you might see a pattern emerging.
+As of now, the theories of limit isn't mature enough to evaluate this. So, we resort to manually plugging in a very smaller and smaller value of \(h\), and see where this limit goes. This term seems to not blow off to infinity, but rather stabilizes at around $0.69314\dots$. So,
 \begin{equation}
-	\odv*{(3^x)}{x} = 3^x\lim_{h \appr 0}\frac{3^h - 1}{h}.
+  \odv*{(2^x)}{x} = (0.693\dots)2^x.
 \end{equation}
-\emph{The rate of change of an exponential function is always itself times a proportionality constant}. For $3^x$, it's about $1.09851\dots$. If we could find a number $n$ where $\frac{n^h - 1}{h} = 0$, we'd have a very pretty function which it is its own derivative. So let's find that!
+
+Generally, this equation can be extended to any other bases of exponents.
+\begin{align}
+  \odv*{(a^x)}{x} & = \lim_{h \appr 0}\frac{a^{x + h} - a^x}{h}  \\
+                  & = a^x\ab(\lim_{h \appr 0} \frac{a^h - 1}{h})
+\end{align}
+I.e., \emph{the rate of change of an exponential is itself times some constant}. For an exponential of base \(a\), this constant is
+\begin{equation}
+  \lim_{h \appr 0} \frac{a^h - 1}{h}.
+\end{equation}
+In the future, we shall develop a better way to calculate this constant. For now, it's just plugging in small values of \(h\) and plotting it as shown in \cref{fig:basicderivativesandintegrals-logarithm_plot}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{basicderivativesandintegrals/logarithm.pdf}
+  \caption{Graph of the leading constant of the derivative of \(a\)}
+  \label{fig:basicderivativesandintegrals-logarithm_plot}
+\end{figure}
+
+Notice that between \(a = 2.5\) and \(a = 3\), the graph of this constant passes through one. If we can find this function, then we'd have a function that is its own derivative! So let's find this value.
 
 \subsection{A function that is its own derivative: Euler's number}
 \label{sec:function_equals_own_derivative}
 
 Let's set a goal: find the function that is its own derivative. If that function exists, it must satisfy the differential equation
 \begin{equation}
-	\odv{f(x)}{x} = f(x). \label{eq:ex-differential-equation}
+  \odv{f(x)}{x} = f(x). \label{eq:ex-differential-equation}
 \end{equation}
 We've already seen that one possible candidate for this function is the exponential function $n^x$. But how do we find the number $n$ that satisfies it?
 
 Here is a good time where I introduce a method that's used very often to solve differential equations: \textbf{power series expansion}. Most functions have a power series expansion, written as\footnote{Although the convergence of the series derived is quite questionable; thankfully, the power series of the exponential function converges everywhere.}
 \begin{equation}
-	f(x) = a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots.
+  f(x) = a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots.
 \end{equation}
 E.g., $\sin(x)$ can be written as\footnote{If you don't believe me, wait for \cref{sec:power-series-sine-cosine}.}
 \begin{equation}
-	\sin(x) = x - \frac{1}{3!}x^3 + \frac{1}{5!}x^5 - \frac{1}{7!}x^7 + \dots.
+  \sin(x) = x - \frac{1}{3!}x^3 + \frac{1}{5!}x^5 - \frac{1}{7!}x^7 + \dots.
 \end{equation}
 We can assume that the exponential function can be expanded using a power series; thus,
 \begin{equation}
-	n^x \equiv a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots.
+  n^x \equiv a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots.
 \end{equation}
 To find out each of the leading coefficient, just substitute the expansion into \cref{eq:ex-differential-equation} and see where mathematics would lead us.
 
 A direct substitution followed by the power rule would give
 \begin{equation}
-	\odv*{(a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots)}{x} = a_1 + 2a_2x^1 + 3a_3x^2 + 4a_4x^3 + \dots.
+  \odv*{(a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots)}{x} = a_1 + 2a_2x^1 + 3a_3x^2 + 4a_4x^3 + \dots.
 \end{equation}
 By the \cref{eq:ex-differential-equation}, the R.H.S must also equals $n^x$; therefore,
 \begin{equation}
-	\begin{multlined}
-		n^x = a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots ~\textrm{and also,} \\
-		n^x = a_1 + 2a_2x^1 + 3a_3x^2 + 4a_4x^3 + \dots.
-	\end{multlined}
+  \begin{multlined}
+    n^x = a_0 + a_1x^1 + a_2x^2 + a_3x^3 + \dots ~\textrm{and also,} \\
+    n^x = a_1 + 2a_2x^1 + 3a_3x^2 + 4a_4x^3 + \dots.
+  \end{multlined}
 \end{equation}
 Since they're equal, their leading coefficient must match, and thus forming a system of equations
 \begin{equation}
-	\begin{array}{c}
-		a_0 = a_1 \\ a_1 = 2a_2 \\ a_2 = 3a_3 \\ a_3 = 4a_4 \\ \vdots
-	\end{array}\label{eq:naivetaylorserieserelations}
+  \begin{array}{c}
+    a_0 = a_1 \\ a_1 = 2a_2 \\ a_2 = 3a_3 \\ a_3 = 4a_4 \\ \vdots
+  \end{array}\label{eq:naivetaylorserieserelations}
 \end{equation}
 Because $n^x$ is an exponential, $n^0$ must equal one. Therefore, $x = 0$
 \begin{align*}
-	1   & = a_0 + a_1(0)^1 + a_2(0)^2 + a_3(0)^3 + \dots \\
-	a_0 & = 1;
+  1   & = a_0 + a_1(0)^1 + a_2(0)^2 + a_3(0)^3 + \dots \\
+  a_0 & = 1;
 \end{align*}
 thus, by \cref{eq:naivetaylorserieserelations}, $a_1$ must also equal $1$. Substituting $a_1 = 1$ into \cref{eq:naivetaylorserieserelations} gives
 \begin{equation}
-	a_2 = \frac{1}{2},~a_3 = \frac{1}{2 \times 3},~a_4 = \frac{1}{2 \times 3 \times 4}, \dots;
+  a_2 = \frac{1}{2},~a_3 = \frac{1}{2 \times 3},~a_4 = \frac{1}{2 \times 3 \times 4}, \dots;
 \end{equation}
 therefore,
 \begin{equation*}
-	n^x = 1 + 1 + \frac{1}{2!}x + \frac{1}{3!}x^3 + \frac{1}{4!}x^4 + \dots
+  n^x = 1 + 1 + \frac{1}{2!}x + \frac{1}{3!}x^3 + \frac{1}{4!}x^4 + \dots
 \end{equation*}
-Clearly, $a_n = n!$. If we want to find $n$, just let $x = 1$.
+Clearly, $a_m = \frac{1}{m!}$. If we want to find $n$, just let $x = 1$.
 \begin{equation*}
-	n = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \dots = \sum_{i = 0}^{\infty}\frac{1}{i!}
+  n = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \dots = \sum_{i = 0}^{\infty}\frac{1}{i!}
 \end{equation*}
 and there it is: the expression for $n$, which evaluates to $2.71828\dots$.\footnote{Using the continuation that $0! = 1$.}
 
-The property that the exponentiation of this number is its own derivative makes it a very important tool in mathematics. Even though it's intrinsically related to growths, it somehow manages to seek its way to places that are not even remotely related to growths: oscillations, the patterns of prime numbers, wave equations, etc. Don't worry, we shall be seeing it much later on. Because this usefulness, this constant, $2.71828\dots$ have a name: the \textbf{Euler's number}, which is written as $\e$, where\footnote{Not to be confused with the ``Euler's constant'' which is another constant written $\gamma$, and is around $0.57721\dots$}
+The property that the exponentiation of this number is its own derivative makes it a very important tool in mathematics. Even though it's intrinsically related to growths, it somehow manages to seek its way to places that are not even remotely related to growths: oscillations, the patterns of prime numbers, wave equations, etc. So don't be surprised if you'd see it on unrelated topics later on. Because of this wide ranging applications, this constant: $2.71828\dots$, have a name. It's the \textbf{Euler's number}, denoted $\e$, and\footnote{Not to be confused with the ``Euler's constant'' which is another constant written $\gamma$, and is around $0.57721\dots$}
 \begin{equation}
-	\e = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \dots = \sum_{i = 0}^{\infty}\frac{1}{i!}
+  \e = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + \dots = \sum_{i = 0}^{\infty}\frac{1}{i!}
 \end{equation}
 
 \subsection{Another interpretation of the Euler's number: continuous bank interests}
 
 There are two types of bank interests: simple and compound. Simple interests is the thing that you don't really want: the interest is always the same and doesn't grow with your account. You can calculate it by using
 \begin{equation}
-	n(t) = n_0 + tr
+  n(t) = n_0 + tr
 \end{equation}
 where $n(t)$ is the total money at time $t$, $n_0$ the initial money in your bank account, and $r$, the interest rate.
 
 Compound interest in the other hand calculates your interest based on how much money you have at that moment:
 \begin{equation}
-	n(t + 1) = n(t)r + n(t).
+  n(t + 1) = n(t)r + n(t).
 \end{equation}
 We can find the expression for $n(t)$ in a similar fashion to what we've done in \cref{eq:exponentialsrecurrencerelations}. You'll get
 \begin{equation}
-	n(t) = (1 + r)^tn_0 \label{eq:compoundinterestformula}
+  n(t) = (1 + r)^tn_0 \label{eq:compoundinterestformula}
 \end{equation}
 which is an exponential function.
 
@@ -378,68 +397,71 @@ Let's say you deposit $100\$$ into a bank and the bank is offering you two optio
 
 If we write it in terms of limits as $n \appr \infty$ and use \cref{eq:compoundinterestformula}, the compound interests formula,
 \begin{equation*}
-	x = \lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^nn_0.
+  x = \lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^nn_0.
 \end{equation*}
 Where $x$ is the total money after a year. We're interested in the upper limit, so we'll just let $n_0$ for now. The expression will become
 \begin{equation}
-	x = \lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n \label{eq:infinitecompoundinterest}
+  x = \lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n \label{eq:infinitecompoundinterest}
 \end{equation}
 Technically, we could go in and substitute a very high $n$, such as $1000000$. But I believe you could already see that it would be a nightmare to calculate: exponentiation is not at all an easy task. However, notice that from option three earlier, the total money is $271.447\dots\$$ which is suspiciously similar to $\e$ at $2.71828\dots$. If \cref{eq:infinitecompoundinterest} equals \cref{eq:naivetaylorserieserelations}, we'd find the upper limit for this problem and solve the mystery.
 
 We can use the binomial theorem on \cref{eq:infinitecompoundinterest} and get
 \begin{align*}
-	 & \lim_{n \appr \infty}\sum_{k = 0}^{n}{n \choose k}1^{n - k}\frac{1}{n^k}                                                                           \\
-	 & = \lim_{n \appr \infty}{n \choose 0}\frac{1}{n^0} + {n \choose 1}\frac{1}{n^1} + {n \choose 2}\frac{1}{n^2} + {n \choose 3}\frac{1}{n^3} + \dots.
+   & \lim_{n \appr \infty}\sum_{k = 0}^{n}{n \choose k}1^{n - k}\frac{1}{n^k}                                                                                 \\
+   & = \lim_{n \appr \infty}{n \choose 0} \ab[\frac{1}{n^0} + {n \choose 1}\frac{1}{n^1} + {n \choose 2}\frac{1}{n^2} + {n \choose 3}\frac{1}{n^3} + \dots].
 \end{align*}
-Then, we use the definition of $n$ choose $k$,
+Substituting the definition of $n$ choose $k$,
 \begin{align*}
-	 & = 1 + \lim_{n \appr \infty}\frac{n!}{1!(n - 1)!}\frac{1}{n^1} + \frac{n!}{2!(n - 2)!}\frac{1}{n^2} + \frac{n!}{3!(n - 3)!}\frac{1}{n^3} + \dots.
+   & = 1 + \lim_{n \appr \infty} \ab[ \frac{n!}{1!(n - 1)!}\frac{1}{n^1} + \frac{n!}{2!(n - 2)!}\frac{1}{n^2} + \frac{n!}{3!(n - 3)!}\frac{1}{n^3} + \dots ].
 \end{align*}
 Now, we can cancel the $n!$ on the numerator to the denominator and isolate the factorials.
 \begin{align*}
-	 & = 1 + \lim_{n \appr \infty}\frac{n(n - 1)!}{(n - 1)!}\frac{1}{1!n^1} + \frac{n(n - 1)(n - 2)!}{(n - 2)!}\frac{1}{2!n^2} + \dots                   \\
-	 & = 1 + \frac{1}{1!} + \lim_{n \appr \infty} \frac{n(n - 1)}{2!n^2} + \frac{n(n - 1)(n - 2)}{3!n^3} + \frac{n(n - 1)(n - 2)(n - 3)}{4!n^4} + \dots
+   & = 1 + \lim_{n \appr \infty}\ab[\frac{n(n - 1)!}{(n - 1)!}\frac{1}{1!n^1} + \frac{n(n - 1)(n - 2)!}{(n - 2)!}\frac{1}{2!n^2} + \dots] \\
+   & = \begin{multlined}[t]
+         1 + \frac{1}{1!} + \lim_{n \appr \infty} \left[ \frac{n(n - 1)}{2!n^2} \right. \\
+           \left. + \frac{n(n - 1)(n - 2)}{3!n^3} + \frac{n(n - 1)(n - 2)(n - 3)}{4!n^4} + \dots \right]
+       \end{multlined}
 \end{align*}
 Notice, as $n \appr \infty$, the ratio between $n + R$ and $n$ where $R$ is any real numbers would be literally negligible. For every terms in our series, both the numerator and the denominator has the same polynomic degrees. Therefore, all the $n$'s in the series cancel out and we get
 \begin{equation}
-	x = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \dots
+  x = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \dots.
 \end{equation}
-which is literally \cref{eq:naivetaylorserieserelations}; thus,
+This infinite sum is literally the Euler number (\cref{eq:naivetaylorserieserelations}); thus, 
 \begin{equation}
-	\e = \lim_{n \appr \infty}\ab(1 + \frac{1}{n})^n. \label{eq:e-def-infinite-interests}
+  \e = \lim_{n \appr \infty}\ab(1 + \frac{1}{n})^n. \label{eq:e-def-infinite-interests}
 \end{equation}
 
 In conclusion, the upper limit that the bank can give you is $\e$, which should make sense geometrically. Because we're gradually turning a discrete interest into a continuous one, $\e$ should appear in the limit of the continuous bank interests.
 
 The limit definition of $\e$ allows us to express the exponential function $\e^x$ in terms of limits.
 \begin{align}
-	\e^x & = \ab(\lim_{n \appr \infty}\ab(1 + \frac{1}{n})^n) \\
-	     & = \lim_{n \appr \infty}\ab(1 + \frac{1}{n})^{nx}
+  \e^x & = \ab(\lim_{n \appr \infty}\ab(1 + \frac{1}{n})^n)^x \\
+       & = \lim_{n \appr \infty}\ab(1 + \frac{1}{n})^{nx}
 \end{align}
 If $n = \flatfrac{u}{x}$, then
 \begin{align}
-	\e^x & = \lim_{\frac{u}{x} \appr \infty}\ab(1 + \frac{u}{h})^{h}
+  \e^x & = \lim_{\frac{u}{x} \appr \infty}\ab(1 + \frac{x}{u})^{u}
 \end{align}
 For $\frac{u}{x} \appr \infty$ to be true for all finite $x$, $u$ must approach $\infty$; therefore,
 \begin{align}
-	\e^x & = \lim_{u \appr \infty}\ab(1 + \frac{u}{h})^h
+  \e^x & = \lim_{u \appr \infty}\ab(1 + \frac{x}{u})^u
 \end{align}
 
 \subsection{The antiderivative of exponential functions}
 
 It should be trivial that if $\e^x$ is the derivative of itself, so is its antiderivative
 \begin{equation}
-	\int \e^x \odif{x} = \e^x + C.
+  \int \e^x \odif{x} = \e^x + C.
 \end{equation}
 For other bases, we could use the fundamental theorem of calculus (\cref{th:fundamentalthmofcalc1}) to find its antiderivative. I.e., if
 \begin{equation*}
-	\odv{(n^x)}{x} = n^x\lim_{h \appr 0}\frac{n^h - 1}{h},
+  \odv{(n^x)}{x} = n^x\lim_{h \appr 0}\frac{n^h - 1}{h},
 \end{equation*}
 then
 \begin{align*}
-	\odv*{(n^x)}{x}  & = n^x\lim_{h \appr 0}\frac{n^h - 1}{h}                         \\
-	n^x              & = \lim_{h \appr 0}\frac{n^h - 1}{h}\int n^x\odif{x}            \\
-	\int n^x\odif{x} & = n^x\lim_{h \appr 0}\left(\frac{n^h - 1}{h}\right)^{-1} + C.
+  \odv*{(n^x)}{x}  & = n^x\lim_{h \appr 0}\frac{n^h - 1}{h}                         \\
+  n^x              & = \lim_{h \appr 0}\frac{n^h - 1}{h}\int n^x\odif{x}            \\
+  \int n^x\odif{x} & = n^x\lim_{h \appr 0}\left(\frac{n^h - 1}{h}\right)^{-1} + C.
 \end{align*}
 The term in the limit sign still appears here. If we want to uncover the origin of this term, we must discuss the logarithms.
 
@@ -448,40 +470,40 @@ The term in the limit sign still appears here. If we want to uncover the origin 
 
 Logarithms are inverses of exponential, like how roots are inverses of monomials. To illustrate what I mean,
 \begin{equation*}
-	\textrm{For monomials, } \sqrt[a]{x^a} = x, \textrm{ but with logarithms, } \log_{a}(a^x) = x.
+  \textrm{For monomials, } \sqrt[a]{x^a} = x, \textrm{ but with logarithms, } \log_{a}(a^x) = x.
 \end{equation*}
 They have the following properties:
 \begin{gather}
-	\log_a(x) + \log_a(y) = \log_a(xy), \\
-	\log_a(x) - \log_a(y) = \log_a\left(\frac{x}{y}\right), \\
-	\log_a(x) = \frac{\log_b(x)}{\log_b(a)}.
+  \log_a(x) + \log_a(y) = \log_a(xy), \\
+  \log_a(x) - \log_a(y) = \log_a\left(\frac{x}{y}\right), \\
+  \log_a(x) = \frac{\log_b(x)}{\log_b(a)}.
 \end{gather}
 Since $\e^x$ is shown to be a very important function in modelling continuous growth, and is its own derivative, we give its inverse function its own name: the \index{logarithms!natural logarithms}\textbf{natural logarithm}, written as $\ln(x)$.
 
 What's the derivative of $\ln(x)$? By the method of increments,
 \begin{align}
-	\odv*{\ln(x)}{x} & = \lim_{h \appr 0}\frac{\ln(x + h) - \ln(x)}{h}                \\
-	                 & = \lim_{h \appr 0}\frac{\ln(\frac{x + h}{x})}{h}               \\
-	                 & = \lim_{h \appr 0}\frac{\ln(1 + \frac{h}{x})}{h}               \\
-	                 & = \lim_{h \appr 0}\ln\ab(\ab(1 + \frac{h}{x})^{\frac{1}{h}}).
+  \odv*{\ln(x)}{x} & = \lim_{h \appr 0}\frac{\ln(x + h) - \ln(x)}{h}                \\
+                   & = \lim_{h \appr 0}\frac{\ln(\frac{x + h}{x})}{h}               \\
+                   & = \lim_{h \appr 0}\frac{\ln(1 + \frac{h}{x})}{h}               \\
+                   & = \lim_{h \appr 0}\ln\ab(\ab(1 + \frac{h}{x})^{\frac{1}{h}}).
 \end{align}
 This form is very similar to the limit definition of the exponential function $\e^x$, but with some terms swapped around. So let's try to fit this limit to the form of $\e^x$. I shall let $h = \frac{1}{n}$. If $h \appr 0$, then $n \appr \infty$. Therefore,
 \begin{align}
-	\odv*{\ln(x)}{x} & = \lim_{n \appr \infty}\ln\ab(\ab(1 + \frac{1}{nx})^{n})                                           \\
-	                 & = \lim_{n \appr \infty}\ln\ab(\ab(1 + \frac{\flatfrac{1}{x}}{n})^n). \label{eq:ln-diff-derivation}
+  \odv*{\ln(x)}{x} & = \lim_{n \appr \infty}\ln\ab(\ab(1 + \frac{1}{nx})^{n})                                           \\
+                   & = \lim_{n \appr \infty}\ln\ab(\ab(1 + \frac{\flatfrac{1}{x}}{n})^n). \label{eq:ln-diff-derivation}
 \end{align}
 Recall that
 \begin{equation}
-	\e^x = \lim_{n \appr \infty}\ab(1 + \frac{x}{n})^n.
+  \e^x = \lim_{n \appr \infty}\ab(1 + \frac{x}{n})^n.
 \end{equation}
 Thus,
 \begin{equation}
-	\lim_{n \appr \infty}\ab(1 + \frac{\flatfrac{1}{x}}{n})^n = \e^{\frac{1}{x}}.
+  \lim_{n \appr \infty}\ab(1 + \frac{\flatfrac{1}{x}}{n})^n = \e^{\frac{1}{x}}.
 \end{equation}
 which fits the form of \cref{eq:ln-diff-derivation}. Therefore,
 \begin{align}
-	\odv*{\ln(x)}{x} & = \lim_{n \appr \infty}\ln(\e^{\frac{1}{x}})       \\
-	                 & = \lim_{n \appr \infty}\frac{1}{x} = \frac{1}{x}:
+  \odv*{\ln(x)}{x} & = \lim_{n \appr \infty}\ln(\e^{\frac{1}{x}})       \\
+                   & = \lim_{n \appr \infty}\frac{1}{x} = \frac{1}{x}:
 \end{align}
 the derivative of the natural logarithm of $x$ is the reciprocal of $x$.
 
@@ -493,43 +515,43 @@ Functions in the form $f(x) = y$ are called \textbf{explicit functions}: the rel
 
 If I let $\ln(x) = y$, I can raise both sides to the power of $\e$ and get
 \begin{equation}
-	\e^{\ln(x)} = \e^y.
+  \e^{\ln(x)} = \e^y.
 \end{equation}
 Because logarithms are inverses of exponential,
 \begin{equation}
-	x = \e^y.
+  x = \e^y.
 \end{equation}
 By the rule of equality, (\cref{sec:trivial_rules}), we can take the derivative of both sides w.r.t. $y$ instead of $x$:
 \begin{align*}
-	\odv{x}{y} & = \odv{\e^y}{y} \\
-	\odv{x}{y} & = \e^y.
+  \odv{x}{y} & = \odv{\e^y}{y} \\
+  \odv{x}{y} & = \e^y.
 \end{align*}
 But we're looking for the derivative of $y$ (which is just $\ln(x)$) w.r.t. $x$, not the derivative of $x$ w.r.t. $y$. Here's where Leibniz's notation comes into clutch: we can swap the numerator with the denominator for both sides then, substitute back $y = \ln(x)$:
 \begin{align*}
-	\odv{\ln(x)}{x}            & = \frac{1}{\e^{\ln(x)}} \\
-	\therefore~\odv{\ln(x)}{x} & = \frac{1}{x},
+  \odv{\ln(x)}{x}            & = \frac{1}{\e^{\ln(x)}} \\
+  \therefore~\odv{\ln(x)}{x} & = \frac{1}{x},
 \end{align*}
 and there: the derivative of the natural logarithm is the reciprocal.
 
 With the power of natural logarithms, we can actually go back at the derivative of $n^x$ and finally uncover the mystery behind the proportionality term that's lingering around. Start with the manipulation of $n^x$.
 \begin{equation}
-	n^x = \left(\e^{\ln(n)}\right)^x = \e^{x\ln(x)}.
+  n^x = \left(\e^{\ln(n)}\right)^x = \e^{x\ln(x)}.
 \end{equation}
 With the chain rule (\cref{sec:trivial_rules}), let $u = x\ln(n)$:
 \begin{align*}
-	\odv*{(n^x)}{x} & = \odv{\e^{x\ln(n)}}{x}                \\
-	                & = \odv{\e^u}{x} \times \odv{u}{u}      \\
-	                & = \odv{\e^u}{u} \times \odv{u}{x}      \\
-	                & = \e^{x\ln(n)} \times \odv{x\ln(n)}{x} \\
-	                & = n^x\ln(n).
+  \odv*{(n^x)}{x} & = \odv{\e^{x\ln(n)}}{x}                \\
+                  & = \odv{\e^u}{x} \times \odv{u}{u}      \\
+                  & = \odv{\e^u}{u} \times \odv{u}{x}      \\
+                  & = \e^{x\ln(n)} \times \odv{x\ln(n)}{x} \\
+                  & = n^x\ln(n).
 \end{align*}
 And here it is: the mystery proportionality constant. It's just a consequence of the natural logarithm. Thus, one way to define the natural log would be
 \begin{equation}
-	\ln(n) = \lim_{h \appr 0}\frac{n^h - 1}{h}.
+  \ln(n) = \lim_{h \appr 0}\frac{n^h - 1}{h}.
 \end{equation}
 The antiderivative of other bases exponents are then given by
 \begin{equation}
-	\int n^x = \frac{1}{\ln(n)}n^x + C.
+  \int n^x = \frac{1}{\ln(n)}n^x + C.
 \end{equation}
 
 \subsection{The product rule and the quotient rule}
@@ -538,42 +560,42 @@ The antiderivative of other bases exponents are then given by
 Sometimes, we have to multiply the two functions together before taking the derivatives. There are two ways to do this. To keep the spirit of visualization, I shall first introduce the geometrical way, then the analytical way.
 
 \begin{figure}[h]
-	\centering
-	\includegraphics{basicderivativesandintegrals/derivativesproductrule}
-	\caption{The geometrical interpretation of the product rule.}
-	\label{fig:derivativesproductrule}
+  \centering
+  \includegraphics{basicderivativesandintegrals/derivativesproductrule}
+  \caption{The geometrical interpretation of the product rule.}
+  \label{fig:derivativesproductrule}
 \end{figure}
-The derivative of $f(x)g(x)$ w.r.t. $x$ can be thought of a rectangle with side length that's governed by $f(x)$ and $g(x)$. As shown in \cref{fig:derivativesproductrule}, the area increase on side $f(x)$ is $g(x)\Dd{f}$ and on $g(x)$, $f(x)\Dd{g}$. The $\Dd{f}\Dd{g}$ part is basically negligible. Therefore,
+The derivative of $f(x)g(x)$ w.r.t. $x$ can be thought of a rectangle with side length that's governed by $f(x)$ and $g(x)$. As shown in \cref{fig:derivativesproductrule}, the area increase on side $f(x)$ is $g(x)\adif{f}$ and on $g(x)$, $f(x)\adif{g}$. The $\adif{f}\adif{g}$ part is basically negligible. Therefore,
 \begin{align*}
-	\odv*{\ab(f(x)g(x))}{x} & = \lim_{h \appr 0}\frac{g(x)\Dd{f} + f(x)\Dd{g}}{h}                                             \\
-	                        & = \lim_{h \appr 0}\frac{f(x)(g(x + h) - g(x)) + g(x)(f(x + h) - f(x))}{h}                       \\
-	                        & = f(x)\lim_{h \appr 0}\frac{g(x + h) - g(x)}{h} + g(x)\lim_{h \appr 0}\frac{f(x + h) - f(x)}{h} \\
-	                        & = f(x)\odv{g(x)}{x} + g(x)\odv{f(x)}{x}.
+  \odv*{\ab(f(x)g(x))}{x} & = \lim_{h \appr 0}\frac{g(x)\adif{f} + f(x)\adif{g}}{h}                                             \\
+                          & = \lim_{h \appr 0}\frac{f(x)\ab(g(x + h) - g(x)) + g(x)\ab(f(x + h) - f(x))}{h}                 \\
+                          & = f(x)\lim_{h \appr 0}\frac{g(x + h) - g(x)}{h} + g(x)\lim_{h \appr 0}\frac{f(x + h) - f(x)}{h} \\
+                          & = f(x)\odv{g(x)}{x} + g(x)\odv{f(x)}{x}.
 \end{align*}
 Which is what we call the product rule. Notice the alternation between $f$ and $g$ in the two terms. The derivative of $f(x)$ is multiplied by $g(x)$, and the derivative of $g(x)$ is multiplied by $f(x)$. This is a direct consequence of the diagram: the change in $f(x)$ is multiplied by $g(x)$ to give the area and also the other way around. You could check this with the method of increments, and it would still be true. I encourage you to do it.
 
 \index{derivatives!quotient rule}To take derivatives of quotients of functions, just plug in $\flatfrac{1}{g(x)}$ instead of $g(x)$. The final form should be
 \begin{equation}
-	\odv*{\ab(\frac{f(x)}{g(x)})}{x} = \frac{\displaystyle f(x)\odv{g(x)}{x} - g(x)\odv{f(x)}{x}}{f(x)^2}.
+  \odv*{\ab(\frac{f(x)}{g(x)})}{x} = \frac{\displaystyle f(x)\odv{g(x)}{x} - g(x)\odv{f(x)}{x}}{f(x)^2}.
 \end{equation}
 But how's about the product of multiple functions? We can't really geometrically interpret those anymore. So we have to turn ourselves to the analytical method.
 
-Let's think of this through. We don't know the derivative of products, but we know the derivative of \emph{sums}: the linearity property. So if we can turn products into sum, this problem would be so easy! Gladly, the logarithms can do exactly that. To make our life easier, we shall use the natural logarithm. Because I want to save space, let's write $a(x)b(x)c(x)$ as just $abc$. Do know that these functions are all dependent on $x$. Start off with a manipulation of products.
+Let's think of this through. We don't know the derivative of products, but we know the derivative of \emph{sums}: the linearity of the derivative allows us to break derivatives of sums into sums of derivatives. So if we can turn products into sum, this problem would be so easy! Gladly, the logarithms can do exactly that. To make our life easier, we shall use the natural logarithm. Because I want to save space, let's write $a(x)b(x)c(x)\dots$ as just $abc\dots$. Do know that these are all functions of $x$.
 \begin{align*}
-	\odv{(abc\dots)}{x} & = \odv*{\ab(\e^{\ln(abc\dots)})}{x}                      \\
-	                    & = \odv*{\ab(\e^{\ln(a) + \ln(b) + \ln(c) + \dots})}{x}.
+  \odv{(abc\dots)}{x} & = \odv*{\ab(\e^{\ln(abc\dots)})}{x}                      \\
+                      & = \odv*{\ab(\e^{\ln(a) + \ln(b) + \ln(c) + \dots})}{x}.
 \end{align*}
 Now, let $\ln(a) + \ln(b) + \ln(c) + \dots = u$ and use the chain rule,
 \begin{align*}
-	 & = \odv*{(\e^u)}{x} \cdot \odv{u}{u}                                               \\
-	 & = \odv*{(\e^u)}{x} \cdot \odv*{\ab(\ln(a) + \ln(b) + \ln(c) + \dots)}{x}          \\
-	 & = \e^u \left(\odv{\ln(a)}{x} + \odv{\ln(b)}{x} + \odv{\ln(c)}{x} + \dots\right).
+   & = \odv*{(\e^u)}{x} \cdot \odv{u}{u}                                               \\
+   & = \odv*{(\e^u)}{x} \cdot \odv*{\ab(\ln(a) + \ln(b) + \ln(c) + \dots)}{x}          \\
+   & = \e^u \left(\odv{\ln(a)}{x} + \odv{\ln(b)}{x} + \odv{\ln(c)}{x} + \dots\right).
 \end{align*}
 Then use the chain rule again on the terms in the parenthesis
 \begin{align*}
-	 & = \e^u \left(\odv{\ln(a)}{x}\odv{a}{a} + \odv{\ln(b)}{x}\odv{b}{b} + \odv{\ln(c)}{x}\odv{c}{c} + \dots\right)      \\
-	 & = (abc\dots)\left(\odv{\ln(a)}{a}\odv{a}{x} + \odv{\ln(b)}{b}\odv{b}{x} + \odv{\ln(c)}{c}\odv{c}{x} + \dots\right) \\
-	 & = (abc\dots)\left(\frac{1}{a}\odv{a}{x} + \frac{1}{b}\odv{b}{x} + \frac{1}{c}\odv{c}{x} + \dots\right).
+   & = \e^u \left(\odv{\ln(a)}{x}\odv{a}{a} + \odv{\ln(b)}{x}\odv{b}{b} + \odv{\ln(c)}{x}\odv{c}{c} + \dots\right)      \\
+   & = (abc\dots)\left(\odv{\ln(a)}{a}\odv{a}{x} + \odv{\ln(b)}{b}\odv{b}{x} + \odv{\ln(c)}{c}\odv{c}{x} + \dots\right) \\
+   & = (abc\dots)\left(\frac{1}{a}\odv{a}{x} + \frac{1}{b}\odv{b}{x} + \frac{1}{c}\odv{c}{x} + \dots\right).
 \end{align*}
 And there we have it: the generalized product rule.
 
@@ -581,14 +603,14 @@ And there we have it: the generalized product rule.
 
 The power rule can also be derived using the same technique we just used. However, we use a different property of logarithm: $\ln(x^n) = n\ln(x)$.
 \begin{equation*}
-	\odv*{x^n}{x} = \odv*{\e^{n\ln(x)}}{x}.
+  \odv*{x^n}{x} = \odv*{\e^{n\ln(x)}}{x}.
 \end{equation*}
 Let $u = n\ln(x)$ then use the chain rule
 \begin{align*}
-	 & = \odv{\e^u}{x} \cdot \odv{u}{u}        \\
-	 & = \odv{\e^u}{u} \cdot \odv{u}{x}        \\
-	 & = \e^u \cdot \odv*{\ab(n\ln(x))}{x}     \\
-	 & = x^n \cdot n\frac{1}{x} = nx^{n - 1}.
+   & = \odv{\e^u}{x} \cdot \odv{u}{u}        \\
+   & = \odv{\e^u}{u} \cdot \odv{u}{x}        \\
+   & = \e^u \cdot \odv*{\ab(n\ln(x))}{x}     \\
+   & = x^n \cdot n\frac{1}{x} = nx^{n - 1}.
 \end{align*}
 
 \section{Implicit differentiation}
@@ -596,29 +618,29 @@ Let $u = n\ln(x)$ then use the chain rule
 Implicit differentiation also shows up in problems where two rate of changes are related to each other: the \textbf{related rates} problem. Consider a sliding ladder that's $5\unit{\meter}$ long (\cref{fig:slidingladder}). At a certain time $t$, what's the sliding rate along the $x$-axis w.r.t. the $y$-axis?\index{related rates}
 
 \begin{figure}
-	\centering
-	\includegraphics{basicderivativesandintegrals/slidingladder}
-	\caption{A ladder length $5\unit{\meter}$ sliding down a corner.}
-	\label{fig:slidingladder}
+  \centering
+  \includegraphics{basicderivativesandintegrals/slidingladder}
+  \caption{A ladder length $5\unit{\meter}$ sliding down a corner.}
+  \label{fig:slidingladder}
 \end{figure}
 
 The problem is asking for $\odv{x}{y}$. Here, the rate of sliding along the $y$-axis $\odv{y}{t}$ and along the $x$-axis $\odv{x}{t}$ is related because the ladder length is fixed. If $y$ decreases, $x$ must increase. The Pythagorean theorem says
 \begin{equation}
-	x^2 + y^2 = 5^2.
+  x^2 + y^2 = 5^2.
 \end{equation}
 We can take the derivative w.r.t. $t$ on both side then use the chain rule
 \begin{align*}
-	\odv{x^2}{t} + \odv{y^2}{t}                     & = \odv{(5^2)}{t} \\
-	\odv{x^2}{x}\odv{x}{t} + \odv{y^2}{y}\odv{y}{t} & = 0              \\
-	2x\odv{x}{t} + 2y\odv{y}{t}                     & = 0.
+  \odv{x^2}{t} + \odv{y^2}{t}                     & = \odv{(5^2)}{t} \\
+  \odv{x^2}{x}\odv{x}{t} + \odv{y^2}{y}\odv{y}{t} & = 0              \\
+  2x\odv{x}{t} + 2y\odv{y}{t}                     & = 0.
 \end{align*}
 We can take advantage of the Leibniz's notation and multiply by $\odif{t}$ on both sides giving
 \begin{equation*}
-	2x\odif{x} + 2y\odif{y} = 0.
+  2x\odif{x} + 2y\odif{y} = 0.
 \end{equation*}
 To find $\odv{x}{y}$, we just have to isolate the variables,
 \begin{align*}
-	\odv{x}{y} = -\frac{y}{x}.
+  \odv{x}{y} = -\frac{y}{x}.
 \end{align*}
 And this should actually make sense. Because if $y$ is increasing by a bit, $x$ must decrease by some amount, and that amount is $-\flatfrac{y}{x}$: the higher the $y$, the larger the rates of sliding.
 
@@ -641,27 +663,27 @@ And this should actually make sense. Because if $y$ is increasing by a bit, $x$ 
 % \end{wrapfigure}
 By the fundamental theorem of calculus (\cref{th:fundamentalthmofcalc1}), the antiderivative of $\frac{1}{x}$ is $\ln(x)$. You might believe this, and it's not wrong. But I find it very disturbing and unresolved. It's like taking the result and pointing it back to the origin. It doesn't really make sense. So from this dissatisfaction, I spent a night coming up with a way to derive this using just the reversed power rule. Enjoy the transformation!
 \begin{align}
-	\int \frac{1}{x}\odif{x} & = \int\lim_{h \appr 0}\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right)\odif{x} \nonumber                                                                                                \\
-	                         & = \lim_{h \appr 0}\int\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right)\odif{x} \nonumber                                                                                                \\
-	                         & = \lim_{h \appr 0}\int\left(\frac{1}{2}\frac{x^{-1 + h + 1}}{(-1 + h + 1)} + \frac{1}{2}\frac{x^{-1 - h + 1}}{(-1 - h + 1)}\right)\odif{x} \nonumber                                              \\
-	                         & = \lim_{h \appr 0}\left(\frac{1}{2}\frac{x^h}{h} - \frac{1}{2}\frac{x^{-h}}{-h}\right) = \lim_{h \appr 0}\left(\frac{1}{2}\frac{x^h}{h}\frac{x^h}{h} - \frac{1}{2}\frac{1}{hx^h}\right) \nonumber \\
-	                         & = \lim_{h \appr 0}\left(\frac{x^{2h} - 1}{2hx^h}\right) = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)} - 1}{2h\ln(x)}\cdot\frac{\ln(x)}{x^h}\right) \nonumber                                        \\
-	                         & = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \lim_{h \appr 0}\left(\frac{\ln(x)}{x^h}\right) \nonumber                                                                     \\
-	                         & = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \ln(x). \label{eq:logarithmsprove1}
+  \int \frac{1}{x}\odif{x} & = \int\lim_{h \appr 0}\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right)\odif{x} \nonumber                                                                                                \\
+                           & = \lim_{h \appr 0}\int\left(\frac{1}{2}x^{-1 + h} + \frac{1}{2}x^{-1 - h}\right)\odif{x} \nonumber                                                                                                \\
+                           & = \lim_{h \appr 0}\int\left(\frac{1}{2}\frac{x^{-1 + h + 1}}{(-1 + h + 1)} + \frac{1}{2}\frac{x^{-1 - h + 1}}{(-1 - h + 1)}\right)\odif{x} \nonumber                                              \\
+                           & = \lim_{h \appr 0}\left(\frac{1}{2}\frac{x^h}{h} - \frac{1}{2}\frac{x^{-h}}{-h}\right) = \lim_{h \appr 0}\left(\frac{1}{2}\frac{x^h}{h}\frac{x^h}{h} - \frac{1}{2}\frac{1}{hx^h}\right) \nonumber \\
+                           & = \lim_{h \appr 0}\left(\frac{x^{2h} - 1}{2hx^h}\right) = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)} - 1}{2h\ln(x)}\cdot\frac{\ln(x)}{x^h}\right) \nonumber                                        \\
+                           & = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \lim_{h \appr 0}\left(\frac{\ln(x)}{x^h}\right) \nonumber                                                                     \\
+                           & = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \ln(x). \label{eq:logarithmsprove1}
 \end{align}
 Then, we evaluate the limit at the front by letting $u = 2h\ln(x)$. When $h \appr 0$, $u \appr 0$ as well. Then, use the definition of $\e$ from \cref{eq:infinitecompoundinterest}.
 \begin{align*}
-	\lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) & = \lim_{u \appr 0}\left(\frac{\e^u - 1}{u}\right)                                                             \\
-	                                                            & = \lim_{u \appr 0}\left(\frac{\left(\lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n\right)^u}{u}\right).
+  \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) & = \lim_{u \appr 0}\left(\frac{\e^u - 1}{u}\right)                                                             \\
+                                                              & = \lim_{u \appr 0}\left(\frac{\left(\lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n\right)^u}{u}\right).
 \end{align*}
 Change the limits from $n \appr \infty$ into $n \appr 0$. Notice, $\lim_{n \appr 0}\left(1 + \frac{1}{n}\right)^n = \lim_{n \appr 0}\left(1 + n\right)^{\flatfrac{1}{n}}$. If $n \appr 0$ and $u \appr 0$, that means $n = u$. Substitute $n = u$ into the limit,
 \begin{align*}
-	 & = \lim_{u \appr 0}\left(\frac{\left(\lim_{u \appr 0}(1 + u)^{\flatfrac{1}{u}}\right)^u - 1}{u}\right) \\
-	 & = \lim_{u \appr 0}\left(\frac{1 + u - 1}{u}\right) = 1.
+   & = \lim_{u \appr 0}\left(\frac{\left(\lim_{u \appr 0}(1 + u)^{\flatfrac{1}{u}}\right)^u - 1}{u}\right) \\
+   & = \lim_{u \appr 0}\left(\frac{1 + u - 1}{u}\right) = 1.
 \end{align*}
 Then, substitute this limit back into \cref{eq:logarithmsprove1}, you'll see that
 \begin{equation*}
-	\int\frac{1}{x}\odif{x} = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \ln(x) = \ln(x) + C,
+  \int\frac{1}{x}\odif{x} = \lim_{h \appr 0}\left(\frac{\e^{2h\ln(x)}}{2h\ln(x)}\right) \cdot \ln(x) = \ln(x) + C,
 \end{equation*}
 completing the proof.
 
@@ -677,192 +699,188 @@ Evaluating derivatives is completely different to evaluating antiderivatives. In
 
 \footnote{The rules mentioned here are repeated without numberings for ease of reading}Put simply, if there's a linear combination of functions, use the linearity of derivatives to break it down into multiple smaller derivatives
 \begin{equation*}
-	\odv*{\ab(af(x) + bg(x))}{x} = a\odv{f(x)}{x} + b\odv{g(x)}{x},
+  \odv*{\ab(af(x) + bg(x))}{x} = a\odv{f(x)}{x} + b\odv{g(x)}{x},
 \end{equation*}
 if there's product, then use the product rule
 \begin{equation*}
-	\odv{\ab(f_1(x)f_2(x)\dots f_n(x))}{x} = f_1f_2\dots f_n\ab(\frac{1}{f_1}\odv{f_1}{x} + \frac{1}{f_2}\odv{f_2}{x} + \dots + \frac{1}{f_n}\odv{f_n}{x}),
+  \odv{\ab(f_1(x)f_2(x)\dots f_n(x))}{x} = f_1f_2\dots f_n\ab(\frac{1}{f_1}\odv{f_1}{x} + \frac{1}{f_2}\odv{f_2}{x} + \dots + \frac{1}{f_n}\odv{f_n}{x}),
 \end{equation*}
 and if there are composite functions $f(g(x))$, and you know the derivative of both $f(x)$ and $g(x)$, just set $u = g(x)$ and use the chain rule.
 \begin{equation*}
-	\odv{f(g(x))}{x} = \odv{f(u)}{x} = \odv{f(u)}{u} \times \odv{u}{x} = \odv{f(u)}{u} \times \odv{g(x)}{x}
+  \odv{f(g(x))}{x} = \odv{f(u)}{x} = \odv{f(u)}{u} \times \odv{u}{x} = \odv{f(u)}{u} \times \odv{g(x)}{x}
 \end{equation*}
 And, implicit derivatives can also help you simplify a whole class of problems if you're stuck. Knowing these, you're more than ready now. Let's get on with solving.
 
-\subsubsection{Explicit differentiation}
-
-Let's start with some simple composite functions
+\paragraph{Explicit differentiation} Let's start with some simple composite functions
 \begin{exmp}{$\odv*{\e^{2\sqrt{x}}}{x}$}{diff-technique-1}
-	This is a composite function $f(g(x))$ where $f(x) = \e^x$, and $g(x) = 2\sqrt{x}$. We know that the derivative of $\e^x$ is $\e^x$ (\cref{sec:exponentials-and-growth}). And by the linearity of derivatives and the power rule,
-	\begin{equation}
-		\odv{g(x)}{x} = \odv*{\ab(2\sqrt{x})}{x} = 2\odv{x^{\flatfrac{1}{2}}}{x} = 2\ab(\frac{1}{2}x^{-\flatfrac{1}{2}}) = x^{-\frac{1}{2}} = \frac{1}{\sqrt{x}}.
-	\end{equation}
-	So, setting $g(x) = 2\sqrt{x} = u$, we get
-	\begin{align}
-		\odv{\e^{2\sqrt{x}}}{x} & = \odv{\e^u}{x}                                                             \\
-		                        & = \odv{\e^u}{u}\times\odv{u}{x}                                             \\
-		                        & = \e^u\times\odv*{(2\sqrt{x})}{x}                                           \\
-		                        & = \e^{2\sqrt{x}}\ab(\frac{1}{\sqrt{x}}) = \frac{\e^{2\sqrt{x}}}{\sqrt{x}}.
-	\end{align}
+  This is a composite function $f(g(x))$ where $f(x) = \e^x$, and $g(x) = 2\sqrt{x}$. We know that the derivative of $\e^x$ is $\e^x$ (\cref{sec:exponentials-and-growth}). And by the linearity of derivatives and the power rule,
+  \begin{equation}
+    \odv{g(x)}{x} = \odv*{\ab(2\sqrt{x})}{x} = 2\odv{x^{\flatfrac{1}{2}}}{x} = 2\ab(\frac{1}{2}x^{-\flatfrac{1}{2}}) = x^{-\frac{1}{2}} = \frac{1}{\sqrt{x}}.
+  \end{equation}
+  So, setting $g(x) = 2\sqrt{x} = u$, we get
+  \begin{align}
+    \odv{\e^{2\sqrt{x}}}{x} & = \odv{\e^u}{x}                                                             \\
+                            & = \odv{\e^u}{u}\times\odv{u}{x}                                             \\
+                            & = \e^u\times\odv*{(2\sqrt{x})}{x}                                           \\
+                            & = \e^{2\sqrt{x}}\ab(\frac{1}{\sqrt{x}}) = \frac{\e^{2\sqrt{x}}}{\sqrt{x}}.
+  \end{align}
 \end{exmp}
 Now let's throw in a bit of products.
 \begin{exmp}{$\odv*{\ab(x^3\ln(x^3))}{x}$}{diff-technique-2}
-	By the product rule,
-	\begin{equation}
-		\odv*{\ab(x^3\ln(x^3))}{x} = (x^3)\ab(\odv{\ln(x^3)}{x}) + \ln(x^3)\ab(\odv{x^3}{x})
-	\end{equation}
-	The power rule says that $\odv*{x^3}{x} = 3x^2$. We then evaluate $\odv{\ln(x^3)}{x}$ by using the chain rule. Let $x^3 = u$, then
-	\begin{align}
-		\odv{\ln(x^3)}{x} & = \odv{\ln(u)}{x}                                                     \\
-		                  & = \odv{\ln(u)}{u} \times \odv{u}{x},                                  \\
-		\intertext{discussed in \cref{sec:logarithms}, $\odv{\ln(u)}{u} = \frac{1}{u}$,}
-		                  & = \frac{1}{u} \times \odv{x^3}{x}                                     \\
-		                  & = \frac{1}{u} \times 3x^2 = \frac{1}{x^3}\times 3x^2  = \frac{3}{x};
-	\end{align}
-	therefore,
-	\begin{align}
-		\odv*{\ab(x^3\ln(x^3))}{x} & = x^3\times\frac{3}{x} + \ln(x^3)\times 3x^2    \\
-		                           & = 3x^2 + 3x^2\ln(x^3) = 3x^2\ab(1 + \ln(x^3)).
-	\end{align}
+  By the product rule,
+  \begin{equation}
+    \odv*{\ab(x^3\ln(x^3))}{x} = (x^3)\ab(\odv{\ln(x^3)}{x}) + \ln(x^3)\ab(\odv{x^3}{x})
+  \end{equation}
+  The power rule says that $\odv*{x^3}{x} = 3x^2$. We then evaluate $\odv{\ln(x^3)}{x}$ by using the chain rule. Let $x^3 = u$, then
+  \begin{align}
+    \odv{\ln(x^3)}{x} & = \odv{\ln(u)}{x}                                                     \\
+                      & = \odv{\ln(u)}{u} \times \odv{u}{x},                                  \\
+    \intertext{discussed in \cref{sec:logarithms}, $\odv{\ln(u)}{u} = \frac{1}{u}$,}
+                      & = \frac{1}{u} \times \odv{x^3}{x}                                     \\
+                      & = \frac{1}{u} \times 3x^2 = \frac{1}{x^3}\times 3x^2  = \frac{3}{x};
+  \end{align}
+  therefore,
+  \begin{align}
+    \odv*{\ab(x^3\ln(x^3))}{x} & = x^3\times\frac{3}{x} + \ln(x^3)\times 3x^2    \\
+                               & = 3x^2 + 3x^2\ln(x^3) = 3x^2\ab(1 + \ln(x^3)).
+  \end{align}
 \end{exmp}
 
 How's about some purely polynomial derivatives?
 \begin{exmp}{$\odv*{\ab((x^2 + 1)^5(3x^3 + 4)^9)}{x}$}{diff-technique-3}
-	This derivative is quite tough to evaluate by expansion. A better way would be to use the product rule and the chain rule in combination. Firstly,
-	\begin{multline}
-		\odv*{\ab((x^2 + 1)^5(3x^3 + 4)^9)}{x} \\
-		= (x^2 + 1)^5\ab(\odv*{\ab(\ab(3x^3 + 4)^9)}{x}) + (3x^3 + 4)^9\ab(\odv*{\ab(\ab(x^2 + 1)^5)}{x}).
-	\end{multline}
-	The derivative of $(3x^3 + 4)^9$ can be evaluated using the chain rule by setting $u = 3x^3 + 4$
-	\begin{align}
-		\odv*{\ab(\ab(3x^3 + 4)^9)}{x} & = \odv{u^9}{x}                                    \\
-		                               & = \odv{u^9}{u} \times \odv{u}{x}                  \\
-		\intertext{By the power rule, $\odv{u^9}{u} = 9u^8$}
-		                               & = 9u^8 \times \odv*{(3x^3 + 4)}{x}                \\
-		\intertext{Using the power rule, $\odv*{(3x^3 + 4)}{x} = 9x^2$}
-		                               & = 9(3x^3 + 4)^8 \times 9x^2 = 81x^2(3x^3 + 4)^8.
-	\end{align}
-	Similarly, use the chain rule to evaluate $(x^2 + 1)^5$ and set $u = x^2 + 1$
-	\begin{align}
-		\odv*{\ab(\ab(x^2 + 1)^5)}{x} & = \odv{u^5}{x}                              \\
-		                              & = \odv{u^5}{u} \times \odv{u}{x}            \\
-		\intertext{By the power rule, $\odv{u^5}{u} = 5u^4$}
-		                              & = 5u^4 \times \odv{(x^2 + 1)}{x}            \\
-		\intertext{By the power rule, $\odv{(x^2 + 1)}{x} = 2x$}
-		                              & = 5(x^2 + 1)^4 \times 2x = 10x(x^2 + 1)^4.
-	\end{align}
-	Therefore,
-	\begin{align}
-		\odv*{\ab((x^2 + 1)^5(3x^3 + 4)^9)}{x} & =
-		\begin{multlined}[t]
-			(x^2 + 1)^5\times 81x^3(3x^3 + 4)^8 \\+ (3x^3 + 4)^9 \times 10x(x^2 + 1)^4
-		\end{multlined} \\
-		                                       & = 
-		\begin{multlined}[t]
-			81x^3(x^2 + 1)^5(3x^3 + 4)^8 \\+ 10x(x^2 + 1)^4(3x^3 + 4)^9.
-		\end{multlined}
-	\end{align}
+  This derivative is quite tough to evaluate by expansion. A better way would be to use the product rule and the chain rule in combination. Firstly,
+  \begin{multline}
+    \odv*{\ab((x^2 + 1)^5(3x^3 + 4)^9)}{x} \\
+    = (x^2 + 1)^5\ab(\odv*{\ab(\ab(3x^3 + 4)^9)}{x}) + (3x^3 + 4)^9\ab(\odv*{\ab(\ab(x^2 + 1)^5)}{x}).
+  \end{multline}
+  The derivative of $(3x^3 + 4)^9$ can be evaluated using the chain rule by setting $u = 3x^3 + 4$
+  \begin{align}
+    \odv*{\ab(\ab(3x^3 + 4)^9)}{x} & = \odv{u^9}{x}                                    \\
+                                   & = \odv{u^9}{u} \times \odv{u}{x}                  \\
+    \intertext{By the power rule, $\odv{u^9}{u} = 9u^8$}
+                                   & = 9u^8 \times \odv*{(3x^3 + 4)}{x}                \\
+    \intertext{Using the power rule, $\odv*{(3x^3 + 4)}{x} = 9x^2$}
+                                   & = 9(3x^3 + 4)^8 \times 9x^2 = 81x^2(3x^3 + 4)^8.
+  \end{align}
+  Similarly, use the chain rule to evaluate $(x^2 + 1)^5$ and set $u = x^2 + 1$
+  \begin{align}
+    \odv*{\ab(\ab(x^2 + 1)^5)}{x} & = \odv{u^5}{x}                              \\
+                                  & = \odv{u^5}{u} \times \odv{u}{x}            \\
+    \intertext{By the power rule, $\odv{u^5}{u} = 5u^4$}
+                                  & = 5u^4 \times \odv{(x^2 + 1)}{x}            \\
+    \intertext{By the power rule, $\odv{(x^2 + 1)}{x} = 2x$}
+                                  & = 5(x^2 + 1)^4 \times 2x = 10x(x^2 + 1)^4.
+  \end{align}
+  Therefore,
+  \begin{align}
+    \odv*{\ab((x^2 + 1)^5(3x^3 + 4)^9)}{x} & =
+    \begin{multlined}[t]
+      (x^2 + 1)^5\times 81x^3(3x^3 + 4)^8 \\+ (3x^3 + 4)^9 \times 10x(x^2 + 1)^4
+    \end{multlined} \\
+                                           & = 
+    \begin{multlined}[t]
+      81x^3(x^2 + 1)^5(3x^3 + 4)^8 \\+ 10x(x^2 + 1)^4(3x^3 + 4)^9.
+    \end{multlined}
+  \end{align}
 \end{exmp}
 
 There are certain cases of differentiation where using algebraical rules is better than using the chain rule with the product rule. Here is such example
 \begin{exmp}{$\odv*{\ab(\ln\ab(\sqrt{\frac{x + 1}{x - 1}}))}{x}$}{diff-technique-4}
-	Breaking this derivative with the chain rule will be a nightmare. As said, let's use the algebraical properties of logarithm to help us with this. Namely, $\ln(\frac{a}{b}) = \ln(a) - \ln(b)$, and $\ln(a^b) = b\ln(a)$.
-	\begin{align}
-		\odv*{\ab(\ln(\sqrt{\frac{x + 1}{x - 1}}))}{x} & = \odv*{\ab(\ln(\sqrt{x + 1}) - \ln(\sqrt{x - 1}))}{x}                                 \\
-		                                               & = \odv*{\ab(\ln\ab((x + 1)^{\flatfrac{1}{2}}) - \ln\ab((x - 1)^{\flatfrac{1}{2}}))}{x} \\
-		                                               & = \odv*{\ab(\frac{1}{2}\ln(x + 1) - \frac{1}{2}\ln(x - 1))}{x}                         \\
-		\intertext{By the linearity of derivative,}
-		                                               & = \frac{1}{2}\ab(\odv{\ln(x + 1)}{x} - \odv{\ln(x - 1)}{x}).
-	\end{align}
-	These smaller derivatives are in the form $\odv{\ln(u)}{x}$ where in the first one, $u = x + 1$, and in the second one, $u = x - 1$. By the chain rule and the derivative of logarithms (\cref{sec:logarithms}),
-	\begin{align}
-		\odv{\ln(u)}{x} & = \odv{\ln(u)}{u}\times\odv{u}{x} = \frac{1}{u}\times\odv{u}{x}.
-	\end{align}
-	Since in both cases, $\odv{u}{x} = 1$,
-	\begin{equation}
-		\odv{\ln(x + 1)}{x} = \frac{1}{x + 1} \mathand \odv{\ln(x - 1)}{x} = \frac{1}{x - 1};
-	\end{equation}
-	thus,
-	\begin{align}
-		\odv*{\ab(\ln\ab(\sqrt{\frac{x + 1}{x - 1}}))}{x} = \frac{1}{2}\ab(\frac{1}{x + 1} - \frac{1}{x - 1}) = -\frac{1}{x^2 - 1}.
-	\end{align}
+  Breaking this derivative with the chain rule will be a nightmare. As said, let's use the algebraical properties of logarithm to help us with this. Namely, $\ln\ab(\frac{a}{b}) = \ln(a) - \ln(b)$, and $\ln(a^b) = b\ln(a)$.
+  \begin{align}
+    \odv*{\ab(\ln\ab(\sqrt{\frac{x + 1}{x - 1}}))}{x} & = \odv*{\ab(\ln(\sqrt{x + 1}) - \ln(\sqrt{x - 1}))}{x}                                 \\
+                                                      & = \odv*{\ab(\ln\ab((x + 1)^{\flatfrac{1}{2}}) - \ln\ab((x - 1)^{\flatfrac{1}{2}}))}{x} \\
+                                                      & = \odv*{\ab(\frac{1}{2}\ln(x + 1) - \frac{1}{2}\ln(x - 1))}{x}                         \\
+    \intertext{By the linearity of derivative,}
+                                                      & = \frac{1}{2}\ab(\odv{\ln(x + 1)}{x} - \odv{\ln(x - 1)}{x}).
+  \end{align}
+  These smaller derivatives are in the form $\odv{\ln(u)}{x}$ where in the first one, $u = x + 1$, and in the second one, $u = x - 1$. By the chain rule and the derivative of logarithms (\cref{sec:logarithms}),
+  \begin{align}
+    \odv{\ln(u)}{x} & = \odv{\ln(u)}{u}\times\odv{u}{x} = \frac{1}{u}\times\odv{u}{x}.
+  \end{align}
+  Since in both cases, $\odv{u}{x} = 1$,
+  \begin{equation}
+    \odv{\ln(x + 1)}{x} = \frac{1}{x + 1} \mathand \odv{\ln(x - 1)}{x} = \frac{1}{x - 1};
+  \end{equation}
+  thus,
+  \begin{align}
+    \odv*{\ab(\ln\ab(\sqrt{\frac{x + 1}{x - 1}}))}{x} = \frac{1}{2}\ab(\frac{1}{x + 1} - \frac{1}{x - 1}) = -\frac{1}{x^2 - 1}.
+  \end{align}
 \end{exmp}
 
-\subsubsection{Implicit differentiation}
-
-Implicit differentiation can help us with evaluating the derivative of functions in the form $f(x)^{g(x)}$. Let $y = f(x)^{g(x)}$, then using the algebraic properties of logarithms,
+\paragraph{Implicit differentiation} Implicit differentiation can help us with evaluating the derivative of functions in the form $f(x)^{g(x)}$. Let $y = f(x)^{g(x)}$, then using the algebraic properties of logarithms,
 \begin{align}
-	\ln(y)                            & = \ln\ab(f(x)^{g(x)})                                                                                                 \\
-	\ln(y)                            & = g(x)\ln\ab(f(x))                                                                                                    \\
-	\odv{\ln(y)}{x}                   & = \odv*{\ab(g(x)\ln\ab(f(x)))}{x}.                                                                                    \\
-	\intertext{Using the chain rule on the L.H.S. and the product rule on the R.H.S.,}
-	\odv{\ln(y)}{y} \times \odv{y}{x} & = g(x)\odv{\ln\ab(f(x))}{x} + \ln\ab(f(x))\odv{g(x)}{x}                                                               \\
-	\intertext{The derivative of the $\ln(x)$ is $\frac{1}{x}$ (\cref{sec:logarithms}), and use the chain rule on the R.H.S.}
-	\frac{1}{y} \times \odv{y}{x}     & = \frac{g(x)}{f(x)}\odv{f(x)}{x} + \ln\ab(f(x))\odv{g(x)}{x}                                                          \\
-	\odv{y}{x}                        & = \ab(\frac{g(x)}{f(x)}\odv{f(x)}{x} + \ln\ab(f(x))\odv{g(x)}{x})y                                                    \\
-	\intertext{Since $y = f(x)^{g(x)}$,}
-	\odv{y}{x}                        & = \ab(\frac{g(x)}{f(x)}\odv{f(x)}{x} + \ln\ab(f(x))\odv{g(x)}{x})f(x)^{g(x)} \label{eq:diff-composite-exponentiation}
+  \ln(y)                            & = \ln\ab(f(x)^{g(x)})                                                                                                 \\
+  \ln(y)                            & = g(x)\ln\ab(f(x))                                                                                                    \\
+  \odv{\ln(y)}{x}                   & = \odv*{\ab(g(x)\ln\ab(f(x)))}{x}.                                                                                    \\
+  \intertext{Using the chain rule on the L.H.S. and the product rule on the R.H.S.,}
+  \odv{\ln(y)}{y} \times \odv{y}{x} & = g(x)\odv{\ln\ab(f(x))}{x} + \ln\ab(f(x))\odv{g(x)}{x}                                                               \\
+  \intertext{The derivative of the $\ln(x)$ is $\frac{1}{x}$ (\cref{sec:logarithms}), and use the chain rule on the R.H.S.}
+  \frac{1}{y} \times \odv{y}{x}     & = \frac{g(x)}{f(x)}\odv{f(x)}{x} + \ln\ab(f(x))\odv{g(x)}{x}                                                          \\
+  \odv{y}{x}                        & = \ab(\frac{g(x)}{f(x)}\odv{f(x)}{x} + \ln\ab(f(x))\odv{g(x)}{x})y                                                    \\
+  \intertext{Since $y = f(x)^{g(x)}$,}
+  \odv{y}{x}                        & = \ab(\frac{g(x)}{f(x)}\odv{f(x)}{x} + \ln\ab(f(x))\odv{g(x)}{x})f(x)^{g(x)} \label{eq:diff-composite-exponentiation}
 \end{align}
 
 Frankly, it can also be done explicitly by rewriting $f(x)^{g(x)}$ as $\e^{g(x)\ln(f(x))}$ and using the chain rule, but it's just neater this way. Let's try some examples. First, with the infamous $x^x$.
 \begin{exmp}{$\odv{x^x}{x}$}{diff-technique-5}
-	This function $x^x$ is in the form $f(x)^{g(x)}$ where $f(x) = x$, and $g(x)$ is also equal to $x$. Trivially, $\odv{f(x)}{x} = \odv{g(x)}{x} = 1$, so we can use \cref{eq:diff-composite-exponentiation} right away and get
-	\begin{equation}
-		\odv{x^x}{x} = \ab(\frac{x}{x}(1) + \ln(x)(1))x^x = x^x\ab(\ln(x) + 1).
-	\end{equation}
+  This function $x^x$ is in the form $f(x)^{g(x)}$ where $f(x) = x$, and $g(x)$ is also equal to $x$. Trivially, $\odv{f(x)}{x} = \odv{g(x)}{x} = 1$, so we can use \cref{eq:diff-composite-exponentiation} right away and get
+  \begin{equation}
+    \odv{x^x}{x} = \ab(\frac{x}{x}(1) + \ln(x)(1))x^x = x^x\ab(\ln(x) + 1).
+  \end{equation}
 \end{exmp}
 
 Implicit differentiation can also be used if you are too lazy to deal with roots, e.g.,
 \begin{exmp}{$\odv{\sqrt{2\ln(x)^2 - 1}}{x}$}{diff-technique-6}
-	It is very possible to go through this and use the chain rule and the power rule. But who wants to deal with derivative of roots? They are confusing. Well, we can actually use implicit differentiation to turn the square root into an integer power. Set $y = \sqrt{2\ln(x)^2 + 1}$, then
-	\begin{align}
-		y   & = \sqrt{2\ln(x)^2 + 1} \\
-		y^2 & = 2\ln(x)^2 + 1.
-	\end{align}
-	Take the derivative on both sides w.r.t. $x$. Use the linearity of derivative to break down the R.H.S., and use the chain rule to take care of the rest
-	\begin{align}
-		\odv{y^2}{x}                 & = 2\odv{\ln(x)^2}{x} + \cancelto{0}{\odv*{(1)}{x}} \\
-		\odv{y^2}{y}\times\odv{y}{x} & = 2\odv{\ln(x)^2}{x}                               \\
-		2y\times\odv{y}{x}           & = 2\odv{\ln(x)^2}{x}                               \\
-		\odv{y}{x}                   & = \frac{1}{y}2\odv{\ln(x)^2}{x}
-	\end{align}
-	Use the chain rule to evaluate $\odv{\ln(x)^2}{x}$. Set $u = \ln(x)$
-	\begin{align}
-		\odv{\ln(x)^2}{x} & = \odv{u^2}{x}                   \\
-		                  & = \odv{u^2}{u} \times \odv{u}{x} \\
-		                  & = 2u \times \odv{\ln(x)}{x}      \\
-		                  & = \frac{2\ln(x)}{x}
-	\end{align}
-	Therefore,
-	\begin{equation}
-		\odv{y}{x} = \frac{1}{y}2\ab(\frac{2\ln(x)}{x})
-	\end{equation}
-	Substitute in $y = \sqrt{2\ln(x)^2 + 1}$, then
-	\begin{equation}
-		\odv{y}{x} = \frac{4\ln(x)}{x\sqrt{ 2\ln(x)^2 + 1 }}.
-	\end{equation}
+  It is very possible to go through this and use the chain rule and the power rule. But who wants to deal with derivative of roots? They are confusing. Well, we can actually use implicit differentiation to turn the square root into an integer power. Set $y = \sqrt{2\ln(x)^2 + 1}$, then
+  \begin{align}
+    y   & = \sqrt{2\ln(x)^2 + 1} \\
+    y^2 & = 2\ln(x)^2 + 1.
+  \end{align}
+  Take the derivative on both sides w.r.t. $x$. Use the linearity of derivative to break down the R.H.S., and use the chain rule to take care of the rest
+  \begin{align}
+    \odv{y^2}{x}                 & = 2\odv{\ln(x)^2}{x} + \cancelto{0}{\odv*{(1)}{x}} \\
+    \odv{y^2}{y}\times\odv{y}{x} & = 2\odv{\ln(x)^2}{x}                               \\
+    2y\times\odv{y}{x}           & = 2\odv{\ln(x)^2}{x}                               \\
+    \odv{y}{x}                   & = \frac{1}{y}2\odv{\ln(x)^2}{x}
+  \end{align}
+  Use the chain rule to evaluate $\odv{\ln(x)^2}{x}$. Set $u = \ln(x)$
+  \begin{align}
+    \odv{\ln(x)^2}{x} & = \odv{u^2}{x}                   \\
+                      & = \odv{u^2}{u} \times \odv{u}{x} \\
+                      & = 2u \times \odv{\ln(x)}{x}      \\
+                      & = \frac{2\ln(x)}{x}
+  \end{align}
+  Therefore,
+  \begin{equation}
+    \odv{y}{x} = \frac{1}{y}2\ab(\frac{2\ln(x)}{x})
+  \end{equation}
+  Substitute in $y = \sqrt{2\ln(x)^2 + 1}$, then
+  \begin{equation}
+    \odv{y}{x} = \frac{4\ln(x)}{x\sqrt{ 2\ln(x)^2 + 1 }}.
+  \end{equation}
 \end{exmp}
 
 Or maybe, you just have a very wonky equation that you can't even rearrange in terms of $y = f(x)$, e.g.,
 \begin{exmp}{Find $\odv{y}{x}$ given that $x^y = y^x$}
-	We start from taking the logarithm of both sides
-	\begin{align}
-		\ln(x^y) = \ln(y^x) \\
-		y\ln x = x\ln y
-	\end{align}
-	Then, take the derivative w.r.t. $x$ by using the product rule
-	\begin{align}
-		\odv*{(y\ln x)}{x}                & = \odv*{(x\ln y)}{x}                              \\
-		y\odv{\ln x}{x} + \ln x\odv{y}{x} & = x\odv{\ln y}{x} + \ln y\cancelto{1}{\odv{x}{x}}
-	\end{align}
-	First, the derivative of $\ln(x)$ is $\frac{1}{x}$, and we can use the chain rule to take care of the rest
-	\begin{align}
-		\frac{y}{x} + \ln x\odv{y}{x}           & = x\odv{\ln y}{y}\odv{y}{x} + \ln y       \\
-		\frac{y}{x} + \ln x\odv{y}{x}           & = \frac{x}{y}\odv{y}{x} + \ln y           \\
-		\frac{x}{y}\odv{y}{x} + \ln x\odv{y}{x} & = \ln y - \frac{y}{x}                     \\
-		\odv{y}{x}\ab(x - \ln x)                & = \ln y - \frac{y}{x}                     \\
-		\odv{y}{x}                              & = \frac{\ln y - \frac{y}{x}}{x - \ln x}.
-	\end{align}
+  We start from taking the logarithm of both sides
+  \begin{align}
+    \ln(x^y) = \ln(y^x) \\
+    y\ln x = x\ln y
+  \end{align}
+  Then, take the derivative w.r.t. $x$ by using the product rule
+  \begin{align}
+    \odv*{(y\ln x)}{x}                & = \odv*{(x\ln y)}{x}                              \\
+    y\odv{\ln x}{x} + \ln x\odv{y}{x} & = x\odv{\ln y}{x} + \ln y\cancelto{1}{\odv{x}{x}}
+  \end{align}
+  First, the derivative of $\ln(x)$ is $\frac{1}{x}$, and we can use the chain rule to take care of the rest
+  \begin{align}
+    \frac{y}{x} + \ln x\odv{y}{x}           & = x\odv{\ln y}{y}\odv{y}{x} + \ln y       \\
+    \frac{y}{x} + \ln x\odv{y}{x}           & = \frac{x}{y}\odv{y}{x} + \ln y           \\
+    \frac{x}{y}\odv{y}{x} + \ln x\odv{y}{x} & = \ln y - \frac{y}{x}                     \\
+    \odv{y}{x}\ab(x - \ln x)                & = \ln y - \frac{y}{x}                     \\
+    \odv{y}{x}                              & = \frac{\ln y - \frac{y}{x}}{x - \ln x}.
+  \end{align}
 \end{exmp}
 
 
@@ -875,113 +893,113 @@ Substitution is a technique to simplify algebraic expressions. I believe you've 
 
 $u$-substitution works when the integrals are of the form
 \begin{equation}
-	\int f\ab(g(x))\odv{g(x)}{x}\odif{x}.
+  \int f\ab(g(x))\odv{g(x)}{x}\odif{x}.
 \end{equation}
 In this notation, it's easy to see that the $\odif{x}$ will cancel, leaving us with
 \begin{equation}
-	\int f\ab(g(x))\odif{g(x)}.
+  \int f\ab(g(x))\odif{g(x)}.
 \end{equation}
 If $g(x) = u$, then our integral simplifies to
 \begin{equation}
-	\int f(u)\odif{u}.
+  \int f(u)\odif{u}.
 \end{equation}
 
 Let's apply this knowledge to solve some integrals. Starting with the simplest: integrand with polynomials.
 \begin{exmp}{$\int x(x^2 + 1)^{10}\odif{x}$}{u-substitution-1}
-	If $f(x) = x^{10}$, and $u = x^2 + 1$, then
-	\begin{equation}
-		\int x(x^2 + 1)^{10}\odif{x} = \int u^{10}x\odif{x}.
-	\end{equation}
-	Because $x = \frac{1}{2}\odv{(x^2 + 1)}{x}$,
-	\begin{equation}
-		\int u^{10}x\odif{x} = \int u^{10}\frac{1}{2}\odv{(x^2 + 1)}{x}\odif{x} = \frac{1}{2}\int u^{10}\odif{(x^2 + 1)}
-	\end{equation}
-	Since $u = x^2 + 1$, our integral simplifies to
-	\begin{equation}
-		\frac{1}{2}\int u^{10}\odif{u}.
-	\end{equation}
-	Using the reversed power rule (\cref{eq:power_rule}), we get
-	\begin{equation}
-		\frac{1}{2}\frac{u^{11}}{11} = \frac{u^{11}}{22} = \frac{(x^2 + 1)^{11}}{22} + C.
-	\end{equation}
+  If $f(x) = x^{10}$, and $u = x^2 + 1$, then
+  \begin{equation}
+    \int x(x^2 + 1)^{10}\odif{x} = \int u^{10}x\odif{x}.
+  \end{equation}
+  Because $x = \frac{1}{2}\odv{(x^2 + 1)}{x}$,
+  \begin{equation}
+    \int u^{10}x\odif{x} = \int u^{10}\frac{1}{2}\odv{(x^2 + 1)}{x}\odif{x} = \frac{1}{2}\int u^{10}\odif{(x^2 + 1)}
+  \end{equation}
+  Since $u = x^2 + 1$, our integral simplifies to
+  \begin{equation}
+    \frac{1}{2}\int u^{10}\odif{u}.
+  \end{equation}
+  Using the reversed power rule (\cref{eq:power_rule}), we get
+  \begin{equation}
+    \frac{1}{2}\frac{u^{11}}{11} = \frac{u^{11}}{22} = \frac{(x^2 + 1)^{11}}{22} + C.
+  \end{equation}
 \end{exmp}
 
 \begin{exmp}{$\int x^2\e^{4x^3 + 4}\odif{x}$}{u-substitution-2}
-	The integrand is a composite function: $f(u) = \e^u$ and $u = 4x^3 + 4$. In which, $\odv{u}{x} = 12x^2$; therefore,
-	\begin{align}
-		\int x^2\e^{4x^3 + 4}\odif{x} & = \frac{1}{12}\int\e^u 12x^2 \odif{x}           \\
-		                              & = \frac{1}{8}\int\e^u\odv{u}{x}\odif{x}         \\
-		                              & = \frac{1}{8}\int\e^u\odif{u} = \frac{1}{8}\e^u \\
-		                              & = \frac{1}{12}\e^{4x^3 + 4} + C.
-	\end{align}
+  The integrand is a composite function: $f(u) = \e^u$ and $u = 4x^3 + 4$. In which, $\odv{u}{x} = 12x^2$; therefore,
+  \begin{align}
+    \int x^2\e^{4x^3 + 4}\odif{x} & = \frac{1}{12}\int\e^u 12x^2 \odif{x}           \\
+                                  & = \frac{1}{8}\int\e^u\odv{u}{x}\odif{x}         \\
+                                  & = \frac{1}{8}\int\e^u\odif{u} = \frac{1}{8}\e^u \\
+                                  & = \frac{1}{12}\e^{4x^3 + 4} + C.
+  \end{align}
 \end{exmp}
 
 Notice any patterns? If the integral has a polynomial $u$ with degree $n$ nested inside another function, there must be a term outside with the degree $n - 1$ to substitute with. In \cref{ex:u-substitution-1}, $u = x^2 + 1$ and there's an $x$ multiplied outside waiting to be substituted. In \cref{ex:u-substitution-3}, $u = 4x^3 + 4$, and there's an $x^2$ outside. This pattern is a consequence of the power rule, and is pretty common. So, here are some practice problems with answers and hints on the right.\footnote{Practice problems taken from \cite{foster-no-date}.} Try not to look at it much.
 
 \begin{enumerate}
-	\item $\int 3x^2\sqrt{x^3 + 5}\odif{x}$ \hfill $\frac{2}{3}(x^3 + 5)^{\frac{3}{2}} + C$, $u = x^3 + 5$
-	\item $\int \sqrt{4 + 3x}\odif{x}$ \hfill $\frac{2}{9}(3x + 4)^{\frac{3}{2}} + C$, $u = 4 + 3x$
-	\item $\int \frac{24x}{(4x^2 + 4)^2}\odif{x}$ \hfill $\frac{3}{4x^2 + 4} + C$, $u = 4x^2 + 4$
+  \item $\int 3x^2\sqrt{x^3 + 5}\odif{x}$ \hfill $\frac{2}{3}(x^3 + 5)^{\frac{3}{2}} + C$, $u = x^3 + 5$
+  \item $\int \sqrt{4 + 3x}\odif{x}$ \hfill $\frac{2}{9}(3x + 4)^{\frac{3}{2}} + C$, $u = 4 + 3x$
+  \item $\int \frac{24x}{(4x^2 + 4)^2}\odif{x}$ \hfill $\frac{3}{4x^2 + 4} + C$, $u = 4x^2 + 4$
 \end{enumerate}
 
 Now let's move on from polynomials to other functions that are nested inside another function. For the substitution to work, there must be the function's derivative multiplied, waiting to be substituted. A classic example is:
 \begin{exmp}{$\int \frac{\ln(x)}{x}\odif{x}$}{u-substitution-3}
-	This integral is not quite a composite function, but rather just a product between a function and its derivative. If $u = \ln(x)$, then $\odv{u}{x} = \frac{1}{x}$; therefore,
-	\begin{align}
-		\int \frac{\ln(x)}{x}\odif{x} & = \int u\odv{u}{x}\odif{x}                 \\
-		                              & = \int u\odif{u}                           \\
-		                              & = \frac{u^2}{2} = \frac{\ln(x)^2}{2} + C.
-	\end{align}
+  This integral is not quite a composite function, but rather just a product between a function and its derivative. If $u = \ln(x)$, then $\odv{u}{x} = \frac{1}{x}$; therefore,
+  \begin{align}
+    \int \frac{\ln(x)}{x}\odif{x} & = \int u\odv{u}{x}\odif{x}                 \\
+                                  & = \int u\odif{u}                           \\
+                                  & = \frac{u^2}{2} = \frac{\ln(x)^2}{2} + C.
+  \end{align}
 \end{exmp}
 
 \begin{exmp}{$\int x\e^{x^2}(\e^{x^2} + 3)\odif{x}$}{u-substitution-4}
-	Let $\e^{x^2} + 3 = u$, then
-	\begin{align}
-		\odv{u}{x} & = \odv{\e^{x^2} + 3}{x}            \\
-		           & = \odv{\e^{x^2}}{x}                \\
-		\intertext{Let $x^2 = v$, then by the chain rule,}
-		           & = \odv{\e^v}{x} \cdot \odv{v}{v}   \\
-		           & = \odv{\e^v}{v} \cdot \odv{x^2}{x} \\
-		           & = 2x\e^v = 2x\e^{x^2}.
-	\end{align}
-	Thus,
-	\begin{align}
-		\int x\e^{x^2}(\e^{x^2} + 3)\odif{x} & = \frac{1}{2}\int u\ab(2x\e^{x^2})\odif{x}                        \\
-		                                     & = \frac{1}{2}\int u\odv{u}{x}\odif{x} = \frac{1}{2}\int u\odif{u} \\
-		                                     & = \frac{1}{2}\frac{u^2}{2} = \frac{(\e^{x^2} + 3)^2}{4} + C.
-	\end{align}
+  Let $\e^{x^2} + 3 = u$, then
+  \begin{align}
+    \odv{u}{x} & = \odv{\e^{x^2} + 3}{x}            \\
+               & = \odv{\e^{x^2}}{x}                \\
+    \intertext{Let $x^2 = v$, then by the chain rule,}
+               & = \odv{\e^v}{x} \cdot \odv{v}{v}   \\
+               & = \odv{\e^v}{v} \cdot \odv{x^2}{x} \\
+               & = 2x\e^v = 2x\e^{x^2}.
+  \end{align}
+  Thus,
+  \begin{align}
+    \int x\e^{x^2}(\e^{x^2} + 3)\odif{x} & = \frac{1}{2}\int u\ab(2x\e^{x^2})\odif{x}                        \\
+                                         & = \frac{1}{2}\int u\odv{u}{x}\odif{x} = \frac{1}{2}\int u\odif{u} \\
+                                         & = \frac{1}{2}\frac{u^2}{2} = \frac{(\e^{x^2} + 3)^2}{4} + C.
+  \end{align}
 \end{exmp}
 
 Sometimes, they need some \emph{creative} algebraic manipulations, and sometimes even multiple substitution. E.g.,\footnote{Taken from MIT Integration Bee 2019, $I_9$ \cite{alkousa-2023}}
 \begin{exmp}{$\int \frac{1}{x(x^5 + 1)}\odif{x}$}{u-substitution-5}
-	If we want to use power rule substitution, there's only $x^5$ but no $x^4$ to substitute with. So, we need to get a bit creative.
-	
-	First, factor the $x^5$ out of the inner parenthesis and get
-	\begin{equation}
-		\int\frac{1}{x^6\ab(1 + \frac{1}{x^5})}\odif{x}.
-	\end{equation}
-	Now, we can let $u = 1 + \frac{1}{x^5}$. By the power rule, $\odv{u}{x} = -\frac{5}{x^6}$. Our integral then becomes
-	\begin{align}
-		-5\int\frac{1}{u}\ab(-\frac{5}{x^6})\odif{x} & = -\frac{1}{5}\int\frac{1}{u}\odv{u}{x}\odif{x}  \\
-		                                             & = -\frac{1}{5}\int\frac{1}{u}\odif{u} = -5\ln(x) \\
-		                                             & = -\frac{1}{5}\ln\ab(1 + \frac{1}{x^5}) + C
-	\end{align}
+  If we want to use power rule substitution, there's only $x^5$ but no $x^4$ to substitute with. So, we need to get a bit creative.
+  
+  First, factor the $x^5$ out of the inner parenthesis and get
+  \begin{equation}
+    \int\frac{1}{x^6\ab(1 + \frac{1}{x^5})}\odif{x}.
+  \end{equation}
+  Now, we can let $u = 1 + \frac{1}{x^5}$. By the power rule, $\odv{u}{x} = -\frac{5}{x^6}$. Our integral then becomes
+  \begin{align}
+    -5\int\frac{1}{u}\ab(-\frac{5}{x^6})\odif{x} & = -\frac{1}{5}\int\frac{1}{u}\odv{u}{x}\odif{x}  \\
+                                                 & = -\frac{1}{5}\int\frac{1}{u}\odif{u} = -5\ln(x) \\
+                                                 & = -\frac{1}{5}\ln\ab(1 + \frac{1}{x^5}) + C
+  \end{align}
 \end{exmp}
 
 In certain problems, there aren't any outside terms to substitute with, so you have to create them. E.g.,
 \begin{exmp}{$\int\ab(1 + \sqrt{x})^4\odif{x}$}{}
-	We want to get rid of the term inside the parenthesis. So, let $u = 1 + \sqrt{x}$, and by the power rule, $\odv{u}{x} = \frac{1}{2\sqrt{x}}$. However, there is no $\frac{1}{\sqrt{x}}$ outside to substitute with. Let's be adventurous and substitute $u$ in anyway and see what happens.
-	\begin{align}
-		\int(1 + \sqrt{x})^4\odif{x} & = \int u^4\odif{x}                 \\
-		\intertext{If $\odv{u}{x} = \frac{1}{2\sqrt{x}}$, then $\odif{x} = 2\sqrt{x}\odif{u}$,}
-		                             & = \int u^4\ab(2\sqrt{x})\odif{u}.
-	\end{align}
-	We're almost there, now we just have to replace the leftover $x$ with $u$. Since $u = 1 + \sqrt{x}$, $\sqrt{x} = u - 1$; thus,
-	\begin{align}
-		\int u^4\ab(2\sqrt{x})\odif{u} & = 2\int u^4(u - 1)\odif{u}                                        \\
-		                               & = 2\int u^5 - u^4\odif{u} = 2\ab(\frac{u^6}{6} - \frac{u^5}{5})   \\
-		                               & = 2\ab(\frac{(1 + \sqrt{x})^6}{6} - \frac{(1 + \sqrt{x})^5}{5}).
-	\end{align}
+  We want to get rid of the term inside the parenthesis. So, let $u = 1 + \sqrt{x}$, and by the power rule, $\odv{u}{x} = \frac{1}{2\sqrt{x}}$. However, there is no $\frac{1}{\sqrt{x}}$ outside to substitute with. Let's be adventurous and substitute $u$ in anyway and see what happens.
+  \begin{align}
+    \int(1 + \sqrt{x})^4\odif{x} & = \int u^4\odif{x}                 \\
+    \intertext{If $\odv{u}{x} = \frac{1}{2\sqrt{x}}$, then $\odif{x} = 2\sqrt{x}\odif{u}$,}
+                                 & = \int u^4\ab(2\sqrt{x})\odif{u}.
+  \end{align}
+  We're almost there, now we just have to replace the leftover $x$ with $u$. Since $u = 1 + \sqrt{x}$, $\sqrt{x} = u - 1$; thus,
+  \begin{align}
+    \int u^4\ab(2\sqrt{x})\odif{u} & = 2\int u^4(u - 1)\odif{u}                                        \\
+                                   & = 2\int u^5 - u^4\odif{u} = 2\ab(\frac{u^6}{6} - \frac{u^5}{5})   \\
+                                   & = 2\ab(\frac{(1 + \sqrt{x})^6}{6} - \frac{(1 + \sqrt{x})^5}{5}).
+  \end{align}
 \end{exmp}
 
 These problems definitely take a while to get used to. So I highly encourage you to practice integrating using a problem set (\cite{alkousa-2023}, \cite{foster-no-date}). The unfortunate thing is that most problem sets include trigonometry. So, you'd have to pick the one without them to practice with. Or, you can just wait until we discuss trigonometry and then practice from there.
@@ -992,34 +1010,34 @@ These problems definitely take a while to get used to. So I highly encourage you
 \subsection{Formula for derivatives of functions}
 
 \begin{enumerate}
-	\item $f(x) = g(x) \implies \odv{f(x)}{x} = \odv{g(x)}{x}$ (Rules of Equality)
-	\item For $c \in \mathbb{R}$, $\odv{(c)}{x} = 0$ (Derivative of a constant)
-	\item $\odv{x}{y} = \odv{x}{u} \times \odv{u}{y}$ (Chain rule)
-	\item $\odv*{\ab(af(x) + bg(x))}{x} = a\odv{f(x)}{x} + b\odv{g(x)}{x}$ (Linearity of differentiation)
-	\item $\odv*{(ax^n)}{x} = anx^{n - 1}$ (Power rule)
-	\item $\odv*{(n^x)}{x} = n^x\ln(n)$, $\odv{(\e^x)}{x} = \e^x$ (Derivative of exponentials)
-	\item $\odv*{\ab(\ln(x))}{x} = \frac{1}{x}$ (Derivative of natural logarithms)
-	\item $\odv*{\ab(f_1(x)f_2(x))}{x} = f_1(x)\odv{f_2}{x} + f_2(x)\odv{f_1}{x}$ (Product rule for two functions)
-	\item $\odv*{(f_1f_2\dots f_n)}{x} = f_1f_2\dots f_n\ab(\frac{1}{f_1}\odv{f_1}{x} + \frac{1}{f_2}\odv{f_2}{x} + \dots + \frac{1}{f_n}\odv{f_n}{x})$ (Generalized product rule)
+  \item $f(x) = g(x) \implies \odv{f(x)}{x} = \odv{g(x)}{x}$ (Rules of Equality)
+  \item For $c \in \mathbb{R}$, $\odv{(c)}{x} = 0$ (Derivative of a constant)
+  \item $\odv{x}{y} = \odv{x}{u} \times \odv{u}{y}$ (Chain rule)
+  \item $\odv*{\ab(af(x) + bg(x))}{x} = a\odv{f(x)}{x} + b\odv{g(x)}{x}$ (Linearity of differentiation)
+  \item $\odv*{(ax^n)}{x} = anx^{n - 1}$ (Power rule)
+  \item $\odv*{(n^x)}{x} = n^x\ln(n)$, $\odv{(\e^x)}{x} = \e^x$ (Derivative of exponentials)
+  \item $\odv*{\ab(\ln(x))}{x} = \frac{1}{x}$ (Derivative of natural logarithms)
+  \item $\odv*{\ab(f_1(x)f_2(x))}{x} = f_1(x)\odv{f_2}{x} + f_2(x)\odv{f_1}{x}$ (Product rule for two functions)
+  \item $\odv*{(f_1f_2\dots f_n)}{x} = f_1f_2\dots f_n\ab(\frac{1}{f_1}\odv{f_1}{x} + \frac{1}{f_2}\odv{f_2}{x} + \dots + \frac{1}{f_n}\odv{f_n}{x})$ (Generalized product rule)
 \end{enumerate}
 
 \subsection{Formula for antiderivatives of functions}
 
 \begin{enumerate}
-	\item $f(x) = g(x) \implies \int f(x)\odif{x} = \int g(x)\odif{x}$ (Rules of Equality)
-	\item $\int af(x) + bg(x) \odif{x} = a\int f(x)\odif{x} + b\int g(x)\odif{x}$ (Linearity of integration)
-	\item $n \neq -1$, $\int ax^n\odif{x} = a\frac{x^{n + 1}}{n + 1} + C$ (Reversed power rule)
-	\item $\int n^x\odif{x} = \frac{1}{\ln(n)}n^x + C$, $\int \e^x\odif{x} = \e^x + C$ (Antiderative of exponentials)
-	\item $\int \frac{1}{x}\odif{x} = \ln(x) + C$ (Antiderivative of the reciprocal)
-	\item $\int f(g(x))\odv{g}{x}\odif{x} = \int f(u)\odif{u}; u = g(x)$ ($u$-Substitution)
+  \item $f(x) = g(x) \implies \int f(x)\odif{x} = \int g(x)\odif{x}$ (Rules of Equality)
+  \item $\int af(x) + bg(x) \odif{x} = a\int f(x)\odif{x} + b\int g(x)\odif{x}$ (Linearity of integration)
+  \item $n \neq -1$, $\int ax^n\odif{x} = a\frac{x^{n + 1}}{n + 1} + C$ (Reversed power rule)
+  \item $\int n^x\odif{x} = \frac{1}{\ln(n)}n^x + C$, $\int \e^x\odif{x} = \e^x + C$ (Antiderative of exponentials)
+  \item $\int \frac{1}{x}\odif{x} = \ln(x) + C$ (Antiderivative of the reciprocal)
+  \item $\int f(g(x))\odv{g}{x}\odif{x} = \int f(u)\odif{u}; u = g(x)$ ($u$-Substitution)
 \end{enumerate}
 
 \subsection{Definition for various functions and constants}
 
 \begin{enumerate}
-	\item $\e^x = \lim_{k \appr 0}\sum_{i \appr 0}^{k}\frac{1}{i!} = 1 + \frac{x^1}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots = \lim_{n \appr \infty}\ab(1 + \frac{x}{n})^n$
-	\item $\e = \sum_{i = 0}^{\infty}\frac{1}{i!} = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \dots = \lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n$
-	\item $\ln(x) = \lim_{n \appr 0}\left(\frac{x^h - 1}{h}\right)$
+  \item $\e^x = \lim_{k \appr 0}\sum_{i \appr 0}^{k}\frac{1}{i!} = 1 + \frac{x^1}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots = \lim_{n \appr \infty}\ab(1 + \frac{x}{n})^n$
+  \item $\e = \sum_{i = 0}^{\infty}\frac{1}{i!} = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \dots = \lim_{n \appr \infty}\left(1 + \frac{1}{n}\right)^n$
+  \item $\ln(x) = \lim_{n \appr 0}\left(\frac{x^h - 1}{h}\right)$
 \end{enumerate}
 
 \everymath{\textstyle}

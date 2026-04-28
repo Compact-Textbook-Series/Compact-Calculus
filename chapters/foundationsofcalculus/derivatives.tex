@@ -5,121 +5,147 @@
 
 \section{Invitation to calculus from a practitioner}
 
-Calculus is the language of change, whether it's changes in weather patterns, movement of an object, evolution of biological systems, or even changes in your relationship! Although the last one might be diabolical to think about for some of you, calculus provides a mathematical framework to describe and predict these systems. Therefore, I've structured this volume around the concept of dynamical systems: systems that evolve through time, whether they are biological, chemical, or physical.
+Calculus is a mathematical language --- a framework that's used to describe a system that's changing, a.k.a. a \textbf{dynamical system}. Its power comes from the ability to predict how the change affects the system over time. If you look around, much of the world is always changing; hence, the framework that calculus provides is very vast in applications. Whether it'd be the change in the weather patterns, in the movement of an object, in the evolution of biological systems, or even in your relationship, calculus can model them all.\footnote{That last one might be diabolical to think about for some of you.}
 
-As said in the preface, I have thrown most unrelated contents into the appendices. But as much as I'd love to do that, some purely mathematical contents and exercises are still essential for understanding and solving dynamical systems. While I've kept those in, I tried to make them as brief as possible for it to not disrupt your entertainment.
+Thinking of calculus as a mathematical framework for changing systems allows us to gain a deeper intuition about the subject, and also allows the theories to naturally develop. Still, this aspect of calculus is greatly underappreciated in introductory courses. As a remedy, I've decided to structure this whole volume around the concept of dynamical systems: systems that evolve through time, whether they are biological, chemical, or physical, in order to foster a deeper understanding for the subject.
 
-The problem of dynamical systems are separated into two parts:
+As said in the preface, I have thrown most unrelated contents into the appendices. But as much as I'd love to do that, some purely mathematical contents and exercises are still essential for understanding and solving these dynamical systems. While I've kept those in, I tried to make them as brief as possible to not disrupt your entertainment.
+
+\paragraph{Outline of the framework:} The problem of dynamical systems are separated into two parts.
 \begin{enumerate}[noitemsep]
-	\item Describing the system, and
-	\item Solving for the system's future.
+  \item Describing the system, and
+  \item Predicting the system's future.
 \end{enumerate}
-Calculus is also neatly separated into two parts which align with these two exact problems: differential calculus and integral calculus. Differential calculus uses differential equations to describe a system; those equations are then solved using integral calculus to predict the system's future. This chapter is devoted to the first part of calculus: differential calculus.
+Calculus is also neatly separated into two parts which neatly align with these problems: differential calculus and integral calculus. Differential calculus uses differential equations to describe a system; those equations are then solved using integral calculus to predict the system's future. This chapter is devoted to the first part of calculus: differential calculus.
 
 At the end of this chapter, you should develop the intuition that
 \begin{enumerate}[noitemsep]
-	\item Derivative measures the rate of change of a function w.r.t. a variable.
-	\item Derivatives can be thought of the slope of a graph.
-	\item The universe is described in the language of differential equations
+  \item Derivative measures the rate of change of a function w.r.t. a variable.
+  \item Derivatives can be thought of as the slope of a graph.
+  \item The universe is described in the language of differential equations.
 \end{enumerate}
 
 \subsection{The notation of differential calculus}
 \label{sec:notation_of_calculus_derivative}
 
-If $a$ is a variable, then $\odif{a}$ is a very small quantity of $a$, known as an \textbf{infinitesimal}. E.g., if $\vv{x}$ is displacement, then $\odif{\vv{x}}$ is a very small displacement. If $t$ is time, then $\odif{t}$, a very short time. It's very similar to how we usually write a difference in a variable $x$, $\Dd{x}$. Replacing the $\symrm{\Delta}$ with $\symrm{d}$ conveys that \enquote{it is a very small difference in $x$.}
+\paragraph{Infinitesimals} If $a$ is a variable, then $\odif{a}$ is a very small change in \(a\), sometimes referred to as a small increment of \(a\), or an \textbf{infinitesimal} of \(a\). E.g., if $\vv{x}$ is displacement, then $\odif{\vv{x}}$ is a very small displacement. If $t$ is time, then $\odif{t}$ is a very short time. It's very similar to the delta notation where $\adif{x}$ represents a difference or a change in \(x\). Replacing the $\adif{\vphantom{a}}$ with $\symrm{d}$ suggests that \enquote{it is an \emph{absolutely small} difference in $x$.}
 
-Infinitesimals can also be divided to yield a ratio between infinitesimals. E.g., the ratio between some small distance and some short time, $\odv{\vv{x}}{t}$ is the speed $\vv{v}$.
+Infinitesimals can also be divided. E.g., the ratio between some small distance \(\odif{x}\) and some short time \(\odif{t}\) is the speed of an object during that short time: $\odv{\vv{x}}{t}$.\footnote{This \enquote{division} works when you're working with \emph{simple} quantity of \emph{only one variable}.}
 
 \section{Speed and instantaneous rate of change}
 \label{sec:speedandinstantaneousrateofchange}
 
-Our first dynamical system that I'd like to discuss is the car; specifically the \textbf{speedometer}, which displays the speed of the car at an instance in time. How does it do that?
+\paragraph{On terminology:} In this chapter, \emph{speed} and \emph{velocity} is used interchangeably for pedagogical purposes.
 
-If we're traveling at a speed $\qty{5}{\meter\per\second}$, when \emph{exactly} are we traveling at $\qty{5}{\meter\per\second}$? You could say $\vv{v} = \qty{5}{\meter}$ \emph{at the moment of measurement}. But what exactly is \emph{at the moment of measurement?} To measure something is to observe, which is to use a measurement tool to \emph{capture} its current state. So, measurement in this case, is analogous to capturing the picture of a car at that moment. But if we say, \emph{at the moment of measurment,} it's like saying \enquote{Oh, I can find the speed of the car by just taking a picture of it.} But that's illegal! To calculate speed, we have to compare two points in space through time. Or, the rate of change of distance through time:
+The simplest way to construct the language of change is to quantitatively analyze an object that's moving and changing position through time, e.g., a car moving, a block sliding, a ball falling, etc. One way to describe these systems is to use the \textbf{speed}, which measures how fast the object is moving through time. In other words,
+\begin{displayquote}
+  \emph{Speed measures the change in position of an object over a time interval}
+\end{displayquote}
+
+If the object is at point \(\vv{s}_1\) at time \(t_1\), then moves to point \(\vv{s}_2\) at time \(t_2\), the speed (\(\vv{v}\)) would be
 \begin{equation}
-	\vv{v} = \frac{\vv{s}_2 - \vv{s}_1}{t_2 - t_1}.
+  \vv{v} = \frac{\vv{s}_2 - \vv{s}_1}{t_2 - t_1} \label{eq:derivative-speed_naive}.
 \end{equation}
-While it may seem like cameras grab snapshots in an instant, they actually need time to take in light to construct an image: they need some \emph{exposure time} $\Dd{t}$.
+However, this equation doesn't give us the full picture, as it doesn't fully capture the behavior of an actual moving object.
 
-To get a \enquote{not blurred} image of a moving object, we reduce the exposure time. If the exposure time is too long, the object will be smeared out. This effect is known as motion blur, which is normally undesired. But motion blur actually helps out a lot with measuring velocity. In which the velocity is just 
+Consider a ball that's been dropped from a building. Before the drop, the ball has zero speed as it isn't moving. Then, the ball gradually gets faster and faster over time until it hits the ground and does a few bounces until it stops. According to \cref{eq:derivative-speed_naive}, the ball might have the speed of \(\qty{10}{\meter\per\second}\) in the entire journey. Does this number capture the actual behavior of the ball? No, because the speed of the ball varies over time.
+
+Another example would be a moving car. Let's say you're driving from Thailand to Malaysia, and according to \cref{eq:derivative-speed_naive}, your speed is \(\qty{50}{\kilo\meter\per\hour}\). Does this number say anything about the congestion slowing you down? Does it say anything about whether you've been on a highway or not? Still no, as the speed of a car can be slowed down or sped up by external factors: it is also varying over time.
+
+The quantity that \cref{eq:derivative-speed_naive} spits out actually isn't the actual speed of an object; it is the \textbf{average speed} of the entire motion. It disregards the change in speed that happens along the way and averages out everything. Well, this quantity is mostly fine in daily situations. But if you want to describe a dynamical system in its entirety, it's not wise to just know the average: you want to know everything in order to accurately predict the system's future. So is there a description of motion that's more detailed and nuanced than this?
+
+To better describe a ball that's been dropped from a building, you might calculate the speed in each phase of the ball and list it out. E.g.,\footnote{I'm just making numbers up. Don't mind me.}
+\begin{itemize}
+  \item Speed before the drop: \(\qty{0}{\meter\per\second}\)
+  \item Average speed from the moment of dropping to three seconds after dropping: \(\qty{3}{\meter\per\second}\)
+  \item Average speed from three seconds after dropping to three seconds after landing: \(\qty{10}{\meter\per\second}\)
+  \item Average speed from three seconds after landing to landing: \(\qty{17}{\meter\per\second}\)
+  \item Average speed during the first bounce: \(\qty{5}{\meter\per\second}\)
+\end{itemize}
+But still, this isn't enough. What if there are sudden gusts of wind pushing the ball upwards while the ball is bouncing, suddenly changing its speed? What if the ball bounces on a little kid's head causing the average speed during the first bounce to be lower? Even though this report is more nuanced than just the average speed, it still misses some things that could happen in between.
+
+So you subdivide the time into smaller and smaller parts, also increasing the length of the speed report. But still, any finite subdivision of time is going to miss some details in the movement for the same reason given prior.
+
+A little sarcasm will lead you to say, if I'm going to be this picky and fussy about the speed report, why don't just subdivide the time into intervals so small --- \emph{infinitesimally small}, and report an \emph{infinite} list of speed throughout those times. Can it be that when the time interval is so short, shorter than the variations in the velocity of the object, the average velocity at that short time interval becomes the actual velocity of an object at that instance?
+
+Believe it or not, calculus says that \emph{you absolutely can}. The idea of an infinitesimally small subdivision is the core idea of differential calculus, and it gave rise to the notion of \textbf{derivatives} which a measure of rate of change at an instance.
+
+The derivative of some quantity \(A\) with respect to (w.r.t.) another quantity \(B\), denoted
 \begin{equation}
-	\vv{v} = \frac{\textrm{Distance between the smear and the main object}}{\textrm{Exposure time}}.
+  \odv{A}{B}
 \end{equation}
-As illustrated in \cref{fig:car-motion-blur}, the motion blur clearly shows us the change in position of the car over the exposure time.
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width = \textwidth]{derivatives/motionblurredcar.pdf}
-	\caption{Calculating the velocity of a car from motion blur.}
-	\label{fig:car-motion-blur}
-\end{figure}
-
-But what will happen with shorter exposure time? Does the motion blur disappear? No! The blur is still there, but it's just smaller. Typically, $\qty{12}{\ms}$ exposure time is short enough to create a ``focused image''. But it's just an illusion that came from the limitation of the screen's ability to reproduce such little blur. If our camera and screen is good enough, we can \emph{always} calculate the velocity of the car from the blur. The smaller the exposure time, the more detailed the image is, and the closer you'll get to the exact $\vv{v}$ at that moment in time. Finally, if we let the exposure time become infinitesimally short, we can say the $\vv{v}$ we got is \emph{the velocity at that exact point}. Or as we call it, the \textbf{instantaneous velocity}. By using the said calculus notation in \cref{sec:notation_of_calculus_derivative}, we can just write this as
+is a measure of how much \(A\) changes if \(B\) changes by an \emph{infinitesimally small} value, \(\odif{B}\). In the case of speed, it is a measure of how the position of an object (\(\vv{s}\)) changes if the time (\(t\)) changes or increases by an \emph{infinitesimally small} time step \(\odif{t}\). Using the notation of calculus, we write that:
 \begin{equation}
-	\vv{v} = \odv{\vv{x}}{t}, \label{eq:first_intro_to_derivative}
+  \vv{v} = \odv{\vv{s}}{t}
 \end{equation}
-and here it is ladies and gentlemen, the \textbf{derivative}: the measure of rate of change.
+instead. The equation above reads: \enquote{the velocity is the derivative of the distance \(s\) w.r.t. time \(t\).}
 
-From here on out, I shall use \emph{derivative} and \emph{rate of change} interchangeably. So, every time you see \emph{derivative}, think \emph{rate of change}.
+To put it in a different way, recall the notation discussed in \cref{sec:notation_of_calculus_derivative}. It says that \(\odif{t}\) is an infinitesimally small increment of time \(t\), and \(\odif{\vv{s}}\) is an infinitesimally small change in position. Specifically, it is the change in position in the time span \(\odif{t}\). The ratio between \(\odif{t}\) and \(\odif{\vv{s}}\) then yields the derivative: the rate of change in \(\vv{s}\) in time.
+
+From here on out, \emph{derivative} and \emph{rate of change} is used interchangeably. So, every time you see \emph{derivative}, think \emph{rate of change}.
 
 \section{An attempt to define derivatives}
 
-Mathematically, a \textbf{derivative} is a measure of a function's rate of change with respect to a variable. In the previous example, $\vv{x}$ is a function that's dependent on time, and its derivative w.r.t. time, $\vv{v}$, is measuring the rate of change of function $\vv{x}(t)$ through time $\odif{t}$.
+Mathematically, a \textbf{derivative} is a measure of a function's rate of change with respect to a variable. In the previous example, $\vv{s}$ is a function that's dependent on time, and its derivative w.r.t. time, $\vv{v}$, is how $\vv{s}(t)$ changes after an infinitesimally small time step \(\odif{t}\).
 
-To find an explicit expression for derivative, let's say we have two points in spacetime $(\vv{x}_1, t_1)$ and $(\vv{x}_2, t_2)$. The change in $\vv{x}$ is $\vv{x}_2 - \vv{x}_1$, and the change in time is $t_2 - t_1$. The derivative of position w.r.t. time is then just
+To find an explicit expression for derivative, consider two points in spacetime $(\vv{s}_1, t_1)$ and $(\vv{s}_2, t_2)$. The change in $\vv{x}$ is $\vv{x}_2 - \vv{x}_1$, and the change in time is $t_2 - t_1$. The derivative of position w.r.t. time is then just
 \begin{equation}
-	\vv{v} = \odv{\vv{x}}{t} = \frac{\vv{x}_2 - \vv{x}_1}{t_2 - t_1}. \label{eq:derivative1}
+  \vv{v} = \odv{\vv{s}}{t} = \frac{\vv{s}_2 - \vv{s}_1}{t_2 - t_1}. \label{eq:derivative1}
 \end{equation}
-Let $t_2 = t + h$. Then, $\vv{x}_2 = \vv{x}(t + h)$ and $\vv{x}_1 = \vv{x}(t)$. The time difference used to calculate $\vv{v}$ must be miniscule: infinitesimally small. I have to introduce the notion of limits, which is just a fancier way of saying ``very close to, but not''
+Another way to write this would be to let $t_2 = t + \odif{t}$, then $\vv{s}_2 = \vv{s}(t + \odif{t})$ and $\vv{s}_1 = \vv{s}(t)$, and we get
+\begin{equation}
+  \vv{v} = \frac{\vv{s}(t + \odif{t}) - \vv{s}(t)}{t + \odif{t} - t} = \frac{\vv{s}(t + \odif{t}) - \vv{s}(t)}{\odif{t}}
+\end{equation}
+We've said earlier that we want this time difference \(\odif{t}\) to be infinitesimally small. However, this time difference can't be zero. Because if it is zero, then we would get that
+\begin{equation}
+  \vv{v} = \frac{\vv{s}(t + 0) - \vv{s}(t)}{0} = \frac{\vv{s}(t) - \vv{s}(t)}{0} = \frac{0}{0},
+\end{equation}
+which is undefined. Hence, \(\odif{t}\) has to be something that's small but not zero.
+
+Calculus offers a notation to denote a variable that gets infinitesimally close to a number but isn't that number: the \textbf{limit}. If a variable \(a\) is infinitesimally close to a number \(b\), then we write
+\begin{equation}
+  \lim_{a \appr b}.
+\end{equation}
+The equation of velocity then becomes
 \begin{align}
-	\vv{v} = \odv{\vv{x}}{t} & = \lim_{h \appr 0}\frac{\vv{x}(t + h) - \vv{x}(t)}{(t + h) - t} \\
-	                         & = \lim_{h \appr 0}\frac{\vv{x}(t + h) - \vv{x}(t)}{h}.
+  \vv{v} = \odv{\vv{s}}{t} & = \lim_{\odif{t} \appr 0}\frac{\vv{s}(t + \odif{t}) - \vv{s}(t)}{\odif{t}}
 \end{align}
-The equation above is what we generally refer to as the \emph{definition of derivative}. Then, we just extend this relation to any function $f(x)$, which requires just a substitution of variables. And then we get:
+The equation above is what we generally refer to as the \emph{definition of derivative}. Generally, this notion can be extended to any function $f(x)$ by a substitution.
 \begin{df}{Naive definition of derivative}{derivative_naive}
-	\index{derivatives!naive definition}A derivative of a function $f(x)$ w.r.t. a variable $x$ is the rate of change of $f(x)$ w.r.t. $x$, and it is written as
-	\begin{equation}
-		\odv{f(x)}{x} \mathor \odv*{f(x)}{x},
-	\end{equation}
-	where
-	\begin{equation}
-		\odv{f(x)}{x} = \lim_{h \appr 0}\frac{f(x + h) - f(x)}{h}.\label{eq:naive_definition_of_derivative}
-	\end{equation}
+  \index{derivatives!naive definition}A derivative of a function $f(x)$ w.r.t. a variable $x$ is the rate of change of $f(x)$ w.r.t. $x$, and it is written as
+  \begin{equation}
+    \odv{f(x)}{x} \mathor \odv*{f(x)}{x},
+  \end{equation}
+  where
+  \begin{equation}
+    \odv{f(x)}{x} = \lim_{h \appr 0}\frac{f(x + h) - f(x)}{h}.\label{eq:naive_definition_of_derivative}
+  \end{equation}
 \end{df}
 \Cref{eq:naive_definition_of_derivative} directly reads:
 \begin{quote}
-	The derivative of $f(x)$ with respect to $x$ is $\frac{f(x + h) - f(x)}{h}$ where $h$ is very close to $0$, but $h$ is strictly not $0$.
+  The derivative of $f(x)$ with respect to $x$ is $\frac{f(x + h) - f(x)}{h}$ where $h$ is very close to $0$, but $h$ is strictly not $0$.
 \end{quote}
 
 \paragraph{On notation:} So far, we've been using the Leibniz's notation for derivatives, and it has the property that derivatives behave exactly like fractions, and you can cancel terms.
 \begin{equation}
-	\odv{a}{b}\times\odv{b}{c} = \odv{a}{c}.\label{eq:prechainrule}
+  \odv{a}{b}\times\odv{b}{c} = \odv{a}{c}.\label{eq:prechainrule}
 \end{equation}
-But, this isn't the only accepted notation. Multiple great mathematicians have come up with their own, and some are better than others in certain cases. I'd introduce other notations later on if necessary.
+But, this isn't the only accepted notation. Multiple great mathematicians had come up with their own way of writing the derivative. Some are better than others in certain places. I'd introduce other notations later on if necessary.
 
 \section{The geometrical interpretation of the derivative}
 
-One way to interpret derivatives is by using slope. Notice that \cref{eq:derivative1} looks a lot like the slope equation
+\begin{figure}[ht]
+  \centering
+  \includegraphics{derivatives/positionversustime}
+  \caption{Position-time graph where $\protect\vv{x}(t) = t^2$.}
+  \label{fig:position_versus_time}
+\end{figure}
+
+One way to interpret derivatives is by using slope. Notice that \cref{eq:derivative1} looks a lot like the slope equation for a line
 \begin{equation}
-	m = \frac{y_2 - y_1}{x_2 - x_1}. \label{eq:slope_equation}
+  m = \frac{y_2 - y_1}{x_2 - x_1}. \label{eq:slope_equation}
 \end{equation}
 We've also seen that \cref{eq:derivative1} is analogous to the definition of derivative \cref{eq:naive_definition_of_derivative}. So is the derivative just the slope of a line? If it is, then what is the $y$-axis and the $x$-axis of a graph?
-
-\begin{wrapfigure}[10]{l}{0.43\textwidth}
-	% \centering
-	% \begin{subfigure}{0.45\textwidth}
-	\centering
-	\includegraphics{derivatives/positionversustime}
-	\caption{Position vs. time graph where $\protect\vv{x}(t) = t^2$.}
-	\label{fig:position_versus_time}
-	% \end{subfigure}
-	% \begin{subfigure}{0.4\textwidth}
-	%     \centering
-	%     \includegraphics{derivatives/positionversustime2}
-	%     \caption{A ball traveling at constant velocity.}
-	%     \label{fig:position_versus_time2}
-	% \end{subfigure}
-	% \caption{Various position versus time graph.}
-\end{wrapfigure}
 
 We can compare \cref{eq:slope_equation} to \cref{eq:derivative1}: the $y$-axis should be the position $\vv{x}$, and the $x$-axis, the time $t$. If we draw that out, we'll get the $x$-$t$ graph, which can encode the exact trajectory of an object. An example of which is shown in \cref{fig:position_versus_time}.
 
@@ -128,11 +154,13 @@ But what does this have to do with derivatives? \Cref{eq:slope_equation} only wo
 \section{Evaluation of derivatives: method of increments}
 
 The derivative's definition can be used to directly evaluate derivatives. This is called the \textbf{method of increment}. E.g., in \cref{fig:position_versus_time}, let's evaluate the velocity at time $t = \qty{1}{\second}$ where the position function, $\vv{x}(t) = t^2$. $t = \qty{1}{\second}$. We start from \cref{eq:naive_definition_of_derivative}:
+
 \begin{align*}
-	\vv{v}(1) = \frac{\vv{x_2} - \vv{x_1}}{t_2 - t_1} & = \lim_{h \appr 0}\frac{\vv{x}(1 + h) - \vv{x}(1)}{(1 + h) - 1} \\
-	                                                  & = \lim_{h \appr 0}\frac{(1 + h)^2 - 1}{h}                       \\
-	                                                  & = \lim_{h \appr 0}\frac{2h + h^2}{h}                            \\
-	                                                  & = \lim_{h \appr 0}2 + h.
+  \vv{v}(1) = \frac{\vv{x_2} - \vv{x_1}}{t_2 - t_1}
+   & = \lim_{h \appr 0}\frac{\vv{x}(1 + h) - \vv{x}(1)}{(1 + h) - 1} \\
+   & = \lim_{h \appr 0}\frac{(1 + h)^2 - 1}{h}                       \\
+   & = \lim_{h \appr 0}\frac{2h + h^2}{h}                            \\
+   & = \lim_{h \appr 0}2 + h.
 \end{align*}
 
 Since $h$ is very close to zero, we approximate $2 + h$ as $2$. Imagine comparing $2$ to $10^{-10}$. The $10^{-10}$ wouldn't make a noticeable difference, and we can ignore it. Therefore, $\vv{v}(t = \qty{1}{\second}) = \qty{2}{\meter\per\second}$.
@@ -144,65 +172,66 @@ Now, try evaluating $\vv{v}(t = \qty{3}{\second})$ for $\vv{x}(t) = t^3$. You sh
 \index{derivatives!higher order}
 In kinematics, there are a whole set of quantities that can describe an object's trajectory, e.g., the acceleration, which is defined to be the rate of change of velocity w.r.t. time:
 \begin{equation*}
-	\vv{a}(t) = \odv{\vv{v}(t)}{t}.
+  \vv{a}(t) = \odv{\vv{v}(t)}{t}.
 \end{equation*}
-\begin{wraptable}[12]{l}{0.36\textwidth}
-	\begin{tabular}{c | c}
-		Order & Name           \\
-		\hline
-		1     & Velocity/Speed \\
-		2     & Acceleration   \\
-		3     & Jerk           \\
-		4     & Snap/Jounce    \\
-		5     & Crackle        \\
-		6     & Pop
-	\end{tabular}
-	\caption{Higher order derivatives of position w.r.t. time}
-	\label{tab:jerksnapcracklepop}
-\end{wraptable}
 But the $\vv{v}$ is also the rate of change of position w.r.t. time. Thus,
 \begin{equation*}
-	\vv{a}(t) = \odv{\vv{v}(t)}{t} = \odv*{\ab(\odv{\vv{r}(t)}{t})}{t} = \odv[ord = 2]{\vv{r}(t)}{t}, 
+  \vv{a}(t) = \odv{\vv{v}(t)}{t} = \odv*{\ab(\odv{\vv{r}(t)}{t})}{t} = \odv[ord = 2]{\vv{r}(t)}{t},
 \end{equation*}
 where $\vv{r}$ is any position vector.
 
 The $\odif[ord = 2]{\vv{r}}$ and $\odif{t}^2$ is just a matter of symbolic manipulation and should only be interpreted as just a shorthand. $\vv{a}$ is called the \textbf{second order derivative} of $\vv{r}$ because you've differentiated $\vv{r}$ twice. \textbf{Higher order derivatives} of position w.r.t. time is listed in \cref{tab:jerksnapcracklepop}.
 
+\begin{table}
+  \centering
+  \begin{tblr}{c | c}
+    Order & Name           \\
+    \hline
+    1     & Velocity/Speed \\
+    2     & Acceleration   \\
+    3     & Jerk           \\
+    4     & Snap/Jounce    \\
+    5     & Crackle        \\
+    6     & Pop
+  \end{tblr}
+  \caption{Higher order derivatives of position w.r.t. time}
+  \label{tab:jerksnapcracklepop}
+\end{table}
+
 \section{Expressing nature: basic differential equations}
 \label{sec:basicdifferentialequations}
 
-\begin{wrapfigure}[14]{r}{0.4\textwidth}
-	\centering
-	\includegraphics{derivatives/simplemotion}
-	\caption{A ball dropped from height $h$}
-	\label{fig:ball_dropped_from_a_height}
-\end{wrapfigure}
-The dynamics of a physical system is universally described by the famous Newton's second law $\vv{F} = m\vv{a}(t)$, which in derivatives form becomes:
+The dynamics of a physical system is, up to some degree, universally described by the famous Newton's second law $\vv{F} = m\vv{a}(t)$, which in derivatives form becomes:
 \begin{equation}
-	\vv{F} = m\odv[ord = 2]{\vv{r}(t)}{t}. \label{eq:newton_second_law}
+  \vv{F} = m\odv[ord = 2]{\vv{r}(t)}{t}. \label{eq:newton_second_law}
 \end{equation}
-Let's try to describe a simple system with this. In \cref{fig:ball_dropped_from_a_height}, a ball is dropped from height $h$. The Earth's gravity pulls the ball with force $mg$ where $m$ is the mass of the ball, and $\vv{g}$, the acceleration from Earth's gravity. Newton's second law tells us that
-\begin{align}
-	\vv{F}                                 & = m\odv[ord = 2]{\vv{r}(t)}{t}                                  \\
-	m\vv{g} = m\odv[ord = 2]{\vv{r}(t)}{t} & \quad \textrm{or,} \quad \vv{g} = \odv[ord = 2]{\vv{r}(t)}{t},
-\end{align}
-which is sometimes called the \textbf{equation of motion}, which packs every information about this system you'd ever want. It directly reads as:
-\begin{quotation}
-	The acceleration of the ball is equals to $g$.
-\end{quotation}
+Let's try to describe a simple system with this.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{derivatives/simplemotion}
+  \caption{A ball dropped from height $h$}
+  \label{fig:ball_dropped_from_a_height}
+\end{figure}
+
+In \cref{fig:ball_dropped_from_a_height}, a ball is dropped from height $h$. The Earth's gravity pulls the ball with force $mg$ where $m$ is the mass of the ball, and $\vv{g}$, the acceleration from Earth's gravity. Newton's second law tells us that
+\begin{gather}
+  \vv{F} = m\odv[ord = 2]{\vv{r}(t)}{t}                 \\
+  m\vv{g} = m\odv[ord = 2]{\vv{r}(t)}{t} \mathor \vv{g} = \odv[ord = 2]{\vv{r}(t)}{t},
+\end{gather}
+which is sometimes called the \textbf{equation of motion}. This equation packs every information about this system you'd ever want. It directly reads as: \enquote{The acceleration of the ball is equals to $g$.}
+
 If you've stayed for this long, congratulations! You now have the power to describe every physical systems with mathematical equations using derivatives: the measure of the rate of change. But it might not be as useful as yet, just as a hammer may seem useless if used to paint, derivatives falls apart when you ask about the future of the system. E.g., how long the ball takes to reach the ground? Or, what's the position of the ball at a certain time? That's the job of the integral to solve, and we'll do so in the next chapter.
 
 \conclusion
 
 \begin{enumerate}[noitemsep]
-	\item The concept of approaching can be used to bypass dividing by zero.
-	\item Derivatives are rate of change of a function w.r.t. a variable which can be evaluated by the method of increments.
-	\item Derivatives can be thought as the slope of a graph, or the tangent to a curve.
-	\item Physical systems can be described by differential equations of different forms. One of them is the Newton's formulation stated in \cref{eq:newton_second_law}
+  \item The concept of approaching can be used to bypass dividing by zero.
+  \item Derivatives are rate of change of a function w.r.t. a variable which can be evaluated by the method of increments.
+  \item Derivatives can be thought as the slope of a graph, or the tangent to a curve.
+  \item Physical systems can be described by differential equations of different forms. One of them is the Newton's formulation stated in \cref{eq:newton_second_law}
 \end{enumerate}
 
 \begin{remark}{}{derivatives}
-	\begin{enumerate}
-		\item In \cref{sec:speedandinstantaneousrateofchange}, we zoomed in on the graph to approximate the function as a line. Actually, this is quite literally the whole idea of derivatives. If we dig in further in calculus, sometimes the rate of change analogy doesn't even make sense. However, saying that the derivative tries to approximate every function as a line works in all scenario. Though, it's quite abstracted away from the world.
-	\end{enumerate}
+  In \cref{sec:speedandinstantaneousrateofchange}, we zoomed in on the graph to approximate the function as a line. Actually, this is quite literally the whole idea of derivatives. If we dig in further in calculus, sometimes the rate of change analogy doesn't even make sense. However, saying that the derivative tries to approximate every function as a line works in all scenario. Though, it's quite abstracted away from the world.
 \end{remark}

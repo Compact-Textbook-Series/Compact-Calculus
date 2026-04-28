@@ -1,0 +1,640 @@
+\chapter{Metric spaces}
+
+\section{Invitation: what is distance?}
+
+Mathematicians generalize a lot. And when they do, they strip down everything and boil down the mathematical structure to just a few axioms and definitions. This has happened with the real number system, which we've constructed from the Peano's axiom. If you're still reading here, you probably know that a lot of "elementary" mathematics is given to you for granted. And, I believe that you still remember every drop of sweat and tears that went into constructing the reals from the Peano's axiom.
+
+The construction that we went through, even though sublime, is too specific to the Peano's axiom. It disregards every system that has a different behavior to the successor function. It disregards systems where distance between two numbers are different. Maybe a system without a distance? Maybe a system where the distance is one if two objects are the same, and zero otherwise. We'd have to p construct from scratch again. Therefore, we turn to abstraction.
+
+The main focus of this chapter is on the metric space: a space where there is a notion of distance between two points that \emph{makes sense}. It is a set \(X\) that's equipped with a \textbf{distance function} \(d: X \times X \appr \mathbb{R}_{\geq 0}\), aka \textbf{the metric}, which acts like a ruler that measures the separation between two points in \(X\).
+
+There is no such straightforward definition of the metric. However, there is a condition of \emph{what} qualifies to be a metric. I could give you those condition now, but I encourage you to try to come up with it yourself first. As this is a practice of abstraction. What condition makes the distance function \emph{acts} like one? Give it a try, and see how it compares with the traditional condition.
+
+I've already spoiled that the metric maps two elements of \(X\) onto the \(\mathbb{R}_{\geq 0}\). It'd be natural to ask what \emph{should} happen when \(d(x, y) = 0\)? Well if the distance between two elements is zero, then the two objects should be the identical. Recall from elementary geometry that distance is relative. So, the distance between \(a\) and \(b\) should be identical to the distance from \(b\) to \(a\).
+
+The two condition above is still not enough to define the metric. E.g., \(d(x, y) = \sin^2(x - y)\) where \(x\) and \(y\) are real numbers would still be a distance function according to the two properties above, but it doesn't make intuitive sense as a metric. As it doesn't make sense for distance to oscillate around. Therefore, we need another rule: the triangle inequality, which says that the distance taken by the \emph{side-tracked} path should always be \emph{more} than the direct path.
+
+All in all, we crystallize those properties into the formal definition of metric space and distance function
+
+\begin{df}{Metric spaces}{}
+  A \textbf{metric space} is a set-function pair \((X, d)\) where \(d: X \times X \appr \mathbb{R}^{+}\) must have the following properties:
+  \begin{enumerate}[noitemsep]
+    \item Nonnegativity: \(d(x, y) \geq 0\)
+    \item Injectivity of identity: \(d(x, y) = 0 \implies x = y\),
+    \item Commutativity: \(d(x, y) = d(y, x)\),
+    \item Triangle inequality: \(d(x, z) \leq d(x, y) + d(y, z)\),
+  \end{enumerate}
+  and is called the \textbf{metric} \index{metric spaces!definition} \index{spaces!metric spaces|see {metric spaces}} \index{metric}
+\end{df}
+
+The triangle inequality here also has its reversed counterpart:
+\begin{prop}{Reversed triangle inequality}{}
+  Let \((X, d)\) be a metric space, then
+  \begin{equation}
+    \forall (x, y, z \in X) : |d(x, y) - d(y, z)| \leq d(x, z).
+  \end{equation}
+\end{prop}
+
+\begin{proof}
+  To prove that \(|d(x, y) - d(y, z)| \leq d(x, z)\), we must prove that
+  \begin{equation}
+    d(x, y) - d(y, z) \leq d(x, z) \mathand - d(x, z) \leq d(x, y) - d(y, z).
+  \end{equation}
+  Using the triangle inequality,
+  \begin{align}
+    d(x, y)           & \leq d(x, z) + d(z, y) \\
+    d(x, y) - d(y, z) & \leq d(x, z)
+  \end{align}
+  Then, use the triangle inequality again to get
+  \begin{align}
+    d(y, z)   & \leq d(y, x) + d(x, z)  \\
+    - d(x, z) & \leq d(x, y) - d(y, z).
+  \end{align}
+  Thus, we've proved the reversed triangle inequality
+\end{proof}
+
+Here are some examples of metric spaces to illustrate the capabilities of this abstraction.
+
+\begin{exmp}{Metric spaces}{metricspaces-examples}
+  For all of these, the reader should verify that \(d\) qualifies as a metric unless said so.
+
+  \paragraph{The reals under absolute value:} Let \(X = \mathbb{R}\) and \(d(x, y) = |x - y|\). This metric space is probably the easiest to understand, and shouldn't need more explanation. It is still a good exercise to verify that it \((\mathbb{R}, d)\) actually forms a metric space. \index{metric spaces!example!reals under absolute value}
+
+  \begin{proof}
+    \begin{enumerate}
+      \item The absolute value is never negative; thus, nonnegativity is satisfied.
+      \item \(|x - y| = 0\) means \(x - y = 0\), i.e., \(x = y\); thus, the metric's identity is injective.
+      \item By the property of absolute value, \(|x - y| = |y - x|\); thus, the metric is symmetric.
+      \item The triangle inequality of the metric follows from the triangle inequality of absolute value.
+    \end{enumerate}
+    Since all the conditions are satisfied, \((\mathbb{R}, d)\) is a metric space.
+  \end{proof}
+
+  \paragraph{The taxicab metric:} Let \(X = \mathbb{R}^n\), \(\vv{x} = \ab(x_1, \dots, x_n)\), \(\vv{y} = \ab(y_1, \dots, y_n)\) and \(d(\vv{x}, \vv{y}) = \sum_{i = 1}^n |x_n - y_n|\). This metric is also called the \textbf{Manhattan metric} because it represents the path that a car needs to take in a city that's obstructed by blocks of building. The distance measured by this of this space is shown as the black lines of \cref{fig:metricspace-euclidean_taxicab_distance}. \index{metric spaces!examples!taxicab}
+  \begin{figure}[H]
+    \centering
+    \includesvg{realanalysis/metricspaces/euclidean_taxicab_distance.svg}
+    \caption{Euclidean metric (in dashed) and taxicab metric (in black) in \(\mathbb{R}^2\)}
+    \label{fig:metricspace-euclidean_taxicab_distance}
+  \end{figure}
+
+  \begin{proof}
+    Nonnegativity, injectivity of identity, and the symmetric property follow from the property of absolute values. What's left is for us to prove that the triangle inequality holds, i.e.,
+    \begin{equation}
+      \sum_{i = 1}^{n}|x_i - z_i| \leq \sum_{i = 1}^n |x_i - y_i| + \sum_{i = 1}^n |y_i + z_i|
+    \end{equation}
+    From the property of absolute values,
+    \begin{equation}
+      |x_i - z_i| \leq |x_i - y_i| + |y_i + z_i|
+    \end{equation}
+    Summing up over all the indices will give us the triangle inequality of the taxicab metric. Therefore, the taxicab metric on \(\mathbb{R}^n\) forms a metric space.
+  \end{proof}
+
+  \paragraph{The Euclidean metric:} The Euclidean metric is a generalization of Pythagorean's theorem to \(n\) dimension. Let \(X = \mathbb{R}^n\), \(\vv{x} = (x_1, \dots x_n)\), \(\vv{y} = (y_1, \dots, y_n)\), and let
+  \begin{equation}
+    d(\vv{x}, \vv{y}) = \sqrt{\sum_{i = 1}^n (x_n - y_n)^2}.
+  \end{equation}
+  This metric describes the shortest distance between two points in \emph{flat} space, i.e., the Euclidean space. The distance measured is shown as dashed line in \cref{fig:metricspace-euclidean_taxicab_distance}. The proof is in \cref{sec:metricspaces-cauchy_schwarz}.
+  \index{metric spaces!examples!Euclidean}
+
+  \paragraph{The discrete metric space:} This metric space is arguably the most simple one yet. Simply, let \(X\) be a set of \emph{anything}, and let
+  \begin{equation}
+    d(x, y) =
+    \begin{cases}
+      0 & \textrm{if } x = y    \\
+      1 & \textrm{if}~ x \neq y
+    \end{cases}
+  \end{equation}
+  This metric is used most in error correction where the only thing that matters is whether two codewords are the same or not.
+  \index{metric spaces!examples!discrete}
+  \begin{proof}
+    Injectivity of identity and nonnegativity follows from the definition of \(d\). If \(x \neq y\), then \(y \neq x\) as well, and the distance between them is one; therefore, \(d\) is symmetric. For the triangle inequality, if \(x = z\), then
+    \begin{equation}
+      d(x, z) \leq d(x, y) + d(y, z)
+    \end{equation}
+    for all \(y \in X\). This is because the L.H.S. is \(0\), and the R.H.S. is nonnegative. If \(x \neq z\), then there are three cases.
+    \begin{enumerate}[noitemsep]
+      \item \(x \neq y\) and \(y \neq z\), then the triangle inequality becomes \(1 \geq 1 + 1\) which is true.
+      \item \(x \neq y\) but \(y = z\), then \(1 \geq 1 + 0\) which is true.
+      \item \(x = y\) but \(y \neq z\), then \(1 \geq 0 + 1\), which is also true.
+    \end{enumerate}
+    Therefore, the discrete metric under any set forms a metric space.
+  \end{proof}
+
+  \paragraph{Distance between two functions:} This is the most common metric that's used to define correlation between function. If two functions are highly correlated, then the distance between them should be close to zero. Otherwise, it is far away from zero. Let \(X\) be the set of continuous functions \(f: \lBrack a, b \rBrack \appr \mathbb{R}\), and let \(d\) be defined by
+  \begin{equation}
+    d(f, g) = \int_a^b \ab|f(t) - g(t)| \odif{t}
+  \end{equation}
+  This integral sums up the absolute distance between two functions at each point. Obviously, this definition is nonnegative, injective, and symmetric. It is then left as an exercise to the reader to prove that the triangle inequality holds.
+\end{exmp}
+
+It would be quite a boilerplate to write "Let there be a metric space \((X, d)\)" every time in a chapter. Therefore, let it be known that \((X, d)\) refers to a metric space with the set \(X\) and metric \(d\).
+
+Now what comes next? The answer is: everything that you've seen in the reals. Open intervals, closed intervals, sequences, convergence, etc. We are able to generalize all of those into the notion of metric spaces. But before we do that, I'd like to interject with the proof that the Euclidean metric under the reals form a metric space by using the Cauchy-Schwarz' inequality.
+
+\section{Interlude: Cauchy-Schwarz' inequality}
+\label{sec:metricspaces-cauchy_schwarz}
+
+Since this is a calculus textbook, I wouldn't delve in too much about the interpretation of the Cauchy-Schwarz' inequality because it requires linear algebra. I would also not go into further generalizations of the inequality. For those who are curious, check out H\"older's inequality, Minkowski's inequality, and the Jensen's inequality. If you aren't comfortable with linear algebra, just read the \cref{th:metricspaces-cauchy_schwarz} and the proof that the Euclidean metric on \(\mathbb{R}^n\) forms a metric space, and move on to the next section.
+
+Let \(\vv{a}\) and \(\vv{b}\) be a vector in \(\mathbb{R}^n\), the Cauchy-Schwarz' inequality relates the inner product of the two vectors to its length:
+\begin{equation}
+  |\vv{a} \vdot \vv{b}|^2 = ab
+\end{equation}
+When we're using linear algebra, this fact becomes trivial because \(\vv{a} \vdot \vv{b}\) is the product of the two lengths, and is scaled by the angle between the two vectors. That scaling is given by \(\cos(\theta)\) where \(\theta\) is the difference in angles between the two vectors. Since the range of the cosine function is between \(-1\) and \(1\),
+\begin{equation}
+  a b \cos(\theta) \leq a b
+\end{equation}
+When expanded out, we get the inequality in algebraic form:
+
+\begin{theorem}{Cauchy-Schwarz' inequality}{metricspaces-cauchy_schwarz}
+  Let \(\vv{a}\) and \(\vv{b}\) be points in \(\mathbb{R}^n\) with coordinates \(a_1, \dots, a_n)\) and \(\vv{b} = (b_1, \dots, b_n)\) respectively. Then, \index{Cauchy-Schwarz' inequality}
+  \begin{equation}
+    \sum_{i = 1}^n a_i b_i \leq \sqrt{ \ab(\sum_{i = 1}^n a_i^2) \ab(\sum_{i = 1}^n b_i^2) }
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  Consider the following quadratic polynomial in \(x\)
+  \begin{align}
+    \sum_{i = 1}^n (a_i x + b_i)^2 & = \sum_{i = 1}^n \ab(a_i^2 x^2 + 2 a_i b_i x + b_i^2)                                         \\
+                                   & = x^2 \sum_{i = 1}^n a_i^2 + \ab(2 \sum_{i = 1}^n a_i b_i) x + \sum_{i = 1}^n b_i^2 \nonumber
+  \end{align}
+  This polynomial is always positive because it is a sum of squares of reals. Hence, it must have only one root or no root at all. I.e., the discriminant must be less than or equal to zero:
+  \begin{align}
+    \ab(2 \sum_{i = 1}^n a_i b_i)^2 - 4 \ab(\sum_{i = 1}^n a_i^2) \ab(\sum_{i = 1}^n b_i^2) & \leq 0                                                                   \\
+    4 \ab(\sum_{i = 1}^n a_i b_i)^2                                                         & \leq 4 \ab(\sum_{i = 1}^n a_i^2) \ab(\sum_{i = 1}^n b_i^2)               \\
+    \sum_{i = 1}^n a_i b_i                                                                  & \leq \sqrt{\ab(\sum_{i = 1}^n a_i^2) \ab(\sum_{i = 1}^n b_i^2)} \qedhere
+  \end{align}
+\end{proof}
+
+\begin{cor}{}{}
+  \(\mathbb{R}^n\) under the Euclidean metric forms a metric space.
+\end{cor}
+
+\begin{proof}
+  Since \((a_i - b_i)^2 = (b_i - a_i)^2\) and \((a_i - b_i)^2 = 0\) \emph{iff} \(a_i = b_i\), injectivity of identity and the symmetric property are automatically satisfied.
+
+  To prove the triangle inequality, let \(\vv{a}, \vv{b}, \vv{c} \in \mathbb{R}^n\). Then,
+  \begin{align}
+    d(\vv{a}, \vv{c})^2 & = \sum_{i = 1}^n (a_i - c_i)^2                                                                         \\
+                        & = \sum_{i = 1}^n \ab((a_i - b_i) + (b_i - c_i))^2                                                      \\
+                        & = \sum_{i = 1}^n (a_i - b_i)^2 + \sum_{i = 1}^n (b_i - c_i)^2 + 2\sum_{i = 1}^n (a_i - b_i)(b_i - c_i) \\
+                        & = d(\vv{a}, \vv{b})^2 + d(\vv{b}, \vv{c})^2 + \sum_{i = 1}^n (a_i - b_i)(b_i - c_i)
+  \end{align}
+  Using the Cauchy-Schwarz' inequality, we get that
+  \begin{equation}
+    \sum_{i = 1}^n (a_i - b_i)(b_i - c_i) \leq \sqrt{\ab(\sum_{i = 1}^n (a_i - b_i)^2) \ab(\sum_{i = 1}^n (b_i - c_i)^2) };
+  \end{equation}
+  therefore,
+  \begin{align}
+    d(\vv{a}, \vv{c})^2 & \leq d(\vv{a}, \vv{b})^2 + d(\vv{b}, \vv{c})^2 + 2 d(\vv{a}, \vv{b}) d(\vv{b}, \vv{c}) \\
+    d(\vv{a}, \vv{c})^2 & \leq (d(\vv{a}, \vv{b}) + d(\vv{b}, \vv{c}))^2                                         \\
+    d(\vv{a}, \vv{c})   & \leq d(\vv{a}, \vv{b}) + d(\vv{b}, \vv{c}). \qedhere
+  \end{align}
+\end{proof}
+
+\section{Generalizing open and closed intervals}
+
+This section describes the generalization of open and closed intervals. I believe that if you're here, you already probably know what an interval on the reals is. But just to recapitulate, an interval on the reals is a set of all real numbers between \(a\) and \(b\). A closed interval contains its endpoints, meanwhile an open interval doesn't. There are also intervals which aren't closed or open. Those are intervals which only contains one of its endpoints. Here, we extend the notion of open and closed intervals to open and closed sets. Loosely speaking, a subset of the reals is open if it can be written as an infinite union of open intervals, and is closed if it can be written as an intersection of closed intervals. In this section, we shall see how these concepts generalize onto the metric space, providing us with a foundation to build the notion of convergence and continuity later on.
+
+Open and closed intervals are generalized to balls:
+\begin{df}{Balls}{metricspaces_balls}
+  Let \((X, d)\) be a metric space, then \index{open balls} \index{closed balls}
+  \begin{enumerate}{}
+    \item An open ball of radius \(r\) centered at \(x\) is written as \(\oball{X}{x}{r}\), and is the set \(\{y \in X : d(x, y) < r\}\)
+    \item A closed ball of radius \(r\) centered at \(x\) is written as \(\cball{X}{x}{r}\), and is the set \(\{y \in X : d(x, y) \leq r\}\)
+  \end{enumerate}
+\end{df}
+
+Put simply,
+\begin{displayquote}
+  An open ball of radius \(r\) centered at \(x\) is \emph{the set of all objects that is less than \(r\) units away from \(x\)}.
+
+  A closed ball is an open ball which contains \emph{all} its own boundaries.
+\end{displayquote}
+
+To visualize this, we can draw a set diagram as shown in \cref{fig:metricspaces-open_and_closed_balls}. An open ball is shown as a circle with dashed perimeter. A closed ball is also a circle, but with blacked out perimeter.
+
+\begin{figure}[ht]
+  \centering
+  \includesvg{diagrams/realanalysis/metricspaces/open_and_closed_balls.svg}
+  \caption{Open and closed balls in a metric space}
+  \label{fig:metricspaces-open_and_closed_balls}
+\end{figure}
+
+We've actually encountered this concept earlier, disguised in the definition of convergence. As a reminder, a sequence \(\sequence{a_n}{n = 0}{\infty}\) converges to \(L\) on the reals \ifft
+\begin{equation}
+  \forall (\epsilon > 0) \exists (N \in \mathbb{N}) \forall (n > N \in \mathbb{N}) : |a_n - L| \leq \epsilon
+\end{equation}
+This can be generalized into the metric space. Let \((\mathbb{R}, d)\) be a metric space with \(d(a_n, L) = |a_n - L|\), then
+\begin{equation}
+  a_n \appr L \iff \forall (\epsilon > 0) \exists (N \in \mathbb{N}) \forall (n > N \in \mathbb{N}) : d(a_n, L) \leq \epsilon
+\end{equation}
+or,
+\begin{equation}
+  \forall (\epsilon > 0) \exists (N \in \mathbb{N}) \forall (n > N \in \mathbb{N}) : a_n \in \cball{\mathbb{R}}{L}{\epsilon}
+\end{equation}
+
+The definition of open and closed balls is also analogous to the open and closed intervals on the reals:
+\begin{align}
+  \lBrack a, b \rBrack & = \cball{\mathbb{R}}{\frac{a + b}{2}}{\frac{a - b}{2}} \\
+  \rBrack a, b \lBrack & = \oball{\mathbb{R}}{\frac{a + b}{2}}{\frac{a - b}{2}}
+\end{align}
+
+One immediate consequence is
+\begin{cor}{}{}
+  If \(s < r\), then \(\cball{X}{x}{s} \subseteq \oball{X}{x}{r}\).
+\end{cor}
+
+\begin{proof}
+  Let \(a \in \cball{X}{x}{s}\), then \(d(a, x) \leq s\). Since \(s < r\), \(d(a, x) < r\). Therefore, \(a \in \oball{X}{x}{r}\) aswell.
+\end{proof}
+
+We now define the notion of open and closed sets:
+
+\begin{df}{Open and closed sets}{}
+  Let \((X, d)\) be a metric space and let \(G \subseteq X\). \index{open sets!metric spaces} \index{closed sets!metric spaces} \index{metric spaces!open sets} \index{metric spaces!closed sets}
+
+  \begin{enumerate}[noitemsep]
+    \item \(G\) is open in \(X\) \ifft \(\forall (x \in G) \exists (r > 0) : \oball{X}{x}{r} \subseteq G\)
+    \item \(G\) is closed in \(X\) \ifft its complement, \(X \smin G\) is open.
+  \end{enumerate}
+\end{df}
+
+An alternative definition for the closed set is:
+\begin{cor}{}{metricspaces-closed_sets_alternative_def}
+  A set \(G\) is closed in \(X\) \ifft the following proposition is true:
+  \begin{equation}
+    x \notin G \implies \exists (r > 0) : \oball{X}{x}{r} \cap G = \emptyset
+  \end{equation}
+\end{cor}
+\begin{proof}
+  \forwarddir Let \(G\) be a closed set. By definition, \(X \smin G\) is open, i.e.,
+  \begin{equation}
+    \forall \ab(x \in (X \smin G)) \exists (r > 0) : \oball{X}{x}{r} \subseteq (X \smin G)
+  \end{equation}
+  Since \(\oball{X}{x}{r} \subseteq (X \smin G)\), then \(\oball{X}{x}{r} \cap G = \emptyset\) as desired.
+
+  \backwarddir If \(\forall \ab(x \in (X \smin G)) \exists (r > 0) : \oball{X}{x}{r} \cap G = \emptyset\), then \(\oball{X}{x}{r} \subseteq X \smin G\), meaning that \(X \smin G\) is open. Thus, \(G\) is closed.
+\end{proof}
+
+Now that I've provided the definition of open and closed sets, it's time to discuss the interpretation of them. Frankly, there is a lot of nuances hidden in this simple definition.
+
+\paragraph{Openness and interiors:} As we shall see later, an open set contains only its interior, i.e., it doesn't have a boundary. Let's see how this intuition correspond to the definition of openness.
+
+Consider a set \(G\) which has no boundary. I.e., the boundary of \(G\) lies in \(X \smin G\). Let \(x \in G\), then there is always some distance between \(x\) and the boundary of \(G\). This is because for the distance between \(x\) and the boundary to be \(0\), \(x\) \emph{must} be on the boundary, which is not allowed. Therefore, there must be an element of \(G\) that's between \(x\) and the nearest boundary. I.e., exists an open ball around \(x\) such that the open ball is a subset of \(G\).
+
+\paragraph{Closed sets and boundaries:} Intuitively, a closed set contains its own boundary. How does \cref{co:metricspaces-closed_sets_alternative_def} capture this behavior?
+
+There are two ways to interpret this. Firstly, a set \(G\) is closed \ifft the complement is open by definition, i.e., the complement doesn't contain the boundary. If the complement doesn't contain the boundary, the boundary must be in the set \(G\) itself.
+
+The second way is to use the contrapositive of \cref{co:metricspaces-closed_sets_alternative_def}. A set is closed \ifft
+\begin{equation}
+  \forall (r > 0) : \oball{X}{x}{r} \cap G \neq \emptyset \implies x \in G.
+\end{equation}
+Let \(G\) be a closed subset of \(X\), and let there be a point such that all open balls drawn around that point intersect the set. Loosely speaking, a set divides the space into three parts: its interior, boundaries, and its complement. If \(x\) is in the interior or the boundary of \(G\), then all open balls must intersect the set. By the condition above, this means \(x\) must be in \(G\), i.e., both the interior and boundary is contained in \(G\). Because \(G\) contains its own boundary, it must be closed.
+
+\paragraph{A set that's neither open nor closed:} Notice that the definition didn't say that a closed set is a set that's not open, as there are some sets doesn't satisfy any of the condition. Such examples of these are half-open intervals on the reals: \(\lBrack a, b \lBrack\), and sets that partially contains its boundary as shown in \cref{fig:metricspaces-nether_open_nor_closed}.
+
+\begin{figure}[]
+  \centering
+  \includesvg{realanalysis/metricspaces/neither_open_nor_closed.svg}
+  \caption{A set which is neither open nor closed}
+  \label{fig:metricspaces-nether_open_nor_closed}
+\end{figure}
+
+\begin{cor}{}{metricspaces-self_openness}
+  An empty set is always open, and a metric space is always open in itself.
+\end{cor}
+\paragraph{Empty sets and the universe---clopen sets:} There is no element in an empty set; thus, there is no open balls to be drawn. Therefore, the condition for openness is vacuously satisfied. An empty set is open. Thus, its complement, i.e., the universe, must be closed. However, if we look at the metric space as set, \(X\) is indeed open in itself. This is because \(\oball{X}{x}{r}\) only contains the element of the space its in. Therefore, no open balls can escape \(X\), i.e., \(X\) is open, and the empty set must be closed. How do we resolve this conflict?
+
+Put simply, \(X\) and \(\emptyset\) are \emph{both} open and closed --- they're \textbf{clopen sets}. This is different to a set that's neither open nor closed because a clopen set satisfies both condition of openness and closedness, but a set that's neither open nor closed doesn't satisfy any.
+
+There are two rudimentary facts that I'd like to present. Firstly,
+\begin{cor}{}{metricspaces-open_balls_are_open-closed_balls_are_closed}
+  An open ball is open, and a closed ball is closed.
+\end{cor}
+
+Let \(c \in X\). Firstly, we want to prove that \(\oball{X}{c}{r_0}\) is open in \(X\). In other words, we must show that for every \(x \in \oball{X}{c}{r_0}\), there is an \(r\) such that \(\oball{X}{x}{r} \subseteq \oball{X}{c}{r_0}\).
+
+The intuition for this is that, wherever in an open ball you choose, there will always be some space between that point and the edge, even if it's an infinitesimally small one. This is because the only place where the distance would be zero is on the ball's edge itself, and as we've defined, that isn't included in the set.
+
+In the upcoming proof, some geometric assistance will be used for clarity. However, it is important to remember that, at this point, these diagrams are just tools. While it is true that they are useful in supporting arguments and building intuition, pictures simply cannot tackle the problems we are facing here alone, especially with their exotic edge-cases. So, we will still have to rely on algebra to cross the finish line.
+
+As shown in \cref{fig:metricspaces-open_balls_are_open}, start off with an open ball centered at \(c\) with radius \(r_0\). Then for any \(x\), draw a line of length \(r_0\) to the boundary of the ball. We see that \(x\) splits the line into two. To fit this ball inside the circle, we just have to set it's radius to the distance from \(x\) to the edge of the larger ball. This distance is exactly \(r_0 - d(x, c)\). Equipped with the intuition, we now write the actual proof
+
+\begin{figure}
+  \centering
+  \includesvg{realanalysis/metricspaces/open_balls_are_open.svg}
+  \caption{Open balls are open.}
+  \label{fig:metricspaces-open_balls_are_open}
+\end{figure}
+
+\begin{proof}
+  We shall prove that \(\forall \ab(a \in \oball{X}{x}{r_0 - d(x, c)}) : a \in \oball{X}{c}{r_0}\).
+
+  If \(a \in \oball{X}{x}{r_0 - d(x, c)}\), then
+  \begin{align}
+    d(a, x)                        & < r_0 - d(x, c) \\
+    d(a, x) + d(x, c)              & < r_0
+    \intertext{By the triangle inequality,}
+    d(a, c) \leq d(a, x) + d(x, c) & < r_0           \\
+    d(a, c)                        & < r_0
+  \end{align}
+  This qualifies for \(a\) to be in \(\oball{X}{c}{r_0}\) by definition of open balls.
+
+  A similar proof can be given for closed balls.
+\end{proof}
+
+Secondly,
+\begin{cor}{}{metricspaces-finite_sets_are_closed}
+  A set with a finite number of elements is closed.
+\end{cor}
+
+Similarly, we use some geometric assistance. A set \(G\) with a finite number of elements can be represented as points in \(X\) as shown in \cref{fig:metricspaces-finite_sets_are_closed}. To prove that \(G\) is closed is to prove that \(X \smin G\) is open, i.e.,
+\begin{equation}
+  \forall (a \in G) \exists (r > 0) : \oball{X}{a}{r} \subseteq X \smin G.
+\end{equation}
+Geometrically, we want to draw an open ball that is in \(X\) but doesn't include elements of \(G\). How do we do this? Well, just set
+\begin{equation}
+  r = \min\{d(a, x_1), \dots, d(a, x_n)\} = r_{\min}
+\end{equation}
+as shown in the diagram.
+
+\begin{figure}
+  \centering
+  \includesvg{realanalysis/metricspaces/finite_sets_are_closed.svg}
+  \caption{An example of a finite set \(G = \ab\{x_1, \dots, x_5\}\) in a space \(X\).}
+  \label{fig:metricspaces-finite_sets_are_closed}
+\end{figure}
+
+\begin{proof}
+  Let \(a \in G\), \(r_i = d(a, x_i)\), and \(r = \min\{r_1, \dots, r_n\}\). We want to prove that \(\oball{X}{x}{r} \subseteq X \ G\), i.e., \(\oball{X}{x}{r} \cap G = \emptyset\).
+  \begin{equation}
+    \forall (1 \leq i \leq n) : d(x_i, a) \geq \min\{r_1, \dots, r_n\} \implies d(x_i, a) \geq r.
+  \end{equation}
+  But since \(\oball{X}{x}{r} = \{y \in X: d(y, a) < r\}\), none of \(x_i\) belongs in \(\oball{X}{x}{r}\). Thus, \(\oball{X}{x}{r}\) must be totally in \(X \smin G\), and \(G\) is closed.
+\end{proof}
+
+Thirdly, the definition of open sets can also be restated as:
+\begin{cor}{}{metricspaces-open_sets_from_open_balls}
+  Any arbitrary union of open balls form an open set.
+\end{cor}
+
+As said earlier, the union of open intervals are open, and the union of closed intervals are closed. Well, it's actually not as simple as this: things do get weird when we deal with infinities.
+
+\begin{prop}{Union of open and closed sets}{metricspaces-union_of_open_closed_sets}
+  \begin{enumerate}
+    \item The union of any number of open sets is open. This includes infinite union of open sets as well. \label{ite:metricspaces-union_of_open_closed_sets-1}
+    \item The union of \emph{finitely} many closed sets is closed. \label{ite:metricspaces-union_of_open_closed_sets-2}
+  \end{enumerate}
+\end{prop}
+
+Before we get to the proof, I'd like to give a counterexample to illustrate why we have to care about infinity.
+
+\begin{exmp}{Union of infinitely many closed sets can be open}{}
+  Consider a sequence of sets on \(\mathbb{R}\)
+  \begin{equation}
+    F_n = \cintv{- 1 + \frac{1}{n}, 1 - \frac{1}{n}}.
+  \end{equation}
+  Then,
+  \begin{equation}
+    \bigcup_{n = 1}^{\infty}F_n = \;\rBrack \mbox{\(-1\)}, 1\lBrack,
+  \end{equation}
+  which is an open set on \(\mathbb{R}\). This is because even though the sequence \(F_n\) converges to the interval \(\ointv{0, 1}\), the endpoint is \emph{never} reached. Therefore, even though we take the infinite union of \(F_n\), there is no endpoints; thus, it is open.
+
+  This is the intuition. Now, for the proof:
+
+  \begin{proof}
+    Let \(\bigcup_{n = 1}^{\infty} F_n = \mathcal{F}\). To prove that \(\mathcal{F} = \ointv{-1, 1}\), we need to prove that
+    \begin{equation}
+      \forall \ab(x \in \mathcal{F}) : x \in \ointv{-1, 1} \mathand \forall \ab(x \in \ointv{-1, 1}) : x \in \mathcal{F}
+    \end{equation}
+    \forwarddir When \(n \geq 1\), we get
+    \begin{gather}
+      -1 + \frac{1}{n} > -1 \mathand 1 - \frac{1}{n} < 1.
+    \end{gather}
+    Therefore, each interval is contained in \(\ointv{-1, 1}\), and their union must also be contained.
+
+    \backwarddir Let \(x \in \ointv{-1, 1}\), we must show that
+    \begin{equation}
+      \exists (n \geq 1 \in \mathbb{N}) : x \in \cintv{-1 + \frac{1}{n}, 1 - \frac{1}{n}}
+    \end{equation}
+    I.e., to find \(n\) as a function of \(x\).
+
+    A number \(n\) satisfies the above condition \ifft
+    \begin{equation}
+      -1 + \frac{1}{n} \leq x \leq 1 - \frac{1}{n}.
+    \end{equation}
+    Separate the equation into
+    \begin{equation}
+      -1 + \frac{1}{n} \leq x \mathand \frac{1}{n} \leq 1 - x.
+    \end{equation}
+    Choose
+    \begin{equation}
+      \frac{1}{n} \leq \min(x + 1, 1 - x)
+    \end{equation}
+    and we're done.
+  \end{proof}
+\end{exmp}
+
+\begin{proof}[Proof of \cref{ite:metricspaces-union_of_open_closed_sets-1} of \cref{pr:metricspaces-union_of_open_closed_sets}]
+  Let \(G_1, G_2, \dots\) be a sequence of open sets. We want to prove that \(\mathcal{G} = \bigcup_n G_n\) is open.
+
+  For \(x \in \mathcal{G}\), \(\exists i : x \in G_i\). Since \(G_i\) is open, \(\exists (r > 0) : \oball{X}{x}{r} \subseteq G_i\). And since \(G_i \in \mathcal{G}\), we also get that \(\oball{X}{x}{r} \in \mathcal{G}\). Hence, \(\mathcal{G}\) is open.
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:metricspaces-union_of_open_closed_sets-2} of \cref{pr:metricspaces-union_of_open_closed_sets}]
+  Let \(G_1, \dots, G_n\) be a finite collection of closed sets, and let \(\mathcal{G} = \bigcup_{i = 1}^n G_n\). We want to prove that \(\mathcal{G}\) is closed.
+  \begin{equation}
+    x \notin \mathcal{G} \implies \exists (r > 0) : \oball{X}{x}{r} \cap \mathcal{G} = \emptyset.
+  \end{equation}
+  Let \(x \notin \mathcal{G}\), i.e.,
+  \begin{equation}
+    x \notin G_1 \land \dots \land x \notin G_n
+  \end{equation}
+  Since all \(G_i\)'s are closed,
+  \begin{equation}
+    \exists (r_i > 0) : \oball{X}{x}{r_i} \not\subseteq G_i.
+  \end{equation}
+  Let \(r = \min\ab\{r_1, \dots, r_n\}\). Since \(r \leq r_1, \dots, r_n\), we get that \(\forall{1 \leq i \leq n} : \oball{X}{x}{r} \subseteq \oball{X}{x}{r_i}\). Hence, \(\oball{X}{x}{r} \cap G_i = \emptyset\), and
+  \begin{equation}
+    \oball{X}{x}{r} \cap \mathcal{G} = \oball{X}{x}{r} \cap \bigcup_{i = 1}^n G_i = \bigcup_{i = 1}^n \oball{X}{x}{r} \cap G_i = \emptyset:
+  \end{equation}
+  \(\mathcal{G}\) is closed as desired.
+\end{proof}
+
+Applying de Morgan's law to \cref{pr:metricspaces-union_of_open_closed_sets}, we get
+\begin{prop}{Intersection of open and closed sets}{metricspaces-intersection_of_open_closed_sets}
+  \begin{enumerate}[noitemsep]
+    \item The intersection of any number of closed sets is closed.
+    \item The intersection of \emph{finitely} many open sets is open.
+  \end{enumerate}
+\end{prop}
+Similarly, there are also instances where infinite intersection of open sets is closed as shown here:
+\begin{exmp}{Infinite intersection of open sets can be closed}{}
+  Consider a sequence of sets on \(\mathbb{R}\)
+  \begin{equation}
+    F_n = \ointv{-\frac{1}{n}, \frac{1}{n}}
+  \end{equation}
+  Let \(\mathcal{F} = \bigcap_{n = 1}^{\infty} F_n\). It is left as an exercise to the reader to prove that \(\mathcal{F} = \ab\{0\}\). Since \(\mathcal{F}\) is a finite set, it is closed by \cref{co:metricspaces-finite_sets_are_closed}.
+\end{exmp}
+
+\section{Interiors, closures, and boundaries}
+
+I've been saying earlier that an open set contains only its interior and a closed set contains all its boundary. What does \emph{interior} and \emph{boundary} actually means? Here is where we define them.
+
+\begin{df}{Interior, boundary, and closure}{metricspaces-interior_boundary_closure}
+  Let \((X, d)\) be a metric space, and let \(A \subseteq X\). Then,
+  \begin{itemize}[noitemsep]
+    \item The interior of \(A\), denoted \(\intr A\) is defined as \[\intr A = \bigcup \ab\{G : (G \textrm{ is open}) \land (G \subseteq A)\}.\]
+    \item The closure of \(A\), denoted \(\clos A\) is defined as \[\clos A = \bigcap \ab\{G : (G \textrm{ is closed}) \land (A \subseteq G)\}.\]
+    \item The boundary of \(A\), denoted \(\bnd A\) is defined as \[\bnd A = \clos A \smin \intr A.\]
+  \end{itemize}
+\end{df}
+
+Similar to open and closed sets, there are also subtleties within this definition as we shall discuss here.
+
+\paragraph{Interpreting the definition of interior:} Notice that there are no indices in the definition of interior. The only thing that matters is that we're taking the union of \emph{all} the possible open subsets of \(A\). We've seen earlier that all open sets can be written as an infinite union of open balls. The definition of interior then simplifies to taking the union of infinitely open balls that are subset of \(A\). In the diagram, this is like trying to cover \(A\) with infinitely many open balls as illustrated in \cref{fig:metricspaces-interiors-1}.
+
+Obviously, all the interior of \(A\) gets covered. Good! But what about the boundary of \(A\) as shown in black. Is that also covered? The answer is no, since an open ball does not contain its own boundary; therefore, the union of open balls also doesn't contain its boundary. Even though \(A\) has a boundary, the boundary can't be reached by the open balls. Therefore, the definition of interior is essentially excluding the boundary from \(A\), creating \(\intr A\).
+
+\begin{figure}[ht]
+  \centering
+  \includesvg{realanalysis/metricspaces/interiors-1.svg}
+  \caption{A covering of \(A\) by open balls.}
+  \label{fig:metricspaces-interiors-1}
+\end{figure}
+
+Intuitively, this also means that \(\intr A\) is \emph{always} an open subset. This is also proven by \cref{pr:metricspaces-union_of_open_closed_sets}. Turns out, the converse is also true. If a set is open, then it is equal to its interior. This will be proven later when we've discussed element chasing in interiors and closures.
+
+\paragraph{Interpreting the closure and boundary:} Similarly, there are no indices. We're taking the intersection of \emph{all} the possible closed sets \(G\) that contains \(A\). \(G\) is \emph{closed} means \(G\) has a boundary. Each time you perform an intersection of closed set, it forms another closed set (\cref{pr:metricspaces-union_of_open_closed_sets}); therefore, the final set must be closed and contains a boundary. Hence, \(\clos A\) is just \(A\) but with all the boundary elements.
+
+Since \(\clos A\) contains its boundary, and \(\intr A\) does not, we can subtract \(\intr A\) from \(\clos A\) to obtain the boundary of \(A\); hence, \(\bnd A = \clos A \smin \intr A\).
+
+Now, we get to the proof of our interpretations.
+
+When we prove properties about sets, we prefer the method of elements chasing. I.e., to show that everything in the set has a certain property. The next two result gives us a way to chase elements of interiors and closures.
+
+\begin{lemma}{Interiors element chasing}{}
+  Let \((X, d)\) be a metric space with \(A \subseteq X\).
+  \begin{equation}
+    x \in \intr A \iff \exists (r > 0) : \oball{X}{x}{r} \subseteq A
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  \forwarddir Let \(x \in \intr A\), then by definition, there is an open set \(G_i \subset A\) such that \(x \in G_i\). Since \(G_i\) is open,
+  \begin{equation}
+    \exists (r > 0) : \oball{X}{x}{r} \subseteq G_i.
+  \end{equation}
+  Since \(G_i \subseteq \intr A\), this ball must also be in \(\intr A\). Hence, it's possible to draw an open ball around any point \(x \in \intr A\) such that the open ball is in \(\intr A\): \(\intr A\) is open.
+
+  \backwarddir Let \(\exists (r > 0) : \oball{X}{x}{r} \subseteq A\). By \cref{co:metricspaces-open_balls_are_open-closed_balls_are_closed}, \(\oball{X}{x}{r}\) is an open set. Thus, it is contained in \(\intr A = \bigcup \{G \subseteq A : G \textrm{ is open}\}\). And since \(x \in \oball{X}{x}{r}\), \(x \in \intr A\) aswell.
+\end{proof}
+
+\begin{lemma}{Closures element chasing}{}
+  Let \((X, d)\) be a metric space with \(A \subseteq X\).
+  \begin{equation}
+    x \in \clos A \iff \forall (r > 0) : \oball{X}{x}{r} \cap A \neq \emptyset
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  \forwarddir Let \(x \in \clos A\). Since \(\clos A = \bigcap \{G \supseteq A : G \textrm{ is closed}\}\), we get that \(\forall i : x \in G_i\).
+\end{proof}
+%
+% The next two states how interiors and closures relate to openness and closedness respectively.
+%
+% \begin{prop}{An open set contains only its interior}{}
+%   \(A\) is open in \(X\) \emph{iff} \(A = \intr A\).
+% \end{prop}
+% \begin{proof}
+%   \forwarddir Let \(A\) be an open set in \(X\), then
+%   \begin{equation}
+%     \forall (x \in A) \exists (r > 0) : \oball{X}{r}{x} \subseteq A.
+%   \end{equation}
+%   To prove that \(A = \intr A\), we want to prove that \(A \subseteq \intr A\) and \(\intr A \subseteq A\)
+% \end{proof}
+%
+% \begin{prop}{A closed set is equal to its own closure}{}
+%   A set \(A\) is closed \emph{iff} \(A = \clos A\)
+% \end{prop}
+% \begin{proof}
+%   \forwarddir Assume that \(A\) is closed, then \(X \smin A\) is open, i.e.,
+%   \begin{equation}
+%     x \in A \iff \forall (x \in A)
+%   \end{equation}
+% \end{proof}
+
+\paragraph{The size of interiors and closures:} Another interpretation that sheds light on the closure and interiors of set is that the interior of \(A\) is the largest open set that is a subset of \(A\), and the closure of \(A\) is the smallest closed set that contains \(A\).
+
+\begin{prop}{}{metricspaces-interior_largest_open}
+  There is no open set containing \(\intr A\) that is also contained in \(A\)
+\end{prop}
+
+\begin{proof}
+  Suppose that such subsets exists, i.e.,
+  \begin{equation}
+    \exists (B : B \textrm{ is open}) : \intr A \subseteq B \subseteq A.
+  \end{equation}
+  Recall the definition of interior:
+  \begin{equation}
+    \intr A = \bigcap \ab\{G : (G \textrm{ is open}) \land (G \subseteq A)\}.
+  \end{equation}
+  If \(B\) is open and \(B \subseteq A\), then \(B\) must belong in this union, i.e., \(B \subseteq \intr A\). Since \(\intr A \subseteq B\) and \(B \subseteq \intr A\), \(B = \intr A\): a contradiction. Hence, this set \(B\) must not exist.
+\end{proof}
+
+\begin{prop}{}{metricspaces-closure_smallest_closed}
+  There is no other closed subsets of \(\clos A\) that also contains \(A\)
+\end{prop}
+
+\begin{proof}
+  Suppose that such subsets exists, i.e.,
+  \begin{equation}
+    \exists (B : B \textrm{ is closed}) : A \subseteq B \subseteq \clos A
+  \end{equation}
+  Recall the definition of closures:
+  \begin{equation}
+    \clos A = \bigcap \ab\{G : (G \textrm{ is closed}) \land (A \subseteq G)\}
+  \end{equation}
+  If \(B\) is closed, and \(A \subseteq B\), then \(B\) must belong in this intersection. That means, \(\clos A \subseteq B\) as well. Since \(B \subseteq \clos A\) and \(\clos A \subseteq B\), \(B = \clos A\): a contradiction. Hence, this set \(B\) must not exist.
+\end{proof}
+
+\section{Sequences, convergence, and completeness}
+
+The metric space also generalizes the notion of convergence:
+\begin{df}{Convergence in metric space}{}
+  A sequence \(\sequence{a_n}{n = 1}{\infty}\) converges \ifft
+  \begin{equation}
+    \forall (\epsilon > 0 \in \mathbb{R}) \exists (N \in \mathbb{N}) \forall (i, j > N \in \mathbb{N}): |a_i - a_j| < \epsilon
+  \end{equation}
+\end{df}
+
+This is the usual definition of a Cauchy sequence. Like how in the rationals some sequence is Cauchy, i.e., it behaves like a convergent sequence, it doesn't always converge to a value that is in that space. This is like how the sequence
+\begin{equation}
+  3, 3.1, 3.14, 3.141, 3.1415, \dots
+\end{equation}
+is \emph{behaviorally convergent} in \(\mathbb{Q}\) but doesn't converge anywhere in \(\mathbb{Q}\). Rather, this sequence of number converges to \(\cpi\) which isn't in \(\mathbb{Q}\) but in \(\mathbb{R}\). In some metric spaces, there might be some behaviorally convergent sequence that doesn't converge anywhere in the space. We call these space \textbf{incomplete metric spaces}. Such example is \(\mathbb{Q}\), but there is also one other interesting example: the space of all polynomials under the inner product metric.
+
+\begin{cor}{The space of all polynomial is an incomplete space}{}
+  Let \(\mathcal{P}_{\mathbb{R}}\) be the space of all real polynomials confined to some domain \(\cintv{a, b}\), and define the metric to be
+  \begin{equation}
+    \sup_{x \in \cintv{a, b}} \ab|f(x) - g(x)|,
+  \end{equation}
+  then there exists some sequence of polynomials which is Cauchy, but does not converge in \(\mathcal{P}_{\mathbb{R}}\)
+\end{cor}
+
+\section{Subspaces of metric spaces and composite metric spaces}
+
+\section{Diameters of subsets and contractions}
+
+\section{Continuity in a metric space}
+
+\section{Heine-Borel property and completeness}
+
+\begin{theorem}{Proper implies completeness}{}
+  Let \((X, d)\) be a proper metric space, then it is also complete
+\end{theorem}
+

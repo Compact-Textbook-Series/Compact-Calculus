@@ -1,0 +1,97 @@
+% !TEX program = xelatex
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usepackage[no-math]{fontspec}
+\setmainfont{ZillaSlab}[
+  Path = ../../../fonts/,
+  Extension = .ttf,
+  UprightFont = *-Regular,
+  ItalicFont = *-Italic,
+  BoldFont = *-Bold,
+  BoldItalicFont = *-BoldItalic,
+  Ligatures = {TeX, Common}
+]
+\usepackage{mathtools}
+\usepackage[math-style = ISO, mathrm = sym, warnings-off = {mathtools-colon}]{unicode-math}
+\setmathfont[Scale = MatchLowercase]{Concrete-Math.otf}
+\setmathfont[range = {"27E6-"27E7}]{Latin Modern Math}
+
+\usetikzlibrary{calc, angles, quotes, patterns, decorations.pathreplacing, decorations.pathmorphing, calligraphy, arrows.meta}
+
+\begin{document}
+\begin{tikzpicture}
+	\tikzstyle {pointlike} = [draw, fill = black, circle, inner sep = 0pt, minimum size = 1.5pt];
+	\node at (-2, 1.1) {\textbf{1.}};
+	\node at (1.75, 1.1) {\textbf{2.}};
+	\node at (5, 1.1) {\textbf{3.}};
+	\node at (-0.5, -2.5) {\textbf{4.}};
+	\node at (5.5, -2.5) {\textbf{5.}};
+	\node at (2.75, -6.6) {\textbf{6.}};
+
+	\begin{scope}
+		\foreach \nodename/\nodetext/\angl/\posit in {1/1/240/below, 2/2/300/below, 3/3/0/right, 4/4/60/above, 5/5/120/above, 6/6/180/left} {
+				\node[pointlike] (\nodename) at (\angl:1) {} node[\posit] at (\nodename) {\(\nodetext\)};
+			}
+		\node[pointlike] (0) at (-1.5, {-sqrt(3)/2}) {} node[left] at (0) {\(0\)};
+		\foreach \i/\j in {0/1, 1/2, 2/3, 3/4, 4/5, 5/6, 6/1} {
+				\draw[-stealth] (\i) -- (\j);
+			}
+	\end{scope}
+
+	\begin{scope}[shift = {(3, 0)}]
+		\foreach \nodename/\nodetext/\angl/\posit in {1/1/72/above, 2/2/144/above, 3/3/216/below, 4/4/288/below, 0/0/0/right} {
+				\node[pointlike] (\nodename) at (\angl:1) {} node[\posit] at (\nodename) {\(\nodetext\)};
+			}
+		\foreach \i/\j in {0/1, 1/2, 2/3, 3/4, 4/0} {
+				\draw[-stealth] (\i) -- (\j);
+			}
+	\end{scope}
+
+	\begin{scope}[shift = {(5.5, 0)}]
+		\node (6) at (6, -0.5) {} node[right] at (6) {\(\dots\)};
+		\foreach \nodename/\posx/\posy/\posit in {0/0/0/left, 1/1/0/above, 2/2/0.5/above, 2'/2/-1/below, 3/3.5/0.5/above, 3'/3/-0.5/above, 3''/3/-1.5/below, 4/4/-1/below, 5/5/-0.5/below} {
+				\node[pointlike] (\nodename) at (\posx, \posy) {} node[\posit] at (\nodename) {\(\nodename\)};
+			}
+		\foreach \i/\j in {0/1, 1/2, 2/3, 3''/4, 2'/3', 4/5, 3/5, 3'/4, 3/4, 5/6} {
+				\draw[-stealth] (\i) -- (\j);
+			}
+	\end{scope}
+
+	\begin{scope}[shift = {(0, -3)}]
+		\foreach \nodename/\posx/\posy/\posit in {0/0/0/left, 1/1/0/above, 2/2/0/above, 3/3/0/above} {
+				\node[pointlike] (\nodename) at (\posx, \posy) {} node[\posit] at (\nodename) {\(\nodename\)};
+			}
+		\node (4) at (4, 0) {} node[right] at (4){\(\dots\)};
+		\begin{scope}[shift = {(1.5, -1.5)}]
+			\foreach \nodename/\angl/\posit in {a/0/right, b/51.4/above right, c/102.8/above, d/154.2/left, e/205.7/left, f/257.1/below, g/308.6/below} {
+					\node[pointlike] (\nodename) at (\angl:1) {} node[\posit] at (\nodename) {\(\nodename\)};
+				}
+		\end{scope}
+		\foreach \i/\j in {0/1, 1/2, 2/3, 3/4, a/b, b/c, c/d, d/e, e/f, f/g, g/a} {
+				\draw[-stealth] (\i) -- (\j);
+			}
+	\end{scope}
+
+	\begin{scope}[shift = {(6, -3.5)}]
+		\node (4) at (4, 0) {} node[right] at (4) {\dots};
+		\node (4') at (4, -0.75) {} node[right] at (4') {\dots};
+		\node (4'') at (4, -1.5) {} node[right] at (4'') {\dots};
+		\foreach \nodename/\posx/\posy/\posit in {0/0/0/left, 1/1/0/above, 2/2/0/above, 3/3/0/above, 0'/0/-0.75/left, 1'/1/-0.75/above, 2'/2/-0.75/above, 3'/3/-0.75/above,  0''/0/-1.5/left, 1''/1/-1.5/above, 2''/2/-1.5/above, 3''/3/-1.5/above} {
+				\node[pointlike] (\nodename) at (\posx, \posy) {} node[\posit] at (\nodename) {\(\nodename\)};
+			}
+		\foreach \i/\j in {0/1, 1/2, 2/3, 3/4, 0'/1', 1'/2', 2'/3', 3'/4', 0''/1'', 1''/2'', 2''/3'', 3''/4''}{
+				\draw[-stealth] (\i) -- (\j);
+			}
+	\end{scope}
+
+	\begin{scope}[shift = {(3.5, -7)}]
+		\foreach \nodename/\posx/\posy/\posit in {0/0/0/left, 1/1/0/above, 2/2/0/above, 3/3/0/above, 1'/0.6/-0.5/below, 2'/1.5/-1.2/below, 3'/1/-1.7/below, 4'/2.5/-0.8/below, 5'/3.2/-1/below} {
+				\node[pointlike] (\nodename) at (\posx, \posy) {} node[\posit] at (\nodename) {\(\nodename\)};
+			}
+		\node (4) at (4, 0){} node at (4)[right]{\(\dots\)};
+		\foreach \i/\j in {0/1, 1/2, 2/3, 3/4} {
+				\draw[-stealth] (\i) -- (\j);
+			}
+	\end{scope}
+\end{tikzpicture}
+\end{document}

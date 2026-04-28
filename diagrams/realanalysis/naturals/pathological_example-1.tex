@@ -1,0 +1,28 @@
+% !TEX program = xelatex
+\documentclass[tikz, crop, border = {2pt 2pt 2pt 2pt}]{standalone}
+
+\usepackage{concmath-otf}
+\usetikzlibrary{calc, angles, quotes, patterns}
+\usetikzlibrary{decorations.pathreplacing, decorations.pathmorphing, calligraphy}
+
+\begin{document}
+\begin{tikzpicture}
+	\tikzstyle {pointlike} = [draw, fill = black, circle, inner sep = 0pt, minimum size = 1.5pt];
+
+	\node[pointlike] (0) at (0, 1/2) {} node[left] at (0) {\(0\)};
+	\node (5) at (5, 0) {};
+	\foreach \x/\y in {1/1, 2/2} {
+			\node[pointlike] (\y) at ({\x}, 1/2) {} node[above] at (\y) {\(\x\)};
+		}
+	\foreach \x/\y in {1/1', 2/2'} {
+			\node[pointlike] (\y) at (\x, -1/2) {} node[below] at (\y) {\y};
+		}
+	\foreach \x/\y in {3/3, 4/4} {
+			\node[pointlike] (\y) at (\x, 0) {} node[above] at (\y) {\x};
+		}
+	\foreach \x/\y in {0/1, 1/2, 2/3, 3/4, 1'/2', 2'/3, 4/5} {
+			\draw[-stealth] (\x) -- (\y);
+		}
+	\node[right] at (5) {\(\dots\)};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,287 @@
+\chapter{Topology}
+
+\section{Prerequisites: preimages}
+
+Before getting into topology itself, let's familiarize ourselves with the notion of images and preimages.
+\begin{df}{Images and preimages}{}
+  Let \(f : X \appr Y\) be a function. The image of \(U \subseteq X\) of the function \(f\) is the set
+  \begin{equation}
+    f(U) = \ab\{f(x) | x \in U\}.
+  \end{equation}
+  The preimage of \(V \subseteq Y\) of the function \(f\) is the set
+  \begin{equation}
+    f^{-1}(V) = \ab\{x | x \in X \land f(x) \in V\},
+  \end{equation}
+\end{df}
+
+\section{Prelude: continuity and openness}
+
+Yet again, topology is a byproduct of mathematicians trying to strip away and generalize things. Metric space generalizes \emph{distance}. Vector spaces generalize \emph{direction}. What more can we generalize? The answer is: \emph{the idea of openness itself}. It might seem stupid at first, but with some insights, it quickly becomes one of the most useful ways to study \emph{continuous functions}. In the view of topology, \emph{continuity} can be built purely from \emph{open sets} itself!
+
+But what do we obtain from this generalization? Surprisingly, much of topology isn't about open set itself, but rather, the property of spaces and shapes that are preserved under \emph{continuous deformations}. E.g., a circle can be continuously deformed into a square. The coordinates and points definitely changed, but the path remains connected: path connectedness is a topological property.
+
+This entire chapter covers the following:
+\begin{enumerate}
+  \item Topological spaces
+  \item Basis and prebasis - useful tool for constructing or destructing topological spaces
+  \item Continuity and homeomorphism - linking invariant properties of topological spaces
+  \item Hausdorff property - properties about sequences in a topological space
+\end{enumerate}
+
+In the reals, continuity is defined like this:
+\begin{quote}
+  If \(f: \mathbb{R} \appr \mathbb{R}\) is continuous at \(a\), then for all \(\epsilon > 0 \in \mathbb{R}\) there exists some \(\delta > 0 \in \mathbb{R}\) in which for all \(x \in \mathbb{R}\), \(|f(a) - f(x)| < \epsilon\) implies \(|a - x| < \delta\)
+\end{quote}
+Metric spaces came along and rewritten our definition to:
+\begin{quote}
+  Let \(X\) and \(Y\) be a metric space. A function \(f: X \appr Y\) is continuous at a point \(a \in X\) if for all open ball of size \(\epsilon\) around \(f(a)\) (\(\oball{Y}{f(a)}{\epsilon}\)), there exists an open ball \(\oball{X}{a}{\delta}\) such that for all points in \(x \in \oball{X}{a}{\delta}\), \(f(x) \in \oball{Y}{f(a)}{\epsilon}\) as well.
+\end{quote}
+And we say that a function is continuous if it is continuous at \emph{every point}. This notion of continuity, although powerful, is still limiting as it only works for spaces that are "continuous." Every point in the space \emph{must} form some continuous line, or planes, or volumes, etc. If the space itself is discrete, then it's impossible to tell whether a function is continuous or not. Saying \enquote{A continuous function from \(\mathbb{R}\) to \(\mathbb{Z}\),} or \enquote{a continuous function from \(\mathbb{N}\) to \(\mathbb{N}\)} doesn't really make sense because \(\mathbb{N}\) and \(\mathbb{Z}\) aren't continuous---they are discrete spaces.
+
+Topology breaks the requirement of having a continuous space. It creates a new type of space called the \textbf{topological space} which encapsulates the metric space, and is capable of detaching the continuity from distance. And it all starts with a slight twist on the notion of continuity:
+\begin{quote}
+  Let \(X\) and \(Y\) be two topological spaces. A function \(f: X \appr Y\) is \emph{continuous} (the entire function) if every open sets in \(Y\) has a preimage that's also open in \(X\). \index{continuity!topological} \index{topological spaces!continuity}
+\end{quote}
+But what does it mean for a set to be open? Funnily enough, topology says that there are no standards on what sets should be open---the notion of openness is arbitrary, and depends entirely on the topology of interest. However, there are still rules that are imposed on open sets, which we shall discuss in the following section.
+
+\section{Topological spaces}
+
+\begin{df}{Topological spaces}{}
+  A \textbf{topology on a set} \(X\) is a collection \(\mathcal{T}\) of subsets of \(X\) which has the following properties
+  \begin{enumerate}[noitemsep, label = T\arabic*)]
+    \item \(\emptyset \in \mathcal{T}\)
+    \item \(X \in \mathcal{T}\)
+    \item \(\mathcal{T}\) is closed under any arbitrary unions
+    \item \(\mathcal{T}\) is closed under finite intersections
+  \end{enumerate}
+  The pair \((X, \mathcal{T})\) forms a topology.
+  \index{spaces!topology|see {topological spaces}} \index{topological spaces!definition} \index{topology|see {topological spaces}} \index{open sets!topological}
+\end{df}
+If you've read the chapter on metric spaces, the properties of sets in \(\mathcal{T}\) should look familiar. In fact, the definition of open sets have gone full circle: the properties of open sets under unions and intersection came back to define what an open set is! Here, we've abstracted the properties of open sets to be:
+\begin{quote}
+  All open sets of a space \(X\) forms a collection that's closed under arbitrary unions and finite intersections.
+\end{quote}
+
+\paragraph{An attempt of interpreting topological space:} In the standard literature, a topological space is a structure that captures the \emph{continuous coherence} between elements. If two elements \(a\) and \(b\) are \emph{cohered} to each other in a continuous way, then a set containing \(a\) and \(b\) should be denoted \emph{open}.
+
+However, this interpretation doesn't work with rules of arbitrary unions and finite intersections. Say \(a\) and \(b\) cohere to each other, and \(c\) and \(d\) also coheres with each other. Would you say that \(a\) coheres with \(c\), and \(b\) coheres with \(d\)? In the natural sense, this shouldn't happen because there is no \emph{a priori} relationship between \(a\) and \(c\), and \(b\) and \(d\), etc. But if accept the notion of open sets as \emph{the set of things that coheres to each other}, the rule of arbitrary union says that if \(a\) and \(b\) coheres, and \(c\) and \(d\) coheres, all of them must cohere to each other. So, maybe the notion of \emph{elementwise coherence} isn't fitting for topological spaces. A stronger notion of coherence is needed to encompass the rule of arbitrary unions. It might be the case that topological spaces denote \emph{universal coherence}; as if \emph{coherence} is something that is inhibited by all elements in that space.
+
+If we accept the idea of universal coherence, then topology does make a bit more sense, as you should check with the rule of finite intersections. If \(a\) and \(b\) coheres and \(b\) and \(c\) coheres, should \(b\) cohere with itself? It should! In some sense, this is saying that coherence is transitive. As far as this interpretation goes, it still has its downfall. What does it mean for the entire space \(X\), and the empty set to be open? Does it have any geometrical meaning? Or was it devised as a mathematical trick to ease analysis?
+
+At this point, I'd like to point out that the notion of topology isn't that well interpreted. It's not like the metric space, measure space, or vector spaces that have a clear interpretation. Metric space generalizes distance, measure spaces generalizes sizes, vector spaces generalizes direction. Usually, it's said that topology also generalizes open sets, and that's what I've used in the beginning of this chapter. But what exactly is an open set? No one seems to know. I've introduced my interpretation, and now it's up to you --- the reader --- to interpret this mathematical structure in your own way.
+
+Now let's get back to mathematics: first, let's make sure that the notion of metric space can be \emph{encoded} in topological spaces.
+\begin{cor}{Metric spaces are topological spaces}{}
+  If \((X, d)\) is a metric space, and \(\mathcal{T}\) is the collection of all open sets in \(X\), then \((X, \mathcal{T})\) is a topological space
+\end{cor}
+
+\begin{proof}
+  By \cref{co:metricspaces-self_openness}, both \(\emptyset\) and \(X\) are open; hence, the first and second axiom of topological spaces is satisfied. By \cref{pr:metricspaces-union_of_open_closed_sets}, arbitrary union of open sets is open, and by \cref{pr:metricspaces-intersection_of_open_closed_sets}, finite intersections of open sets is open: the third and fourth axiom of topological space is satisfied. Therefore, a metric space is a topological space.
+\end{proof}
+
+Similar to how there are discrete and indiscrete metrics, there are also discrete topology and indiscrete topology.
+
+\begin{exmp}{Discrete and indiscrete topology}{}
+  Let \(X\) be an arbitrary set. The \textbf{indiscrete topology} on \(X\) is given by \(\mathcal{T} = \ab\{\emptyset, X\}\), and the discrete topology is given by \(\mathcal{T} = \mathcal{P}(X)\) where \(\mathcal{P}(X)\) is the collection of every subset of \(X\).
+  \index{topological spaces!examples!discrete topology} \index{topological spaces!examples!indiscrete topology}
+\end{exmp}
+
+These topologies are usually not that interesting because they are \emph{trivial} --- it can be constructed for any sets. Most of the interesting stuffs happen in between where not all sets are open. I shall give a non-exhaustive example of these topologies here:
+
+\begin{exmp}{Examples of topology}{topology-examples_of_topology}
+  \paragraph{The standard topology on the reals:} In the standard notion of the reals, sets that can be written as unions of open balls are automatically open. However, not all sets are open, e.g., closed intervals aren't open. Under the distance function \(d(x, y) = |x - y|\), \(\mathbb{R}\) and \(d\) forms a metric space. Hence, it is also a topological space.
+  \index{topological spaces!examples!standard topology of the reals}
+
+  \paragraph{The order topology:} The standard topology on the reals can also be extended to other sets that's equipped with the notion of \emph{order}. The naturals, integers, rationals are all example of sets with order. The subsets of those sets are also sets with order. E.g., for the set \(\mathbb{Z}\), I can pull out every odd numbers: \index{topological spaces!examples!order topology}
+  \begin{equation}
+    \ab\{\dots, -5, -3, -1, 1, 3, 5, \dots\},
+  \end{equation}
+  and this would form a set with order. Even finite subsets of such ordered sets are ordered. E.g.,
+  \begin{equation}
+    \ab\{1, 4, 5, 9, 10, 58, 69\}
+  \end{equation}
+  are ordered. There is a standard topology that one can impose on these sets: the \textbf{order topology}
+
+  Define an open ball to be all intervals of type \(\ointv{a, b} = \ab\{x : a < x < b\}\). If the set has a lower bound \(L\), then define any intervals of type \(\cointv{a, b} = \ab\{x : a \leq x < b\}\) to be open. Same if the set has an upper bound: define \(\ocintv{a, b} = \ab\{x : a < x \leq U\}\). The order topology contains every sets that can be written as a union of these intervals.
+
+  Now let's prove that this is a topology.
+
+  \begin{proof}
+    {\color{red} W.I.P.}
+  \end{proof}
+
+  \paragraph{Sierpi\'nski's topology (Sierpi\'nski's space):} This is the topology that's used to demonstrate many topological properties because it's so simple. Let \(X = \ab\{0, 1\}\), and define \(\mathcal{T} = \ab\{\emptyset, X, \ab\{1\}\}\). It's left to the reader to check that this forms a topology.
+\end{exmp}
+
+\section{Basis and prebasis}
+
+In metric spaces, every open set can be constructed from an arbitrary union of open balls (\cref{co:metricspaces-open_sets_from_open_balls}). In this sense, the open balls are more rudimentary than open sets, as it can be used to create \emph{any} open sets in the metric space. A natural question to ask would be: is there any analogous \emph{rudimentary objects} in a topological space, such that an arbitrary union of this rudimentary sets always create an open sets? That is the topic of this chapter: basis and prebasis.
+
+Let's consider the set \(X = \ab\{a, b, c, d\}\), and a topology \(\mathcal{T}\) on \(X\) such that
+\begin{equation}
+  \mathcal{T} = \ab\{\emptyset, X, \ab\{a\}, \ab\{c\}, \ab\{a, b\}, \ab\{a, c\}, \ab\{c, d\}, \ab\{a, b, c\}, \ab\{a, c, d\}\}
+\end{equation}
+Is there any collection \(\mathcal{B}\) such that the collection of all arbitrary unions of sets in \(\mathcal{B}\) create the set \(\mathcal{T}\)? Turns out, there is! You can easily check that
+\begin{equation}
+  \mathcal{B} = \ab\{\ab\{a\}, \ab\{c\}, \ab\{a, b\}, \ab\{c, d\}\}
+\end{equation}
+forms the topology \(\mathcal{T}\). Because other than the four sets that are already in \(\mathcal{B}\),
+\begin{equation}
+  \begin{aligned}
+    \ab\{a, c\}    & = \ab\{a\} \cup \ab\{c\},       \\
+    \ab\{a, b, c\} & = \ab\{a, b\} \cup \ab\{a, c\}, \\
+    \ab\{a, c, d\} & = \ab\{a, c\} \cup \ab\{a, d\}, \\
+    X              & = \bigcup_{B \in \mathcal{B}} B \\
+    \emptyset      & = \textrm{Union of nothing}
+  \end{aligned}
+\end{equation}
+Hence, one could say that the topology of \(\mathcal{T}\) is \textbf{generated} from \(\mathcal{B}\).
+
+There are many more sets like these that can generate a topology. E.g.,
+\begin{equation}
+  \mathcal{B} = \ab\{\ab\{a\}, \ab\{b\}, \ab\{c\}, \ab\{d\}\}, \mathor \mathcal{B} = X
+\end{equation}
+The first one generates the indiscrete topology of \(X\), and the second one, the discrete topology of \(X\).
+
+These sets that generate a topology motivates us to define a \textbf{basis} for a topology, which will turn out to be very useful in proving the continuity of a function.
+
+\begin{df}{Basis of a topology}{}
+  A \textbf{basis of a topology} \((X, \mathcal{T})\) is a collection of sets \(\mathcal{B}\) such that every sets in \(\mathcal{T}\) can be written as an arbitrary union of sets in \(\mathcal{B}\). In other words,
+  \begin{equation}
+    \mathcal{T} = \ab\{\bigcup B : B \subseteq \mathcal{B}\}.
+  \end{equation}
+  We call elements in \(\mathcal{B}\), a \textbf{basis element}. \index{basis!topology} \index{topological spaces!basis}
+\end{df}
+
+The following proposition make use of this definition:
+\begin{lemma}{Continuity of basis and continuity of function}{}
+  Let \(f: X \appr Y\) between topological spaces \(X\) and \(Y\), and let \(\mathcal{B}\) be a basis of \(Y\). If for all \(B \in \mathcal{B}\), \(f^{-1}(B)\) is open, then \(f\) is continuous.
+\end{lemma}
+\begin{proof}
+  To show that \(f\) is continuous, we must show that for any open sets in \(U \in Y\), \(f^{-1}(U)\) is also open in \(X\)
+
+  Since \(U\) is open, it can be written as an arbitrary union of basis elements \(B_1, B_2, B_3, \dots \subseteq \mathcal{B}\):
+  \begin{equation}
+    U = B_1 \cup B_2 \cup B_3 \dots
+  \end{equation}
+  Using the properties of preimage,
+  \begin{multline}
+    f^{-1}(U) = f^{-1}(B_1 \cup B_2 \cup B_3 \cup \dots) \\= f^{-1}(B_1) \cup f^{-1}(B_2) \cup f^{-1}(B_3) \dots
+  \end{multline}
+  By the assumption that every preimage of a basis element is open, there union must be open; hence, \(f^{-1}(U)\) must be open and \(f\) is continuous.
+\end{proof}
+
+\section{Continuity and homeomorphism: linking topological structures}
+
+This section shall serve as a basic exposition, and also a purpose for studying topology.
+
+In later chapters, you will see many useful topological properties; just to name a few:
+\begin{enumerate}
+  \item Compactness: Closed and bounded subsets have an open cover - useful for doing induction
+  \item Connectedness: Intermediate value theorem and fixed point theorems
+  \item Separability: Every point in the set can be accessed by sequences
+\end{enumerate}
+These properties are preserved under continuous function: suppose \((X, \mathcal{T}_X)\) is a topological space with these properties, and there exists a continuous function between \((X, \mathcal{T}_X)\) and \((Y, \mathcal{T}_Y)\), then \(Y\) must also have those topological properties. Most of the time, showing that a continuous function exists is easier than showing that \(Y\) on its own has these topological properties. The model for \(X\) might could be the standard topology on \(\mathbb{R}\), and other well-known topologies. Interestingly, the existence of continuous functions between two space can also tell us whether those two spaces are subspaces of each other or not.
+
+In topology however, we are more interested in a special kind of continuous function: a \textbf{homeomorphism}, which is a function that's continuous, bijective, and has a continuous inverse. These functions act as "continuous deformations" between spaces, which preserves even more nice topological properties:
+\begin{enumerate}
+  \item Hausdorff: The limit of a converging sequence is unique.
+  \item Countability: Spaces having countable basis, useful for proving properties about sequences as sequences are also countable
+\end{enumerate}
+
+This section is just a basic exposition for so much more to come. It'd come back again when we have the tools to explore more.
+\begin{df}{Continuity on a topology}{}
+  Let \((X, \mathcal{T}_X)\) and \((Y, \mathcal{T}_Y)\) be a topology, then a function \(f : X \appr Y\) is continuous \ifft \index{continuity!topological} \index{topological spaces!continuity}
+  \begin{equation}
+    \forall (U \in \mathcal{T}_Y) : f^{-1} (U) \in \mathcal{T}_X
+  \end{equation}
+\end{df}
+This is analogous to the notion of continuity in metric spaces. As we shall see, this definition allows us to say that certain functions, or even operations, are continuous.
+
+\begin{exmp}{Addition is continuous on the standard topology of \(\mathbb{R}\)}{}
+\end{exmp}
+
+Note that topological continuity does not focus on \emph{pointwise continuity}. Rather, it focuses on the function as a whole on a topological space. As you shall see later, this is more useful in practice.
+
+\section{Convergence, and "housed off": Hausdorff}
+
+We first start with the definition of convergence. In the metric space setting, a sequence \(\sequence{x_n}{n = 0}{\infty}\) converges to \(L\) \ifft
+\begin{equation}
+  \forall (\epsilon \in \mathbb{R}_{> 0}) \exists (N \in \mathbb{N}) \forall (n \in \mathbb{N}_{> N}) : |x_n - L| < \epsilon
+\end{equation}
+In topological spaces, we don't have the glory of the metric that allows us to denote distance. To translate metric convergence to topological convergence, we must abstract the distance into \emph{sets}. The definition prior is equivalent to:
+\begin{equation}
+  \forall (\epsilon \in \mathbb{R}) \exists (N \in \mathbb{N}) \forall (n \in \mathbb{N}_{> N}) : x_n \in \oball{\mathbb{R}}{L}{\epsilon}.
+\end{equation}
+There's only one thing left: the epsilon.
+
+In a metric space, a set \(A\) is open if every point in \(A\) has an open ball situated that point which is contained in \(A\). Hence, if \(A\) is an open set that contains \(L\), then we can always find an open ball of size \(\epsilon\) at \(L\). Since \(\epsilon\) is arbitrary, this must work for all open ball; hence, \emph{all open sets as well}. Thus, we've arrived at our definition of topological convergence:
+
+\begin{df}{Topological convergence}{}
+  Let \((X, \mathcal{T})\) be a topological space with a sequence \(\sequence{x_n}{n = 0}{\infty}\) in \(X\). We say that \(x_n \appr L \in \mathbb{X}\) \ifft
+  \begin{equation}
+    \forall (U \in \mathcal{T}) \exists (N \in \mathbb{N}) \forall (n \in \mathbb{N}_{> N}) : x_n \in U.
+  \end{equation}
+\end{df}
+
+Here we arrive at a problem: there are some topological spaces in which under this definition, the limits aren't unique. E.g.,
+
+\section{Subspaces of topological spaces and composite topological spaces}
+
+\section{Interiors, closures, and boundaries}
+
+The definition that I've used in the metric space gracefully generalizes here to topological spaces as well:
+\begin{df}{Interiors, closures, and boundaries}{topology-interior_boundary_closure}
+  Let \((X, \mathcal{T})\) be a topological space, and let \(A \subseteq X\). Then, \index{topological spaces!interior} \index{topological spaces!closure} \index{topological spaces!boundary}
+  \begin{itemize}
+    \item The interior of \(A\), \(\displaystyle\intr A = \bigcup \ab\{G : G \in \mathcal{T} \land G \subseteq A\}\)
+    \item The closure of \(A\), \(\displaystyle\clos A = \bigcap \ab\{G : X \smin G \in \mathcal{T} \land A \subseteq G\}\)
+    \item The boundary of \(A\), \(\bnd A = \clos A \smin \intr A\)
+  \end{itemize}
+\end{df}
+
+These definitions also have the same interpretation as those in metric spaces. The interior of \(A\) is the largest open set which is contained in \(A\) (\cref{pr:metricspaces-interior_largest_open}), and the closure of \(A\) is the smallest closed set which is contained in \(A\) (\cref{pr:metricspaces-closure_smallest_closed}).\footnote{The proof that I've used in metric spaces is independent of the metric, but is intrinsic to the nature of sets. Hence, the same proof can also be used in topological spaces.} However, these come with a different rule for element chasing, as there are no more standard definition of open balls. We introduce two more notions:
+
+\begin{df}{Interior point and adherent point}{}
+  Let \((X, \mathcal{T})\) be a topology and let \(A \subseteq X\). A point \(x\) is an \textbf{interior point} of \(A\) \ifft there exists some open set \(U \in \mathcal{T}\) such that \(x \in U \subseteq A\), i.e., \index{topological spaces!interior point}
+  \begin{equation}
+    \exists (U \in \mathcal{T} ; U \subseteq A) : x \in U \subseteq A.
+  \end{equation}
+  The point \(x\) is an \textbf{adherent point} of \(A\) \ifft for all open sets \(U \subset \mathcal{T}\) that contains \(x\), \(U \cap A \neq \emptyset\), i.e., \index{topological spaces!adherent point}
+  \begin{equation}
+    \forall (U \in \mathcal{T} ; x \in U) : U \cap A \neq \emptyset.
+  \end{equation}
+  Note that \(x\) doesn't have to be in \(A\).
+\end{df}
+
+Sometimes, working with basis is easier. Hence, I shall also give an alternative definition of these notions using basis.
+
+\begin{cor}{Alternative definition of interior and adherent points}{}
+  Let \((X, \mathcal{T})\) be a topology, let \(A \subseteq X\), and let \(x \in A\).
+  \begin{enumerate}
+    \item \(x\) is an interior point of \(A\) \ifft there exists some basis element \(B\) that contains \(x\) and also is contained in \(A\), i.e., \(x \in B \subseteq A\) \label{ite:topology-interior_alternative}
+    \item \(x\) is an adherent point of \(A\) \ifft for all basis \(B\) that contains \(x\), \(B \cap A \neq \emptyset\) \label{ite:topology-closure_alternative}
+  \end{enumerate}
+\end{cor}
+\begin{proof}[Proof of \cref{ite:topology-interior_alternative}]
+  \forwarddir If \(x\) is an interior point, it's contained in some open set \(U \subseteq A\). By the property of basis, every point in an open set has a basis element \(B\) such that \(x \in B \subseteq U\).
+
+  \backwarddir If \(x\) is contained in some basis element that's also contained in \(A\), \(x\) is contained in an open set because a basis element is always open. Hence, \(x\) must be the interior point of \(A\)
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:topology-closure_alternative}]
+  \forwarddir If \(x\) is an adherent point, then all sets \(U \subset \mathcal{T}\) that contains \(x\), \(U \cap A \neq \emptyset\). Since all basis are open, they must also have this property; hence, for all basis \(B\) that contains \(x\), \(x \in B \subseteq U\).
+
+  \backwarddir If for all basis element \(B\) contained in \(A\) that also contains \(x\), \(B \cap A \neq \emptyset\), then intersection between any open set \(U\) that contains in \(x\) and \(A\) is then non-empty because \(U\) can be written as an arbitrary union of those bases.
+\end{proof}
+
+\begin{lemma}{Interior and closures element chasing}{}
+  \begin{enumerate}
+    \item An element \(x\) is an interior point of \(A\) \ifft it belongs in \(\intr A\).
+    \item An element \(x\) is adherent to \(A\) \ifft it belongs in \(\clos A\).
+  \end{enumerate}
+\end{lemma}
+
+\section{Countability, and denseness}
+
+\section{Between continuous spaces and discrete spaces: connectivity}

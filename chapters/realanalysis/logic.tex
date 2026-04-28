@@ -1,1 +1,852 @@
 \chapter{Mathematical logic}
+\label{sec:logic}
+
+\section{Prelude: mathematical analysis and rigorousness}
+
+You are about to begin your second exposure to serious mathematics: mathematical analysis. It's sole purpose is to return to the foundations we've covered and rebuild everything from scratch. But why?
+
+Prior, I've emphasized on geometrical methods: things that can be \emph{drawn out} and \emph{seen}. E.g., if a function is an increasing function, then its derivative must be positive. The derivative represents the slope, and the slope of an increasing function should be positive. Try draw an increasing function with a negative slope, you'd quickly find it's virtually impossible! But virtually impossible for us to draw doesn't mean that it can't exist as a weird counterexamples. Another such example might be how the integral is the reverse of derivative due to the geometry of cumulative changes, as explained in \cref{sec:integrals}. But as you'd see, it's very possible to draw a function that has an integral but
+
+The flaw of geometry is: it's impossible to draw \emph{all} possible configurations. In \cref{sec:integrals}, we've seen that integration is the "reverse" of derivatives. So it's natural to assume that if a function can be integrated, its integral must have a derivative which yields back the same function:
+\begin{equation}
+  \odv*{\int_{0}^{x} f(t) \odif{t}}{x} = f(x)
+\end{equation}
+However, this is not the case. An example would be the \textbf{Thomae's function} shown in \cref{fig:logic-thomaes_function}, defined as
+\begin{equation}
+  T(x) =
+  \begin{cases}
+    \frac{1}{b} & \textrm{if } x = \frac{a}{b} \in \mathbb{Q}; a, b \in \mathbb{Z} \\
+    0           & \textrm{if } x \in \mathbb{R} \smin \mathbb{Q}
+  \end{cases}.
+\end{equation}
+This function is also called the \textbf{popcorn function}. It is a function with infinitely thin strips, so naturally, its Riemann integral must be zero everywhere, and in fact it is. However, the derivative of zero is just zero. It does not return the Thomae's function.
+\begin{figure}[h]
+  \centering
+  \includegraphics{realanalysis/logic/thomaes_function.pdf}
+  \caption{Thomae's function, drawn by \citeauthor{thomaes-function} \cite{thomaes-function}}
+  \label{fig:logic-thomaes_function}
+\end{figure}
+
+Another example is in \cref{sec:calculus-and-geometry}: a function has an extrema, i.e., lowest or highest point in a neighborhood, if its derivative is zero. And that makes sense until we realize that the function that we've been drawing are the nice ones. The ones that follows this property. There are many other functions which don't have this property. The easiest to understand would be a linear function with its domain restricted to some closed intervals.
+
+Let \(f(x) = mx\) where \(m\) is a positive real number, and consider the restriction of \(f\) to some closed interval \(\cintv{a, b}\). Notice that \(f(b)\) is the global maxima, and \(f(a)\) is the global minima, but the derivative of \(f\) as those point aren't zero: it's \(m\).
+
+Algebra also has its own flaws. If handled carelessly, it's possible to arrive at a contradiction. E.g.,
+\begin{exmp}{One equals two}{}
+  Let \(a = b\), then
+  \begin{align}
+    a^2            & = ab                                \\
+    a^2 - b^2      & = ab - b^2                          \\
+    (a - b)(a + b) & = b(a - b)                          \\
+    a + b          & = b        \label{eq:logic-dummy_1} \\
+    b + b          & = b                                 \\
+    2b             & = b                                 \\
+    2              & = 1
+  \end{align}
+\end{exmp}
+If you have quick eyes, you would've noticed that in \cref{eq:logic-dummy_1}, we've divided by \(a - b\), which is zero because \(a = b\), causing the whole contradiction.
+
+Albeit, the example prior is quite obvious. So, here's an examples that's much subtler.
+\begin{exmp}{\(\cpi = 0\)}{}
+  \begin{align}
+    \int_{0}^{\cpi} \cos^2{x} \odif{x}
+     & = \int_{0}^{\cpi} \frac{1 + \cos{2x}}{2} \odif{x}                                \\
+     & = \int_0^{\cpi} \frac{1}{2} \odif{x} + \int_0^{\cpi} \frac{\cos{2x}}{2} \odif{x} \\
+     & = \frac{\cpi}{2} + \peval*{\frac{1}{4}\sin{2x}}_0^{\cpi}                         \\
+     & = \frac{\cpi}{2} + 0 = \frac{\cpi}{2}
+  \end{align}
+  But then,
+  \begin{align}
+    \int_0^{\cpi} \cos^2{x} \odif{x}
+     & = \int_0^{\cpi} \cos{x} \cos{x} \odif{x}              \\
+     & = \int_0^{\cpi} \cos{x} \sqrt{1 - \sin^2{x}} \odif{x} \\
+    \shortintertext{Substitute \(u = \sin{x}\), then \(\odif{u} = \cos{x} \odif{x}\). If \(x = 0\), then \(u = 0\). If \(x = \cpi\), then \(u = 0\), so the integral turns into}
+     & = \int_0^0 \sqrt{1 - u^2} \odif{u} = 0
+  \end{align}
+  In conclusion, the same integral evaluates to both \(\frac{\cpi}{2}\) and \(0\), implying that both are equal; hence, \(\cpi = 0\).
+\end{exmp}
+The mistake is that change of variables only work when \(u\) is related to \(x\) by a bijective, or a one-to-one function. The sine function is \emph{not} bijective on the domain of integration: \(\sin{0} = \sin{\cpi} = 0\). Hence, the substitution does not give the correct answer.
+
+Historically, mathematical analysis was born from mistakes of these flaws in geometry and algebra that culminated into a pile of unusable results: Taylor series that don't converge, Fourier series that don't approximate, errors in swapping integral bounds, errors in substitution, etc. So, mathematicians try found a way to \emph{unite} the whole subject and provide a proper rigorous mathematical grounding: a rulebook that when followed, no contradictions can occur. It took them more than twenty years to develop, and now, it's your turn to learn it. Starting with the most fundamental part: logic.
+
+I'd like to admit that logic in its entirety is very rich and fruitful; \emph{it would be a disgrace} to claim that the entire field is contained in this one puny chapter. It's not. I'd say that this chapter serves as an overview for the subject and is \emph{hopefully enough logic for you to work on analysis}. With that out of the way, let's begin.
+
+\section{The building block of logical sentences}
+
+Logic is the study of concrete, provable statements: statements that are either true or false. It leaves no room for maybes or mights. These statements which can either be true or false are called \textbf{propositions}\index{propositions}, e.g.,
+\begin{itemize}[noitemsep]
+  \item You are a virgin. (You are either a virgin or not a virgin)
+  \item Your father is getting milk. (Your father is either getting milk or not)
+  \item A proposition is a statement that is either true or false.
+  \item I have your IP address.
+\end{itemize}
+It's also wise to assign symbols to these statements to avoid writing long sentences. E.g., the proposition "You are a virgin," can be represented with $p$, \enquote{Your father is getting milk,} with $q$, etc. In symbols, the \(\coloneqq\) sign, a.k.a., the \textbf{walrus sign} is used to say \enquote{\emph{is declared to be.}} E.g.,
+\begin{equation}
+  A \coloneqq \textrm{\enquote{Plants are not green}}
+\end{equation}
+reads \enquote{\(A\) is declared to be the proposition \enquote{Plants are not green.}}
+
+Note that a proposition need not carry a truth value in this immediate moment. It must just follow the rule that when it is eventually evaluated, it can only be either true or false. In this spirit, there are some statements that don’t look like a proposition but actually are propositions.
+\begin{itemize}
+  \item There might be an asteroid hitting your house tomorrow. (The truthfulness right now is still not determined as it is not tomorrow. But it is still a proposition as the only two allowed cases are still true or false. When tomorrow comes, it either hits or it doesn't. There is no in between, as otherwise it’d be a Schr\"odinger’s asteroid)
+  \item Tomorrow, there might be a baby whose name is ``U
+        vuvwevwevwe On\-yetenyevwe Ugwemuhwem Osas,'' (More accurately, their parents \\named them that keysmash, perhaps after the child's first squeals. The truthfulness is still not determined, but either a baby is born tomorrow with this name or no baby with this name at all.)
+  \item Your romantic partner might be cheating on you, assuming you have a partner. (Your partner is either cheating or not cheating. They can't cheat and not cheat at the same time. Quantum love still doesn't exists... yet...)
+\end{itemize}
+The truthfulness of some statements depends on external factors, but they're still either true or false, so they qualify to be propositions. Statements that looks \emph{obviously true} or \emph{obviously false} might not always that way because said external factors. E.g.,
+\begin{itemize}
+  \item The earth is flat (Obviously false, but there might be another universe out there that the laws of physics aren't the same as ours, causing the earth to be flat)
+  \item Salt tastes salty (Obviously true, but there might be an animal who perceives salt as umami or sweet)
+  \item You can write with a pencil (Obviously true, but there might be some universes where pencils are used to erase and erasers are used to write)
+\end{itemize}
+These statements are called \textbf{contingent statements}\index{contingent statements}, and appears everywhere in mathematics. E.g., the truthfulness of
+\begin{equation}
+  1 + 1 = 2
+\end{equation}
+is only determinable when \(1\), \(2\), \(=\), and \(+\) is defined to be the standard system of arithmetic. There are other worlds where \(1 + 1 = 0\)\footnote{Define \(0\) and \(1\) usually on the natural numbers, then define \(+\) as being addition modulo two.}, or \(1 + 1 = 6\). The truth value of these statements depend solely on the propositions that comes before it. The statement \(1 + 1 = 2\) depends on the proposition that governs how equality, numbers, and addition works. And you can ask further: why does equality work this way, and you will find deeper propositions about it. However, you can't always keep asking why something is true. Because eventually, you would reach the bottom of everything: the \textbf{axioms}.
+
+Axioms are propositions which are deemed to be true. E.g., we can always draw a straight line between two points. It looks so simple and so rudimentary that there's no point to find a deeper reason to justify it. We just give up and say that \emph{if it's so rudimentary and so trivial that it should've been true, it must be true}. Even though these axioms are arbitrary, they are the starting point of which the mathematical landscape sprouts. There might be a world where it's impossible to draw a line between two points, but in this normal world, you can do it. Heck, even logic itself needs to have axioms. Here are three core logical axioms:
+
+\begin{axiom}{Axioms of logic}{}
+  \begin{enumerate}[noitemsep]
+    \item \textbf{Law of identity:} A proposition is identical to itself.
+    \item \textbf{Law of non-contradiction:} A proposition cannot be both true and false at the same time and in the same sense.
+    \item \textbf{Law of excluded middle:} A proposition can either be true or false. There is no third option.
+  \end{enumerate}
+\end{axiom}
+
+Even with the axioms, there are some statements that we don't know how to prove yet --- they are still contingent. Math is riddled with said statements, e.g., the Riemann's hypothesis, or the Collatz' conjecture. They're either true or not true, but their truth value is still unknown as humanity can't prove them yet.
+
+If a statement doesn't have any truthfulness, then they aren't propositions. They might be questions or commands. E.g.,
+\begin{itemize}[noitemsep]
+  \item Do your homework! (Propositions aren't commands, as commands doesn't have a truth value assigned to it.)
+  \item When did the dinosaurs die? (Propositions aren't questions.)
+  \item Does quantum love exists? (Propositions can't be yes or no questions either. A proposition asserts, not ask.)
+\end{itemize}
+These statements have an answer, but aren't provable in the logical sense. Hence, they are not the subject of our concerns
+
+Going back to propositions, if a proposition is true, it carries the truth values of true, and is equivalent to \(\top\). If it isn't, then it carries the truth value of false, and is equivalent to \(\bot\). The equivalence symbol, \(\equiv\) is used to denote relations between truth value of propositions. E.g., if
+\begin{equation}
+  p \coloneqq \textrm{\enquote{Your father is getting milk,}}
+\end{equation}
+and \(p\) carries the truth value of true (\(\top\)), we write
+\begin{equation}
+  p \equiv \top,
+\end{equation}
+which reads, $p$ is \emph{equivalent to} (\(\equiv\)) true (\(\top\)). If proposition
+\begin{equation}
+  q \coloneqq \textrm{\enquote{You are a virgin}}
+\end{equation}
+carries the truth value of false (\(\bot\)), we write\index{equivalent sign}
+\begin{equation}
+  q \equiv \bot.
+\end{equation}
+
+The three horizontal line symbol \((\equiv)\), called the \textbf{equivalence sign}, is not the same as the equality sign (\(=\)). Equality is the absolute state of being equal: two sides are \emph{identical in every way}. But the equivalence symbol weaker. Two wildly different statements can be equivalent. They just have to \emph{carry} the same truth value. E.g.,
+\begin{align}
+  (1 + 1 = 2)                        & \equiv (10 \times 2 = 20)                     \\
+  \textrm{The sun rises in the west} & \equiv \textrm{Hydrogen has twenty electrons}
+\end{align}
+The two sides are all true, hence they must be equivalent. However, they are not the same statement.
+
+Soon, we shall learn about \textbf{logical inference}: a method to conclude that something is true using other true statements that has already been proven or stated. E.g., from the law of excluded middle, we can deduct that
+\begin{equation}
+  p \coloneqq \textrm{\enquote{The proposition \(A\) is both true and false}}
+\end{equation}
+is definitely false from the law of excluded middle which is axiomatized (assumed) to be true. In other words, the law of excluded middle \emph{entails} the falsehood of \(p\).
+
+One can also do logical inference with multiple statements. If these statements:\index{logical inferences}
+\begin{enumerate}[noitemsep]
+  \item\label{ite:logical-inference-1} Superman wears a cape,
+  \item\label{ite:logical-inference-2} Capes are only worn by heroes,
+  \item\label{ite:logical-inference-3} All heroes that wear capes can fly,
+\end{enumerate}
+are assumed to be true, then it's possible to infer that superman can fly. From \cref{ite:logical-inference-1,ite:logical-inference-2}, superman is a hero. And from \cref{ite:logical-inference-3}, superman can fly, as he is a hero. The inferred conclusion is then \enquote{Superman can fly.} In the logical form, we can say that these statement \emph{entails} that \enquote{Superman can fly.} If these statements are true, it's impossible for superman to not be able to fly.
+
+As you could see, logical inference is all about \textbf{entailment}.\index{entailment} If whenever \(p_1, p_2, \dots\) are all true, \(q\) is impossible to be false, then we say that \(p_1, p_2, \dots\) \emph{entails} \(q\), and denote this relation by
+\begin{equation}
+  p_1, p_2, \dotsc \models q.
+\end{equation}
+Propositions \(p_1, p_2, \dots\) are called the \textbf{antecedent}\index{entailment!antecedent}, \(q\), the \textbf{consequence}\index{entailment!consequence}, and \(\models\), the entailment symbol. However, note that the converse
+\begin{equation}
+  q \models p_1, p_2, \dots
+\end{equation}
+might not hold.
+
+To make this more concrete, let
+\begin{itemize}[noitemsep]
+  \item \(p \coloneqq \textrm{\enquote{Your dad drove outside,}}\)
+  \item \(q \coloneqq \textrm{\enquote{Your dad went out to get milk,}}\) and
+\end{itemize}
+then if
+\begin{equation}
+  p \models q
+\end{equation}
+this means that whenever your dad drive outside, you can confirm that he is definitely getting milk. However, it doesn't mean that if he's getting milk, he has to drive outside. He might've walked, or flown, or swam to get milk, etc. Entailment doesn't always work in the reverse.
+
+Similarly, entailment also doesn't guarantee that the antecedent is true. It just guarantees that in \emph{every} universe that the antecedent is true, the consequence must also be true. Your dad doesn't have to drive outside for this entailment to hold. The entailment just says that in \emph{every} universe that he drives outside, he is going to get milk.
+
+Soon, you'll also see that there are \textbf{rules of inference}, which aids logical inference. But as of now, our palette is still limited: we know what a proposition is, how letters can represent them, \(\top\), \(\bot\), and the equivalence between propositions. It is still not possible to chain propositions together to create chain of reasonings that'd make use of rules of inference. Hence, we shall see how propositions are linked together using logical connectives first.
+
+\section{Chaining propositions: logical connectives and truth tables}
+\index{logical operations}
+
+\subsection{Negation}
+
+The simplest logical connectives is the \textbf{negation}.
+
+\begin{df}{Negation}{}
+  \index{logical operations!negation}\index{logical operations!NOT|see {negation}}
+  The \textbf{negation} of a proposition \(p\) is a proposition denoted \((\neg p)\) which has the truth value opposite to \(p\).
+
+  The symbol \(\neg\) is called the \textbf{negation symbol}.
+\end{df}
+
+If proposition \(p\) represents \enquote{Your father is getting milk,} the negation of \(p\), \((\neg p)\) then represents \enquote{Your father is \textbf{not} getting milk.} If the assertion that \(p\) is true, i.e., your father is getting milk is true, then the assertion that \(\neg p\) is true, i.e., your father is \textbf{not} getting milk must be false.
+
+The negation can also be used on true and false symbol:
+\begin{equation}
+  \top \equiv \neg\bot \mathand \bot \equiv \neg\top.
+\end{equation}
+The equivalence relation ($\equiv$) still holds when we apply negation to both sides, i.e., if
+\begin{align*}
+  \textrm{You can stand on Jupiter}              & \equiv \bot     \\
+  \neg(\textrm{You can stand on Jupiter})        & \equiv \neg\bot \\
+  \textrm{You can \textbf{not} stand on Jupiter} & \equiv \top.
+\end{align*}
+It is left as an exercise to the reader to test these propositions by flying to Jupiter.
+
+It's useful to summarize the relation between a proposition and another by using a \textbf{truth table} as shown in \cref{tab:logic-characteristic_negation}.
+\begin{table}[h]
+  \centering
+  \begin{tblr}{C | C}
+    p    & \neg p \\
+    \hline
+    \top & \bot   \\
+    \bot & \top
+  \end{tblr}
+  \caption{Characteristic truth table of negation}
+  \label{tab:logic-characteristic_negation}
+\end{table}
+
+\subsection{Logical conjunction, logical disjunction}
+
+\begin{df}{Logical conjunction}{}
+  \index{logical operations!conjunction}\index{logical operations!AND|see {conjunction}}
+  The \textbf{conjunction} of propositions \(p\) and \(q\) is a proposition denoted by \((p \land q)\). This proposition carries the truth value of true if and only if both \(p\) and \(q\) are true.
+
+  The symbol \(\land\) is called the \textbf{logical conjunction}, \textbf{conjunction}, or \textbf{AND} symbol.
+\end{df}
+E.g., let
+\begin{enumerate}[noitemsep]
+  \item \(p \coloneqq\) \enquote{Your father is getting milk.}
+  \item \(q \coloneqq\)\enquote{Your father is getting butter.}
+\end{enumerate}
+Then, \((p \land q)\) represents the proposition \enquote{Your father is getting milk \emph{and} butter.} If \((p \land q)\) has been observed or proven to be true, then you can infer that he's getting both. In contrary, if \((p \land q)\) is false, we can say that either
+\begin{enumerate}[noitemsep]
+  \item \enquote{Your father is not getting anything,}
+  \item \enquote{Your father is getting only the milk, or}
+  \item \enquote{Your father is getting the butter.}
+\end{enumerate}
+
+\begin{df}{Logical disjunction}{}
+  The \textbf{disjunction} of propositions \(p\) and \(q\) is a proposition denoted by \((p \lor q)\). This proposition carries the truth value of true if either one of the propositions are true.
+
+  The symbol \(\lor\) is called the \textbf{logical disjunction}, \textbf{disjunction}, or the \textbf{OR} symbol.
+\end{df}
+
+Let's use the example prior. If \((p \lor q)\) has been observed or proven to be true, then there are three possible cases\index{logical operations!disjunction}\index{logical operations!OR|see {disjunction}}
+\begin{enumerate}[noitemsep]
+  \item \enquote{Your father is getting just the milk,}
+  \item \enquote{Your father is getting just the butter, or}
+  \item \enquote{Your father is getting both the milk and the butter.}
+\end{enumerate}
+If \((p \lor q)\) has been observed to be false, then there's only one possible case: \enquote{Your father is coming home empty-handed.}
+
+The characteristic truth table of both conjunction and disjunction operations is shown in \cref{tab:truth_table_conjunction-disjunction}
+\begin{table}[h]
+  \centering
+  \begin{tblr}{ C | C | C | C }
+    p    & q    & (p \land q) & (p \lor q) \\
+    \hline
+    \top & \top & \top        & \top       \\
+    \top & \bot & \bot        & \top       \\
+    \bot & \top & \bot        & \top       \\
+    \bot & \bot & \bot        & \bot
+  \end{tblr}
+  \caption{Truth table for \((p \land q)\) and \((p \lor q)\)}
+  \label{tab:truth_table_conjunction-disjunction}
+\end{table}
+
+Notice that swappin the propositions of the conjunction and disjunction does not change the outcome.
+\begin{equation}
+  (p \lor q) \equiv (q \lor p), \mathand (p \land q) \equiv (q \land p).
+\end{equation}
+The connectives that swapping the input position does not change the output is said to have the \textbf{commutative property}.
+
+\subsection{Implications: connectives of entailment}
+
+One important thing about entailment is that the sentence \(p \models q\) is not a proposition. It does not carry any truth value. Rather, it is an assertion that forces \(q\) to be true whenever \(p\) is true. Hence, \(p \models q\) does not carry any truth value and is not useful for chaining propositions together. To capture the behavior of entailment into the language of logic, we need implication.
+
+\begin{df}{Material implication}{}
+  The \textbf{material implication} of propositions \(p\) and \(q\) is a proposition denoted \((p \implies q)\) which is true if and only if \(p\) entails \(q\).
+
+  In \((p \implies q)\), \(p\) is called the antecedent and \(q\) is called the consequent.
+
+  The material implication is also known as implication, or conditional. The symbol \(\implies\) is called the \textbf{implication} or \textbf{conditional} symbol.
+\end{df}
+To arrive at the characteristic truth table for the implication, we can go through these evaluations and assign truth values to them one by one to get the desirable behavior of implication.
+
+Since the only way that entailment would not hold is for the antecedent to be false and the consequent to be true, the only time that \((p \implies q)\) should be false is if \(p\) is false, but \(q\) is true. Hence, we write the characteristic truth table shown in \cref{tab:logic-characteristic_implication}.
+
+\begin{table}[h]
+  \centering
+  \begin{tblr}{c | c | c}
+    $p$    & $q$    & $(p \implies q)$ \\
+    \hline
+    $\top$ & $\top$ & $\top$           \\
+    $\top$ & $\bot$ & $\bot$           \\
+    $\bot$ & $\top$ & $\top$           \\
+    $\bot$ & $\bot$ & $\top$           \\
+  \end{tblr}
+  \caption{Characteristic truth table of implication}
+  \label{tab:logic-characteristic_implication}
+\end{table}
+
+To illustrate the usage, consider the following propositions:
+\begin{itemize}[noitemsep]
+  \item $p \coloneqq \textrm{It rained}$ --- The antecedent
+  \item $q \coloneqq \textrm{The ground is wet}$ --- The consequence
+\end{itemize}
+There are then four evaluations possible.
+\begin{enumerate}[noitemsep]
+  \item It rained, and the ground is wet (\(p \equiv \top\), \(q \equiv \top\))
+  \item It rained, but the ground isn't wet (\(p \equiv \top\), \(q \equiv \bot\))
+  \item It didn't rain, and the ground is wet (\(p \equiv \bot\), \(q \equiv \top\))
+  \item It didn't rain, and the ground isn't wet (\(p \equiv \bot\), \(q \equiv \bot\))
+\end{enumerate}
+By our model of reasoning, if it rained, then the ground should be wet. If it didn't rain, then the ground could either be dry or wet. I might've spilled some water on the ground, or a dog might've urinated on the ground, causing the ground to be wet without any rain. These reasoning makes sense, and these are reflected in the assertion of the material conditional: if \(p \models q\), then either of these cases are possible:
+\begin{itemize}[noitemsep]
+  \item \(p \equiv \top, q \equiv \top\),
+  \item \(p \equiv \bot, q \equiv \top\),
+  \item \(p \equiv \bot, q \equiv \bot\).
+\end{itemize}
+In all these cases listed here, the material implication should evaluate to true. But,
+\begin{itemize}
+  \item \(p \equiv \top, q \equiv \bot\)
+\end{itemize}
+is not possible if \(p \models q\). Hence, the material implication evaluates to false.
+
+In contrast with the logical conjunction and disjunction, the implication is \emph{not} commutative.
+\begin{equation}
+  (p \implies q) \quad\textrm{is not the same as}\quad (q \implies p).
+\end{equation}
+as you can easily check from the characteristic truth table.
+
+Assuming that \((p \implies q)\) is the same thing as \((q \implies p)\) is a logical fallacy that's named \textbf{affirming the consequent}\index{logical fallacy!affirming the consequent} or \textbf{fallacy of the converse}\index{logical fallacy!fallacy of the converse}. For example, if \(p\) represents \enquote{I am a human} and \(q\) represents \enquote{I am a mammal.} Since a human is a type of mammal, \(p \models q\); thus, \((p \implies q)\) which reads \enquote{I am a human, hence I am also a mammal,} is true. But then, does \(q \models p\)? In this world that we live in, being mammal doesn't mean being a human. A dog is also a mammal, a cat is also a mammal, etc. Hence, there are certain cases where \(q\) is true but \(p\) is false. Hence \(q\) does not entail \(p\) but \(p\) entails \(q\).
+
+This fallacy might sound trivial, but it will creep through the page and cause your proof to be invalid if you're not careful. A classic one would be the square root argument. If \(x = 3\), then \(x^2 = 9\). But \(x^2 = 9\) does \emph{not} mean \(x = 3\) because \(x = -3\) would also suffice. Another advanced one would be the limits and boundedness of functions. The existence of the limit \(\lim_{x \to a} f(x)\) entails the boundedness of \(f(x)\) is bounded in some neighborhood of \(a\) that doesn't contain \(a\) itself. It sounds plausible for the converse to be true: if \(f(x)\) is bounded near \(a\), then \(\lim_{x \to a} f(x)\) should exists when in reality, there are many functions which doesn't have this property. E.g.,
+\begin{equation}
+  f(x) = \sin\ab(\frac{1}{x})
+\end{equation}
+This is also called the \textbf{topologist's sine curve}. The function is bounded on its entire domain. However, the limit \(\lim_{x \to 0} f(x)\) does not exist because the graph is forever oscillating as shown in \cref{fig:logic-topologist_sine}.
+\begin{figure}[h]
+  \centering
+  \includegraphics{realanalysis/logic/topologist_sine.pdf}
+  \caption{Topologist sine curve \(f(x) = \sin\ab(\frac{1}{x})\)}
+  \label{fig:logic-topologist_sine}
+\end{figure}
+
+\subsection{Biconditional: connectives of equivalence}
+
+\begin{df}{Logical biconditional}{}
+  The \textbf{logical biconditional} of propositions \(p\) and \(q\) is a proposition denoted \((p \iff q)\) in which
+  \begin{equation}
+    (p \iff q) \coloneqq \ab((p \implies q) \land (q \implies p)).
+  \end{equation}
+\end{df}
+By the rules of logical conjunction, \((p \iff q)\) is true when both \((p \implies q)\) and \((q \implies p)\) are true. I.e., the proposition that's formed via the biconditional is true only when the entailment goes both ways. E.g., consider these propositions:
+\begin{enumerate}[noitemsep]
+  \item \(p \coloneqq\) \enquote{You can see the stars.}
+  \item \(q \coloneqq\) \enquote{It is currently nighttime.}
+\end{enumerate}
+Obviously,
+\begin{equation}
+  p \models q \mathand q \models p:
+\end{equation}
+if it's nighttime you must see the stars\footnote{Unless you are in a very bright city then that's just depressing.}, and if you can see the stars it must be nighttime. Since the entailment goes both ways, the proposition:
+\begin{itemize}
+  \item \((p \iff q) =\) \enquote{You can see the stars because it is night, and you can tell that it is night by seeing that there are stars}
+\end{itemize}
+must be true. In a similar manner,
+\begin{itemize}
+  \item \(\ab((\neg q) \iff (\neg p)) =\) \enquote{You can't see the stars because it is day, and you can tell that it's day by seeing that there are no stars.}
+\end{itemize}
+must also be true aswell.
+
+The characteristic truth table of the biconditional is given in \cref{tab:logic-characteristic_biconditional}
+\begin{table}
+  \centering
+  \begin{tblr}{ C | C | C }
+    p    & q    & (p \iff q) \\
+    \hline
+    \top & \top & \top       \\
+    \top & \bot & \bot       \\
+    \bot & \top & \bot       \\
+    \bot & \bot & \top
+  \end{tblr}
+  \caption{Characteristic truth table of $p \iff q$}
+  \label{tab:logic-characteristic_biconditional}
+\end{table}
+
+The biconditional is related to the equivalence symbol like how material implication is related to entailment. If the proposition \((p \iff q)\) is true, then \(p \equiv q\) and vice versa.
+
+Since the phrase \enquote{if and only if,} is quite long, it's common to abbreviate the biconditional to \emph{\textbf{iff}} with a double \enquote{f} and in italics. This is to differentiate the biconditional from the implication.
+
+\subsection{A well-formed sentence}
+
+As I've hinted in the definitions prior, a proposition can be formed by using logical connectives on already known propositions to create a new proposition. This is captured in the following definition:
+\begin{df}{A well-formed sentence}{}
+  If \(p\) and \(q\) are propositions, then nothing else is a proposition except for the following
+  \begin{itemize}[noitemsep]
+    \item \((\neg p)\)
+    \item \((p \land q)\)
+    \item \((p \lor q)\)
+    \item \((p \implies q)\)
+    \item \((p \iff q)\)
+  \end{itemize}
+\end{df}
+This definition prevents gibberish from being a proposition that we would have to consider. E.g.,
+\begin{equation}
+  \neg \land \lor p \lor q \implies p \mathor ABBC \land q \iff \implies \neg X
+\end{equation}
+would not be a proposition because they don't obey the rule of a well-formed propositions.
+
+Let's start with a simple relationship between three propositions:
+\begin{enumerate}[noitemsep]
+  \item $p$ represents \enquote{Your mom calls your father.}
+  \item $q$ represents \enquote{Your father is out to get milk.}
+  \item $r$ represents \enquote{Your father will never come back.}
+\end{enumerate}
+We could create a new proposition that says
+\begin{equation}
+  \ab(p \implies (q \land r)), \label{eq:mom_call_father_get_milk_never_come_back}
+\end{equation}
+which reads:
+\begin{displayquote}
+  If your mother calls your father, then he's going to be out to get milk and never come back.
+\end{displayquote}
+There are eight possible situations for \cref{eq:mom_call_father_get_milk_never_come_back} which can be written as a truth table shown in \cref{tab:mom_call_father_get_milk_never_come_back}.
+
+\begin{table}
+  \centering
+  \begin{tblr}{ C | C | C | C | C }
+    p    & q    & r    & (q \land r) & \ab(p \implies (q \land r)) \\
+    \hline
+    \top & \top & \top & \top        & \top                        \\
+    \top & \top & \bot & \bot        & \bot                        \\
+    \top & \bot & \top & \bot        & \bot                        \\
+    \top & \bot & \bot & \bot        & \bot                        \\
+    \bot & \top & \top & \top        & \top                        \\
+    \bot & \top & \bot & \bot        & \top                        \\
+    \bot & \bot & \top & \bot        & \top                        \\
+    \bot & \bot & \bot & \bot        & \top                        \\
+  \end{tblr}
+  \caption{Truth table of the proposition \(\ab(p \implies (q \land r))\)}
+  \label{tab:mom_call_father_get_milk_never_come_back}
+\end{table}
+
+If the proposition \(\ab(p \implies (q \land r))\) is true, then \(p \models (q \land r)\) and these situations are allowed to happen:
+\begin{enumerate}[noitemsep]
+  \item Your mom did call your father. He went out to get milk, and isn't going to come back.
+  \item Your mom did not call your father, but he still went out to get milk, and isn't going to come back.
+  \item Your mom did not call your father, but he went out to get milk, and is coming back.
+  \item Your mom did not call your father, and he didn't go out to get milk, but isn't going to come back.
+  \item Your mom did not call your father, he didn't go out to get milk, and is going to come back.
+\end{enumerate}
+If the proposition is false, then these three cases are then allowed to happen as well.
+\begin{enumerate}[noitemsep]
+  \item Your mom did call your father. He went out and get milk, but he came back.
+  \item Your mom did call your father. He didn't go out to get milk, but he's never coming back.
+  \item Your mom did call your father, but he didn't go out to get milk, and he's never coming back.
+\end{enumerate}
+
+We can always extend this method of writing a truth table for more propositions, but that's not in our interests right now. If you want to try it out, then there are exercises are in the end of the chapter.
+
+When the propositions gets really long, we drop some of the parenthesis according to the following rules in order to minimize clutter.
+
+\begin{notation}{Rules for dropping parenthesis in propositions}{}
+  \begin{enumerate}[noitemsep]
+    \item Drop the outer-most parenthesis
+    \item If a negation is infront of a single-letter proposition, then drop the parenthesis that covers it. E.g.,
+          \begin{gather}
+            (\neg p) \land q = \neg p \land q, \\
+            (A \implies (\neg B)) \land (\neg C) = (A \implies \neg B) \land \neg C.
+          \end{gather}
+          However, note that if the negation is infront of a parenthesis, it could not be dropped. E.g.,
+          \begin{equation}
+            \neg (A \lor B) \neq \neg A \lor B. \\
+          \end{equation}
+    \item If propositions are chained together by the same commutative logical connectives, drop the parenthesis. E.g.,
+          \begin{gather}
+            p \land (((q \land r) \land (s \land t)) \land u) = p \land q \land r \land s \land t, \\
+            \begin{multlined}
+              (p \iff q) \iff ((r \iff s) \iff t) \\ = p \iff q \iff r \iff s \iff t,
+            \end{multlined} \\
+            (p \lor q) \lor (r \lor (s \lor t)) = p \lor q \lor r \lor s \lor t
+          \end{gather}
+          But note that if the connectives are \emph{not} the same, you can't drop the parenthesis. E.g.,
+          \begin{equation}
+            p \lor (q \land r) \neq p \lor q \land r.
+          \end{equation}
+  \end{enumerate}
+\end{notation}
+
+\section{Logical structure. Tautologies and contradiction}
+
+With these logical connectives, there deem to be some propositions that are always true no matter how its evaluated or false no matter how it is evaluated: its truth value depends on the logical structure of how the propositions are chained together, not how its evaluated. E.g.,
+\begin{equation}
+  p \lor \neg p
+\end{equation}
+is always true. If \(p\) is true, then \(\neg p\) is false. If \(p\) is false, then \(\neg p\) is true. In all evaluations of \(p\) and \(\neg p\), either one of these must be true. Hence, their disjunction is \textbf{always true} all the time. We call these statements: a \textbf{tautology}. Since \(\top\) is always true, it is also commonly referred to as a tautology, and every tautology is equivalent to \(\top\).
+
+In the other hand, there are also statements that are always false. E.g.,
+\begin{equation}
+  p \land \neg p
+\end{equation}
+These are called \textbf{contradictions}. Similarly, \(\bot\) is also called a contradiction.
+
+\section{Useful logical identities}
+
+All the interactions between tautologies and contradiction via logical operators are already given in \cref{tab:logic-characteristic_negation,tab:logic-characteristic_implication,tab:logic-characteristic_biconditional}; thus, they won't be mentioned here. Now, let $p$ be a proposition. Then, the following seven propositions hold:
+\begin{prop}{}{}
+  \(p \lor \top \equiv \top.\)
+\end{prop}
+The logical disjunction only requires one proposition to be true. If there's one tautology, the whole statement is a tautology.
+
+\begin{prop}{}{}
+  \(p \lor \bot \equiv p.\)
+\end{prop}
+If one proposition is a contradiction, the truth value of the statement is dependent on $p$: $p$ being a tautology makes the statement true, and $p$ being a contradiction will make the statement false.
+
+\begin{prop}{}{}
+  \(p \land \top \equiv p.\)
+\end{prop}
+The logical conjunction requires both propositions to be true. If one is already a tautology, the truth value of the statement is dependent on the other value.
+
+\begin{prop}{}{}
+  \(p \land \bot \equiv \bot.\)
+\end{prop}
+It only takes one false proposition for the logical conjunction to output a contradiction.
+
+\begin{prop}{}{}
+  \(p \implies \top \equiv \top.\)
+\end{prop}
+If $p$ is true, then the reasoning is valid. If $p$ is false, the consequence could be from anything else, and the reasoning would still be sensible. Therefore, $p \implies \top$ is a tautology.
+
+\begin{prop}{}{}
+  \(p \to \bot \equiv \neg p.\)
+\end{prop}
+If $p$ is false, then $\bot \to \bot$ is true. If $p$ is true, then $\top \to \bot$ is false.
+
+\begin{prop}{}{}
+  \(p \iff \top \equiv p\), and \(p \iff \bot \equiv \neg p.\)
+\end{prop}
+The statement could only be true if both match; therefore, the truth value of the statement is completely dependent on $p$.
+
+\section{Rules of inferences and logical structure}
+
+Before we go any further, note that there are going to be a lot of weird names coming up. You don't have to remember them. Most of them are trivial rules that you'll be able to make sense of. Just think through them logically, and you'll be fine.
+
+\subsection{Modus ponens}
+\index{logical inferences!modus ponens}
+
+Let's start with a simple example called \textbf{modus ponens}. It says that, if $p$ is true and $p \to q$ is true, $q$ must also be true. I.e.,
+\begin{equation}
+  (p \land (p \implies q)) \models q
+\end{equation}
+To prove this, we translate the rule into mathematical form
+\begin{equation}
+  (p \land (p \implies q)) \implies q,
+\end{equation}
+Then, we can either construct the truth table (\cref{tab:truth_table_modus-ponens}), or we could prove it by contradiction
+\begin{table}[t]
+  \centering
+  \begin{tblr}{C | C | C | C | C}
+    p    & q    & (p \to q) & p \land (p \to q) & (p \land (p \to q)) \to q \\
+    \hline
+    \top & \top & \top      & \top              & \top                      \\
+    \top & \bot & \bot      & \bot              & \top                      \\
+    \bot & \top & \top      & \bot              & \top                      \\
+    \bot & \bot & \top      & \bot              & \top
+  \end{tblr}
+  \caption{Truth table of Modus ponens}
+  \label{tab:truth_table_modus-ponens}
+\end{table}
+
+It might be a hard concept to wrap your head around at first, but stay with me here. \textbf{Proof by contradiction} is a form of proof where we assume that the statement is false, then show that it leads to a logical fallacy; therefore, the statement cannot be false: it must be a tautology. I shall illustrate the concept by proving the modus ponens:
+\begin{enumerate}[noitemsep]
+  \item Assume that $(p \land (p \to q)) \to q$ is false.
+  \item Because the statement is in two parts that are joined by a logical condition, the reason \(p \land (p \to q)\) must be true, and the consequence \(q\) must be false in order for the statement to be false. \label{ite:modus-ponens-2}
+  \item Since $q \equiv \bot$, $(p \land (p \to q))$ becomes $(p \land (p \to \bot))$.
+  \item $p \to \bot$ is $\neg p$; thus, $(p \land (p \to \bot))$ simplifies to $p \land \neg p$
+  \item \label{ite:modus-ponens-5} Because $p \land \neg p$ is joined by a logical disjunction, and one of them is always false, the reason as a whole is false.
+  \item But from \cref{ite:modus-ponens-2}, the reason must be true, which contradicts with \cref{ite:modus-ponens-5}, thus creating a logical fallacy.
+  \item This logical fallacy can only be resolved if the original statement is true in the first place. Therefore, the modus ponens is a tautology.
+\end{enumerate}
+
+\begin{table}[t]
+  \centering
+  \begin{tblr}{RL}
+               & p       \\
+               & p \to q \\ \cline{2 - 2}
+    \therefore & q.
+  \end{tblr}
+  \caption{Inference table for modus ponens}
+  \label{tab:inference_table_modus-ponens}
+\end{table}
+We then write an inference table shown in \cref{tab:inference_table_modus-ponens}, where every sentence above the black line is proven to be a true statement, and we put the conclusion under the black line.
+
+\subsection{Modus tollens}
+
+The inference table for modus tollens is shown in \cref{tab:inference_table_modus-tollens}. The table reads \enquote{If $p \to q$ is a reasoning that is proven to be sensible, and $q$ didn't happen, then $p$ never happened as well.}
+
+\begin{table}[h]
+  \centering
+  \begin{tblr}{RL}
+               & p \to q \\
+               & \neg q  \\ \cline{2 - 2}
+    \therefore & \neg p.
+  \end{tblr}
+  \caption{Inference table for modus tollens}
+  \label{tab:inference_table_modus-tollens}
+\end{table}
+
+To prove this, we turn the inference table into \(((p \to q) \land \neg q) \to \neg p\) then use proof by contradiction:
+\begin{enumerate}[noitemsep]
+  \item Assume that $((p \to q) \land \neg q) \to \neg p$ is false.
+        \item\label{ite:modus-tollens-2} Because the statement is in two parts that are joined by a logical condition, the reason $((p \to q) \land \neg q)$ must be true and the consequence $\neg p$ must be false in order for the statement to be false.
+        \item\label{ite:modus-tollens-3} If $\neg p$ is false, then $p$ is true.
+  \item Because the reason is joined by a logical conjunction, both $p \to q$ and $\neg q$ must be true in order for the reason to be true.
+  \item If $\neg q$ is true, then $q$ is false.
+        \item\label{ite:modus-tollens-6} Substitute $q$ is false and $p$ is false from \cref{ite:modus-tollens-3} into the reason. $(p \to q) \land \neg q$ becomes $(\bot \to \bot) \land \neg \top \equiv \bot$: the reason is false.
+  \item \Cref{ite:modus-tollens-6} contradicts with \cref{ite:modus-tollens-2} which says that the reason should be true, thus creating a logical fallacy.
+  \item This logical fallacy can only be resolved if the original statement is true in the first place. Therefore, the modus tollens is a tautology.
+\end{enumerate}
+
+\subsection{Biconditional introduction and elimination}
+\index{logical inferences!biconditional introduction}\index{logical inferences!biconditional elimination}
+
+\begin{table}[h]
+  \centering
+  \begin{tblr}{R L}
+               & p \to q   \\
+
+    \cline{2 - 2}
+    \therefore & p \iff q,
+  \end{tblr}
+  \caption{Inference table for the biconditional introduction}
+  \label{tab:inference_table_biconditional-introduction}
+\end{table}
+The inference table for the biconditional introduction is shown in \cref{tab:inference_table_biconditional-introduction} which is literally the definition of the biconditional (\cref{eq:biconditional_expansion}). The biconditional elimination goes the other way: if you know that $p \iff q$ is true, you can infer that both $p \to q$ and $q \to p$ are true.
+
+\subsection{Conjunction introduction and elimination}
+\label{sec:conjunction_introduction_elimination}
+\index{logical inferences!conjunction introduction}\index{logical inferences!conjunction elimination}
+
+\begin{table}
+  \centering
+  \begin{tblr}{RL}
+               & p          \\
+               & q          \\
+    \cline{2 - 2}
+    \therefore & p \land q,
+  \end{tblr}
+  \caption{Inference table for the conjunction introduction}
+  \label{tab:inference_table_conjunction-introduction}
+\end{table}
+The inference table for the conjunction introduction is shown in \cref{tab:inference_table_conjunction-introduction} which reads: \enquote{If $p$ is true and $q$ is true, then $p \lor q$ must also be true.} This statement is trivial because $\lor$ needs both proposition to be true, and both $p$ and $q$ are already true.\index{logical inferences!conjunction introduction} The conjunction elimination goes the other way around: if $p \land q$ is known to be true, then we can infer that $p$ is true, and $q$ is true.
+
+\subsection{Disjunction introduction aka addition}
+\index{logical inferences!disjunction introduction}\index{logical inferences!addition|see {disjunction introduction}}
+
+\begin{table}[h]
+  \centering
+  \begin{tblr}{RL}
+               & p         \\
+    \cline{2 - 2}
+    \therefore & p \lor q,
+  \end{tblr}
+  \caption{Inference table for the disjunction introduction}
+  \label{tab:inference_table_disjunction-introduction}
+\end{table}
+The inference table for the disjunction introduction is shown in \cref{tab:inference_table_disjunction-introduction} which reads, if $p$ is true, then $p$ or $q$ is always true. This should also be trivial: the disjunction outputs true when one of the statements is true, which $p$ is already proven to be true.
+
+\subsection{Disjunction elimination}
+\index{logical inferences!disjunction elimination}
+
+\begin{table}
+  \centering
+  \begin{tblr}{R L}
+               & p \to q \\
+               & r \to q \\
+
+    \cline{2 - 2}
+    \therefore & q.
+  \end{tblr}
+  \caption{Inference table for the disjunction elimination}
+  \label{tab:inference_table_disjunction-elimination}
+\end{table}
+The inference table for the disjunction elimination is shown in \cref{tab:inference_table_disjunction-elimination}. It is a complex one, so I'm going to give a word example. Let there be these propositions:
+\begin{enumerate}[noitemsep]
+  \item $p$ representing \enquote{Your father is getting milk.}
+  \item $q$ representing \enquote{Your father is not coming back.}
+  \item $r$ representing \enquote{Your father is getting butter.}
+\end{enumerate}
+Thus,
+\begin{enumerate}[noitemsep]
+  \item $p \to q$ means \enquote{If your father is getting milk, he's not coming back.}
+  \item $r \to q$ means \enquote{If your father is getting butter, he's not coming back.}
+  \item $p \lor r$ means \enquote{Your father is getting either milk or butter.}
+\end{enumerate}
+The conclusion $q$ represents \enquote{Your father is not coming back}.
+
+To prove this rule mathematically, we turn the inference table into \(((p \to q) \land (p \to r) \land (p \lor r)) \to q\), then proceed with proof by contradiction:
+\begin{enumerate}[noitemsep]
+  \item Assume that \(((p \to q) \land (p \to r) \land (p \lor r)) \to q\) is false.
+        \item\label{ite:disjunction-elimination-1} Because the whole statement is in two parts that are joined by a logical condition, the reason $((p \to q) \land (r \to q) \land (p \lor r))$ must be true, and the consequence $q$ must be false in order for the statement to be false.
+  \item Substitute $q \equiv \bot$ into the reason and get $((p \to \bot) \land (r \to \bot) \land (p \lor r))$ which simplifies to $\neg p \land \neg r \land (p \lor r)$.
+        \item\label{ite:disjunction-elimination-3} From \cref{ite:disjunction-elimination-1}, the reason must be true. Since the reason is in three parts which are all joined logical conjunction, we can use conjunction elimination to conclude that $\neg p$, $\neg r$, and $p \lor r$ are all true.
+        \item\label{ite:disjunction-elimination-4} Since both $\neg p$ and $\neg r$ are true, both $p$ and $r$ are false.
+  \item $p \lor r$ evaluates to $\bot$, which contradicts with \cref{ite:disjunction-elimination-4} and creates a logical fallacy.
+  \item This logical fallacy can only be resolved if the original statement is true in the first place. Therefore, the rule of disjunctive elimination is a tautology.
+\end{enumerate}
+
+\subsection{Disjunctive syllogism}
+\index{logical inferences!disjunctive syllogism}
+
+\begin{table}[h]
+  \centering
+  \begin{tblr}{RL}
+               & p \lor q \\
+
+    \cline{2 - 2}
+    \therefore & q.
+  \end{tblr}
+  \caption{Inference table for the disjunctive syllogism}
+  \label{tab:inference_table_disjunctive-syllogism}
+\end{table}
+The inference table is shown in \cref{tab:inference_table_disjunctive-syllogism}. This one is also a hard one, so let me give a word example. Let
+\begin{enumerate}[noitemsep]
+  \item $p$ — Your father is getting milk,
+  \item $q$ — Your father is getting butter.
+\end{enumerate}
+Therefore,
+\begin{enumerate}[noitemsep]
+  \item $p \lor q$ means \enquote{Your father is getting either the milk or the butter,}
+  \item $\neg p$ means \enquote{Your father is not getting the milk,}
+\end{enumerate}
+which concludes in $q$, which means \enquote{Your father is getting the butter.} To prove this, we turn the rule of disjunctive syllogism into
+\begin{equation}
+  ((p \lor q) \land \neg p) \equiv q,
+\end{equation}
+then proceed with proof by contradiction: assume that the disjunctive syllogism is false. Then,
+\begin{enumerate}[noitemsep]
+  \item\label{ite:disjunctive-syllogism-1} Because the statement is in two parts that are joined by a logical condition, in order for the statement to be false, the reason $((p \to q) \land \neg p)$ must be true, and the consequence $q$ must be false.
+  \item Substitute $q \equiv \bot$ into the reason and get $(p \to \bot) \land \neg p$ which simplifies to $\bot \land \neg p$.
+  \item Since the logical conjunction between a contradiction and anything is false, it contradicts with \cref{ite:disjunctive-syllogism-1} which says that the reason should be true; creating a logical fallacy.
+  \item This logical fallacy can only be resolved if the original statement is true in the first place. Therefore, the rule of disjunctive syllogism is a tautology.
+\end{enumerate}
+
+\subsection{Hypothetical syllogism}
+\label{sec:rules_of_inference_hypothetical-syllogism}
+\index{logical inferences!hypothetical syllogism}
+
+\begin{table}
+  \centering
+  \begin{tblr}{RL}
+               & p \to q  \\
+
+    \cline{2 - 2}
+    \therefore & p \to r.
+  \end{tblr}
+  \caption{Inference table for the hypothetical syllogism}
+  \label{tab:inference_table_hypothetical-syllogism}
+\end{table}
+The inference table for \cref{tab:inference_table_hypothetical-syllogism} is shown in \cref{tab:inference_table_hypothetical-syllogism}. You should probably know the drill by now. Assume that
+\begin{equation}
+  ((p \to q) \land (q \to r)) \to (p \to r),
+\end{equation}
+is false. Then,
+\begin{enumerate}[noitemsep]
+  \item Because the statement is in two parts that are joined by a logical condition, the reason $(p \to q) \land (q \to r)$ must be true, and the consequence $p \to r$ must be false in order for the statement to be false.
+        \item\label{ite:hypothetical-syllogism-2} The consequence, $p \to r$ is joined by a logical condition, and is false. Therefore, the reason to this consequence $p$ must be true, and the consequence for this consequence, $r$, must be false.
+  \item Substitute $p \equiv \top$ and $r \equiv \bot$ into the reason and get $(\top \to q) \land (q \to \bot)$.
+        \item\label{ite:hypothetical-syllogism-4} The first parentheses evaluate to $q$, and the second evaluate to $\neg q$. Thus, the statement $(\top \to q) \land (q \to \bot)$ is false.
+  \item \Cref{ite:hypothetical-syllogism-4} and \cref{ite:hypothetical-syllogism-2} contradicts and creates a logical fallacy. This fallacy can only be resolved if the original statement is true. Therefore, the rule of hypothetical syllogism is a tautology.
+\end{enumerate}
+
+\subsection{Constructive and destructive dilemma}
+\index{logical inferences!constructive dilemma}
+\index{logical inferences!destructive dilemma}
+
+\begin{table}
+  \centering
+  \begin{tblr}{RL}
+               & p \to q   \\
+               & r \to s   \\
+
+    \cline{2 - 2}
+    \therefore & q \lor s.
+  \end{tblr}
+  \caption{Inference table for the constructive dilemma}
+  \label{tab:inference_table_constructive-dilemma}
+\end{table}
+\begin{table}
+  \centering
+  \begin{tblr}{RL}
+               & p \to q             \\
+               & r \to s             \\
+
+    \cline{2 - 2}
+    \therefore & \neg p \lor \neg r.
+  \end{tblr}
+  \caption{Inference table for the destructive dilemma}
+  \label{tab:inference_table_destructive-dilemma}
+\end{table}
+
+Both the \textbf{constructive dilemma} (\cref{tab:inference_table_constructive-dilemma}) and \textbf{destructive dilemma} (\cref{tab:inference_table_destructive-dilemma}) are quite complex, so I'll give a word example. For the constructive dilemma, let
+\begin{enumerate}[noitemsep]
+  \item $p \to q$ represents \enquote{If your father goes out, he will get milk.}
+  \item $r \to s$ represents \enquote{If your mother goes out, she will go and find your father.}
+  \item $p \lor r$ represents \enquote{Either your father goes out, or your mother goes out.}
+  \item Therefore, $q \lor s$ represents \enquote{Either your father gets milk, or your mother will go find your father.}
+\end{enumerate}
+To prove this, we turn the inference table into
+\begin{equation}
+  ((p \to q) \land (r \to s) \land (p \lor r)) \to (q \lor s),
+\end{equation}
+then proceed with proof by contradiction.
+\begin{enumerate}[noitemsep]
+  \item Assume that $((p \to q) \land (r \to s) \land (p \lor r)) \to (q \lor s)$ is false.
+  \item Because the statement is in two parts that are joined by a logical condition, the reason $(p \to q) \land (r \to s) \land (p \lor r)$ must be true, and the consequence $q \lor s$ must be false in order for the statement to be false.
+  \item The consequence $q \lor s$ is false and joined by a logical disjunction. Thus, both $q$ and $s$ are false.
+  \item Substitute $q \equiv s \equiv \bot$ into the reason and get $(p \to \bot) \land (r \to \bot) \land (p \lor r)$.
+        \item\label{ite:constructive-dilemma-4} The reason evaluates to $\neg p \land \neg r \land (p \lor r)$, which by conjunction elimination, $\neg p \equiv \neg r \equiv (p \lor r) \equiv \top$.
+  \item $\neg p \equiv \neg r \equiv \top$ means $p \equiv r \equiv \bot$.
+  \item $p \equiv r \equiv \bot$ means $p \lor r \equiv \bot$ which contradicts with \cref{ite:constructive-dilemma-4}, creating a logical fallacy.
+  \item This fallacy can only be resolved if the original statement is true. Therefore, the rule of constructive dilemma is a tautology.
+\end{enumerate}
+
+The \textbf{destructive dilemma} is just the constructive dilemma but with \enquote{Either your father doesn't get milk, or your mother doesn't go find your father}. It is left as an exercise to the reader to prove that the rule of destructive dilemma is always true.
+
+\section{Conclusion for the second half of \cref{sec:logic}}
+
+\begin{enumerate}[noitemsep]
+  \item Rules of inference are used to determine what is true using other true statements.
+  \item Each of the rules of inference has to be a tautology, and we prove that by either constructing a truth table, or writing down a proof by contradiction.
+  \item Proof by contradiction is a form of proof that establishes that a proposition is a tautology by showing that when we assume that the proposition is false, it leads to a logical fallacy.
+\end{enumerate}
+
+From now on, I shall write most mathematical statements in terms of logical symbols in order to get rid of ambiguity in the natural language.
+
