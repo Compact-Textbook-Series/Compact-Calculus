@@ -345,7 +345,18 @@ as you can easily check from the characteristic truth table.
 
 Assuming that \((p \implies q)\) is the same thing as \((q \implies p)\) is a logical fallacy that's named \textbf{affirming the consequent}\index{logical fallacy!affirming the consequent} or \textbf{fallacy of the converse}\index{logical fallacy!fallacy of the converse}. For example, if \(p\) represents \enquote{I am a human} and \(q\) represents \enquote{I am a mammal.} Since a human is a type of mammal, \(p \models q\); thus, \((p \implies q)\) which reads \enquote{I am a human, hence I am also a mammal,} is true. But then, does \(q \models p\)? In this world that we live in, being mammal doesn't mean being a human. A dog is also a mammal, a cat is also a mammal, etc. Hence, there are certain cases where \(q\) is true but \(p\) is false. Hence \(q\) does not entail \(p\) but \(p\) entails \(q\).
 
-This fallacy might sound trivial, but it will creep through the page and cause your proof to be invalid if you're not careful. A classic one would be the square root argument. If \(x = 3\), then \(x^2 = 9\). But \(x^2 = 9\) does \emph{not} mean \(x = 3\) because \(x = -3\) would also suffice. Another advanced one would be the limits and boundedness of functions. The existence of the limit \(\lim_{x \to a} f(x)\) entails the boundedness of \(f(x)\) is bounded in some neighborhood of \(a\) that doesn't contain \(a\) itself. It sounds plausible for the converse to be true: if \(f(x)\) is bounded near \(a\), then \(\lim_{x \to a} f(x)\) should exists when in reality, there are many functions which doesn't have this property. E.g.,
+This fallacy might sound trivial, but it will creep through the page and cause your proof to be invalid if you're not careful. A classic one would be the square root argument. If \(x = 3\), then \(x^2 = 9\). But \(x^2 = 9\) does \emph{not} mean \(x = 3\) because \(x = -3\) would also suffice.
+
+Another one would be integration and the zero function. If \(f(x) = 0\) on \(\cintv{a, b}\), then definitely \(\int_a^b |f(x)| \odif{x} = 0\): \(f\) is zero on \(\cintv{a, b}\) \emph{entails} that the integral of the absolute value along \(\cintv{a, b}\) is zero. However, the converse does not hold. There are some functions which are non-zero but has integral of its absolute value, zero. E.g., let \(a = 0\), \(b = 1\), and let
+\begin{equation}
+  f(x) = \begin{cases}
+    1 & \textrm{if } x = \frac{1}{2} \\
+    0 & \textrm{otherwise}
+  \end{cases}
+\end{equation}
+The Riemann integral of this function is \emph{definitely zero.} It is left as an exercise to verify this by using \cref{df:integralsnaivedefinition}. However, the function doesn't equal to zero along its domain. Hence, entailment in the backward direction does not work.
+
+This one trips up many calculus students that hasn't got a proper training on limits and boundedness yet. The existence of the limit \(\lim_{x \to a} f(x)\) entails the boundedness of \(f(x)\) is bounded in some neighborhood of \(a\) that doesn't contain \(a\) itself. It sounds plausible for the converse to be true: if \(f(x)\) is bounded near \(a\), then \(\lim_{x \to a} f(x)\) should exists when in reality, there are many functions which doesn't have this property. E.g.,
 \begin{equation}
   f(x) = \sin\ab(\frac{1}{x})
 \end{equation}
@@ -504,11 +515,28 @@ When the propositions gets really long, we drop some of the parenthesis accordin
 
 \section{Logical structure. Tautologies and contradiction}
 
-With these logical connectives, there deem to be some propositions that are always true no matter how its evaluated or false no matter how it is evaluated: its truth value depends on the logical structure of how the propositions are chained together, not how its evaluated. E.g.,
+Some propositions are always true regardless of its evaluation. The truth value of these propositions no longer depend on the individual components that made it up, but rather on the underlying logical structure. E.g.,
 \begin{equation}
   p \lor \neg p
 \end{equation}
-is always true. If \(p\) is true, then \(\neg p\) is false. If \(p\) is false, then \(\neg p\) is true. In all evaluations of \(p\) and \(\neg p\), either one of these must be true. Hence, their disjunction is \textbf{always true} all the time. We call these statements: a \textbf{tautology}. Since \(\top\) is always true, it is also commonly referred to as a tautology, and every tautology is equivalent to \(\top\).
+is always true. If \(p\) is true, then \(\neg p\) is false. If \(p\) is false, then \(\neg p\) is true. In all evaluations of \(p\) and \(\neg p\), either one of these must be true. Hence, their disjunction is \textbf{always true} all the time. Another such example would be
+\begin{equation}
+  (p \implies q) \lor (q \implies p)
+\end{equation}
+Since this is too long to analyze in sentence, we shall use the truth table
+
+\begin{table}
+  \begin{tblr}{ C | C | C | C | C}
+    p    & q    & (p \implies q) & (q \implies p) & (p \implies q) \land (q \implies p) \\
+    \hline
+    \top & \top & \top           & \top           & \top                                \\
+    \top & \bot & \bot           & \top           & \top                                \\
+    \bot & \top & \top           & \bot           & \top                                \\
+    \bot & \bot & \top           & \top           & \bot
+  \end{tblr}
+\end{table}
+
+We call these statements \textbf{}. Since \(\top\) is always true, it is also commonly referred to as a tautology, and every tautology is equivalent to \(\top\).
 
 In the other hand, there are also statements that are always false. E.g.,
 \begin{equation}
@@ -556,7 +584,21 @@ The statement could only be true if both match; therefore, the truth value of th
 
 \section{Rules of inferences and logical structure}
 
-Before we go any further, note that there are going to be a lot of weird names coming up. You don't have to remember them. Most of them are trivial rules that you'll be able to make sense of. Just think through them logically, and you'll be fine.
+In higher logic, rules of inferences are a method of deduction that exists \emph{independently} of the actual truth value. For example, if \(p\) is true, then \(\neg(\neg p)\) must've been true, regardless of the truth value of \(p\). So you would say that
+\begin{equation}
+  p \models \neg (\neg p)
+\end{equation}
+because the evaluation of the truth value of the statement \(\neg (\neg p)\) is true whenever \(p\) is true. However, we don't even have to care about truth value. The form of the sentence is \emph{already enough} to deduct that the entailment must be true. This is called \textbf{semantic entailment} and exists \emph{independently} of the truth value system we've constructed. To express its independent, we use a difference symbol: \(\vdash\), which reads \enquote{semantically entails.}
+
+It's even possible to build a logical system that's consistent to the truth value system that has \emph{only} the entailment rule and nothing else. And it's also possible to build alogical system that \emph{doesn't} follow the truth value entailment. E.g., there could be a system where
+\begin{equation}
+  p \vdash \neg p,
+\end{equation}
+and it'd still be a valid logical system. Just not the usual system.
+
+This chapter contains the semantic entailment rules that are necessary for building a semantic entailment system that's logically consistent to the truth value system. The consistency between semantic entailment and truth value entailment is actually a theorem that we shall not prove because it is beyond the scope of the book.
+
+Note that you would see some pretty weird names popping up. It's unneccessary to remember them,
 
 \subsection{Modus ponens}
 \index{logical inferences!modus ponens}
@@ -625,11 +667,11 @@ The inference table for modus tollens is shown in \cref{tab:inference_table_modu
 To prove this, we turn the inference table into \(((p \to q) \land \neg q) \to \neg p\) then use proof by contradiction:
 \begin{enumerate}[noitemsep]
   \item Assume that $((p \to q) \land \neg q) \to \neg p$ is false.
-        \item\label{ite:modus-tollens-2} Because the statement is in two parts that are joined by a logical condition, the reason $((p \to q) \land \neg q)$ must be true and the consequence $\neg p$ must be false in order for the statement to be false.
-        \item\label{ite:modus-tollens-3} If $\neg p$ is false, then $p$ is true.
+  \item\label{ite:modus-tollens-2} Because the statement is in two parts that are joined by a logical condition, the reason $((p \to q) \land \neg q)$ must be true and the consequence $\neg p$ must be false in order for the statement to be false.
+  \item\label{ite:modus-tollens-3} If $\neg p$ is false, then $p$ is true.
   \item Because the reason is joined by a logical conjunction, both $p \to q$ and $\neg q$ must be true in order for the reason to be true.
   \item If $\neg q$ is true, then $q$ is false.
-        \item\label{ite:modus-tollens-6} Substitute $q$ is false and $p$ is false from \cref{ite:modus-tollens-3} into the reason. $(p \to q) \land \neg q$ becomes $(\bot \to \bot) \land \neg \top \equiv \bot$: the reason is false.
+  \item\label{ite:modus-tollens-6} Substitute $q$ is false and $p$ is false from \cref{ite:modus-tollens-3} into the reason. $(p \to q) \land \neg q$ becomes $(\bot \to \bot) \land \neg \top \equiv \bot$: the reason is false.
   \item \Cref{ite:modus-tollens-6} contradicts with \cref{ite:modus-tollens-2} which says that the reason should be true, thus creating a logical fallacy.
   \item This logical fallacy can only be resolved if the original statement is true in the first place. Therefore, the modus tollens is a tautology.
 \end{enumerate}
@@ -714,10 +756,10 @@ The conclusion $q$ represents \enquote{Your father is not coming back}.
 To prove this rule mathematically, we turn the inference table into \(((p \to q) \land (p \to r) \land (p \lor r)) \to q\), then proceed with proof by contradiction:
 \begin{enumerate}[noitemsep]
   \item Assume that \(((p \to q) \land (p \to r) \land (p \lor r)) \to q\) is false.
-        \item\label{ite:disjunction-elimination-1} Because the whole statement is in two parts that are joined by a logical condition, the reason $((p \to q) \land (r \to q) \land (p \lor r))$ must be true, and the consequence $q$ must be false in order for the statement to be false.
+  \item\label{ite:disjunction-elimination-1} Because the whole statement is in two parts that are joined by a logical condition, the reason $((p \to q) \land (r \to q) \land (p \lor r))$ must be true, and the consequence $q$ must be false in order for the statement to be false.
   \item Substitute $q \equiv \bot$ into the reason and get $((p \to \bot) \land (r \to \bot) \land (p \lor r))$ which simplifies to $\neg p \land \neg r \land (p \lor r)$.
-        \item\label{ite:disjunction-elimination-3} From \cref{ite:disjunction-elimination-1}, the reason must be true. Since the reason is in three parts which are all joined logical conjunction, we can use conjunction elimination to conclude that $\neg p$, $\neg r$, and $p \lor r$ are all true.
-        \item\label{ite:disjunction-elimination-4} Since both $\neg p$ and $\neg r$ are true, both $p$ and $r$ are false.
+  \item\label{ite:disjunction-elimination-3} From \cref{ite:disjunction-elimination-1}, the reason must be true. Since the reason is in three parts which are all joined logical conjunction, we can use conjunction elimination to conclude that $\neg p$, $\neg r$, and $p \lor r$ are all true.
+  \item\label{ite:disjunction-elimination-4} Since both $\neg p$ and $\neg r$ are true, both $p$ and $r$ are false.
   \item $p \lor r$ evaluates to $\bot$, which contradicts with \cref{ite:disjunction-elimination-4} and creates a logical fallacy.
   \item This logical fallacy can only be resolved if the original statement is true in the first place. Therefore, the rule of disjunctive elimination is a tautology.
 \end{enumerate}
@@ -780,9 +822,9 @@ The inference table for \cref{tab:inference_table_hypothetical-syllogism} is sho
 is false. Then,
 \begin{enumerate}[noitemsep]
   \item Because the statement is in two parts that are joined by a logical condition, the reason $(p \to q) \land (q \to r)$ must be true, and the consequence $p \to r$ must be false in order for the statement to be false.
-        \item\label{ite:hypothetical-syllogism-2} The consequence, $p \to r$ is joined by a logical condition, and is false. Therefore, the reason to this consequence $p$ must be true, and the consequence for this consequence, $r$, must be false.
+  \item\label{ite:hypothetical-syllogism-2} The consequence, $p \to r$ is joined by a logical condition, and is false. Therefore, the reason to this consequence $p$ must be true, and the consequence for this consequence, $r$, must be false.
   \item Substitute $p \equiv \top$ and $r \equiv \bot$ into the reason and get $(\top \to q) \land (q \to \bot)$.
-        \item\label{ite:hypothetical-syllogism-4} The first parentheses evaluate to $q$, and the second evaluate to $\neg q$. Thus, the statement $(\top \to q) \land (q \to \bot)$ is false.
+  \item\label{ite:hypothetical-syllogism-4} The first parentheses evaluate to $q$, and the second evaluate to $\neg q$. Thus, the statement $(\top \to q) \land (q \to \bot)$ is false.
   \item \Cref{ite:hypothetical-syllogism-4} and \cref{ite:hypothetical-syllogism-2} contradicts and creates a logical fallacy. This fallacy can only be resolved if the original statement is true. Therefore, the rule of hypothetical syllogism is a tautology.
 \end{enumerate}
 
@@ -832,13 +874,27 @@ then proceed with proof by contradiction.
   \item Because the statement is in two parts that are joined by a logical condition, the reason $(p \to q) \land (r \to s) \land (p \lor r)$ must be true, and the consequence $q \lor s$ must be false in order for the statement to be false.
   \item The consequence $q \lor s$ is false and joined by a logical disjunction. Thus, both $q$ and $s$ are false.
   \item Substitute $q \equiv s \equiv \bot$ into the reason and get $(p \to \bot) \land (r \to \bot) \land (p \lor r)$.
-        \item\label{ite:constructive-dilemma-4} The reason evaluates to $\neg p \land \neg r \land (p \lor r)$, which by conjunction elimination, $\neg p \equiv \neg r \equiv (p \lor r) \equiv \top$.
+  \item\label{ite:constructive-dilemma-4} The reason evaluates to $\neg p \land \neg r \land (p \lor r)$, which by conjunction elimination, $\neg p \equiv \neg r \equiv (p \lor r) \equiv \top$.
   \item $\neg p \equiv \neg r \equiv \top$ means $p \equiv r \equiv \bot$.
   \item $p \equiv r \equiv \bot$ means $p \lor r \equiv \bot$ which contradicts with \cref{ite:constructive-dilemma-4}, creating a logical fallacy.
   \item This fallacy can only be resolved if the original statement is true. Therefore, the rule of constructive dilemma is a tautology.
 \end{enumerate}
 
 The \textbf{destructive dilemma} is just the constructive dilemma but with \enquote{Either your father doesn't get milk, or your mother doesn't go find your father}. It is left as an exercise to the reader to prove that the rule of destructive dilemma is always true.
+
+\section{First order logic}
+
+So far, we've developed these tools in logic:
+\begin{enumerate}
+  \item Propositions,
+  \item Truth values (true-false),
+  \item Logical connectives,
+  \item Entailments,
+  \item Logical interference.
+\end{enumerate}
+These tools are not enough to use in analysis as most of the time, we need to prove that something is \emph{true} for all cases.
+
+For example, in the language of natural numbers
 
 \section{Conclusion for the second half of \cref{sec:logic}}
 

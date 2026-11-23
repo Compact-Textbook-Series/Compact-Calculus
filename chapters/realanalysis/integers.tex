@@ -1,39 +1,48 @@
 \chapter{The integers}
 
 \begin{notation}{The integers}{}
-  The integers will be marked with a dagger. E.g., \(2\) is a natural number, but \(\Zint{2}\) is an integer.
+  The integers will be marked with a dagger. E.g., \(2\) is a natural number, but \(\Zint{2}\) is an
+  integer.
 \end{notation}
 
-\section{An informal introduction to the integers}
+\section{Invitation: an informal introduction to the integers}
 
-In this section, I shall not refrain myself from using the subtraction sign, as it better illustrates what we're going to be doing in this chapter.
+In this section, I shall not refrain myself from using the subtraction sign, as it better
+illustrates what we're going to be doing in this chapter.
 
-Defining the integers is like defining subtraction and negatives. In a sense, the integers is an extension of the naturals, because as you would see, the system of the naturals are already sufficient to define the integers.
+Defining the integers is like defining subtraction and negatives. In a sense, the integers is an
+extension of the naturals, because as you would see, the system of the naturals are already
+sufficient to define the integers.
 
 One can define an integer to be a difference between two naturals:
 \begin{equation}
   \Zint{a} = n - m.
 \end{equation}
-The integer \(\Zint{a}\) is negative if \(n < m\), positive if \(n > m\), and zero if \(n = m\). This means, the integer is just an ordered pair $(n, m)$, which formally represents \(n - m\). But notice that this definition alone wouldn't suffice, as there are many pairs of naturals that can represent one integer. E.g., $(5, 3)$ and $(4, 2)$, and \((10, 8)\) are all different pairs of naturals, but they all represent the integer $\Zint{2}$. So, we need some way to tell whether two pair of naturals represent the same integer or not.
+The integer \(\Zint{a}\) is negative if \(n < m\), positive if \(n > m\), and zero if \(n = m\).
+This means, the integer is just an ordered pair $(n, m)$, which formally represents \(n - m\). But
+notice that this definition alone wouldn't suffice, as there are many pairs of naturals that can
+represent one integer. E.g., $(5, 3)$ and $(4, 2)$, and \((10, 8)\) are all different pairs of
+naturals, but they all represent the integer $\Zint{2}$. So, we need some way to tell whether two
+pair of naturals represent the same integer or not.
 
-Consider two integers $(n, m)$ and $(k, l)$. These two integers are equivalent \ifft
+Consider two integers $(n, m)$ and $(k, l)$. These two integers are equivalent
+\ifft
 \begin{equation}
   n - m = k - l.
 \end{equation}
-From the assumed knowledge of subtraction, we can move the terms around to get
+From the \emph{a posteriori} knowledge of subtraction, we can move the terms around to get
 \begin{equation}
   n + l = k + m.
 \end{equation}
-Thus, we could say that two integers \((n, m)\) and \((k, l)\) are equivalent \ifft
+Thus, we could say that two ordered pairs of natural numbers \((n, m)\) and \((k, l)\) represents
+the same integer \ifft \(n + l = k + m\). In other words, they are equivalent when interpretted as
+integers. This equivalence relation is denoted as
 \begin{equation}
-  n + l = k + m.
-\end{equation}
-This equivalency is denoted symbolically as
-\begin{equation}
-  (n, m) \sim (k + m)
+  (n, m) \sim (k + m).
 \end{equation}
 
-Addition and multiplication of integers can also be defined via the assumed knowledge of arithmetic. I.e., if $\Zint{a} = (n, m)$ and $\Zint{b} = (k, l)$, then
+Addition and multiplication of integers can also be defined via the \emph{a posteriori} knowledge of
+subtraction. If $\Zint{a} = (n, m)$ and $\Zint{b} = (k, l)$, then
 \begin{align}
   \Zint{a} + \Zint{b} & = (n, m) + (k, l)   \\
                       & = (n - m) + (k - l) \\
@@ -48,143 +57,706 @@ and
                    & = (nk + ml) - (nl + mk) \\
                    & = (nk + ml, nl + mk).
 \end{align}
-Negative integers can also be defined by reversing the pair. If $(n, m) = n - m = \Zint{a}$, then $(m, n) = m - n = -\Zint{a}$. Then, subtraction is simply defined by $\Zint{a} - \Zint{b} = \Zint{a} + (-\Zint{b})$
+Negative integers can also be defined by reversing the pair. If $(n, m) = n - m = \Zint{a}$, then
+$(m, n) = m - n = -\Zint{a}$. Then, subtraction is simply defined by
+$\Zint{a} - \Zint{b} = \Zint{a} + (-\Zint{b})$
 
-\section{Construction of the integers}
+Do notice that this method of construction has a flaw: it's not as rigorous as it should be. The
+ordered pair \((n, m)\) isn't actually \emph{equal} to an integer. But rather, it is the collection
+of all ordered pairs that are related by the equivalence relation defined earlier that represents an
+integer. A collection of this kind is called an \textbf{equivalence class}, which is treated in more
+detail in the next section.
 
-\begin{df}{Integers}{integer}
-  An integer is an ordered pair of naturals. If $\Zint{a}$ is an integer, then $\exists(n, m \in \mathbb{N}) : \Zint{a} = (n, m)$.
-\end{df}
+\section{Relations, equivalence, equivalence classes}
 
-Then, we construct the set of all integers
-\begin{df}{Set of all integers ($\mathbb{Z}$)}{integers_set}
-  The set $\mathbb{Z}$ contains all integers, i.e.,
+I'd like to point out that the method of constructing equivalence classes are pretty common in
+mathematics. E.g., the rationals are also constructed this way. Informally, a rational number is a
+number that can be represented by fractions. And in some sense, a fraction is just a pair of
+integers. Two rationals \((\Zint{a}, \Zint{b})\) and \((\Zint{c}, \Zint{d})\) are equivalent \ifft
+\begin{equation}
+  \Zint{a} \Zint{d} = \Zint{b} \Zint{c},
+\end{equation}
+or informally, \(\frac{\Zint{a}}{\Zint{b}} = \frac{\Zint{c}}{\Zint{d}}\). A rational is
+then the equivalence classes of all pairs of integers that satisfy the equation
+above. The reals and the complex numbers are also constructed using equivalence
+classes, although a much more intricate ones. So, I feel like an entire section
+devoted to relations, equivalence, and equivalence classes are well justified. Hence,
+we start with relations itself.
+
+\begin{df}{Relations}{}
+  A relation \(\mathcal{R}\) between two sets \(A\) and \(B\) is a subset of \(A \times B\). If
+  \(a\) relates to \(b\) by the relation \(\mathcal{R}\), then \((a, b) \in \mathcal{R}\), and we
+  write
   \begin{equation}
-    \mathbb{Z} = \ab\{(n, m) : n, m \in \mathbb{N}\}
+    a \mathrel{\mathcal{R}} b.
   \end{equation}
 \end{df}
 
-The equivalence relation is then stated as follows:
-\begin{df}{Equivalence relation for integers}{integers_equivalence_relations}
-  Let $\Zint{a} = (n, m)$ and $\Zint{b} = (k, l)$ be integers. If
-  \begin{equation}
-    n + l = m + k,
-  \end{equation}
-  these two integers are equivalent, and we denote the equivalency by
-  \begin{equation}
-    \Zint{a} \sim \Zint{b}, \mathor (n, m) \sim (k, l)
-  \end{equation}
+Such examples of relations are the equal sign (\(=\)). On the naturals,
+\begin{equation}
+  \mathord{=_{\mathbb{N}}} = \{(n, n) : n \in \mathbb{N}\}
+\end{equation}
+where we've used a subscript \(\mathbb{N}\) to denote that this equality sign is a relation on the
+naturals. So, we can say that
+\begin{align}
+  & 3 = 3 ~ \textrm{is true},     & \textrm{because} \quad (3, 3) & \in \mathord{=_{\mathbb{N}}},   \\
+  & 2 = 4 ~ \textrm{is not true}, & \textrm{because} \quad (2, 4) & \notin \mathord{=_{\mathbb{N}}}
+\end{align}
+Another such relation is the less than/more than symbol. Here, we mention only the less than symbol.
+\begin{equation}
+  \mathord{<_{\mathbb{N}}} = \{(n, m) : n, m \in \mathbb{N} \land \exists (k \in \mathbb{N}) : n + k = m\}.
+\end{equation}
+Hence,
+\begin{align}
+  & 3 < 10 ~ \textrm{is true}, & \textrm{because} \quad 3 + 7 & = 10 & \textrm{hence} \quad (3, 10) & \in \mathord{<_{\mathbb{N}}}.
+\end{align}
+But, \(4 < 1\) is not true because there are no such naturals which when added to \(4\) yields
+\(1\).
+
+Note that the statement \(a \mathrel{\mathcal{R}} b\) is itself a proposition. It's either true or
+false. But most of the time, we only care about two related things. Hence, when
+\(a \mathrel{\mathcal{R}} b\) is written, it automatically means that the proposition
+\(a \mathrel{\mathcal{R}} b\) is true and thus \((a, b) \in \mathcal{R}\).
+
+To say that two things are \emph{not} related, we use the following definition:
+\begin{df}{Complements of a relation}{}
+  Let \(\mathcal{R}\) be a relation from \(A\) to \(B\). Define \(\mathcal{R}^\complement\) as the
+  relation \((A \times B) \smin \mathcal{R}\).
 \end{df}
 
-Because we want to later define arithmetic on the integers, we must verify that the equivalence relation for integers also satisfy the three equality axioms, i.e.,
-\begin{enumerate}[noitemsep]
-  \item Reflexivity ($\forall(\Zint{a} \in \mathbb{Z}) : \Zint{a} \sim \Zint{a}$)
-  \item Symmetry ($\forall(\Zint{a}, \Zint{b} \in \mathbb{Z}) : \Zint{a} \sim \Zint{b} \iff \Zint{b} \sim \Zint{a}$)
-  \item Transitivity ($\forall(\Zint{a}, \Zint{b}, \Zint{c} \in \mathbb{Z} : (\Zint{a} \sim \Zint{b}) \land (\Zint{b} \sim \Zint{c}) \implies \Zint{a} \sim \Zint{c}$)
-\end{enumerate}
-Once these three are verified, we can actually replace the equivalence sign ($\sim$) with the equality sign ($=$).
+Usually, the complement of a relation shows up in the \enquote{not} form rather than the complement
+form. E.g., not equal to (\(\neq\)), not a subset of (\(\nsubseteq\)), not greater than or equal to
+(\(\ngeq\)), etc. This is due to the following proposition:
 
-\begin{cor}{Equivalence of integers is reflexive}{integers_equivalence_reflexive}
-  \begin{equation}
-    \forall(\Zint{a} \in \mathbb{Z}) : \Zint{a} \sim \Zint{a}.
-  \end{equation}
-\end{cor}
+\begin{prop}{Negation of a relation, and its complement}{}
+  Let \(\mathcal{R}\) be a relation between set \(A\) and \(B\). Then, \(a \mathrel{\mathcal{R}} b\)
+  \ifft \(\neg (a \mathrel{\mathcal{R}^{\complement}} b)\).
+\end{prop}
+
 \begin{proof}
-  Let $\exists(n, m \in \mathbb{N})$ where $(n, m) = \Zint{a}$. Since $n + m = n + m$, $(n, m) \sim (n, m)$; thus, $\Zint{a} \sim \Zint{a}$.
+  If \(a \mathrel{\mathcal{R}} b\) then \((a, b) \in \mathcal{R} \subseteq A \times B\). Hence,
+  \((a, b) \notin (A \times B) \smin \mathcal{R} = \mathcal{R}^{\complement}\). The converse then be
+  easily justified by working the proof backwards.
 \end{proof}
 
-\begin{cor}{Equivalence of integers is symmetric}{integers_equivalence_symmetric}
-  \begin{equation}
-    \forall(\Zint{a}, \Zint{b} \in \mathbb{Z}) : \Zint{a} \sim \Zint{b} \iff \Zint{b} \sim \Zint{a}
-  \end{equation}
-\end{cor}
-\begin{proof}
-  Since the backwards direction can be obtained by switching $a$ and $b$, we shall only prove the forward direction.
+In mathematics, we're often interested in relations about equivalences. We define equivalence
+relations as follows:
 
-  Let $\exists(n, m, k, l \in \mathbb{N})$ where $(n, m) = \Zint{a}$ and $(k, l) = \Zint{b}$. Since $\Zint{a} \sim \Zint{b}$, $(n, m) \sim (k, l)$; thus, $n + l = m + k$. By the symmetry of equality, $m + k = n + l$. Because addition is commutative, $k + m = n + l$. Therefore, we get $(k, l) \sim (n, m)$, i.e., $\Zint{b} \sim \Zint{a}$.
+\begin{df}{Equivalence relation}{}
+  A relation \(\mathcal{E}\) is an equivalence relation \ifft it is defined on a single set \(A\),
+  and satisfies the following properties:
+  \begin{enumerate}[noitemsep]
+    \item Reflexivity: \(\forall (a \in A) : a \mathrel{\mathcal{E}} a\)
+    \item Symmetric:
+          \(\forall (a, b \in A): (a \mathrel{\mathcal{E}} b) \implies (b \mathrel{\mathcal{E}} a)\)
+    \item Transitive:
+          \(\forall(a, b, c \in A): \ab\big[(a \mathrel{\mathcal{E}} b) \land (b \mathrel{\mathcal{E}} c)] \implies (a \mathrel{\mathcal{R}} c)\)
+  \end{enumerate}
+\end{df}
+
+Here are some examples on of equivalence relations:
+
+\begin{exmp}{Equivalence relations}{}
+  \begin{itemize}[noitemsep]
+    \item \textbf{The equality sign on the naturals}
+    \item \textbf{Parallel lines on the Euclidean plane}
+    \item \textbf{Congruence of triangles}
+    \item \textbf{Modulo arithmetic}
+    \item \textbf{Equivalence of integers} (proven later)
+  \end{itemize}
+
+  Note that we define equivalences of modulo arithmetic to be \(n \equiv_k m\)
+  \ifft
+  \begin{equation}
+    \exists(a \in \mathbb{N}) : (n + ak = m) \lor (m + ak = n).
+  \end{equation}
+  Note that we've opted for the logical or because we haven't defined subtraction yet. In standard
+  notation, this equivalence relation is written as \(n \equiv m \mod k\).
+
+  It is left as a simple exercise to convice yourself that the first four relations are obeys the
+  rules of equivalence relations.
+\end{exmp}
+
+As you can probably see, there are a lot of equivalence relations in mathematics. Non-equivalence
+relations are quite rare. Still, it is still good to look at some of them to form a better picture.
+
+\begin{exmp}{Non-equivalence relations}{}
+  \begin{itemize}
+    \item \textbf{The less than or equal to relation on the naturals} is reflexive and transitive,
+          but not symmetric: \(3 < 4\) doesn't imply \(4 < 3\).
+    \item \textbf{The less than relation on the naturals} is transitive, but not symmetric and
+          reflexive, as \(3 < 3\) is false.
+    \item \textbf{The improper subset} (if interpretted as a relation)\footnote{A relation must be
+          defined as a cartesian product of sets. Without a universe, the subset relation must be
+          defined on the set of all sets, which doesn't exist in standard set theory. Hence, a
+          universe must be given.} is reflexive, but not symmetric, as \(A \subseteq B\) doesn't
+          imply \(B \subseteq A\). It's also not transitive, as it's possible for \(A \subseteq B\)
+          and \(B \subseteq C\), but \(A \nsubseteq C\) because there are some elements that are in
+          \(A\) but is neither in \(B\) or \(C\).
+    \item \textbf{The \enquote{is a child of} relation.} Since I'm not my own child, the relation
+          isn't reflexive. A person \(A\) is my child shouldn't, \emph{in the assumption that no
+          incest has happened}, implies that I'm person \(A\)'s child; hence, the relation isn't
+          symmetric. Person \(A\) being person \(B\)'s child and person \(C\) being person \(B\)'s
+          child doesn't, \emph{in the assumption that no incest has happened}, implies that person
+          \(C\) is person \(A\)'s child; hence, the relation is not transitive.
+  \end{itemize}
+\end{exmp}
+
+\paragraph{Equal vs equivalent}
+
+Equivalent and equal are \textbf{not} the same. Two objects are \emph{equivalent} when they share
+some of the same property that's conveyed via the equivalence relations. Two things are \emph{equal}
+when they are \emph{literally the same thing}. E.g., under the parallel lines on the Euclidean plane
+equivalence relations, we can have two lines that are equivalent to each other, i.e., parallel to
+each other, but they aren't the same line.
+
+We then define an equivalence class as follows:
+\begin{df}{Equivalence classes}{}
+  Given an equivalence relation \(\mathcal{E}\) on a set \(A\), an equivalence class of \(a \in A\),
+  denoted \([a]\), is the set of all elements of \(b \in A\) such that
+  \(a \mathrel{\mathcal{E}} b\).
+\end{df}
+
+E.g., in the naturals modulo three,
+\begin{align}
+  [1] & = \{1, 4, 7, 10, 13, \dots\}, \\
+  [2] & = \{2, 5, 8, 11, 14, \dots\}, \\
+  [3] & = \{0, 3, 6, 9, 12, \dots\}
+\end{align}
+Each equivalence classes can be thought like a bin that collects all the objects that are equivalent
+to each other. E.g., in the class \([1]\) formed by the equivalence relation \(\equiv_3\), we get
+\(1 \equiv_3 4\), \(7 \equiv_3 13\), \(10 \equiv_3 4\), etc.
+
+One useful properties of equivalence classes formed by \emph{any} equivalence relation on \emph{any}
+set is:
+\begin{prop}{Equivalence classes are disjoint}{integers-equivalence_class_disjoint}
+  Let \(\mathcal{E}\) be an equivalence relation on a set \(A\). Then,
+  \begin{itemize}[noitemsep]
+    \item If \(\exists(x \in X) \exists(y \in Y) : x \mathrel{\mathcal{E}^{\complement}} y\), then
+          \([X] \cap [Y] = \emptyset\).
+    \item If \(\exists(x \in X) \exists(y \in Y) : x \mathrel{\mathcal{E}} y\), then \([X] = [Y]\).
+  \end{itemize}
+\end{prop}
+
+\begin{proof}
+  For the first part, assume that \(\exists (a \in A) : a \in [X] \land a \in [Y]\). Then,
+  \(a \mathrel{\mathcal{E}} x\) and \(a \mathrel{\mathcal{E}} y\). By symmetry,
+  \(x \mathrel{\mathcal{E}} a\) and by transitivity, \(x \mathrel{\mathcal{E}} y\), which
+  contradicts the assumption that \(x \mathrel{\mathcal{E}^{\complement}} y\). Hence, \(a\) cannot
+  exist --- there is no elements that are in both \([X]\) and \([Y]\).
+
+  For the second part, assume that \(a \in [X]\), then \(a \mathrel{\mathcal{E}} x\). By
+  transitivity, \(a \mathrel{\mathcal{E}} y\) as well, hence \(a \in [Y]\). Swapping the roles of
+  \([X]\) and \([Y]\) yields that if \(a \in [Y]\), \(a \in [X]\). We have a double inclusion, and
+  \([X] = [Y]\).
 \end{proof}
 
-\begin{cor}{Equivalence of integers is transitive}{integers_equivalence_transitive}
+Another way to phrase the preceding proposition is that two equivalence classes are either
+identically the same or are completely disjoint.
+
+This is the reason that equivalence classes is a viable way to unambiguously define objects new
+mathematical objects out of old: there is no overlap. The integers are then defined as follows:
+
+\begin{df}{Integers}{integers_definition}
+  Define an equivalence relation \(\mathord{\sim} \subseteq \mathbb{N} \times \mathbb{N}\) as
   \begin{equation}
-    \forall(\Zint{a}, \Zint{b}, \Zint{c} \in \mathbb{Z} : (\Zint{a} \sim \Zint{b}) \land (\Zint{b} \sim \Zint{c}) \implies \Zint{a} \sim \Zint{c}
+    (n, m) \sim (k, l) \quad \textrm{\ifft} \quad n + l = m + k.
   \end{equation}
-\end{cor}
+  An integer is then an equivalence class formed by the equivalence relation \(\sim\). The set of
+  all integers is then denoted \(\mathbb{Z}\).
+
+  Every ordered pair of naturals is then an integer in this perspective.
+\end{df}
+
+Note that this relation here is \emph{not} equality in the sense that \((n, m) \sim (k, l)\) doesn't
+imply that \(n = k\) and \(m = l\) by equality of ordered pairs. In order to establish the sense of
+equality, we need something stronger: the substitution axiom under operations, which will be
+discussed in the next section.
+
+We shall adopt the notation chosen earlier:
+\begin{notation}{Integers}{}
+  Denote the equivalence class \([a]\) of integers by \(\Zint{a}\).
+\end{notation}
+For now, \(a\) doesn't have any meaning. It doesn't correspond to any resemblance of the natural
+numbers. It is just a placeholder symbol for some equivalence classes. But I shall still give you an
+informal concept for now:
+
+We use the symbol \(a\) of the naturals to denote all the equivalence class \([(a, 0)]\). So, the
+integer \(\Zint{3}\) is the equivalence class \([(3, 0)]\) which is the set
+\begin{equation}
+  \{(3, 0), (4, 1), (5, 2), (6, 3), (7, 4), \dots\}
+\end{equation}
+The integer \(\Zint{0}\) is then the equivalence class \([(0, 0)]\) which is the set
+\begin{equation}
+  \{(0, 0), (1, 1), (2, 2), (3, 3), (4, 4), \dots\}
+\end{equation}
+The \emph{negative integers} is the equivalence class of the form \([(0, a)]\), which is denoted
+\(\Zint{-a}\). E.g., \(\Zint{-6}\) is the equivalence class \([(0, 6)]\) which is the set
+\begin{equation}
+  \{(0, 6), (1, 7), (2, 8), (3, 9), (4, 10), \dots\}.
+\end{equation}
+However, notice that this \emph{needs} trichotomy. We must prove that the integers fall in only
+three boxes: positive, zero, or negative, and no more. This problem is delegated for later in the
+chapter.
+
+Before we do anything, let's first justify that the relation defined in the definition of integers
+is actually an equivalence relation.
+
+\begin{prop}{The defining relations of the integer is an equivalence relation}{}
+  Let \((n, m)\), \((k, l)\), and \((p, q)\) be any ordered pairs of the naturals. The relation
+  defined in \cref{df:integers_definition} then follows
+  \begin{enumerate}[noitemsep]
+    \item \((n, m) \sim (n, m)\) (Reflexivity)
+    \item \([(n, m) \sim (k, l)] \implies [(k, l) \sim (n, m)]\) (Symmetry)
+    \item \(\ab\big[[(n, m) \sim (k, l)] \land [(k, l) \sim (p, q)]] \implies [(n, m) \sim (p, q)]\)
+          (Transitivity)
+  \end{enumerate}
+\end{prop}
+
 \begin{proof}
-  Let $\exists(n, m, k, l, p, q \in \mathbb{N})$ where $(n, m) = \Zint{a}$, $(k, l) = \Zint{b}$, and $(p, q) = \Zint{c}$.
-  \begin{gather}
-    \Zint{a} \sim \Zint{b} \iff (n, m) \sim (k, l) \iff n + l = m + k, \\
-    \Zint{b} \sim \Zint{c} \iff (k, l) \sim (p, q) \iff k + p = l + q.
-  \end{gather}
-  Combining these two equations together we get
+  Since \(n + m = m + n\), \((n, m) \sim (n, m)\) and the relation is reflexive.
+
+  Now assume that \((n, m) \sim (k, l)\), i.e. \(n + l = m + k\). It also follows that
+  \(k + m = l + n\); hence, \((k, l) \sim (n, m)\) and the relation is symmetric.
+
+  Now assume that both \((n, m) \sim (k, l)\) and \((k, l) \sim (p, q)\), i.e.,
+  \begin{equation}
+    n + l = m + k \mathand k + p = l + q.
+  \end{equation}
+  Combining these two equations together yields
   \begin{equation}
     n + l + k + p = m + k + l + q.
   \end{equation}
   By the cancellation law on addition of naturals,
   \begin{equation}
-    n + p = m + q,
+    n + p = m + q;
   \end{equation}
-  which is equivalent to saying $(n, m) \sim (p, q)$, i.e., $\Zint{a} \sim \Zint{c}$.
+  i.e., \((n, m) \sim (p, q)\): the relation is transitive.
 \end{proof}
-
-By \cref{co:integers_equivalence_reflexive,co:integers_equivalence_symmetric,co:integers_equivalence_transitive}, we can now use the equal sign instead of the equivalence sign to represent the equality of integers. But as said earlier, there are still one thing that is still not verified: the substitution axiom, i.e., if $f(n)$ be an arithmetical function of the integers, then
-\begin{equation}
-  \ab(f(n) = m) \land \ab(n = n') \implies f(n') = m.
-\end{equation}
 
 \section{Arithmetic on the integers}
 
-\begin{df}{Addition of integers}{integers_addition}
-  Let there be two integers $\Zint{a}$ and $\Zint{b}$ where $\exists(n, m, k, l \in \mathbb{N})$ such that $(n, m) = \Zint{a}$ and $(k, l) = \Zint{b}$. The sum of $\Zint{a}$ and $\Zint{b}$, denoted $\Zint{a} + \Zint{b}$, is defined as:
-  \begin{equation}
-    \Zint{a} + \Zint{b} = (n + k, m + l).
-  \end{equation}
-\end{df}
+We represent an integer by an equivalence class. If
+\begin{equation}
+  (n, m) \in \Zint{a},
+\end{equation}
+we write
+\begin{equation}
+  \Zint{a} = [(n, m)].
+\end{equation}
 
-\begin{df}{Product of integers}{integers_product}
-  Let there be two integers $\Zint{a}$ and $\Zint{b}$ where $\exists(n, m, k, l \in \mathbb{N})$ where $(n, m) = \Zint{a}$ and $(k, l) = \Zint{b}$. Then, the product of $\Zint{a}$ and $\Zint{b}$, $\Zint{a} + \Zint{b}$ is defined as:
-  \begin{equation}
-    \Zint{a} \times \Zint{b} = \Zint{a}\Zint{b} = (nk + ml, nl + mk).
-  \end{equation}
-\end{df}
+As said earlier, equality denotes something that is \emph{absolutely identical}: two things are
+equal if they are \emph{exactly the same}. But what do we mean when we say \emph{exactly the same?}
 
-Here, we prove that both addition and multiplication of integers obey the substitution axiom
-\begin{cor}{Addition and multiplication of integers obey the substitution axiom}{integers_addition_well-defined}
-  Let $n, m, n', m', k, l$ be natural numbers. If $(n, m) = (n', m')$, then
+This is actually more of a philosophy question than a mathematics one. It's way beyond the scope of
+this book. But a convincing argument is that two objects is the same if it \emph{behaves} in the
+same way under any functions or logical sentences. It's like the duck test, which I shall remind you
+again:
+\begin{displayquote}
+  \emph{If it looks like a duck, swims like a duck, and quacks like a duck, then it probably is a
+  duck.}
+\end{displayquote}
+
+In mathematics, two objects are the same if it has the same properties under any
+functions or sentences \(\phi\). I.e.,
+\begin{equation}
+  (x = y) \implies (\phi(x) = \phi(y)).
+\end{equation}
+This property is called the \textbf{Liebniz' substitution axiom}, or \textbf{well-definedness}.
+
+For the sake of illustration, let's assume for now that addition is well-defined under
+addition. Then, define \(\phi(x) = x + a\) where \(x\) and \(a\) is an integer. Since
+addition is well-defined, \(x = y\) implies \(\phi(x) = \phi(y)\) or just \(x + a = y + a\):
+you can add \(a\) to both sides. It is a crucial property that we've left out in the
+naturals, because in the naturals, we \emph{postulate} that they are well-defined by
+the Peano's axiom. But the integers doesn't have that postulate. Hence, we shall prove them here.
+
+\begin{df}{Addition and multiplication on the integers}{}
+  Let \(\Zint{a} = [(n, m)]\) and \(\Zint{b} = [(k, l)]\) then define
   \begin{gather}
-    (n, m) + (k, l) = (n', m') + (k, l), \\
-    (n, m) \times (k, l) = (n', m') \times (k, l)
+    \Zint{a} + \Zint{b} = [(n + k, m + l)],                            \\
+    \Zint{a} \times \Zint{b} = \Zint{a}\Zint{b} = [(nk + ml, nl + mk)]
   \end{gather}
-\end{cor}
+\end{df}
+
+\begin{prop}{Addition and multiplication on the integers are well-defined}{}
+  Let \(\Zint{a} = [(n, m)]\), \(\Zint{b} = [(n', m')]\), and \(\Zint{c} = [(p, q)]\). If
+  \(\Zint{a} = \Zint{b}\), then
+  \begin{equation}
+    \Zint{a} + \Zint{c} = \Zint{b} + \Zint{c} \mathand \Zint{a}\Zint{c} = \Zint{b}\Zint{c},
+  \end{equation}
+  also
+  \begin{equation}
+    \Zint{c} + \Zint{a} = \Zint{c} + \Zint{b} \mathand \Zint{c}\Zint{a} = \Zint{c}\Zint{b}.
+  \end{equation}
+\end{prop}
+
 \begin{proof}
-  The relation $(n, m) = (n', m')$ means $n + m' = m + n'$.
+  For addition, consider
+  \begin{equation}
+    \Zint{a} + \Zint{c} = [(n + p, m + q)] \mathand \Zint{b} + \Zint{c} = [(n' + p, m' + q)].
+  \end{equation}
+  These two are equivalent \ifft \(n + p + m' + q = n' + p + m + q\). By \(\Zint{a} = \Zint{b}\),
+  \((n, m) \sim (n', m')\) and
+  \begin{equation}
+    n + m' = n' + m.
+  \end{equation}
+  Adding \(p + q\) to each side yields:
+  \begin{align}
+    n + m' + p + q & = n' + m + p + q  \\
+    n + p + m' + q & = n' + p + m + q;
+  \end{align}
+  Hence \(\Zint{a} + \Zint{c} = \Zint{b} + \Zint{c}\). The other statement on addition can be
+  proven by the same method.
 
-  Firstly, we prove that addition obeys the substitution axiom. Evaluate both sides separately
+  For mutliplication, consider
+  \begin{equation}
+    \Zint{a}\Zint{c} = [(np + mq, nq + mp)] \mathand \Zint{b}\Zint{c} = [(n'p + m'q, n'q + m'p)].
+  \end{equation}
+  These two are equivalent if
+  \begin{equation}
+    np + mq + n'p + m'q = nq + mp + n'q + m'p.
+  \end{equation}
+  By \(\Zint{a} = \Zint{b}\), \(n + m' = n' + m\). Multiply through by \(p\) and \(q\)
+  to get two equations:
+  \begin{gather}
+    np + m'p = n'p + mp, \\
+    nq + m'q = n'q + mq.
+  \end{gather}
+  Flipping the first one and adding them together, we get
   \begin{align}
-    (n, m) + (k, l)   & = (n + k, m + l)   \\
-    (n', m') + (k, l) & = (n' + k, m' + l)
+    np + n'p + mq + m'q & = mp + m'p + nq + n'q  \\
+    np + mq + n'p + m'q & = nq + mp + n'q + m'p;
   \end{align}
-  Which, for an equivalence test, we check whether $(n + k, m + l)$ is equal to $(n' + k, m' + l)$ or not.
-  \begin{align}
-    (n + k, m + l) & \overset{?}{=} (n' + k, m' + l) \\
-    n + k + m' + l & \overset{?}{=} m + l + n' + k.
-  \end{align}
-  Using cancellation of addition on natural numbers, we get
-  \begin{align}
-    n + m' \overset{?}{=} m + n'.
-  \end{align}
-  From our assumption that $(n, m) = (n', m')$, $n + m'$ does indeed equal $m + n'$. Therefore, our statement is true: addition obeys the substitution axiom.
-
-  For multiplication,
-  \begin{align}
-    (n, m) \times (k, l)   & = (nk + ml, nl + mk)      \\
-    (n', m') \times (k, l) & = (n'k + m'l, n'l + m'k).
-  \end{align}
-  Then, we check whether $(nk + ml, nl + mk)$ is equal to $(n'k + m'l, n'l + m'k)$ or not.
-  \begin{align}
-    (nk + ml, nl + mk)    & \overset{?}{=} (n'k + m'l, n'l + m'k) \\
-    nk + ml + n'l + m'k   & \overset{?}{=} nl + mk + n'k + m'l    \\
-    k(n + m') + l(m + n') & \overset{?}{=} l(n + m') + k(m + n').
-  \end{align}
-  Since $n + m' = m + n'$, the two sides must be equal. Therefore, our statement is true: multiplication obeys the substitution axiom.
+  hence, \(\Zint{a}\Zint{c} \sim \Zint{b}\Zint{c}\).
 \end{proof}
 
+Since the integers are proven to be well-defined under addition and multiplication, we can safely
+substitute the \(\sim\) symbol for a proper equality sign, \(=\).
+
+Next, we investigate the trichotomy of integers by first defining the negation:
+
+\begin{df}{Negation of integers}{}
+  The negation of an integer \(\Zint{a} = (n, m)\) is the integer \((m, n)\), denoted as
+  \(\Zint{-a}\)
+\end{df}
+
+\begin{lemma}{Trichotomy of the integers}{integers-trichotomy}
+  Let \(\Zint{a} = (n, m)\) be an integer, then only one of these statements are true:
+  \begin{itemize}[noitemsep]
+    \item \(\Zint{a}\) is positive, i.e., \(\exists (k \in \mathbb{N}) : [(n, m)] \sim (k, 0)\).
+    \item \(\Zint{a}\) is negative, i.e., \(\exists (k \in \mathbb{N}) : [(n, m)] \sim (0, k)\).
+    \item \(\Zint{a}\) is zero, i.e., \([(n, m)] \sim (0, 0)\).
+  \end{itemize}
+\end{lemma}
+
+\begin{proof}
+  First, we prove that the classes of type \([(k, 0)]\), \([(0, 0)]\) and \([(0, k)]\) are disjoint,
+  then we use the trichotomy of order on the naturals to show that the integers must belong in at
+  least one of these three families.
+
+  Let \(p, q\) be natural numbers s.t. \(p \neq q\). Then, \(\neg((p, 0) \sim (q, 0))\). If it
+  was, then \(p + 0 = 0 + q\), contradicting the assumption that \(p \neq q\). Similarly,
+  \(\neg((0, p) ~ (q, 0))\) as well because if it was, then \(0 + q = 0 + p\), contradicting
+  \(p \neq q\) aswell. By \cref{pr:integers-equivalence_class_disjoint}, these equivalence classes
+  are all disjoint. Note that the zero class is also disjoint from the others as zero is also a
+  natural number.
+
+  By the trichotomy of order on the naturals (\cref{le:naturals_order_trichotomy}), there are then
+  three cases:
+  \begin{itemize}
+    \item If \(n = m\), then \(n + 0 = 0 + m\) hence \((n, m) \sim (0, 0)\).
+    \item If \(\exists (k \in \mathbb{N}) : n + k = m\), then \(n + k = m + 0\) hence
+          \((n, m) \sim (0, k)\).
+    \item If \(\exists (k \in \mathbb{N}) : n = m + k\), then \(n + 0 = m + k\) hence
+          \((n, m) \sim (k, 0)\).
+  \end{itemize}
+  Hence, the integers are trichotomous.
+\end{proof}
+
+Due to this trichotomy, we shall use this notation from now on
+\begin{df}{Representative numbers of the integers}{}
+  Let \(\Zint{a}\) be an integer.
+  \begin{itemize}[noitemsep]
+    \item If \(\Zint{a} = [(k, 0)]\), then write \(k\) in place of \(\Zint{a}\).
+    \item If \(\Zint{a} = [(0, k)]\), then write \(-k\) in place of \(\Zint{a}\).
+    \item If \(\Zint{a} = [(0, 0)]\), then write \(0\) in place of \(\Zint{a}\).
+  \end{itemize}
+\end{df}
+The negative sign is justified due to the following corollary:
+\begin{cor}{}{}
+  Let \(\Zint{a} \in \mathbb{Z}\) and \(k \in \mathbb{N}\). If \(\Zint{a} = [(k, 0)]\), then
+  \(-\Zint{a} = [(0, k)]\), and if \(\Zint{a} = [(0, k)]\) then \(-\Zint{a} = [(k, 0)]\). Also,
+  \((-1) \times \Zint{a} = -\Zint{a}\).
+\end{cor}
+
+\paragraph{Embedding}
+
+From the justification above, in a sense, the integers is capable of fully representing the naturals
+even though the integers itself doesn't have the same mathematical structure as the naturals. As we
+shall see later, the properties of arithmetic from the naturals also carried over to the integers.
+In mathematics, we say that the naturals are \textbf{embedded} onto the integers. In a similar
+manner, the integers can be embedded into the rationals, and the rationals can be embedded into the
+reals.
+
+For now, we'll keep the word embedding as a vague idea. A system is embedded in another larger
+system if the larger system is fully capable of representing the smaller system. The term will be
+made rigorous later in the subject of topology.
+
+The basic laws of arithmetic on the integers is mostly the same as the naturals, but with the
+addition of negative signs. The following proposition collects them all into one big box for
+reference sake. However, the proof is more exhausting than anything because it requires us to expand
+the integers into their ordered pairs representation, and it doesn't require some clever induction
+arguments like on the naturals. So in some sense, it is chorework. Still, it is included for the
+sake of completeness.
+
+Since there is a lot going on, let's temporarily drop the dagger notation for ease of readability.
+
+\begin{prop}{Arithmetic on the integers}{integers-arithmetic_rules}
+  For all \(a, b, c \in \mathbb{Z}\)
+  \begin{enumerate}[noitemsep]
+    \item \(a + b = b + a\) \label{ite:integers-arithmetic_rules_1}
+    \item \((a + b) + c = a + (b + c)\) \label{ite:integers-arithmetic_rules_2}
+    \item \(a + 0 = a\) \label{ite:integers-arithmetic_rules_3}
+    \item \(a + (-a) = 0\) \label{ite:integers-arithmetic_rules_4}
+    \item \(ab = ba\) \label{ite:integers-arithmetic_rules_5}
+    \item \((ab)c = a(bc)\) \label{ite:integers-arithmetic_rules_6}
+    \item \(1 \times a = a\) \label{ite:integers-arithmetic_rules_7}
+    \item \(a(b + c) = ab + ac\) \label{ite:integers-arithmetic_rules_8}
+    \item \((a + b)c = ac + bc\) \label{ite:integers-arithmetic_rules_9}
+  \end{enumerate}
+\end{prop}
+
+For the sake of simplicity, when I state that an integer \(k = (n, m)\), I mean \(k\) is the
+equivalence class of \([(n, m)]\).
+
+Let \(a = (n, m)\), \(b = (k, l)\) and \(c = (p, q)\).
+
+\begin{proof}[Proof of \cref{ite:integers-arithmetic_rules_1}]
+  \begin{align}
+    a + b & = (n, m) + (k, l)                  \\
+          & = (n + k, m + l)                   \\
+          & = (k + n, l + m)                   \\
+          & = (k, l) + (n, m) = b + a \qedhere
+  \end{align}
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:integers-arithmetic_rules_2}]
+  \begin{align}
+    (a + b) + c & = \ab\big((n, m) + (k, l)) + (p, q)                           \\
+                & = (n + k, m + l) + (p, q)                                     \\
+                & = (n + k + p, m + l + q)                                      \\
+                & = (n + (k + p), m + (l + q))                                  \\
+                & = (n + m) + (k + p, l + q)                                    \\
+                & = (n + m) + \ab\big((k + l) + (p + q)) = a + (b + c) \qedhere
+  \end{align}
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:integers-arithmetic_rules_3}]
+  \begin{align}
+    a + 0 & = (n, m) + (0, 0)      \\
+          & = (n + 0, m + 0)       \\
+          & = (n, m) = a. \qedhere
+  \end{align}
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:integers-arithmetic_rules_4}]
+  \begin{align}
+    a + (-a) & = (n, m) + (m, n)            \\
+             & = (n + m, m + n)             \\
+             & = (n + m, n + m) \sim (0, 0) \\
+             & = 0 \qedhere
+  \end{align}
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:integers-arithmetic_rules_5}]
+  \begin{align}
+    ab & = (n, m) \times (k, l)                \\
+       & = (nk + ml, nl + mk)                  \\
+       & = (kn + lm, ln + km)                  \\
+       & = (k, l) \times (n, m) = ba. \qedhere
+  \end{align}
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:integers-arithmetic_rules_6}]
+  \begin{align}
+    (ab)c & = \ab\big((n, m) \times (k, l)) \times (p, q)                   \\
+          & = (nk + ml, nl + mk) \times (p, q)                              \\
+          & = (nkp + mlp + nlq + mkq, nkq + mlq + nlp + mkp)                \\
+          & = (nkl + nlq + mkq + mlp, nkq + nlp + mkp + mlq)                \\
+          & = (n, m) \times (kp + lq, kq + lp)                              \\
+          & = (n, m) \times \ab\big((k, l) \times (p, q)) = n(mk). \qedhere
+  \end{align}
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:integers-arithmetic_rules_7}]
+  \begin{align}
+    1 \times a & = (1, 0) \times (n, m) \\
+               & = (1n + 0m, 1m + 0n)   \\
+               & = (n, m) = a.
+  \end{align}
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:integers-arithmetic_rules_8}]
+  \begin{align}
+    a(b + c) & = (n, m) \times \ab\big((k, l) + (p, q))                                            \\
+             & = (n, m) \times (k + p, l + q)                                                      \\
+             & = (nk + np + ml + mq, nl + nq + mk + mp)                                            \\
+             & = (nk + ml, nl + mk) + (np + mq, nq + mp)                                           \\
+             & = \ab\big((n, m) \times (k, l)) + \ab\big((n, m) \times (p, q)) = ab + ac. \qedhere
+  \end{align}
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:integers-arithmetic_rules_9}]
+  \begin{align}
+    (a + b)c & = \ab\big((n, m) + (k, l)) \times (p, q)                                            \\
+             & = (n + k, m + l) \times (p, q)                                                      \\
+             & = (np + kp + mq + lq, nq + kq + mp + lp)                                            \\
+             & = (np + mq, nq + mp) + (kp + lq, kq + lp)                                           \\
+             & = \ab\big((n, m) \times (p, q)) + \ab\big((k, l) \times (p, q)) = ac + bc. \qedhere
+  \end{align}
+\end{proof}
+
+Properties about multiplication with zero is carried over from the naturals. Here, we use the dagger
+notation to separate the integers from the naturals for clarity.
+
+\begin{prop}{}{}
+  \begin{equation}
+    \forall (\Zint{a}, \Zint{b} \in \mathbb{Z}) : \Zint{a}\Zint{b}
+    = \Zint{0}
+    \implies [(\Zint{a} = \Zint{0}) \lor (\Zint{b} = \Zint{0})]
+  \end{equation}
+\end{prop}
+
+\begin{proof}
+  If both \(\Zint{a}\) and \(\Zint{b}\) are positive, then \(\Zint{a} = (a, 0)\) and
+  \(\Zint{b} = (b, 0)\). The statement \(\Zint{a}\Zint{b} = \Zint{0}\) then becomes
+  \begin{equation}
+    (a, 0) \times (b, 0) = (ab, 0) \sim (0, 0),
+  \end{equation}
+  i.e., \(ab = 0\). By \cref{co:naturals-product_is_zero_implies_some_is_zero}, either \(a = 0\) or
+  \(b = 0\); hence, either \(\Zint{a} = \Zint{0}\) or \(\Zint{b} = \Zint{0}\) as well.
+
+  Now assume that one of the integers are negative. Without loss of generality, we only need to
+  assume that the first one is negative. If the second one is negative, we can always use the
+  commutativity of multiplication to switch their places. Let \(\Zint{a} = (a, 0)\) and
+  \(\Zint{b} = (0, b)\). Then,
+  \begin{equation}
+    (a, 0) \times (0, b) = (0, ab),
+  \end{equation}
+  i.e., \(ab = 0\). We've again reached the same conclusion.
+
+  If both of them are negative, i.e., \(\Zint{a} = (0, a)\) and \(\Zint{b} = (0, b)\), then their
+  product is \((ab, 0)\). And the same conclusion is also reached.
+\end{proof}
+
+\begin{cor}{Cancellation laws for the integers}{}
+  \begin{equation}
+    \forall (\Zint{a}, \Zint{b}, \Zint{c} \in \mathbb{Z}) : \ab\big[(\Zint{a}\Zint{c} = \Zint{b}\Zint{c}) \land (\Zint{c} \neq 0)] \implies [\Zint{a} = \Zint{b}]
+  \end{equation}
+\end{cor}
+
+\begin{proof}
+  If \(\Zint{a}\Zint{c} = \Zint{b}\Zint{c}\), then
+  \begin{equation}
+    \Zint{a}\Zint{c} - \Zint{b}\Zint{c} = (\Zint{a} - \Zint{b})\Zint{c} = \Zint{0}.
+  \end{equation}
+  By the preceding proposition, either \(\Zint{c}\) or \(\Zint{a} - \Zint{b}\) is zero. But since
+  \(\Zint{c} \neq 0\), \(\Zint{a} - \Zint{b}\) must be zero. Adding \(\Zint{b}\) to both sides, we
+  get
+  \begin{align}
+    \Zint{a} - \Zint{b} + \Zint{b} & = \Zint{0} + \Zint{b} \\
+    \Zint{a}                       & = \Zint{b}. \qedhere
+  \end{align}
+\end{proof}
+
+Here, all the laws of arithmetic on the integers has been established. Moving forward, we shall
+completely drop the dagger notation.
+
+\section{Ordering of the integers}
+
+The orderings of the integers can be imposed in the same way it was imposed on the natural numbers.
+
+\begin{df}{Orders on the integers}{}
+  For all \(a, b \in \mathbb{Z}\), \(a\) is strictly greater than \(b\), and \(b\) is strictly less
+  than \(a\), denoted \(a > b\) or \(b < a\) \ifft there exists a positive integer \(m\) such that
+  \(a + m = b\).
+
+  If \(m\) is allowed to also be zero, then \(a\) is greater than or equal to \(b\) and \(b\) is
+  less than or equal to \(a\), denoted as \(a \geq b\) or \(b \leq a\).
+\end{df}
+
+The properties of orders on the integers is almost identical to the ones on the naturals, but with
+negations introduced. Also similar to the order on the naturals, order on the integers is not
+reflexive and symmetric, but it is transitive.
+
+\begin{prop}{Properties of order on the integers}{}
+  Let \(n, m, k \in \mathbb{Z}\), then
+  \begin{enumerate}
+    \item \(n > m\) \ifft \(n - m\) is positive.
+          \label{ite:integers-order_property_1}
+    \item If \(n > m\), then \(n + k > m + k\). The same relation holds for the non-strict version
+          of the relation.
+          \label{ite:integers-order_property_2}
+    \item If \(n > m\) and \(k\) is positive, then \(nk > mk\). But if \(k\) is negative,
+          \(nk < mk\).\label{ite:integers-order_property_3}
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}[Proof of \cref{ite:integers-order_property_1}]
+  If \(n > m\), then there exists a positive integer \(a\) such that \(n = m + a\), then by adding
+  \(-m\) onto both sides and using \cref{ite:integers-arithmetic_rules_4} of
+  \cref{pr:integers-arithmetic_rules}, \(n - m = a\), a positive integer.
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:integers-order_property_2}]
+  Assuming \(n = m + a\) as from earlier, adding \(k\) to both sides yields
+  \((n + k) = (m + k) + a\). By the positivity of \(a\), \(n + k > m + k\). The same thing can be
+  said for the non-strict version but replace every occurence of \enquote{positive} with
+  \enquote{non-negative.}
+\end{proof}
+
+\begin{proof}[Proof of \cref{ite:integers-order_property_3}]
+  Assuming \(n = m + a\) as from earlier, multiplying both sides by a positive \(k\) yields
+  \(nk = mk + ak\).
+
+  If \(k\) is positive, it is represented by the equivalence class of \((k, 0)\). Since \(a\) is
+  positive as well, it is represented by \((a, 0)\). Then,
+  \begin{equation}
+    (a, 0) \times (k, 0) = (ak + 0, 0 + 0) = (ak, 0):
+  \end{equation}
+  a positive integer. Hence, \(nk > mk\).
+
+  But if \(k\) is negative, it is represented by \((0, k)\) and
+  \begin{equation}
+    (a, 0) \times (0, k) = (a0 + 0k, ak + 0) = (0, ak):
+  \end{equation}
+  a negative integer. Thus, \(-ak\) is positive. Adding \(-ak\) to both sides we get
+  \begin{equation}
+    mk = nk + (-ak):
+  \end{equation}
+  or just \(nk < mk\).
+\end{proof}
+
+From \cref{ite:integers-order_property_1} of the preceding proposition, we get a simple corollary:
+
+\begin{cor}{Order trichotomy on the integers}{}
+  Let \(n, m \in \mathbb{Z}\), then only one of these statements are true: \(n = m\), \(n > m\), or
+  \(n < m\).
+\end{cor}
+
+\begin{proof}
+  From \cref{le:integers-trichotomy}, \(n - m\) can be split into positive, negative,
+  and zero. By the preceding proposition, we have the following conclusion:
+  \begin{itemize}
+    \item If \(n - m\) is positive, then \(n > m\).
+    \item If \(n - m\) is negative, then \(m - n\) is positive hence \(m > n\) or \(n < m\).
+    \item If \(n - m\) is zero, then \(n = m\), concluding the proof.
+  \end{itemize}
+\end{proof}
+
+\section{Induction on the integers}
+
+\section{*Unique prime factorization}
+
+\emph{This section can be skipped without loss of contents flow.}

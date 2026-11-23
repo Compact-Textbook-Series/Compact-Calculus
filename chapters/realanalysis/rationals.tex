@@ -1,1 +1,96 @@
 \chapter{The rationals}
+
+\begin{notation}{The rationals}{}
+  The rationals will be marked with a star. E.g., \(3\) would represent either an
+  integer or a natural, but \(\Zrat{3}\) is a rational.
+\end{notation}
+
+\section{Construction of the rationals}
+
+The rationals are constructed in a similar manner to the integers. Instead of the
+\emph{a posteriori} knowledge of subtraction, we use the knowledge of division instead.
+
+A rational is an ordered pair of integers:
+\begin{equation}
+  (a, b) = \frac{a}{b}
+\end{equation}
+where \(b \neq 0\). Two rationals \(\frac{a}{b}\) and \(\frac{c}{d}\) (\(b, d \neq 0\))
+are equal \ifft
+\begin{equation}
+  ad = bc
+\end{equation}
+We then define the equivalence relation to be that way:
+
+\begin{df}{Rational numbers}{rationals-definition}
+  Define an equivalence relation
+  \(\mathord{\sim} \subseteq \mathbb{Z} \times (\mathbb{Z} \smin \{0\})\) to be
+  \begin{equation}
+    (a, b) \sim (c, d) \mathiff ad = bc.
+  \end{equation}
+  A rational is then an equivalence class formed by \(\sim\). The set of all rationals
+  is denoted \(\mathbb{Q}\).
+
+  Let the sentence \(\Zrat{x} = (a, b)\) mean \((a, b) \in \Zrat{x}\).
+\end{df}
+
+\begin{prop}{The defining relation of the rationals is an equivalence relation}{}
+  Let \((a, b), (c, d), (e, f) \in \mathbb{Z} \times (\mathbb{Z} \smin \{0\})\). The
+  relation defined in \cref{df:rationals-definition} is an equivalence relation. I.e.,
+  it is reflexive, symmetric, and transitive.
+\end{prop}
+
+\begin{proof}
+  Since \(ab = ba\), \((a, b) \sim (a, b)\): it is reflexive.
+
+  Assume that \((a, b) \sim (c, d)\), i.e., \(ad = bc\), or \(bc = ad\). Hence,
+  \((c, d) \sim (a, b)\): it is symmetric.
+
+  Now assume that \((a, b) \sim (c, d)\) and \((c, d) \sim (e, f)\). Then,
+  \begin{equation}
+    ad = bc \mathand cf = de.
+  \end{equation}
+  Multiplying the first equation by \(f\) and the second by \(b\) to get
+  \begin{equation}
+    adf = bcf \mathand bcf = bde,
+  \end{equation}
+  i.e., \(adf = bde\). By cancellation of multiplication on the integers, \(af = be\)
+  which implies \((a, b) \sim (e, f)\): the relation is transitive.
+\end{proof}
+
+Arithmetic on the rationals is then defined as follows:
+
+\begin{df}{Addition and multiplication on the rationals}{}
+  Let \(\Zrat{x} = [(a, b)], \Zrat{y} = [(c, d)]\), then
+  \begin{gather}
+    \Zrat{x} + \Zrat{y} = [(ad + bc, bd)], \\
+    \Zrat{x}\Zrat{y} = [(ac, bd)].
+  \end{gather}
+\end{df}
+
+In which its justification for the equality symbol is again, another chorework.
+
+\begin{prop}{Addition and multiplication on the rationals is well-defined}{}
+  Let \(\Zrat{x} = [(a, b)]\), \(\Zrat{y} = [(c, d)]\) and \(\Zrat{z} = [(e, f)]\). If
+  \((a, b) \sim (c, d)\), then
+  \begin{equation}
+    \Zrat{x} + \Zrat{z} = \Zrat{y} + \Zrat{z} \mathand \Zrat{x}\Zrat{z} = \Zrat{y}\Zrat{z}.
+  \end{equation}
+\end{prop}
+
+\begin{proof}
+  The relation \((a, b) \sim (c, d)\) means \(ad = bc\). Let's prove addition first.
+  \begin{multline}
+    \Zrat{x} + \Zrat{z} = [(af + be, bf)] \\
+    \Zrat{y} + \Zrat{z} = [(cf + de, df)]
+  \end{multline}
+  For these two to be equal, we must have \((af + be, bf) \sim (cf + de, df)\) or
+  \begin{equation}
+    (af + be)(df) = (cf + de)(bf).
+  \end{equation}
+\end{proof}
+
+\section{Ordering of the rationals}
+
+\subsection{Absolute values}
+
+\section{Max-min. Embedding the integers into the rationals}

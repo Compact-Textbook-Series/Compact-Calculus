@@ -156,7 +156,7 @@ But what does this have to do with derivatives? \Cref{eq:slope_equation} only wo
 The derivative's definition can be used to directly evaluate derivatives. This is called the \textbf{method of increment}. E.g., in \cref{fig:derivatives-position_vs_time}, let's evaluate the velocity at time \(t = \qty{1}{\second}\) where the position function, \(\vv{x}(t) = t^2\). \(t = \qty{1}{\second}\). We start from \cref{eq:derivatives-derivative_definition}:
 
 \begin{align*}
-  \vv{v}(1) = \frac{\vv{x_2} - \vv{x_1}}{t_2 - t_1}
+  \vv{v}(1) = \frac{\vv{x}_2 - \vv{x}_2}{t_2 - t_1}
    & = \lim_{h \appr 0}\frac{\vv{x}(1 + h) - \vv{x}(1)}{(1 + h) - 1} \\
    & = \lim_{h \appr 0}\frac{(1 + h)^2 - 1}{h}                       \\
    & = \lim_{h \appr 0}\frac{2h + h^2}{h}                            \\
@@ -218,9 +218,59 @@ In \cref{fig:ball_dropped_from_a_height}, a ball is dropped from height \(h\). T
   \vv{F} = m\odv[ord = 2]{\vv{r}(t)}{t}                 \\
   m\vv{g} = m\odv[ord = 2]{\vv{r}(t)}{t} \mathor \vv{g} = \odv[ord = 2]{\vv{r}(t)}{t},
 \end{gather}
-which is sometimes called the \textbf{equation of motion}. This equation packs every information about this system you'd ever want. It directly reads as: \enquote{The acceleration of the ball is equals to \(g\).}
+which is sometimes called the \textbf{equation of motion}. This equation packs every information about how this system evolves. It directly reads as: \enquote{The acceleration of the ball is equals to \(g\).}
 
-If you've stayed for this long, congratulations! You now have the power to describe every physical systems with mathematical equations using derivatives: the measure of the rate of change. But it might not be as useful as yet, just as a hammer may seem useless if used to paint, derivatives falls apart when you ask about the future of the system. E.g., how long the ball takes to reach the ground? Or, what's the position of the ball at a certain time? That's the job of the integral to solve, and we'll do so in the next chapter.
+If you've stayed for this long, congratulations! You now have the power to describe and understand most dynamical systems with mathematical equations via derivatives --- the measure of the rate of change. But it might not be as useful as yet, just as a hammer may seem useless if used to paint, derivatives falls apart when you ask about how the system actually evolves. Derivatives are used to describe rules in which the system follows. But what type of motion follows that rules, is still undetermined. E.g., questions like \enquote{how long the ball takes to reach the ground?} or, \enquote{what's the position of the ball at a certain time?} can't be answered by the derivative alone. To answer this, we need the integral which would be introduced in the next chapter. But before that, I'd like to introduce another concept: initial values.
+
+\section{Initial values problem and the structure of dynamical systems}
+
+One differential equation can describe a whole spectrum of systems. A ball dropped from the second floor would behave differently to that dropped from the tenth floor. The ball that's dropped from the tenth floor takes way longer to reach the bottom, it would also bounce higher, and has way more destruction power. A ball dropped from the second floor would be painful if it hits somebody's head, but from the tenth floor, it would cause either a concussion or death. Still, these two vastly different systems are described by the same equation:
+\begin{equation}
+  \odv[ord = 2]{\vv{r}}{t} = \vv{g},
+\end{equation}
+which reads, \enquote{the acceleration of the ball is \(\vv{g}\)}.
+
+Varying the initial speed also changes the system. A ball that's just dropped by a simple release and a ball that's forcefully thrown into the ground with speed would behave differently. The one that's forcefully thrown would reach the ground quicker. Even if both are dropped from the same height. Still, they're described by the same equation and governed by the same rule: \enquote{the acceleration of the ball is \(\vv{g}\).}
+
+These different systems obey the same rule, but has a different initial condition. Along with the rule of the system itself, the initial condition also plays a big role in determining the system's future. As a spoiler, a function that satisfies the differential equation is
+\begin{equation}
+  \vv{r}(t) = \frac{1}{2}\vv{g}t^2 + At + B
+\end{equation}
+where \(A\) and \(B\) are parameters that can be chosen to be anything. If you don't believe me, you can verify it as follows:
+\begin{align}
+  \odv{\vv{r}}{t}
+   & = \lim_{h \appr 0} \frac{\vv{r}(t + h) - \vv{r}(t)}{h}                                                           \\
+   & = \lim_{h \appr 0} \frac{\ab(\frac{1}{2}\vv{g}(t + h)^2 + A(t + h) + B) - \ab(\frac{1}{2}\vv{g}t^2 + At + B)}{h} \\
+   & = \lim_{h \appr 0} \frac{                                                                                        %
+    \frac{1}{2}\vv{g}t^2 + \frac{1}{2}\vv{g}2th + \frac{1}{2}\vv{g}h^2 + At + Ah + B -
+    \frac{1}{2}\vv{g}t^2 - At - B%
+  }{h}                                                                                                                \\
+   & = \lim_{h \appr 0} \frac{\frac{1}{2}\vv{g}2th + Ah}{h}                                                           \\
+   & = \lim_{h \appr 0} \vv{g}t + A = \vv{g}t + A. \label{eq:derivatives-ex1}
+\end{align}
+Then,
+\begin{align}
+  \odv[ord = 2]{\vv{r}}{t}
+   & = \odv*{\ab(\odv{\vv{r}}{t})}{t}                                          \\
+   & = \odv*{\ab(\vv{g}t + A)}{t}                                              \\
+   & = \lim_{h \appr 0} \frac{\ab(\vv{g}(t + h) + A) - \ab(\vv{g}t + A)}{h}    \\
+   & = \lim_{h \appr 0} \frac{\vv{g}t + \vv{g}h + A - \vv{g}t - A}{h}          \\
+   & = \lim_{h \appr 0} \frac{\vv{g}h}{h} = \lim_{h \appr 0} \vv{g} = \vv{g}.
+\end{align}
+Hence, we see that \(\odv[ord = 2]{\vv{r}}{t} = \vv{g}\): the function \(\frac{1}{2}\vv{g}t^2 + At + B\) satisfies the following differential equation as serves as a description of any systems that follow the rule \enquote{the acceleration of the ball is \(g\).}
+
+In the function that I gave, there are two free variables: \(A\) and \(B\). They serve as a way to \emph{configure} the state of the system to our liking. E.g., say we have a ball falling from height \(h\) with speed \(0\). This would mean that:
+\begin{equation}
+  \vv{r}(t = 0) = \frac{1}{2}g(0)^2 + A(0) + B = h,
+\end{equation}
+or just \(B = h\). Then, (from \cref{eq:derivatives-ex1})
+\begin{align}
+  \odv{\vv{r}}{t}_{t = 0} = \vv{g}(0) + A = 0,
+\end{align}
+or just \(A = 0\). So, the actual equation that describes the specific motion of a ball falling from height \(h\) with speed \(0\) would be
+\begin{equation}
+  \frac{1}{2}\vv{g}t^2 + 0t + h = \frac{1}{2}\vv{g}t^2 + h.
+\end{equation}
 
 \conclusion
 

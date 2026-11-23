@@ -1,0 +1,766 @@
+\chapter{Existence and uniqueness of solutions}
+
+\prerequisites{linear algebra (isomorphism, injectivity, surjectivity of linear maps), a brief knowledge on Banach spaces, continuity, properties of continuous functions on compact sets, brief knowledge on ordinary differential equations.}
+
+If you're reading this far, I suppose you are already comfortable with calculus, the
+methods of solving differential equations, some linear algebra, and perhaps some
+real analysis. This chapter concerns the general theory of differential equations,
+consisting mostly of the analysis of existence and uniqueness of solutions. It is not
+about how to solve them, or how they're applied in mechanics. For those of the applied
+side, refer to the first book on foundations of calculus. But I greatly welcome those
+who are interested as this chapter is going to be a very fulfilling journey that lies
+in the intersection between physics, linear algebra, analysis, and some very cute visualizations.
+
+The power of classical mechanics comes from the ability to \emph{accurately} predict the
+future and past of a physical system given enough information on the current configuration
+of a system. E.g., consider an oscillating spring system in a world with drag and no external
+disturbances. Naturally, it should gradually lose power of oscillation over time; the
+drag would make the mass lose energy until it stops at \(t \appr \infty\). And in the
+past, the spring must've oscillated more wildly as the system hasn't lose energy to the drag
+yet. Prior works in calculus also have shown that the Newton's second law governing this system,
+\begin{equation}
+  m \odv[ord = 2]{x}{t} = - b \odv{x}{t} - kx
+\end{equation}
+has the solution
+\begin{equation}
+  x(t) = A \e^{-\beta t} \cos\ab(\sqrt{\omega_0^2 - \beta^2} t - \phi)
+\end{equation}
+where the cosine represents the oscillation, and the exponential term represents the decay.
+
+It'd be very na\"ive to assume that this determinism works with every system. E.g., consider
+a leaking water bucket that's shaped like a cone. Eventually, it loses all its water.
+But if I give you the state of the system after the bucket has lost all its water, can
+you trace back when the last drop of water leaked out? Of course not! No matter where
+in time the last drop has oozed out, you're going to be left with a persistently empty
+bucket, assuming that no one trolls you and put more water in a bucket. So, determinacy
+is lost here: there is no laws which can reverse this process.
+
+Another system that has this property would be the falling object on the ground. After
+the object has landed and rested still, can you trace back when exactly the object touches
+the ground? It could've been one second ago or one year ago! If two objects are dropped from the
+exact same height, it would land and rest in the same manner, reaching a state of persistence rest.
+When this state is reached, the information about when the object was dropped is completely lost.
+
+Two of these systems I gave have one thing in common: the lost of something causing time
+to not be reversible --- water losing from the bucket into oblivion, the ball losing
+the energy into the ground. And you might think: if you managed to trace all those lost
+--- if you know where the water goes and how it pools the ground, or how the ground
+dissipates those energy from the balls into heat, etc., you would \emph{eventually} be
+able to determine the object's complete history. And that is true in a sense. However,
+John Norton has a counterexample to this ideology: Norton's dome \cite{norton-dome},
+in which I'd like to state a modified version of Norton's dome in two dimensions instead.
+
+Norton's dome is described by the equation
+\begin{equation}
+  y = - \frac{2}{3g} r^{\frac{3}{2}}
+\end{equation}
+where \(r\) is the arclength along the dome. Initially, we place a ball of mass \(m\)
+resting on the top of the dome with no velocity nor acceleration. The acceleration of
+the part that's tangent to the dome is then
+\begin{equation}
+  \odv[ord = 2]{r}{t} = b^2 \sqrt{r}.
+\end{equation}
+in which there are actually two family of solutions to this differential equation:
+\begin{equation}
+  r(t) = 0, \mathand r(t)
+       = \begin{cases}
+           0                      & \textrm{if}~ t \leq T \\
+           \frac{1}{144}(t - T)^4 & \textrm{if} ~ t > T
+         \end{cases}
+\end{equation}
+where \(T \in \mathbb{R}\). Hopefully it is easy enough to check that these two solutions
+actually satisfies the Newton's equation by simply taking the derivative.
+
+The first family is what we expect: the ball just stays forever rested on the dome
+without falling off. But in the second family, the ball somehow manages to roll off
+the dome at any time \(T\) without any outside forces: \(r(t)\), the distance that the
+ball rolled, is positive after \(t > T\) where \(T\) is \emph{arbitrary}.
+
+The question then becomes: what solution do we trust, and is the Newton's law wrong,
+or is Newton's law only applicable on some edge cases. This is a problem of philosophy
+of physics which we shall not touch. For the interested readers, one can refer to
+\cite{malament-2008}, or a simple Google Search would bring up all the heated debates
+around this particular physical systems. The philosophy in question is greatly beyond
+the scope of this book, so we shall stroll back a step and answer a more mathematically
+approachable question: when is Newton's second law not deterministic. Or more generally,
+\begin{displayquote}
+  \emph{When does a differential equation possess a single solution?}
+\end{displayquote}
+
+This question, or rather this scheme of thinking, is one part of core mathematics
+called \textbf{well-posedness}. Mathematicians, at least I, tend to check first if the
+problem is \textbf{well-posed}, or solvable in the first place before actually dip our
+hands in and solve it. A problem is well-posed if
+\begin{enumerate}
+  \item There exists a solution, and
+  \item The solution is unique. I.e., if there is a solution, there must be only one solution
+  \item The behavior of the solution changes smoothly with the auxilary conditions.
+\end{enumerate}
+In the next section, we shall explore these behaviors via visualizing slope fields.
+
+\section{A quick recap on definitions of differential equations and phase space}
+
+\begin{df}{ODE of one variable}{}
+  A differential equation is an equation of the form
+  \begin{equation}
+    f(x, y, y', y'', \dots, y^{'(n)}) = 0
+  \end{equation}
+  where the derivatives are understood to be w.r.t. \(x\). The order of the differential
+  equation is then the highest order derivative that appears.
+
+  A function \(\phi(x)\) is a solution of the differential equation if when \(y\) is
+  replaced with \(\phi\), \(f(x, \phi, \phi', \dots, \phi^{'(n)}) = 0\).
+\end{df}
+
+This definition, even though a very precise one that captures all the differential
+equations you could ever think of, is albeit, useless as the family is too large for
+us to analyze any meaningful behaviors. Hence in this chapter, we shall start with the
+easiest one: first order differential equations with a specific form here:
+
+\begin{df}{Standard first order ODE of one variable}
+  A first order differential equation in standard form can be written as
+  \begin{equation}
+    \odv{y}{x} = f(x, y).
+  \end{equation}
+\end{df}
+
+Equations of this form are particularly nice, as there is a clear interpretation of it
+which I'd like you to follow along.
+
+Consider any arbitrary functions \(f(x, y)\)
+
+\section{Existence and uniquness theorem - Euler's method}
+
+The theorem that we shall derive in this section is the Peano's existence theorem and
+Cauchy's existence theorem which concerns ordinary differential equations of the form
+\(\odv{y}{x} = f(x, y(x))\). Here, I heavily focus on the word \emph{derive}, as I'll
+guide you through and motivate the entire thought process of solving this problem. In
+most courses, the theorem will just be handed straight to you and you would be confused
+on why such requirements affect the solutions of the differential equations at all. Other
+than that, this problem is just tricky. How would you even go about proving whether a
+differential equation has a solution or not when you don't even know what function you're
+dealing with. Even if you do, sometimes a function might even be impossible to explicitly integrate.
+So, hopefully at the end of this section, every bits and pieces will begin to make sense again.
+
+Since we would like to prove that a solution \emph{exists}, an approach would be to construct
+the solution itself: to approach the problem constructively. Of course, there is no way
+to explicitly construct such solution, but there is a way to approximate it that's thoroughly
+developed in the field of scientific computing and numerical analysis. And gladly enough,
+they're also interested in whether the solution is correct and is stable or not. So,
+we can use their analysis of \emph{correctness} to motivate our uniqueness and existence theorem.
+
+The method of choice here will be the Euler's method which is used to find the \emph{next
+step} of the solution. Say we have an initial value problem
+\begin{equation}
+  \odv{y}{x} = f(x, y(x)), \mathand y(x_0) = y_0
+\end{equation}
+on some interval \(I \in \mathbb{R}\). Preferably, \(I\) should be a connected interval
+that extends from \(x_0\) to \(x_0 + X\) for some positive \(X\) so that we can try to
+find what points follows \(y(x_0)\) along the solution curve. For that, let's try to
+find \(y(x_0 + \epsilon)\) for some very small \(\epsilon\). Note that if we want to
+extend \(y(x_0)\) to the left, we can perform a mirror coordinate transformation around \(x_0\).
+
+Here's a quick recap of the Euler's method. First, rewrite the differential equation
+as a discrete equation:
+\begin{align}
+  \odv{y}{x}_{x_0} \approx \frac{y(x_0 + \epsilon) - y(x_0)}{\epsilon} & = f(x_0, y(x_0))                    \\
+  y(x_0 + \epsilon)                                                    & = \epsilon f(x_0, y(x_0)) + y(x_0).
+\end{align}
+Also as one can simply induct,
+\begin{equation}
+  y(x_0 + \alpha\epsilon) = \epsilon\ab[\sum_{k = 0}^{\alpha - 1} f\ab\big(x_0 + k\epsilon, y(x_0 + k\epsilon))]
+                            + y(x_0). \label{eq:existenceuniqueness-euler}
+\end{equation}
+
+We can then choose our step size \(\epsilon\) to partition the interval \(x_0\) to
+\(x_0 + X\) into equal sections, i.e., let \(N\epsilon = X\) for some \(N \in \mathbb{N}\).
+We can then construct a sequence
+\begin{equation}
+  y(x_0), y(x_0 + \epsilon), y(x_0 + 2\epsilon), y(x_0 + 3\epsilon), \dots, y(x_0 + N\epsilon).
+\end{equation}
+In order to form this sequence into a proper approximation, we can join the dots using
+straight lines of constant slope. Our approximated solution \(\phi_N(x)\) is then a
+piecewise function. For \(x \in \cintv{x_0 + n\epsilon, x_0 + (n + 1)\epsilon}\),
+\begin{align}
+  \phi_N(x) & = \begin{multlined}[t]
+                  y(x_0 + n\epsilon) \\
+                  + \frac{y(x_0 + (n + 1)\epsilon) - y(x_0 + n\epsilon)}{\epsilon}\ab\big(x
+                  - (x_0 + n\epsilon))
+                \end{multlined} \\
+            & = y(x_0 + n\epsilon) + f\ab\big(x_0 + n\epsilon, y(x_0 + n\epsilon))\ab\big(x - (x_0 + n\epsilon)). \label{eq:existenceuniqueness-euler_phi}
+\end{align}
+Or, \(\phi_N(x)\) can be specified by piecewise function of constant derivatives:
+\begin{equation}
+  \odv{\phi_N}{x}_{x_0} = f\ab\big(x_0 + n\epsilon, y(x_0 + n\epsilon))(x - (x_0 + n\epsilon)), \quad \phi_N(x_0 + n\epsilon)
+                        = y(x_0 + n\epsilon).
+\end{equation}
+We then construct the sequence of functions \(\sequence{\phi_N}{N = 1}{\infty}\). If this
+sequence behaves well enough in the sense that it uniformly converges to some function, then that
+function is our solution, and we would've shown that a solution exists. But under what condition?
+
+Firstly, the solution to the differential equation shouldn't have arbitrarily large
+vertical oscillations. Otherwise, Euler's method would blow up. From
+\begin{equation}
+  y(x_0 + \epsilon) - y(x_0) = \epsilon f(x_0, y(x_0)), \nonumber
+\end{equation}
+this sum has to be strictly finite for the solution to be physical. Since \(\epsilon\)
+can be any number, \(f(x_0, y(x_0))\) must remain finite on the domain, i.e., bounded.
+
+However, notice that \(f\) has two arguments: \(x_0\) and \(y(x_0)\). Specifying
+boundedness on only the first argument wouldn't be enough to guarantee that nothing
+would blow up. Hence, we must require \(f\) to be bounded on both \(x\) and \(y\)
+axis. Specifically, on \(I_x \times I_y\) where \(I_x, I_y \subseteq \mathbb{R}\) are
+intervals. Intuitively, this draws a rectangle in \(\mathbb{R}^2\)
+
+Now let's analyze what happens when \(\epsilon\) shrinks. For simplicity, let
+\(\epsilon' = \frac{\epsilon}{2}\). Then, we should intuitively get
+\begin{equation}
+  y(x_0 + 2\epsilon') \approx y(x_0 + \epsilon)
+\end{equation}
+where the L.H.S. is evaluated by using the Euler's method twice with a step of
+\(\epsilon'\), and the R.H.S. steps only once. This approximation can be restated as
+\begin{equation}
+  |y(x_0 + 2\epsilon') - y(x_0 + \epsilon)| < \delta
+\end{equation}
+where you can always select \(\epsilon\) in a way such that \(\delta\) can get arbitrarily
+small. Expanding the approximation above by \cref{eq:existenceuniqueness-euler}, we get
+\begin{align}
+  y(x_0) + \epsilon'\ab\Big[f\ab\big(x_0 + \epsilon, y(x_0 + \epsilon)) + f\ab\big(x_0, y(x_0))] & \approx y(x_0) + \epsilon f(x_0, y(x_0)) \nonumber \\
+  \frac{\epsilon}{2}\ab\Big[f\ab\big(x_0 + \epsilon, y(x_0 + \epsilon)) + f\ab\big(x_0, y(x_0))] & \approx \epsilon f(x_0, y(x_0))                    \\
+  f\ab\big(x_0 + \epsilon, y(x_0 + \epsilon)) + f\ab\big(x_0, y(x_0))                            & \approx 2 f(x_0, y(x_0))                           \\
+  f\ab\big(x_0 + \epsilon, y(x_0 + \epsilon))                                                    & \approx f\ab\big(x_0, y(x_0))
+\end{align}
+or that there exists some \(\epsilon\) in which
+\begin{equation}
+  |f\ab\big(x_0 + \epsilon, y(x_0 + \epsilon)) - f\ab\big(x_0, y(x_0))| < \delta
+\end{equation}
+for all \(\delta\). This is the exact requirement for continuity: it is required for
+the Euler's equation to give \emph{consistent result} for all \(\epsilon\). In the
+following proof, we shall see how these two conditions --- boundedness and continuity
+--- give rise to a solution for the differential equation.
+
+These two conditions are enforced by requiring that \(I = I_x \times I_y\) is a closed
+rectangle in \(\mathbb{R}^2\). By the Heine-Borel theorem, a closed set on \(\mathbb{R}^n\)
+is compact, and any continuous function on a compact set is automatically bounded.
+
+Before we move on to the formal proof, let's see some examples where an initial value
+problem just refuses to have any solution. Note that the examples may look a bit exotic.
+But that's just because we're only requiring \(f\) to be continuous and bounded on
+\(I\) which already covers most of the function that is normally seen.
+
+{\color{red} W.I.P. illustrate some examples on Euler's equation}
+
+Now, to the formal proof of the theorem.
+
+\begin{theorem}{Peano's existence theorem}{}
+  For a differential equation \(\odv{y}{x} = f(x, y(x))\) where \(f\) is continuous
+  on a compact set \(\mathcal{I} \subset \mathbb{R}^2\), an initial value problem with
+  \(y(x_0) = y_0\) where \((x_0, y_0) \in I\) has a solution.
+\end{theorem}
+
+\begin{proof}
+  Consider a subset of \(\mathcal{I}\),
+  \begin{equation}
+    I = \cintv{x_0 - a, x_0 + a} \times \cintv{y_0 - b, y_0 + b}
+  \end{equation}
+  This subset represents a compact rectangle in two dimensions. Since \(f\) is required
+  to be continuous on a compact set, it is bounded by some real number \(M\).
+
+  Let's now construct the solution on the domain interval \(I_x = \cintv{x_0, x_0 + X}\)
+  where \(X = \min\ab(a, \frac{b}{M})\). The reason for this choice of interval is that
+  in some cases, the function might be too steep that it actually shoots passes the
+  upper wall of the rectangle \(I\). Hence, we restrict the domain of \(I\) to assure
+  that for all \(x \in \cintv{x_0, x_0 + X}\), \((x, \phi_n(x)) \in I\).
+
+  Partition \(I_x\) into equal intervals of \(x_{0, k}, x_{1, k}, \dots, x_{n, k}\) with
+  \begin{equation}
+    x_{n, k+1} - x_{n, k} = \frac{X}{n} = h_n.
+  \end{equation}
+
+  Construct the sequence of approximations of functions \(\sequence{\phi_n(x)}{n = 1}{\infty}\)
+  as shown earlier in \cref{eq:existenceuniqueness-euler_phi}. First, we prove that
+  this sequence doesn't leave \(I\).
+
+  For all \(x \in I_x\),
+  \begin{equation}
+    |\phi_n(x) - y_0| \leq M(x - x_0) \leq MX \leq b;
+  \end{equation}
+  hence, the graph is inside \(I\) for all \(x \in I_x\) and \(n \in \mathbb{N}\).
+
+  Then, we show that this sequence is uniformly bounded and is equicontinuous in order
+  to apply Arzel\'a-Ascoli theorem, yielding a uniformly convergent subsequence.
+
+  Since \(|\phi_n(x)| \leq |y_0| + b \in I_y\) for all \(x \in I_x\) and \(n \in \mathbb{N}\),
+  \(\phi_n(x)\) is uniformly bounded.
+
+  Now for all \(x_1, x_2 \in I_x\),
+  \begin{equation}
+    |\phi_n(x_1) - \phi_n(x_2)| \leq M|x_1 - x_2|;
+  \end{equation}
+  hence, \(\phi_n\) is Lipschitz with Lipschitz constant \(M\) throughout all \(n\).
+  This family is then equicontinuous.
+
+  By the Arzel\'a-Ascoli theorem, there is then a subsequence of functions,
+  \(\sequence{\phi_{n_k}(x)}{n = 1}{\infty}\), that uniformly converges.
+
+  For ease of notation, assign for each \(n\), a function \(P_n(x) = x_{n, k}\) which
+  denotes the starting point of the segments of the partition that \(x\) is in. Then,
+  for all points that doesn't belong in the partition,
+  \begin{equation}
+    \odv{\phi_n}{x} = f\ab\big(P_n(x), \phi_n(P_n(x)))
+  \end{equation}
+  Now, define the error of the approximation's derivative to be
+  \begin{align}
+    E_n(x) & = \odv{\phi_n}{x} - f(x, \phi_n(x))                          \\
+           & = f\ab\big(P_n(x), \phi_n(P_n(x))) - f\ab\big(x, \phi_n(x)).
+  \end{align}
+
+  Since \(I\) is compact, and \(f\) is continuous, it is also \(f\) uniformly continuous. I.e.,
+  \begin{multline}
+    \forall (\epsilon \in \mathbb{R}_{>0}) \exists (\delta \in \mathbb{R}_{>0}) \forall ((x_1, y_1), (x_2, y_2) \in I) : \\
+    \ab(|x_1 - x_2| < \delta \land |y_1 - y_2| < \delta) \implies |f(x_1, y_1) - f(x_2, y_2)| < \epsilon.
+  \end{multline}
+
+  By the presumed continuity, this error termed can be bounded by the distance between
+  \((x, \phi_n(x))\) and \((P_n(x), \phi_n(P_n(x)))\). Along the first axis,
+  \begin{equation}
+    |x - P_n(x)| < h_n.
+  \end{equation}
+  Along the second axis, we can use the mean value theorem to say that there exists
+  some \(c\) in the segment such that
+  \begin{equation}
+    |\phi_n(x) - \phi_n(P_n(x))| = \ab|\odv{\phi_n}{x}_c||x - P_n(x)| \leq M h_n
+  \end{equation}
+
+  If we let \(h_n = \min\ab(\epsilon, \frac{\epsilon}{M})\), rounded down to the lowest
+  that still maintains equipartition, it follows that
+  \begin{equation}
+    |x - P_n(x)| < \epsilon \land |\phi_n(x) - \phi_n(P_n(x))|.
+  \end{equation}
+  From uniform continuity of \(f\), we also get that
+  \begin{equation}
+    |E_n(x)| = |f\ab\big(P_n(x), \phi_n(P_n(x))) - f(x, \phi_n(x))| \leq \epsilon;
+  \end{equation}
+  hence, \(|E_n(x)| \appr 0\) uniformly aswell.
+
+  The last step is to verify that the limit of this function subsequence actually
+  satisfies the differential equation.
+
+  Let \(x \in I_x\), and choose a step size \(h \in \mathbb{R}_{>0}\) s.t. \(h < X\).
+
+  By the continuity of and piecewise linearity of \(\phi_n(x)\), the difference
+  \(\phi_n(x + h) - \phi_n(x)\) is just \(h\) times the weighted average of the
+  slopes on each segments. By the intermediate value theorem, there exists a point
+  \(\tau_n \in \cintv{x, x + h}\) such that
+  \begin{align}
+    \frac{\phi_n(x + h) - \phi_n(x)}{h} & = f\ab\big(P_n(\tau_n) \phi(P_n(\tau_n)))         \\
+                                        & = f\ab\big(\tau_n, \phi_n(\tau_n)) + E_n(\tau_n).
+  \end{align}
+  Now take the limit of the expression above by letting \(n = n_k\) and take \(k \appr \infty\).
+
+  On the L.H.S.,
+  \begin{equation}
+    \lim_{k \appr \infty} \frac{\phi_{n_k}(x + h) - \phi_{n_k}(x)}{h} = \frac{y(x + h) - y(x)}{h}
+  \end{equation}
+  because \(\phi_{n_k}\) connverges uniformly to the solution \(y\). On the R.H.S.,
+  \begin{equation}
+    \lim_{k \appr \infty} f(\tau_{n_k}, \phi_{n_k}(\tau_{n_k})) + E_{n_k}(\tau_{n_k}) = f(\tau, y(\tau))
+  \end{equation}
+  for some \(\tau\) because \(E_{n_k}\) uniformly converges to zero. Hence,
+  \begin{equation}
+    \frac{y(x + h) - y(x)}{h} = f\ab\big(\tau, y(\tau)).
+  \end{equation}
+  Then, take the limit as \(h \appr 0^+\). On the R.H.S., since \(\tau \in \cintv{x, x + h}\),
+  \(\tau \appr x\) as \(h \appr 0^+\). We then get
+  \begin{equation}
+    \odv{y}{x} = \lim_{h \appr 0^+}\frac{y(x + h) - y(x)}{h}
+               = \lim_{\tau \appr x} f(\tau, y(\tau))
+               = f(x, y(x)).
+  \end{equation}
+  Since \(y(x_0) = \lim_{k \appr \infty} \phi_{n_k}(x_0) = y_0\), \(y(x)\) satisfies
+  \(y'(x) = f\ab\big(x, y(x))\) and \(y(x_0) = y_0\) on \(I_x\).
+
+  This proves that the sequence of approximations earlier always uniformly converges
+  to a valid solution, showing that the solution must exists. For the direction
+  \(\cintv{x_0 - X, x_0}\), perform a mirror substitution.
+\end{proof}
+
+This already assures us that most differential equations that we're interested in has
+a solution, but that's only a part of a well-posed problem. The other is uniqueness. This
+is important in deterministic theories where we want there to be only \emph{one single trajectory}
+that a system can take. So, what conditions do we have to further impose to yield determinism?
+
+When we constructed a sequence of Euler approximations, we used Arzel\'a-Ascoli theorem to
+show that there exists a uniformly convergent subsequence. However, it does not guarantee that there
+is only \emph{one} subsequence. Different subsequences might converge to a different solutions.
+So to fix that, we require the \emph{entire sequence} of \(\phi_n\) to uniformly converge.
+
+So, let's consider any arbitrary Euler's approximation:
+\begin{equation}
+  \phi_n(x_{n, k+1}) = \phi_n(x_{n, k}) + h_n f\ab\big(x_{n, k}, \phi_n(x_{n, k})).
+\end{equation}
+We might try to bound this \emph{directly} to the real solution \(y(x)\). Since \(y\)
+is differentiable, the mean value theorem applies to give
+\begin{equation}
+  y(x_{n, k+1}) = y(x_{n, k}) + h_n f\ab\big(\eta_k, y(\eta_k))
+\end{equation}
+for some \(\eta \in \cintv{x_{n, k}, x_{n, k + 1}}\). Subtracting yields
+% \begin{equation}
+%   \phi_n(x_{n, k + 1}) - y(x_{n, k + 1}) 
+% \end{equation}
+
+\section{Existence and uniqueness theorem - integral equations}
+
+The proof earlier using the Euler's method, even with its clear intuition on the
+constraints of functions, can be clunky because we're trying to interpolate discrete
+points into approximating functions. But what if, we start with a smooth function to begin with?
+
+Notice that the differential equation \(\odv{y}{x} = f(x, y(x))\) can also be casted
+into an integral form:
+\begin{align}
+  \int_{x_0}^{x} \odv{y}{x'} \odif{x'} & = \int_{x_0}^x f(x', y(x')) \odif{x'}           \\
+  y(x) - y(x_0)                        & = \int_{x_0}^x f(x', y(x')) \odif{x'}           \\
+  y(x)                                 & = \int_{x_0}^x f(x', y(x')) \odif{x'} - y(x_0).
+\end{align}
+This integral form is actually equivalent to the original differential equation, and
+we get the boundedness of \(f(x', y(x'))\) just from looking at the integral --- an
+integrable function must be bounded! However, the continuity is a bit unclear
+
+\section{Linear differential equations}
+
+Here we treat a special class of differential equations: linear equations. As we might've
+seen in earlier chapters on linear algebra, the derivative \emph{is} a linear operator in
+the sense that if \(f\) and \(g\) are differentiable functions and \(a\) is a scalar constant, then
+\begin{equation}
+  \odv*{\ab(a f(x) + g(x))}{x} = a \odv{f(x)}{x} + \odv{g(x)}{x}
+\end{equation}
+Hence, it would be perfectly reasonable to replace the Liebniz' derivative notation
+with the operator \(D\). A differential equation then takes on the form
+\begin{equation}
+  F(t, y, Dy, D^2 y, \dots, D^n y) = 0.
+\end{equation}
+A linear differential equation is then defined as follows:
+
+\begin{df}{Linear differential equation}{}
+  A linear differential equation on a domain \(I \subseteq \mathbb{R}\) is an equation of the form
+  \begin{equation}
+    a_n(t) D^n y + a_{n-1}(t) D^{n-1} y + \dots + a_1(t) Dy + a_0(t)y = g(t)
+  \end{equation}
+  where \(a_i(t)\) are all defined on \(I\).
+
+  A function \(\phi(t)\) is a solution of the differential equation above \emph{iff}
+  for all \(t \in I\),
+  \begin{equation}
+    a_n(t) D^n \phi + \dots + a_0(t) \phi = g(t)
+  \end{equation}
+\end{df}
+Since this operator is linear, we can factor out the differential operator and write
+\begin{equation}
+  \ab(a_n(t) D^n + \dots + a_1(t) D + \iden) y = g(t)
+\end{equation}
+or just
+\begin{equation}
+  P(D, t)y = g(t)
+\end{equation}
+where \(P(z, t)\) is a polynomial of the differential operator defined by
+\begin{equation}
+  P(z, t) = a_n(t) z^n + \dots + a_1(t) z^1 + a_0(t):
+\end{equation}
+The problem of solving the differential equation then boils down to finding the inverse
+of \(P(D, t)\). However, we run to a problem:
+
+\begin{prop}{}{}
+  Let \(I \in \mathbb{R}\) be an interval. The differential operator
+  \(D: C^1(I, \mathbb{R}) \to C^0(I, \mathbb{R})\) is surjective but not injective.
+\end{prop}
+
+This lemma is analogous to why we must add a constant term (\(+ C\)) when we're taking
+the antiderivative, which is the "inverse" of the differential operator.
+
+\begin{proof}
+  Pick a point \(c \in I\), then for all \(g \in C^0(I, \mathbb{R})\),
+  \begin{equation}
+    f(x) = \int_c^x g(t) \odif{t}
+  \end{equation}
+  is in \(C^1(I, \mathbb{R})\) and \(Df = g\) by the fundamental theorem of calculus.
+  Hence, \(D\) is surjective.
+
+  Let \(f \in C^1(I, \mathbb{R})\) and \(c\) be the constant function. If \(Df = g\),
+  then \(D(f + c) = Df + Dc = Df\): \(D\) is not injective.
+\end{proof}
+
+Hence, we can only ask for a mere preimage of \(D\). Here, we can harbour some hope from
+the property of linear operators themselves. First, the solution of a non-injective linear equation.
+
+\begin{lemma}{Solution of a non-injective linear equation}{}
+  If \(L \in \mathcal{L}(V, W)\) and \(y \in W\), then every solution of \(Ly = x\) is
+  of the form \(y_0 + \ker L\).
+\end{lemma}
+
+Note that this proposition doesn't mention anything about differential equations. It is just true
+to the nature of \emph{any} linear equations. Differential equations are a special case of this.
+
+\begin{proof}
+  First, to show that \(\phi = y_0 + \xi\) where \(\xi \in \ker L\) is a solution:
+  \begin{equation}
+    L\phi = L(y_0 + \xi) = Ly_0 + L\xi = Ly_0 = x.
+  \end{equation}
+
+  Then, to show that every solution is of this form, let \(\psi\) be any other solution
+  to \(Ly = x\). Then,
+  \begin{equation}
+    L(\phi - y_0) = L\phi - Ly_0 = 0,
+  \end{equation}
+  i.e., \(\phi - y_0 \in \ker L\) and is equal to some \(\xi \in \ker L\). Rearranging, we get
+  \begin{equation}
+    \psi = y_0 + \xi:
+  \end{equation}
+  concluding the proof.
+\end{proof}
+
+This trivially yields
+
+\begin{prop}{}{}
+  For a linear differential equation \(P(D, t)y = g(t)\), if \(\phi(t)\) is a solution
+  and \(P(D, t) \psi(t) = 0\), i.e., \(\psi(t) \in \ker P(D, t)\), then \(\psi(t) + \phi(t)\)
+  is also a solution.
+\end{prop}
+
+\begin{proof}
+  Follows directly from the linearity of \(P(D, t)\) and above lemma.
+\end{proof}
+
+This is exactly why when we solve linear differential equations, we must consider both
+the original equation itself and its auxilary equation \(P(D)y = 0\) as the complete set of solution
+is always the sum of the \textbf{particular solution} of the original equation and the kernel of
+\(P(D)\). The solution in the kernel of \(P(D)\) is also called the \textbf{complementary solution}.
+
+Note that the particular solution here need not be unique. If \(\psi(x)\) and \(\phi(x)\)
+are solutions, then they differ by \(\xi(x)\) where \(\xi \in \ker P(D)\). One can write
+\begin{equation}
+  \phi(x) = \psi(x) - \xi(x), \mathor \psi(x) = \phi(x) + \xi(x).
+\end{equation}
+
+A bit of pondering should arise a series of questions. When we solve differential
+equations (not the initial value problem), we often put \(+ C\) in order to keep track
+of the \emph{complete set of solutions}. I.e., we're saying that the set
+\begin{equation}
+  \{f(x, C_1, \dots, C_n) : C_1, \dots, C_n \in \mathbb{R}\}
+\end{equation}
+forms the entire solution set, and no more solution lies outside this set. The amount
+of \(C_i\)'s in this function represents some kind of degree of freedom in our solution
+space. And by intuition, an \(n\)-th order differential equation \emph{should} have \(n\)
+degrees of freedom, as every new constant \(C_i\) added represents an integration; an
+\(n\)-th order differential equation has to be integrated \(n\) times.
+
+Generally, nothing more can be said about the nature of the solution set. But with
+linear equations, we can. As the solution set is governed by \(y_0 + \ker P(D)\), all
+of the degrees of freedom must reside in \(\ker P(D)\). Since the kernel of any linear
+operator is a vector space, it has a well-defined dimension (given that it's not
+infinite-dimensional). This dimension number directly corresponds to the degree of freedom
+in the solution set. Meaning that, if \(P(z)\) is of degree \(n\), \(\ker P(D)\) must
+also have dimension \(n\). The following proposition states this in more detail:
+
+\begin{prop}{Dimension of the solution set of linear equations}{}
+  For a linear differential equation \(P(D, t)y(t) = 0\) on a closed and bounded interval \(I\)
+  where the coefficients of the highest order derivative is non-zero, \(\dim \ker P(D) = \deg P\).
+\end{prop}
+
+\begin{proof}
+  We shall show this through methods of initial value problems. I.e., we show that there exists
+  an isomorphism between the initial condition of the differential equations and \(\ker P(D)\).
+
+  As a bit of simplification, since the coefficients of the highest order derivative
+  is non-zero in \(I\), we can divide through to yield another differential equation
+  \begin{equation}
+    Q(D)y = 0 \quad \textrm{where} \quad Q(D) = \frac{P(D)}{a_n(t)}
+  \end{equation}
+  that has the same solution set as \(P(D)y = 0\).
+
+  Note that by the equation, \(y(t) \in \ker P(D)\).
+
+  Fix some \(t_0 \in I\) and define a map \(T : \ker P(D, t) \to \mathbb{R}^n\) by
+  \begin{equation}
+    Ty = \ab(y, \odv{y}{t}_{t_0}, \odv[ord = 2]{y}{t}_{t_0}, \dots, \odv[ord = n - 1]{y}{t}_{t_0}).
+  \end{equation}
+
+  \(T\) is definitely linear, as the derivatives of a function are linear.
+
+  Now to prove injectivity, suppose \(Ty = 0\), then
+  \begin{equation}
+    y(t_0) = \odv{y}{t}_{t_0} = \dots = \odv[ord = n - 1]{y}{t}_{t_0} = 0.
+  \end{equation}
+  This initial value problem has a unique solution because
+  \(\frac{a_i}{a_n} \in C^1(I, \mathbb{R})\) on a compact interval, i.e., all
+  coefficients of \(Q(D)\) are Lipschitz. Since \(0\) is one of the solution as \(0\)
+  is in the kernel of every linear maps, it is the only solution and \(T\) is injective.
+
+  To prove surjectivity, assume that \(Ty = Ty' = (s_1, \dots, s_n)\). Since the initial
+  values are equal, they must correspond to the same unique solution by the uniqueness
+  theorem. Hence, \(y = y'\) and \(T\) is surjective.
+
+  Since \(T\) is linear, injective, and surjective, it is an isomorphism. Two isomorphic
+  vector space always have the same dimension. Hence, \(\dim \ker P(D) = n = \deg P(z)\).
+\end{proof}
+
+One very big consequence of the lemma above is: if you managed to find \(n\) solutions
+that are linearly independent, then the span of those solutions is the entire set. This
+is a basic consequence of linear algebra as a linearly independent list of the right length always
+form a basis. Hence, we shall formally introduce the notion of linear independence of functions.
+
+\begin{df}{Linear independence of functions}{}
+  A list of functions \(\{f_1(t), \dots, f_n(t)\}\) are linearly independent \ifft for
+  all \(t\) in their natural domains, the only way to make
+  \begin{equation}
+    c_1 f_1(t) + \dots + c_n f_n(t) = 0
+  \end{equation}
+  is for \(c_1 = \dots = c_n = 0\). The said list is linearly dependent otherwise.
+\end{df}
+
+One way to compute whether a set of functions are linearly independent or not is to
+explicitly provide a proof. E.g.,
+
+\begin{prop}{The set of polynomials of different degrees are linearly independent}
+  The set \(\{x^{k_1}, x^{k_2}, x^{k_3}, \dots, x^{k_n}\}\) where \(k_1 \neq \dots \neq k_n\)
+  is linearly independent.
+\end{prop}
+
+\begin{proof}
+  Let's show that \(\{x^1, \dots, x^n\}\) are linearly independent. A subset of a linearly
+  independent set is also linearly independent hence any set \(\{x^{k_1}, \dots, x^{k_n}\}\)
+  must also be a linearly independent set.
+\end{proof}
+
+{\color{red} W.I.P. Linear independence of polynomials, Wronskians, Abel's theorem}
+
+To formalize the method of undetermined coefficients discussed earlier, there is quite
+a useful corollary:
+\begin{cor}{}{}
+  Polynomials of the derivative operator with constant coefficients are commutative
+\end{cor}
+\begin{proof}
+  Let \(P(D) = \sum_{i=0}^n p_i D^i\) and \(Q(D) = \sum_{i=0}^m q_i D^i\) be polynomials
+  of the derivative operator with constant coefficients
+  \begin{align}
+    P(D)Q(D) & = \sum_{i=0}^n p_i D^i \sum_{j=0}^m q_j D^j                     \\
+             & = \sum_{i=0}^n \sum_{j=0}^m p_i D^i q_j D^j                     \\
+             & = \sum_{i=0}^n \sum_{j=0}^m q_j D^j p_i D^i                     \\
+             & = \sum_{i=0}^m q_i D^i \sum_{j=0}^n p_j D^j = Q(D)P(D) \qedhere
+  \end{align}
+\end{proof}
+
+Note that if the coefficients are non-constant, aka variable, the commutativity property is lost.
+
+\begin{theorem}{Solution of homogeneous linear differential equations with constant coefficients}{}
+  For the linear differential equation \(P(D)y = 0\) with
+  \begin{equation}
+    P(D) = \prod_{i=0}^{n} (D - \lambda_i \iden)^{k_i},
+  \end{equation}
+  the solution set is then completely spanned by
+  \begin{equation}
+    \{ x^r \e^{\lambda_i x} : (r \in \mathbb{N}_{<k}) \land (i \in \mathbb{N}_{\leq n}) \}
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  We first prove that the given basis is a part of the solution set, then prove that
+  every solution can be written as a linear combination of these basis.
+
+  Consider a more general function \(f(x)\e^{\lambda x}\).
+  \begin{align}
+    (D - \lambda \iden) [f(x) \e^{\lambda x}] & = f D \e^{\lambda x} + \e^{\lambda x} Df - \lambda f(x) \e^{\lambda x} \\
+                                              & = \e^{\lambda x} Df
+  \end{align}
+  By simple induction which is left as an exercise,
+  \begin{equation}
+    (D - \lambda \iden)^k [f(x) \e^{\lambda x}] = \e^{\lambda x} D^k f
+  \end{equation}
+  If we want the function of this form to be a solution, i.e.,
+  \(f(x)\e^{\lambda x} \in \ker (D - \lambda \iden)^k\), then we can set \(f(x) = x^r\)
+  where \(r \in \mathbb{N}_{<k}\) and form a set
+  \begin{equation}
+    S_i = \{x^r \e^{\lambda_i x} : r \in \mathbb{N}_{<k_i}\}.
+  \end{equation}
+  Note that this set is linearly independent. The span of this set is then also a
+  subset of \(\ker (D - \lambda_i \iden)^{k_i}\) which has dimension \(k_i\). Since
+  \(\deg (D - \lambda_i \iden)^{k_i} = k_i\), this spanning set is of the correct length
+  hence constitute a basis for \(\ker (D - \lambda_i \iden)^{k_i}\).
+
+  By the commutativity of polynomials of constant coefficients,
+  \begin{equation}
+    \ab[\prod_{i = 0}^n (D - \lambda_i \iden)^{k_i}] y = \ab[\prod_{i = 0, i \neq j}^n (D - \lambda_i \iden)^{k_i}] (D - \lambda_j \iden)^{k_j} y
+                                                       = 0.
+  \end{equation}
+  Hence, \(y\) can be in \(\ker (D - \lambda_j \iden)^{k_j}\) for all \(j \in \mathbb{N}_{<n}\).
+  Each one of these form its own set \(S_j\).
+
+  It's obvious that
+  \begin{equation}
+    \mathcal{S} = \bigcup_{j=0}^{n} S_j
+  \end{equation}
+  is a linearly independent set with cardinality \(\sum_{i=0}^n k_i\). Hence, we can
+  construct the span of \(\mathcal{S}\) with each elements \(s(x)\) in the span satisfying
+  \(P(D)s(x) = 0\). The span of \(\mathcal{S}\) is then the entirety of \(\ker P(D)\) because
+  \begin{equation}
+    \deg P(D) = \dim \spn \mathcal{S} = \sum_{i=0}^n k_i.
+  \end{equation}
+\end{proof}
+
+Note that the theorem above does not care about whether each of the \(\lambda_i\) are
+complex or reals. For complex factorizations, one can use the Euler's formula to expand
+\(\e^{\lambda_i x}\) into cosines and sines. Suppose \(\lambda_i = a + b\im\), then
+\begin{equation}
+  \e^{a+b\im} = \e^a \e^{b\im} = \e^a (\cos b + \im \sin b).
+\end{equation}
+However, note that there are nothing that assures that the solution is real. The realness
+of the solution only comes from the configuration of the system on the initial value
+problem. But for second order linear differential equations, the result is guaranteed
+to be real by the property of quadratics root.
+
+\begin{cor}{Solution of second order homogeneous linear differential equations with constant coefficients}{}
+  Let \((aD^2 + bD + c\iden)y = 0\) and let \(r_1, r_2\) be the roots to the polynomial
+  \(ax^2 + bx + c\).
+  \begin{itemize}
+    \item If \(b^2 - 4ac = 0\), then \(r_1 = r_2 = r\) and the solution set is spanned
+          by \(x \e^{rx}\) and \(\e^{rx}\).
+    \item If \(b^2 - 4ac > 0\), then \(r_1 \neq r_2\) but both of the roots are real;
+          hence, the solution set is spanned by \(\e^{r_1x}\) and \(\e^{r_2x}\).
+    \item If \(b^2 - 4ac < 0\), then both \(r_1\) and \(r_2\) are complex number of
+          the form \(\alpha \pm \im \beta\) where \(\alpha = \frac{b}{2a}\) and
+          \(\beta = \sqrt{4ac - b^2}\). The real solution set is then spanned by
+          \(\e^{\alpha x} \cos \beta x\) and \(\e^{\alpha x} \sin \beta x\).
+  \end{itemize}
+\end{cor}
+
+\begin{proof}
+  The first two cases are direct consequences of the theorem above.
+
+  For the third one, we can use the quadratic formula to get
+  \begin{equation}
+    aD^2 + bD + c\iden = (D - \alpha + \im \beta)(D - \alpha - \im \beta)
+  \end{equation}
+  Hence, the solution set of the differential equation is then spanned by
+  \begin{equation}
+    \e^{(\alpha+\im \beta)x} \mathand \e^{(\alpha-\im \beta)x}.
+  \end{equation}
+  Any solution is then a sum of these two functions:
+  \begin{align}
+    & A \e^{(\alpha+\im \beta)x} + B \e^{(\alpha-\im \beta)x} \nonumber                                                 \\
+    & = \e^{\alpha x} (A \e^{\im \beta x} + B \e^{-\im \beta x})                                                        \\
+    & = \e^{\alpha x} \ab\big(A \cos \beta x + B \cos (- \beta x) + \im (A \sin \beta x + B \sin (-\beta x))) \nonumber \\
+    & = \e^{\alpha x} \ab\big((A + B)\cos \beta x + \im (A - B) \sin \beta x)
+  \end{align}
+  and we may change the coordinate by letting \(C_1 = A + B\) and \(C_2 = \im (A - B)\).
+  Then, the general solution is then
+  \begin{equation}
+    C_1\e^{\alpha x} \cos \beta x + C_2\e^{\alpha x} \sin \beta x
+  \end{equation}
+  If \(C_1, C_2 \in \mathbb{R}\), the solution is real and thus
+  \begin{equation}
+    \e^{\alpha x} \cos \beta x \mathand \e^{\alpha x} \sin\beta x
+  \end{equation}
+  spans the real solution set.
+\end{proof}
+
+Now what if \(P(D)\) has variable coefficients? What can we say about the solution set. Of
+course, the kernel of \(P(D)\) still has dimension \(\deg P\). But now, we lost the commutativity.

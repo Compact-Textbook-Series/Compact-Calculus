@@ -1,5 +1,5 @@
-% !TEX program = xelatex
-\documentclass[b5paper, 11pt, openleft]{memoir}
+% !TEX program = lualatex
+\documentclass[b5paper,11pt,openleft]{memoir}
 
 \usepackage{indentfirst}
 
@@ -32,12 +32,10 @@
   BoldItalicFont = *-BoldItalic,
 ]{RedHatText}
 \defaultfontfeatures{Mapping = tex-text, Ligatures = {TeX, Common}, Scale = MatchLowercase}
-\XeTeXlinebreaklocale="en_EN"
-\XeTeXlinebreakskip=0pt plus 3pt
-\emergencystretch=1em
+\usepackage[protrusion = true,expansion = true,tracking = true]{microtype}
 
 \usepackage{mathtools}
-\usepackage[math-style = ISO, mathrm = sym, warnings-off = {mathtools-colon}]{unicode-math}
+\usepackage[math-style = ISO,mathrm = sym,warnings-off = {mathtools-colon}]{unicode-math}
 \setmathfont[Scale = MatchLowercase, Ligatures={TeX, Common}]{Concrete-Math.otf}
 \setmathfont[range = {"27E6-"27E7}]{Latin Modern Math}
 \usepackage{stmaryrd}
@@ -45,7 +43,8 @@
 \allowdisplaybreaks
 \setoperatorfont\symscr
 \everymath{\displaystyle}
-\AtBeginDocument{ % Switching epsilon and varepsilon
+\AtBeginDocument{
+  % Switching epsilon and varepsilon
   \NewCommandCopy{\tempepsilon}{\epsilon}
   \NewCommandCopy{\tempvarepsilon}{\varepsilon}
   \DeclareDocumentCommand{\epsilon}{}{\tempvarepsilon}
@@ -108,7 +107,9 @@
 \NewDocumentCommand{\chapskipspace}{}{0.05\spinemargin}
 \ExplSyntaxOn
 \NewDocumentCommand{\chapnumwidth}{}{
-  \int_compare:nTF{\value{chapter} < 10}{0.35\spinemargin}{0.57\spinemargin}
+  \int_compare:nTF { \value{chapter} < 10 }
+    { 0.35\spinemargin }
+    { 0.57\spinemargin }
 }
 \ExplSyntaxOff
 \renewcommand*{\printchapternum}{%
@@ -128,7 +129,7 @@
 \usepackage{float, graphicx, pdfpages}
 \usepackage{tabularray}
 \SetTblrInner{stretch = 1}
-\usepackage[inkscapeversion = 1, inkscapelatex = true]{svg}
+\usepackage[inkscapeversion = 1,inkscapelatex = true]{svg}
 \graphicspath{{diagrams/}}
 \svgpath{{diagrams/}}
 \usepackage{minted}
@@ -142,15 +143,16 @@
 \usepackage{csquotes}
 \usepackage[inline]{enumitem}
 
-\usepackage[colorlinks, allcolors = blue]{hyperref}
+\usepackage[colorlinks,allcolors = blue]{hyperref}
 \usepackage{cleveref}
 
 % Packages: Mathematics
+\usepackage{centernot}
+\usepackage[makeroom]{cancel}
 \usepackage{physics2, derivative, siunitx}
 \usephysicsmodule{ab, ab.braket}
 \DeclareDifferential{\adif}{\symrm{\Delta}}
 \DeclareDerivative{\adv}{\symrm{\Delta}}
-\usepackage[makeroom]{cancel}
 
 % Packages: Boxes
 \usepackage{tcolorbox}
@@ -179,7 +181,9 @@
   bottomtitle = 0.5ex,
   list entry = \thetcbcounter: \quad #2,#1
 }{th}
-\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = examples]{exmp}{Example}{
+\NewTcbTheorem[
+  use counter = tcb@cnt@theorem, number within = section, list inside = examples
+]{exmp}{Example}{
   enhanced, breakable,
   label type = example,
   fonttitle = \bfseries\sffamily,
@@ -194,7 +198,9 @@
   breakable,
   parbox = false,
 }{ex}
-\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes]{axiom}{Axiom\vphantom{Ay}}{
+\NewTcbTheorem[
+  use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes
+]{axiom}{Axiom\vphantom{Ay}}{
   enhanced, breakable,
   label type = axiom,
   lower separated = false,
@@ -208,7 +214,9 @@
   boxed title style = {colframe = black},
   attach boxed title to top left = {xshift = 0.5cm, yshift = -3.6mm},
 }{ax}
-\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes]{df}{Definition\vphantom{Ay}}{
+\NewTcbTheorem[
+  use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes
+]{df}{Definition\vphantom{Ay}}{
   enhanced, breakable,
   label type = definition,
   lower separated = false,
@@ -224,7 +232,9 @@
   attach boxed title to top left = {xshift = 0.5cm, yshift = -3.6mm},
   parbox = false,
 }{df}
-\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes]{lemma}{Lemma\vphantom{Ay}}{
+\NewTcbTheorem[
+  use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes
+]{lemma}{Lemma\vphantom{Ay}}{
   enhanced, breakable,
   label type = lemma,
   coltitle = black,
@@ -240,7 +250,9 @@
   description font = \normalfont\itshape\sffamily,
   before upper = {\tcbtitle\quad},
 }{le}
-\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes]{cor}{Corollary\vphantom{Ay}}{
+\NewTcbTheorem[
+  use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes
+]{cor}{Corollary\vphantom{Ay}}{
   enhanced, breakable,
   label type = corollary,
   coltitle = black,
@@ -256,7 +268,9 @@
   description font = \normalfont\itshape\sffamily,
   before upper = {\tcbtitle\quad}
 }{co}
-\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes]{prop}{Proposition\vphantom{Ay}}{
+\NewTcbTheorem[
+  use counter = tcb@cnt@theorem, number within = section, list inside = mathboxes
+]{prop}{Proposition\vphantom{Ay}}{
   enhanced, breakable,
   label type = proposition,
   coltitle = black,
@@ -282,7 +296,9 @@
   fonttitle = \bfseries\sffamily,
   description font = \normalfont\itshape\sffamily,
 }{re}
-\NewTcbTheorem[use counter = tcb@cnt@theorem, number within = section]{notation}{Notation\vphantom{Ay}}{
+\NewTcbTheorem[
+  use counter = tcb@cnt@theorem, number within = section
+]{notation}{Notation\vphantom{Ay}}{
   enhanced, breakable,
   label type = notation,
   coltitle = black,
@@ -344,20 +360,29 @@
 \DeclareMathOperator*{\clos}{\symrm{cls}}
 \DeclareMathOperator*{\li}{\symrm{li}}
 \DeclareMathOperator*{\bnd}{\symrm{bnd}}
+\NewDocumentCommand{\grad}{e{_^}}{%
+  \mathop{}\!%
+  \nabla
+  \IfValueT{#1}{_{\!#1}}
+  \IfValueT{#2}{^{#2}}
+}
+\NewDocumentCommand{\divergence}{e{_^}}{\grad_#1^#2 \vdot}
+\NewDocumentCommand{\curl}{e{_^}}{\grad_#1^#2 \times}
 % Commands: Mathematical Delimiters
 \DeclarePairedDelimiter{\peval}{(}{|}
 % Commands: Vectors notation
-\NewDocumentCommand{\vv}{m}{\pmb{\symrm{#1}}}
+\NewDocumentCommand{\vv}{m}{\symbfup{#1}}
 \NewDocumentCommand{\vdot}{}{\pmb{\cdot}}
 \NewDocumentCommand{\conj}{}{^{\ast}}
 \NewDocumentCommand{\dagr}{}{^{\dag}}
 \NewDocumentCommand{\trnsp}{}{^{\intercal}}
 \NewDocumentCommand{\iden}{}{\symbb{I}}
 \NewDocumentCommand{\uv}{m}{\hat{\vv{e}}_{#1}}
+\DeclareMathOperator{\spn}{\symrm{span}}
 \NewCommandCopy{\tensor}{\otimes}
 \NewDocumentCommand{\bmat}{m}{
   \begin{bmatrix}
-    #1
+  #1
   \end{bmatrix}
 }
 \NewDocumentCommand{\ihat}{}{\hat{\i}}
@@ -392,7 +417,8 @@
 }
 % Commands: Real analysis
 \NewDocumentCommand{\Zint}{m}{#1^{\ddagger}}
-\NewDocumentCommand{\Zreal}{m}{\mathfrak{R}\ab(#1)}
+\NewDocumentCommand{\Zrat}{m}{#1^{\star}}
+\NewDocumentCommand{\Zreal}{m}{#1^{\diamond}}
 \NewDocumentCommand{\oball}{mmm}{B_{#1}\ab({#2};{#3})}
 \NewDocumentCommand{\cball}{mmm}{\overline{B}_{#1}\ab({#2}; {#3})}
 \NewDocumentCommand{\sequence}{mmm}{\ab(#1)_{#2}^{#3}}
@@ -432,17 +458,14 @@
 
 %%% Backmatter
 % Backmatter: Bibliography
-\usepackage[
-  backend = biber,
-  style = science,
-  sorting = anyvt
-]{biblatex}
+\usepackage[backend = biber,style = science,sorting = anyvt]{biblatex}
 \addbibresource{bibliography.bib}
 % Backmatter: Indices
 \usepackage{imakeidx}
 \makeindex[intoc=true]
 
-% \includeonly{chapters/foundationsofcalculus/advancedtechniquesofintegration,chapters/realanalysis/metricspaces}
+% \includeonly{chapters/realanalysis/naturals,chapters/realanalysis/integers,chapters/realanalysis/rationals,chapters/realanalysis/realsandsequences,chapters/realanalysis/naive_set_theory,chapters/realanalysis/metricspaces}
+\includeonly{chapters/realanalysis/realsandsequences}
 
 \begin{document}
 
@@ -464,7 +487,7 @@
 
 \tableofcontents*
 
-\input{frontmatter/acknowledgement}
+\include{frontmatter/acknowledgement}
 
 \mainmatter
 
@@ -472,7 +495,7 @@
 
 \include{frontmatter/preface-1}
 
-\part{The foundation of calculus: differential equations}
+\part{The genesis of calculus: differential equations}
 
 \include{chapters/foundationsofcalculus/derivatives}
 \include{chapters/foundationsofcalculus/integrals}
@@ -480,12 +503,13 @@
 \include{chapters/foundationsofcalculus/calculusandgeometry}
 \include{chapters/foundationsofcalculus/calculusandtrigonometry}
 \include{chapters/foundationsofcalculus/calculusandphysicalsystems}
-\include{chapters/foundationsofcalculus/techniquesofintegration}
-\include{chapters/foundationsofcalculus/advancedtechniquesofintegration}
 \include{chapters/foundationsofcalculus/phasediagrams}
 \include{chapters/foundationsofcalculus/autonomousequations}
 
-% \part{Signal analysis}
+\part{Techniques of calculus}
+
+\include{chapters/foundationsofcalculus/techniquesofintegration}
+\include{chapters/foundationsofcalculus/advancedtechniquesofintegration}
 
 \book{Real analysis}
 
@@ -494,13 +518,13 @@
 \part{Fundamentals of analysis: logic, number systems and arithmetrization}
 
 \include{chapters/realanalysis/logic}
-\include{chapters/realanalysis/settheory}
+\include{chapters/realanalysis/naive_set_theory}
 \include{chapters/realanalysis/naturals}
 \include{chapters/realanalysis/integers}
 \include{chapters/realanalysis/rationals}
 \include{chapters/realanalysis/realsandsequences}
 
-\part{Sequences}
+\part{Limiting behaviors}
 
 \include{chapters/realanalysis/sequences}
 \include{chapters/realanalysis/approximationmethods}
@@ -513,24 +537,30 @@
 \include{chapters/realanalysis/integration}
 \include{chapters/realanalysis/transcendentalfunctions}
 
-\book{Linear algebra}
+\part{Linear algebra}
 
 \include{chapters/linearalgebra/geometriclinearalgebra}
 \include{chapters/linearalgebra/vectorspaces}
 \include{chapters/linearalgebra/linearodes}
 
-\part{Topology}
+\part{Point set topology}
 
+% \include{chapters/realanalysis/set_theory}
 \include{chapters/realanalysis/metricspaces}
 \include{chapters/realanalysis/topologicalspaces}
 
-\part{Differential equations: analysis}
-
-\include{chapters/analyzingdifferentialequations/first_order_equations}
-
 \book{Functional analysis}
 
+\part{Functions as vectors}
+
 \include{chapters/functionalanalysis/normed_space}
+
+\part{Signal analysis}
+
+\part{Differential equations: analysis}
+
+\include{chapters/analyzingdifferentialequations/existenceuniqueness}
+\include{chapters/analyzingdifferentialequations/first_order_equations}
 
 % \book{Appendices}
 %
