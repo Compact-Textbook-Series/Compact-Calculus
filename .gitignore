@@ -23,3 +23,7 @@
 **.mathboxes
 **.theorems
 **.pygstyle
+**.bbl-SAVE-ERROR
+**.bcf-SAVE-ERROR
+**.run.xml
+_minted

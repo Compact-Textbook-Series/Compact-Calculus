@@ -1,3 +1,4 @@
+% badness: skip-file
 % !TEX program = lualatex
 \documentclass[b5paper,11pt,openleft]{memoir}
 
@@ -126,7 +127,7 @@
 %%% Packages
 % Packages: General
 \usepackage[dvipsnames]{xcolor}
-\usepackage{float, graphicx, pdfpages}
+\usepackage{float,graphicx,pdfpages}
 \usepackage{tabularray}
 \SetTblrInner{stretch = 1}
 \usepackage[inkscapeversion = 1,inkscapelatex = true]{svg}
@@ -149,7 +150,7 @@
 % Packages: Mathematics
 \usepackage{centernot}
 \usepackage[makeroom]{cancel}
-\usepackage{physics2, derivative, siunitx}
+\usepackage{physics2,derivative,siunitx}
 \usephysicsmodule{ab, ab.braket}
 \DeclareDifferential{\adif}{\symrm{\Delta}}
 \DeclareDerivative{\adv}{\symrm{\Delta}}
@@ -465,7 +466,7 @@
 \makeindex[intoc=true]
 
 % \includeonly{chapters/realanalysis/naturals,chapters/realanalysis/integers,chapters/realanalysis/rationals,chapters/realanalysis/realsandsequences,chapters/realanalysis/naive_set_theory,chapters/realanalysis/metricspaces}
-\includeonly{chapters/realanalysis/realsandsequences}
+% \includeonly{chapters/realanalysis/realsandsequences}
 
 \begin{document}
 

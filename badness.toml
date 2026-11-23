@@ -1,0 +1,8 @@
+[format]
+line-width = 100
+indent-width = 2
+wrap = "stable"
+item-indent = "hang"
+math-wrap = "break"
+
+[lint]
